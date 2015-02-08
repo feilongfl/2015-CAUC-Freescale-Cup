@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{66BB3520-B4E8-4B31-B6AA-CFAC2EEE780D}</ProjectGuid>
+    <RootNamespace>FreescaleKL26SmartCarIARProject</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="Chip\Src\IAR\startup_MKL.s" />
+    <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a" />
+    <None Include="VCAN_KL.eww" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App\Inc\include.h" />
+    <ClInclude Include="App\Inc\MKL_conf.h" />
+    <ClInclude Include="App\Inc\MKL_it.h" />
+    <ClInclude Include="App\Inc\PORT_cfg.h" />
+    <ClInclude Include="Board\Inc\VCAN_ASCII.h" />
+    <ClInclude Include="Board\Inc\VCAN_camera.h" />
+    <ClInclude Include="Board\Inc\VCAN_key.h" />
+    <ClInclude Include="Board\Inc\VCAN_key_event.h" />
+    <ClInclude Include="Board\Inc\VCAN_LCD.h" />
+    <ClInclude Include="Board\Inc\VCAN_LCD_CH.h" />
+    <ClInclude Include="Board\Inc\VCAN_LCD_ST7735R.h" />
+    <ClInclude Include="Board\Inc\VCAN_LCD_ST7735S.h" />
+    <ClInclude Include="Board\Inc\VCAN_LED.H" />
+    <ClInclude Include="Board\Inc\VCAN_MMA7455.h" />
+    <ClInclude Include="Board\Inc\VCAN_NRF24L0.h" />
+    <ClInclude Include="Board\Inc\VCAN_NRF24L0_MSG.h" />
+    <ClInclude Include="Board\Inc\VCAN_OV7725_Eagle.h" />
+    <ClInclude Include="Board\Inc\VCAN_OV7725_REG.h" />
+    <ClInclude Include="Board\Inc\VCAN_SCCB.h" />
+    <ClInclude Include="Board\Inc\VCAN_TSL1401.h" />
+    <ClInclude Include="Board\Inc\vcan_ui_var.h" />
+    <ClInclude Include="Chip\Inc\common.h" />
+    <ClInclude Include="Chip\Inc\IAR\iar.h" />
+    <ClInclude Include="Chip\Inc\IAR\system_MKL.h" />
+    <ClInclude Include="Chip\Inc\IAR\vectors.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL02Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL04Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL05Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL14Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL15Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL16Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL24Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL25Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL26Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL34Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL36Z4.h" />
+    <ClInclude Include="Chip\Inc\kinetis\MKL46Z4.h" />
+    <ClInclude Include="Chip\Inc\misc.h" />
+    <ClInclude Include="Chip\Inc\MKL_adc.h" />
+    <ClInclude Include="Chip\Inc\MKL_BME.h" />
+    <ClInclude Include="Chip\Inc\MKL_dac.h" />
+    <ClInclude Include="Chip\Inc\MKL_dma.h" />
+    <ClInclude Include="Chip\Inc\MKL_flash.h" />
+    <ClInclude Include="Chip\Inc\MKL_gpio.h" />
+    <ClInclude Include="Chip\Inc\MKL_gpio_cfg.h" />
+    <ClInclude Include="Chip\Inc\MKL_i2c.h" />
+    <ClInclude Include="Chip\Inc\MKL_lptmr.h" />
+    <ClInclude Include="Chip\Inc\MKL_mcg.h" />
+    <ClInclude Include="Chip\Inc\MKL_PIT.h" />
+    <ClInclude Include="Chip\Inc\MKL_port.h" />
+    <ClInclude Include="Chip\Inc\MKL_spi.h" />
+    <ClInclude Include="Chip\Inc\MKL_SysTick.h" />
+    <ClInclude Include="Chip\Inc\MKL_TPM.h" />
+    <ClInclude Include="Chip\Inc\MKL_uart.h" />
+    <ClInclude Include="Chip\Inc\MKL_wdog.h" />
+    <ClInclude Include="FLLib\Inc\fl_ADC.h" />
+    <ClInclude Include="FLLib\Inc\fl_bluetooth.h" />
+    <ClInclude Include="FLLib\Inc\fl_bmp180.h" />
+    <ClInclude Include="FLLib\Inc\fl_cfg.h" />
+    <ClInclude Include="FLLib\Inc\fl_coder.h" />
+    <ClInclude Include="FLLib\Inc\fl_filter.h" />
+    <ClInclude Include="FLLib\Inc\fl_HCSR04.h" />
+    <ClInclude Include="FLLib\Inc\fl_include.h" />
+    <ClInclude Include="FLLib\Inc\fl_Init.h" />
+    <ClInclude Include="FLLib\Inc\fl_Irq.h" />
+    <ClInclude Include="FLLib\Inc\FL_Key.h" />
+    <ClInclude Include="FLLib\Inc\fl_MessageShow.h" />
+    <ClInclude Include="FLLib\Inc\fl_motorpid.h" />
+    <ClInclude Include="FLLib\Inc\fl_nrf24l01p.h" />
+    <ClInclude Include="FLLib\Inc\fl_Olcd.h" />
+    <ClInclude Include="FLLib\Inc\fl_pid.h" />
+    <ClInclude Include="FLLib\Inc\fl_PIT.h" />
+    <ClInclude Include="FLLib\Inc\FL_SettingMenu.h" />
+    <ClInclude Include="FLLib\Inc\fl_speed.h" />
+    <ClInclude Include="FLLib\Inc\Fl_steer.h" />
+    <ClInclude Include="FLLib\Inc\fl_TPM.h" />
+    <ClInclude Include="FLLib\Inc\fl_Track.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\arm_const_structs.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\arm_math.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm0.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm0plus.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm3.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm4.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm4_simd.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cmFunc.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_cmInstr.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_sc000.h" />
+    <ClInclude Include="Lib\CMSIS\Inc\core_sc300.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App\main.c" />
+    <ClCompile Include="App\MKL_conf.c" />
+    <ClCompile Include="App\MKL_it.c" />
+    <ClCompile Include="Board\Src\VCAN_ASCII.c" />
+    <ClCompile Include="Board\Src\VCAN_camera.c" />
+    <ClCompile Include="Board\Src\VCAN_key.c" />
+    <ClCompile Include="Board\Src\VCAN_key_event.c" />
+    <ClCompile Include="Board\Src\VCAN_LCD.c" />
+    <ClCompile Include="Board\Src\VCAN_LCD_CH.c" />
+    <ClCompile Include="Board\Src\VCAN_LCD_ST7735R.c" />
+    <ClCompile Include="Board\Src\VCAN_LCD_ST7735S.c" />
+    <ClCompile Include="Board\Src\VCAN_LED.C" />
+    <ClCompile Include="Board\Src\VCAN_MMA7455.c" />
+    <ClCompile Include="Board\Src\VCAN_NRF24L0.c" />
+    <ClCompile Include="Board\Src\VCAN_NRF24L0_MSG.c" />
+    <ClCompile Include="Board\Src\VCAN_OV7725_Eagle.c" />
+    <ClCompile Include="Board\Src\VCAN_SCCB.c" />
+    <ClCompile Include="Board\Src\VCAN_TSL1401.c" />
+    <ClCompile Include="Board\Src\VCAN_UI_VAR.c" />
+    <ClCompile Include="Chip\Src\IAR\system_MKL.c" />
+    <ClCompile Include="Chip\Src\IAR\vectors.c" />
+    <ClCompile Include="Chip\Src\misc.c" />
+    <ClCompile Include="Chip\Src\MKL_adc.c" />
+    <ClCompile Include="Chip\Src\MKL_dac.c" />
+    <ClCompile Include="Chip\Src\MKL_dma.c" />
+    <ClCompile Include="Chip\Src\MKL_flash.c" />
+    <ClCompile Include="Chip\Src\MKL_gpio.c" />
+    <ClCompile Include="Chip\Src\MKL_i2c.c" />
+    <ClCompile Include="Chip\Src\MKL_lptmr.c" />
+    <ClCompile Include="Chip\Src\MKL_mcg.c" />
+    <ClCompile Include="Chip\Src\MKL_PIT.c" />
+    <ClCompile Include="Chip\Src\MKL_port.c" />
+    <ClCompile Include="Chip\Src\MKL_spi.c" />
+    <ClCompile Include="Chip\Src\MKL_SysTick.c" />
+    <ClCompile Include="Chip\Src\MKL_TPM.c" />
+    <ClCompile Include="Chip\Src\MKL_uart.c" />
+    <ClCompile Include="Chip\Src\MKL_wdog.c" />
+    <ClCompile Include="FLLib\Src\fl_adc.c" />
+    <ClCompile Include="FLLib\Src\fl_bluetooth.c" />
+    <ClCompile Include="FLLib\Src\fl_bmp180.c" />
+    <ClCompile Include="FLLib\Src\fl_coder.c" />
+    <ClCompile Include="FLLib\Src\fl_filter.c" />
+    <ClCompile Include="FLLib\Src\fl_HCSR04.c" />
+    <ClCompile Include="FLLib\Src\fl_Init.c" />
+    <ClCompile Include="FLLib\Src\fl_Irq.c" />
+    <ClCompile Include="FLLib\Src\FL_KEY.c" />
+    <ClCompile Include="FLLib\Src\fl_MessageShow.c" />
+    <ClCompile Include="FLLib\Src\fl_motorpid.c" />
+    <ClCompile Include="FLLib\Src\fl_nrf24l01p.c" />
+    <ClCompile Include="FLLib\Src\fl_Olcd.c" />
+    <ClCompile Include="FLLib\Src\fl_pid.c" />
+    <ClCompile Include="FLLib\Src\fl_PIT.c" />
+    <ClCompile Include="FLLib\Src\FL_SettingMenu.c" />
+    <ClCompile Include="FLLib\Src\fl_speed.c" />
+    <ClCompile Include="FLLib\Src\fl_steer.c" />
+    <ClCompile Include="FLLib\Src\fl_TPM.c" />
+    <ClCompile Include="FLLib\Src\fl_Track.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

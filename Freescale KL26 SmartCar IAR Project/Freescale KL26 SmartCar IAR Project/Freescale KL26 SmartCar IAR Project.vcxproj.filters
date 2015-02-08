@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{655628db-98ec-4140-9ca5-0e80c3900799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Inc">
+      <UniqueIdentifier>{3c2754d6-e67a-436d-adeb-9357d00c8aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Src">
+      <UniqueIdentifier>{8e2c066b-f14e-4df4-ab14-172fd0508d95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board">
+      <UniqueIdentifier>{f95d27ba-812d-4472-9e18-8fccfd51c3d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chip">
+      <UniqueIdentifier>{73aa7f0e-a470-4978-8e60-9958bdf310a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLLib">
+      <UniqueIdentifier>{f0d14ee2-9dea-464e-807a-55c11965a3cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board\Inc">
+      <UniqueIdentifier>{db0e4a05-0a17-411b-940e-e5a954618aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Board\Src">
+      <UniqueIdentifier>{91f356df-d3a6-4894-b60d-a4e0bc155a6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chip\Inc">
+      <UniqueIdentifier>{7d02890b-5505-4dc0-acf7-2d6c1ebd233c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Chip\Src">
+      <UniqueIdentifier>{a4340fde-bc13-4bf9-9d32-ea86e9c5e71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLLib\Inc">
+      <UniqueIdentifier>{fe98e7da-96ba-4d26-8631-4a1ff4c17f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FLLib\Src">
+      <UniqueIdentifier>{02da19c8-2766-45d6-9f84-842655d73957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CMSIS">
+      <UniqueIdentifier>{a4ac6e21-cd36-49ff-bace-b20bd3b14a6c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VCAN_KL.eww" />
+    <None Include="Chip\Src\IAR\startup_MKL.s">
+      <Filter>Chip\Src</Filter>
+    </None>
+    <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a">
+      <Filter>CMSIS</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App\Inc\include.h">
+      <Filter>App\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Inc\MKL_conf.h">
+      <Filter>App\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Inc\MKL_it.h">
+      <Filter>App\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="App\Inc\PORT_cfg.h">
+      <Filter>App\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_ASCII.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_camera.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_key.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_key_event.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_LCD.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_LCD_CH.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_LCD_ST7735R.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_LCD_ST7735S.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_LED.H">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_MMA7455.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_NRF24L0.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_NRF24L0_MSG.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_OV7725_Eagle.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_OV7725_REG.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_SCCB.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\VCAN_TSL1401.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Inc\vcan_ui_var.h">
+      <Filter>Board\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_ADC.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_bluetooth.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_bmp180.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_cfg.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_coder.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_filter.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_HCSR04.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_include.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Init.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Irq.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\FL_Key.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_MessageShow.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_motorpid.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_nrf24l01p.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Olcd.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_pid.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_PIT.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\FL_SettingMenu.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_speed.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\Fl_steer.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_TPM.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Track.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\common.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\misc.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_adc.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_BME.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_dac.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_dma.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_flash.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_gpio.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_gpio_cfg.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_i2c.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_lptmr.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_mcg.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_PIT.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_port.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_spi.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_SysTick.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_TPM.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_uart.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\MKL_wdog.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\IAR\iar.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\IAR\system_MKL.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\IAR\vectors.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL02Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL04Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL05Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL14Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL15Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL16Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL24Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL25Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL26Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL34Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL36Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Chip\Inc\kinetis\MKL46Z4.h">
+      <Filter>Chip\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\arm_const_structs.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\arm_math.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm0.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm0plus.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm3.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm4.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cm4_simd.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cmFunc.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_cmInstr.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_sc000.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\CMSIS\Inc\core_sc300.h">
+      <Filter>CMSIS</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App\main.c">
+      <Filter>App\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="App\MKL_conf.c">
+      <Filter>App\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="App\MKL_it.c">
+      <Filter>App\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_adc.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_bluetooth.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_bmp180.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_coder.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_filter.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_HCSR04.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Init.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Irq.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\FL_KEY.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_MessageShow.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_motorpid.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_nrf24l01p.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Olcd.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_pid.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_PIT.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\FL_SettingMenu.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_speed.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_steer.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_TPM.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Track.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\misc.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_adc.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_dac.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_dma.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_flash.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_gpio.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_i2c.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_lptmr.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_mcg.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_PIT.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_port.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_spi.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_SysTick.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_TPM.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_uart.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\MKL_wdog.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\IAR\system_MKL.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Chip\Src\IAR\vectors.c">
+      <Filter>Chip\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_ASCII.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_camera.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_key.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_key_event.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_LCD.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_LCD_CH.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_LCD_ST7735R.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_LCD_ST7735S.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_LED.C">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_MMA7455.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_NRF24L0.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_NRF24L0_MSG.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_OV7725_Eagle.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_SCCB.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_TSL1401.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Src\VCAN_UI_VAR.c">
+      <Filter>Board\Src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
