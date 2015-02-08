@@ -70,6 +70,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="Chip\Src\IAR\startup_MKL.s" />
+    <None Include="design\架构\架构.docx" />
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书.docx" />
     <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a" />
     <None Include="VCAN_KL.eww" />
   </ItemGroup>
@@ -210,6 +212,10 @@
     <ClCompile Include="FLLib\Src\FL_SettingMenu.c" />
     <ClCompile Include="FLLib\Src\fl_speed.c" />
     <ClCompile Include="FLLib\Src\fl_steer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="design\架构\无标题.png" />
+    <Image Include="design\键盘\键盘布局.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

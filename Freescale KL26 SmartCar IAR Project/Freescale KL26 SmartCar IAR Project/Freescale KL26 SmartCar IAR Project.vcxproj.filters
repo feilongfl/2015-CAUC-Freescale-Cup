@@ -43,6 +43,15 @@
     <Filter Include="CMSIS">
       <UniqueIdentifier>{a4ac6e21-cd36-49ff-bace-b20bd3b14a6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="说明文档">
+      <UniqueIdentifier>{c82c9bcb-a840-40fe-937a-1a96288945d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="说明文档\键盘">
+      <UniqueIdentifier>{2cb828c1-8156-470b-bc6e-3790afd9341d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="说明文档\架构">
+      <UniqueIdentifier>{a2644436-859b-459f-b719-8c6aa9bf7066}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="VCAN_KL.eww" />
@@ -51,6 +60,12 @@
     </None>
     <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a">
       <Filter>CMSIS</Filter>
+    </None>
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书.docx">
+      <Filter>说明文档\键盘</Filter>
+    </None>
+    <None Include="design\架构\架构.docx">
+      <Filter>说明文档\架构</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -458,5 +473,13 @@
     <ClCompile Include="App\MKL_it.c">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="design\键盘\键盘布局.png">
+      <Filter>说明文档\键盘</Filter>
+    </Image>
+    <Image Include="design\架构\无标题.png">
+      <Filter>说明文档\架构</Filter>
+    </Image>
   </ItemGroup>
 </Project>
