@@ -148,7 +148,6 @@
     <ClInclude Include="FLLib\Inc\FL_SettingMenu.h" />
     <ClInclude Include="FLLib\Inc\fl_speed.h" />
     <ClInclude Include="FLLib\Inc\Fl_steer.h" />
-    <ClInclude Include="FLLib\Inc\fl_TPM.h" />
     <ClInclude Include="FLLib\Inc\fl_Track.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_const_structs.h" />
@@ -219,7 +218,6 @@
     <ClCompile Include="FLLib\Src\FL_SettingMenu.c" />
     <ClCompile Include="FLLib\Src\fl_speed.c" />
     <ClCompile Include="FLLib\Src\fl_steer.c" />
-    <ClCompile Include="FLLib\Src\fl_TPM.c" />
     <ClCompile Include="FLLib\Src\fl_Track.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
