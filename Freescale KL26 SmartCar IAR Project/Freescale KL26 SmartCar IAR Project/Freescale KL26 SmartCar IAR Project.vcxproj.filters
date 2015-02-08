@@ -129,19 +129,7 @@
     <ClInclude Include="FLLib\Inc\fl_ADC.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_bluetooth.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_bmp180.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="FLLib\Inc\fl_cfg.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_coder.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_filter.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
     <ClInclude Include="FLLib\Inc\fl_HCSR04.h">
@@ -165,9 +153,6 @@
     <ClInclude Include="FLLib\Inc\fl_motorpid.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_nrf24l01p.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="FLLib\Inc\fl_Olcd.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
@@ -184,9 +169,6 @@
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
     <ClInclude Include="FLLib\Inc\Fl_steer.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_Track.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
     <ClInclude Include="Chip\Inc\common.h">
@@ -341,15 +323,6 @@
     <ClCompile Include="FLLib\Src\fl_adc.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_bluetooth.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_bmp180.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_coder.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
     <ClCompile Include="FLLib\Src\fl_filter.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
@@ -371,9 +344,6 @@
     <ClCompile Include="FLLib\Src\fl_motorpid.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_nrf24l01p.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
     <ClCompile Include="FLLib\Src\fl_Olcd.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
@@ -390,9 +360,6 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_steer.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_Track.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="Chip\Src\misc.c">

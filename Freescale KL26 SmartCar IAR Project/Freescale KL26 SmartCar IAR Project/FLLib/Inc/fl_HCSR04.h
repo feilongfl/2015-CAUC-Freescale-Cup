@@ -2,7 +2,7 @@
 #ifndef _FL_HCSR04_
 #define _FL_HCSR04_
 
-#define Hcsr04ReadFailed 0
+#define Hcsr04ReadFailed 0xffffffff
 /************************************************************************/
 /* 读超声波数据                                      20150107           */
 /* 论坛上直接下的，还没式能不能用                                       */

@@ -67,13 +67,15 @@ void Hcsr04Init()
 void Hcsr04Show()
 {
 	FuncLocalShow("Hcsr04Show");
-	if (Distance <999)
-		{
-	NumShow(Distance, DistanceX, DistanceY);
-}else
-{
-NumShow(0, DistanceX, DistanceY);
-}}
+	if (Distance < 999)
+	{
+		NumShow(Distance, DistanceX, DistanceY);
+	}
+	else
+	{
+		NumShow(0, DistanceX, DistanceY);
+	}
+}
 
 void Hcsr04ShowAutoRead()
 {
