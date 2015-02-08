@@ -1061,37 +1061,3 @@ void NumShow(uint16 num, uint8 x, uint8 y)
 	sprintf((char*)ShowTempStr, "%d", num);
 	LCD_P8x16Str(x, y, ShowTempStr);
 }
-
-//////////////////////////////////////////////////////////////////////////
-//外部函数
-extern void TrackShow();
-extern void CoderShow();
-extern void Hcsr04Show();
-
-extern void TrackShowAutoRead();
-extern void CoderShowAutoRead();
-extern void Hcsr04ShowAutoRead();
-
-//////////////////////////////////////////////////////////////////////////
-
-/************************************************************************/
-/* 显示数据                                                             */
-/************************************************************************/
-void LcdShowAllData()
-{
-	LcdCls();
-	TrackShow();
-	CoderShow();
-	Hcsr04Show();
-}
-
-/************************************************************************/
-/* 显示最新数据                                                         */
-/************************************************************************/
-void LcdShowAllDataAutoRead()
-{
-	LcdCls();
-	TrackShowAutoRead();
-	CoderShowAutoRead();
-	Hcsr04ShowAutoRead();
-}
