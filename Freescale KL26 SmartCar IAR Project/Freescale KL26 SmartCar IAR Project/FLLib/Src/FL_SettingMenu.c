@@ -810,11 +810,7 @@ void MenuMainOperate()
 	{
 		if (exitFunc)
 		{
-			//while (FLKeyCheck(FLKeyIrq) == KEY_DOWN);//这句话加到flkeycheck里了
-			EnableInterrupts();
-			LcdShowAllData();
-			DELAY();//按键消抖
-			FLKeyIrqEnable();
+			SettingMenuQuit();
 			break;
 		}
 		switch (KeyScan())
@@ -969,6 +965,10 @@ void MenuMainOperate()
 /************************************************************************/
 void SettingMenuQuit()
 {
-	//LcdCls();//清屏
-	LcdShowAllData();//屏幕
+	LcdCls();//清屏
+	//LcdShowAllData();//屏幕
+	//while (FLKeyCheck(FLKeyIrq) == KEY_DOWN);//这句话加到flkeycheck里了
+	EnableInterrupts();
+	DELAY();//按键消抖
+	FLKeyIrqEnable();
 }

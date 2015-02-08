@@ -318,6 +318,9 @@
     <ClInclude Include="App\Inc\PORT_cfg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_state.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="App\MKL_it.c">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_state.c">
+      <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

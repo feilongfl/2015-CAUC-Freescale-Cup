@@ -1,7 +1,6 @@
 
 #include "common.h"
 #include "fl_irq.h"
-#include "fl_tpm.h"
 
 #ifdef MKL26Z4
 #include "MKL_uart.h"
@@ -54,7 +53,7 @@ void BlueToothHandler()
 void PIT_IRQHandler(void)
 {
 	FuncLocalShow("PIT_IRQHandler");
-	TpmCountRead();
+	//TpmCountRead();
 	PIT_Flag_Clear(PIT0);
 }
 
