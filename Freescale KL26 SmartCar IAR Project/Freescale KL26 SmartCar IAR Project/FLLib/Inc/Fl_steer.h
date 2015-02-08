@@ -18,12 +18,12 @@
 //舵机限制参数
 #define SteerTurnMax (SteerCenterDuty + SteerSafeTurnDuty)//舵机pwm最大值限制
 #define SteerTurnMax (SteerCenterDuty - SteerSafeTurnDuty)//舵机pwm最小值限制
-#define PidSteerMax_P  1//舵机最大P
-#define PidSteerMax_I  1//舵机最大I
-#define PidSteerMax_D  1//舵机最大D
-#define PidSteerMin_P  0//舵机最小P
-#define PidSteerMin_I  0//舵机最小I
-#define PidSteerMin_D  0//舵机最小D
+#define SteerPidMaxP  1//舵机最大P
+#define SteerPidMaxI  1//舵机最大I
+#define SteerPidMaxD  1//舵机最大D
+#define SteerPidMinP  0//舵机最小P
+#define SteerPidMinI  0//舵机最小I
+#define SteerPidMinD  0//舵机最小D
 						  
 /************************************************************************/
 /*           数据类型定义                                                  */

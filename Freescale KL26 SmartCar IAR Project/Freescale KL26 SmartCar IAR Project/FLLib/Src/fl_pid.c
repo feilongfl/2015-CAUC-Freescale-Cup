@@ -2,31 +2,6 @@
 #include "common.h"
 #include "fl_pid.h"
 
-#warning pid初始值未设定
-//状态值
-volatile struct Pid_s PidMotor = { 1, 1, 1 };//电机
-volatile struct Pid_s PidSteer = { 1, 1, 1 };//舵机
-const struct Pid_s volatile *PidMotorAddress = &PidMotor;//电机地址
-const struct Pid_s volatile *PidSteerAddress = &PidSteer;//舵机地址
-
-volatile struct Speed_s Speed = { 0, 0 };
-
-#warning pid最大值未设定
-const struct Pid_s PidMotorMax = { 1, 1, 1 };//电机
-const struct Pid_s PidSteerMax = { 1, 1, 1 };//舵机
-const struct Pid_s *PidMotorMaxAddress = &PidMotorMax;//电机地址
-const struct Pid_s *PidSteerMaxAddress = &PidSteerMax;//舵机地址
-//最小值
-#warning pid最小值未设定
-const struct Pid_s PidMotorMin = { 0, 0, 0 };//电机
-const struct Pid_s PidSteerMin = { 0, 0, 0 };//舵机
-const struct Pid_s *PidMotorMinAddress = &PidMotorMin;//电机地址
-const struct Pid_s *PidSteerMinAddress = &PidSteerMin;//舵机地址
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////////
 uint32 PidError[3] = { 0, 0 ,0};
 

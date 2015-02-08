@@ -140,12 +140,12 @@
     <ClInclude Include="FLLib\Inc\fl_Irq.h" />
     <ClInclude Include="FLLib\Inc\FL_Key.h" />
     <ClInclude Include="FLLib\Inc\fl_MessageShow.h" />
-    <ClInclude Include="FLLib\Inc\fl_motorpid.h" />
     <ClInclude Include="FLLib\Inc\fl_Olcd.h" />
     <ClInclude Include="FLLib\Inc\fl_pid.h" />
     <ClInclude Include="FLLib\Inc\fl_PIT.h" />
+    <ClInclude Include="FLLib\Inc\fl_setting.h" />
     <ClInclude Include="FLLib\Inc\FL_SettingMenu.h" />
-    <ClInclude Include="FLLib\Inc\fl_speed.h" />
+    <ClInclude Include="FLLib\Inc\fl_Motor.h" />
     <ClInclude Include="FLLib\Inc\fl_state.h" />
     <ClInclude Include="FLLib\Inc\Fl_steer.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h" />
@@ -206,12 +206,12 @@
     <ClCompile Include="FLLib\Src\fl_Irq.c" />
     <ClCompile Include="FLLib\Src\FL_KEY.c" />
     <ClCompile Include="FLLib\Src\fl_MessageShow.c" />
-    <ClCompile Include="FLLib\Src\fl_motorpid.c" />
     <ClCompile Include="FLLib\Src\fl_Olcd.c" />
     <ClCompile Include="FLLib\Src\fl_pid.c" />
     <ClCompile Include="FLLib\Src\fl_PIT.c" />
+    <ClCompile Include="FLLib\Src\fl_setting.c" />
     <ClCompile Include="FLLib\Src\FL_SettingMenu.c" />
-    <ClCompile Include="FLLib\Src\fl_speed.c" />
+    <ClCompile Include="FLLib\Src\fl_Motor.c" />
     <ClCompile Include="FLLib\Src\fl_state.c" />
     <ClCompile Include="FLLib\Src\fl_steer.c" />
   </ItemGroup>

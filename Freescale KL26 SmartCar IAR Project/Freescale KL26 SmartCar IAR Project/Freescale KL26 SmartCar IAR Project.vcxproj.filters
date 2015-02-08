@@ -144,9 +144,6 @@
     <ClInclude Include="FLLib\Inc\fl_MessageShow.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_motorpid.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="FLLib\Inc\fl_Olcd.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
@@ -157,9 +154,6 @@
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
     <ClInclude Include="FLLib\Inc\FL_SettingMenu.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_speed.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
     <ClInclude Include="FLLib\Inc\Fl_steer.h">
@@ -321,6 +315,12 @@
     <ClInclude Include="FLLib\Inc\fl_state.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Motor.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_setting.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -344,9 +344,6 @@
     <ClCompile Include="FLLib\Src\fl_MessageShow.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_motorpid.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
     <ClCompile Include="FLLib\Src\fl_Olcd.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
@@ -357,9 +354,6 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\FL_SettingMenu.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_speed.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_steer.c">
@@ -477,6 +471,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_state.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Motor.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_setting.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

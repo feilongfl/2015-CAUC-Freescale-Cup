@@ -1,35 +1,12 @@
 #include "common.h"
 #include "fl_Olcd.h"
 #include "FL_Key.h"
-#include "fl_pid.h"
 
 #ifndef _FL_SETTINGMENU_
 #define _FL_SETTINGMENU_
 
 
 
-//////////////////////////////////////////////////////////////////////////
-
-#warning pid初始值未设定
-//状态值
-extern volatile struct Pid_s PidMotor;//电机
-extern volatile struct Pid_s PidSteer;//舵机
-extern const struct Pid_s volatile *PidMotorAddress;//电机地址
-extern const struct Pid_s volatile *PidSteerAddress;//舵机地址
-
-extern volatile struct Speed_s Speed;
-
-#warning pid最大值未设定
-extern const struct Pid_s PidMotorMax;//电机
-extern const struct Pid_s PidSteerMax;//舵机
-extern const struct Pid_s *PidMotorMaxAddress;//电机地址
-extern const struct Pid_s *PidSteerMaxAddress;//舵机地址
- //最小值
-#warning pid最小值未设定
-extern const struct Pid_s PidMotorMin;//电机
-extern const struct Pid_s PidSteerMin;//舵机
-extern const struct Pid_s *PidMotorMinAddress;//电机地址
-extern const struct Pid_s *PidSteerMinAddress;//舵机地址
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -87,12 +64,7 @@ struct MenuChoice_s
 	MenuChoice_e SpeedMenu;
 	MenuChoice_e ResetMenu;
 };
-/************************************************************************/
-/* 操作                                                                 */
-/************************************************************************/
-void MotorPidChange(Pid_e pidType, int8 chaangeNum);//修改电机pid参数
-void SteerPidChange(Pid_e pidType, int8 chaangeNum);//修改舵机pid参数
-void SpeedSet(int8 changeNum);//电机转速
+
 
 /************************************************************************/
 /* 退出                                                                 */
@@ -126,12 +98,12 @@ void SettingMenuQuit();
 
 typedef enum
 {
-	OverMax,//超过最大值
-	OverMin,//超过最小值
+	LcdErrOverMax,//超过最大值
+	LcdErrOverMin,//超过最小值
 
-	KeyWrong,//当前界面不支持该按键
+	LcdErrKeyWrong,//当前界面不支持该按键
 
-	Other,//未定义错误
+	LcdErrOther,//未定义错误
 
 	LcdErrNumbers,//错误总数
 }LcdErr_e;//错误号

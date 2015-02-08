@@ -241,22 +241,22 @@ void LcdErrShow(LcdErr_e lcdErr)
 #if DEBUG//成品要不要呢
 	switch (lcdErr)
 	{
-	case OverMax:
+	case LcdErrOverMax:
 		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
 		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
 		break;
 
-	case OverMin:
+	case LcdErrOverMin:
 		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
 		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
 		break;
 
-	case KeyWrong:
+	case LcdErrKeyWrong:
 		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
 		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
 		break;
 
-	case Other:
+	case LcdErrOther:
 		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
 		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
 		break;
@@ -267,166 +267,6 @@ void LcdErrShow(LcdErr_e lcdErr)
 		break;
 	}
 #endif//DEBUG
-}
-
-/************************************************************************/
-/* 操作                    pid修改                                      */
-/************************************************************************/
-#if 1//直接访问结构体
-void MotorPidChange(Pid_e pidType, int8 chaangeNum)//修改电机pid参数,注意修改只是有符号的！！
-{
-	uint8 pidChangeTemp;
-	switch (pidType)
-	{
-	case Kp:
-		pidChangeTemp = PidMotor.P + chaangeNum;
-		if (pidChangeTemp >= PidMotorMin.P && pidChangeTemp <= PidMotorMax.P)//判断修改后是否合法
-		{
-			PidMotor.P = pidChangeTemp;
-		}
-		break;
-
-	case Ki:
-		pidChangeTemp = PidMotor.I + chaangeNum;
-		if (pidChangeTemp >= PidMotorMin.I && pidChangeTemp <= PidMotorMax.I)
-		{
-			PidMotor.I = pidChangeTemp;
-		}
-		break;
-
-	case Kd:
-		pidChangeTemp = PidMotor.D + chaangeNum;
-		if (pidChangeTemp >= PidMotorMin.D && pidChangeTemp <= PidMotorMax.D)
-		{
-			PidMotor.D = pidChangeTemp;
-		}
-		break;
-
-	default:
-		ASSERT(TRUE);
-		break;
-	}
-}
-void SteerPidChange(Pid_e pidType, int8 chaangeNum)//修改舵机pid参数
-{
-	uint8 pidChangeTemp;
-	switch (pidType)
-	{
-	case Kp:
-		pidChangeTemp = PidSteer.P + chaangeNum;
-		if (pidChangeTemp >= PidSteerMin.P && pidChangeTemp <= PidSteerMax.P)
-		{
-			PidSteer.P = pidChangeTemp;
-		}
-		break;
-
-	case Ki:
-		pidChangeTemp = PidSteer.I + chaangeNum;
-		if (pidChangeTemp >= PidSteerMin.I && pidChangeTemp <= PidSteerMax.I)
-		{
-			PidSteer.I = pidChangeTemp;
-		}
-		break;
-
-	case Kd:
-		pidChangeTemp = PidSteer.D + chaangeNum;
-		if (pidChangeTemp >= PidSteerMin.D && pidChangeTemp <= PidSteerMax.D)
-		{
-			PidSteer.D = pidChangeTemp;
-		}
-		break;
-
-	default:
-		ASSERT(TRUE);
-		break;
-	}
-}
-#else//指针方式调用
-void MotorPidChange(Pid_e pidType, int8 chaangeNum)//修改电机pid参数,注意修改只是有符号的！！
-{
-	uint8 pidChangeTemp;
-	switch (pidType)
-	{
-	case Kp:
-		pidChangeTemp = PidMotorAddress->P + chaangeNum;
-		if (pidChangeTemp >= PidMotorMinAddress->P && pidChangeTemp <= PidMotorMaxAddress->P)//判断修改后是否合法
-		{
-			PidMotorAddress->P = pidChangeTemp;
-		}
-		break;
-
-	case Ki:
-		pidChangeTemp = PidMotorAddress->I + chaangeNum;
-		if (pidChangeTemp >= PidMotorMinAddress->I && pidChangeTemp <= PidMotorMaxAddress->I)//判断修改后是否合法
-		{
-			PidMotorAddress->I = pidChangeTemp;
-		}
-		break;
-
-	case Kd:
-		pidChangeTemp = PidMotorAddress->D + chaangeNum;
-		if (pidChangeTemp >= PidMotorMinAddress->D && pidChangeTemp <= PidMotorMaxAddress->D)//判断修改后是否合法
-		{
-			PidMotorAddress->D = pidChangeTemp;
-		}
-		break;
-
-	default:
-		ASSERT(TRUE);
-		break;
-	}
-}
-void SteerPidChange(Pid_e pidType, int8 chaangeNum)//修改舵机pid参数
-{
-	uint8 pidChangeTemp;
-	switch (pidType)
-	{
-	case Kp:
-		pidChangeTemp = PidSteerAddress->P + chaangeNum;
-		if (pidChangeTemp >= PidSteerMinAddress->P && pidChangeTemp <= PidSteerMaxAddress->P)//判断修改后是否合法
-		{
-			PidSteerAddress->P = pidChangeTemp;
-		}
-		break;
-
-	case Ki:
-		pidChangeTemp = PidSteerAddress->I + chaangeNum;
-		if (pidChangeTemp >= PidSteerMinAddress->I && pidChangeTemp <= PidSteerMaxAddress->I)//判断修改后是否合法
-		{
-			PidSteerAddress->I = pidChangeTemp;
-		}
-		break;
-
-	case Kd:
-		pidChangeTemp = PidSteerAddress->D + chaangeNum;
-		if (pidChangeTemp >= PidSteerMinAddress->D && pidChangeTemp <= PidSteerMaxAddress->D)//判断修改后是否合法
-		{
-			PidSteerAddress->D = pidChangeTemp;
-		}
-		break;
-
-	default:
-		ASSERT(TRUE);
-		break;
-	}
-}
-#endif
-
-void SpeedSet(int8 changeNum)//电机转速
-{
-	uint16 SpeedChangeTemp = Speed.Expect + changeNum;
-	if (/*SpeedChangeTemp >= SpeedMin &&*/ SpeedChangeTemp <= SpeedMax)//变量是无符号的:)不用和0去比
-	{
-		Speed.Expect = changeNum;
-	}
-	else if (SpeedChangeTemp > SpeedMax)
-	{
-		LcdErrShow(OverMax);
-	}
-	else
-	{
-		LcdErrShow(OverMin);
-	}
 }
 
 /************************************************************************/
@@ -584,7 +424,7 @@ uint8 MenuMotorOperate()
 			break;
 
 		default:
-			LcdErrShow(KeyWrong);
+			LcdErrShow(LcdErrKeyWrong);
 			break;
 		}
 	}
@@ -661,7 +501,7 @@ uint8 MenuSteerOperate()
 			break;
 
 		default:
-			LcdErrShow(KeyWrong);
+			LcdErrShow(LcdErrKeyWrong);
 			break;
 		}
 	}
@@ -722,7 +562,7 @@ uint8 MenuSpeedOperate()
 
 
 		default:
-			LcdErrShow(KeyWrong);
+			LcdErrShow(LcdErrKeyWrong);
 			break;
 		}
 	}
@@ -795,7 +635,7 @@ uint8 MenuResetOperate()
 			//////////////////////////////////////////////////////////////////////////
 
 		default:
-			LcdErrShow(KeyWrong);
+			LcdErrShow(LcdErrKeyWrong);
 			break;
 		}
 	}
@@ -900,7 +740,7 @@ void MenuMainOperate()
 				break;
 
 			default:
-				LcdErrShow(KeyWrong);
+				LcdErrShow(LcdErrKeyWrong);
 				break;
 			}
 			break;
@@ -921,7 +761,7 @@ void MenuMainOperate()
 				break;
 
 			default:
-				LcdErrShow(KeyWrong);
+				LcdErrShow(LcdErrKeyWrong);
 				break;
 			}
 			break;
@@ -942,7 +782,7 @@ void MenuMainOperate()
 				break;
 
 			default:
-				LcdErrShow(KeyWrong);
+				LcdErrShow(LcdErrKeyWrong);
 				break;
 			}
 			break;
@@ -954,7 +794,7 @@ void MenuMainOperate()
 			break;
 
 		default:
-			LcdErrShow(KeyWrong);
+			LcdErrShow(LcdErrKeyWrong);
 			break;
 		}
 	}

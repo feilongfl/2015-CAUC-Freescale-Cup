@@ -38,42 +38,6 @@ struct Pid_s//pid结构体
 
 
 
-#if 0//结构体方式实现
-#if (TpmMotorPrecison > 255)
-struct Speed_s
-{
-	uint16 Acturally;
-	uint16 Expect;
-	uint16 Max;
-	uint16 Min;
-};
-#else
-struct Speed_s
-{
-	uint8 Acturally;
-	uint8 Expect;
-	uint8 Max;
-	uint8 Min;
-};
-#endif
-#else//结构体和宏定义实现
-#if (TpmMotorPrecison > 255)
-struct Speed_s
-{
-	uint16 Acturally;
-	uint16 Expect;
-};
-#else
-struct Speed_s
-{
-	uint8 Acturally;
-	uint8 Expect;
-};
-#endif
-#define SpeedMax TpmMotorPrecison
-#define SpeedMin 0
-#endif
-
 
 
 
