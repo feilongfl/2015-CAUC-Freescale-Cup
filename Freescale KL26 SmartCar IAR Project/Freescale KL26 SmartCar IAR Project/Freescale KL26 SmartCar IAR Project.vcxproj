@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Lib\CMSIS;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\FLLib\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\kinetis;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\IAR;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Board\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\App\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
