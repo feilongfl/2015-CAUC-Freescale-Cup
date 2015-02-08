@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Inc\include.h" />
+    <ClInclude Include="App\Inc\main.h" />
     <ClInclude Include="App\Inc\MKL_conf.h" />
     <ClInclude Include="App\Inc\MKL_it.h" />
     <ClInclude Include="App\Inc\PORT_cfg.h" />
