@@ -62,17 +62,17 @@
 /*
  * 配置延时函数
  */
-#if  0
+#if  0//这个不要用，如果用c车模还需要这个来读编码器
 #include "MKL_lptmr.h"
 #define     DELAY()         lptmr_delay_ms(500)
 #define     DELAY_MS(ms)    lptmr_delay_ms(ms)
 #define     DELAY_US(us)    lptmr_delay_us(us)
-#elif   0
+#elif   0//pit模块我全用了:)
 #include "MKL_pit.h"
 #define DELAY()         pit_delay_ms(PIT1,500)
 #define DELAY_MS(ms)    pit_delay_ms(PIT1,ms)
 #define DELAY_US(us)    pit_delay_us(PIT1,us)
-#else
+#else//所以野火和我想得一样，用这个
 #include "MKL_SysTick.h"
 #define DELAY()         systick_delay_ms(500)
 #define DELAY_MS(ms)    systick_delay_ms(ms)

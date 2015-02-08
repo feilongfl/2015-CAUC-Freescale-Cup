@@ -18,8 +18,9 @@
 #include    "stdio.h"
 #include    "MKL_uart.h"
 //#include    "VCAN_KEY.h"
-//#include    "VCAN_LED.h"
+#include    "VCAN_LED.h"
 //#include    "MK60_flash.h"
+#include    "MKL_gpio.h"
 
 
 /*!
@@ -29,16 +30,19 @@
  *  @since      v5.0
  *  Sample usage:       assert_failed(__FILE__, __LINE__);
  */
+
+
 const char ASSERT_FAILED_STR[] = "Assertion failed in %s at line %d\n";
 
 void assert_failed(char *file, int line)
 {
-    printf(ASSERT_FAILED_STR, file, line);      //通过串口提示断言失败
-
+    led_init (LED0);
     while (1)
     {
         //死循环等待程序员检测为何断言失败
-
+        printf(ASSERT_FAILED_STR, file, line);      //通过串口提示断言失败
+        led_turn(LED0);
+        DELAY_MS(2000);
     }
 }
 
@@ -62,7 +66,7 @@ int fputc(int ch, FILE *stream)
  */
 void start_check()
 {
-#if 0
+#if 0//野火绝对是把K60的直接复制过来了，然后小板子上没KEY_A，解开条件编译直接报错，不过这个功能应该比较实用，以后还是加上比较好
     uint8 flag = 0;
 
     key_init(KEY_A);
@@ -131,8 +135,8 @@ void default_isr(void)
 #ifdef  DEBUG
 
     uint8 vtr = VECTORNUM;
-    DEBUG_PRINTF("\n****default_isr entered on vector %d*****\r\n\n%s Interrupt", vtr, vector_str[vtr]);
-
+    DEBUG_PRINTF("\n****default_isr entered on vector %d*****\r\n\n%s Interrupt", vtr, vector_str[vtr + 1]);//这个+1是我自己家的，原来的有bug!
+DELAY_MS (1000);//竟然没有延时
 
 #endif
     return;

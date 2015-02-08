@@ -21,8 +21,13 @@
  * 数据类型声明
  */
 typedef unsigned char       uint8;  /*  8 bits */
+typedef unsigned char       UINT;  /*  8 bits */
+typedef unsigned char		BYTE;/*  8 bits */
 typedef unsigned short int  uint16; /* 16 bits */
+typedef unsigned short int  WORD; /* 16 bits */
 typedef unsigned long int   uint32; /* 32 bits */
+typedef unsigned long int   ULONG; /* 32 bits */
+typedef unsigned long int   DWORD; /* 32 bits */
 typedef unsigned long long  uint64; /* 64 bits */
 
 typedef char                int8;   /*  8 bits */
@@ -356,5 +361,13 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 
 
 /********************************************************************/
+
+
+/************************************************************************/
+/* 包含fl设置文件                                                       */
+/************************************************************************/
+
+#include "fl_cfg.h"
+#include "fl_messageshow.h"
 
 #endif /* _COMMON_H_ */

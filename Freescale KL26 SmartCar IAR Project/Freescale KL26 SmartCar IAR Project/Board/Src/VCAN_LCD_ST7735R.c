@@ -18,13 +18,13 @@
 #include "common.h"
 #include "MKL_gpio.h"
 #include "VCAN_LCD_ST7735R.h"
-
+#include "fl_cfg.h"
 
 
 
 
 //定义所用到的 IO管脚
-#define LCD_RST    PTC13                //复位
+//#define LCD_RST    PTC13                //复位
 
 #define ST7735R_H       128
 #define ST7735R_W       128

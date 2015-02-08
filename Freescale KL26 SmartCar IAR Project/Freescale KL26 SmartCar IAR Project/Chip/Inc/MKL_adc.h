@@ -100,7 +100,7 @@ typedef enum
 
 
 
-} ADCn_Ch_e;
+}ADCn_Ch_e ;
 
 typedef enum  //ADCÄ£¿é
 {

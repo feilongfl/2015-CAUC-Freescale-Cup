@@ -38,7 +38,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Lib\CMSIS;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\FLLib\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\kinetis;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\IAR;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Board\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\App\Inc</IncludePath>
+    <SourcePath>E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\FLLib\Src;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Src\IAR;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Src;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Board\Src;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\App;$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

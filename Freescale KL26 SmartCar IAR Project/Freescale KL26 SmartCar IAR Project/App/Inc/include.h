@@ -34,7 +34,7 @@
 #include  "VCAN_key_event.h"    //按键消息处理
 #include  "VCAN_NRF24L0_MSG.h"  //无线模块消息处理
 
-
+#include "fl_include.h"//我们的头文件
 
 
 #endif  //__INCLUDE_H__
