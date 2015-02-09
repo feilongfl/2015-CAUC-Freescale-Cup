@@ -4,6 +4,12 @@
 #include "common.h"
 #include "fl_cfg.h"
 #include "fl_pid.h"
+
+
+#ifndef _FL_STEER_
+#define _FL_STEER_
+
+
 /************************************************************************/
 /*              宏定义                                               */
 /************************************************************************/
@@ -24,11 +30,11 @@
 #define SteerPidMinP  0//舵机最小P
 #define SteerPidMinI  0//舵机最小I
 #define SteerPidMinD  0//舵机最小D
-						  
+
 /************************************************************************/
 /*           数据类型定义                                                  */
 /************************************************************************/
-typedef enum 
+typedef enum
 {
 	SteerDegree0,//0度,居中直行
 	SteerDegree1,//1度
@@ -127,7 +133,7 @@ typedef enum
 	SteerDegreeNum,//成员数
 }SteerTurnDegree_e;//转向角度
 
-typedef enum 
+typedef enum
 {
 	SteerDirectionLeft,//左转
 	SteerDirectionCenter,//直行
@@ -149,3 +155,5 @@ void SteerTurn(SteerTurnDirection_e direction, SteerTurnDegree_e degree);//转向
 
 //////////////////////////////////////////////////////////////////////////
 void StreePidSet(Pid_e steerPid, uint8 steerPidChange);//设定舵机pid参数
+
+#endif//_FL_STEER_

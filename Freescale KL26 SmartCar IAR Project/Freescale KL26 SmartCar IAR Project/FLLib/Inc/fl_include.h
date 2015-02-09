@@ -3,6 +3,7 @@
 /************************************************************************/
 #ifndef _FL_INCLUDE_
 #define _FL_INCLUDE_
+/*
 
 #include "fl_MessageShow.h"
 #include "fl_cfg.h"
@@ -12,11 +13,5 @@
 #include "fl_HCSR04.h"
 #include "fl_Olcd.h"
 #include "fl_Irq.h"
-#include "FL_Key.h"
-/*
-#include "ffconf.h"
-#include "sd_driver.h"
-#include "diskio.h"
-#include "ff.h"
-*/
+#include "FL_Key.h"*/
 #endif //_FL_INCLUDE_

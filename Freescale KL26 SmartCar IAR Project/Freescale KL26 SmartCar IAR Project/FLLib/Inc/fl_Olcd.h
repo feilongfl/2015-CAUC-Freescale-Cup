@@ -12,6 +12,13 @@
 #include "MK60_gpio.h"
 #endif
 
+
+
+#ifndef _OLED_H_
+#define _OLED_H_
+
+
+
 /*
 4线SPI使用说明：
 VBT 供内部DC-DC电压，3.3~4.3V，如果使用5V电压，为保险起见串一个100~500欧的电阻
@@ -41,10 +48,6 @@ RD  低电平 ，也可悬空，但最好设为低电平
 #define Max_Column	128
 #define Max_Row		64
 #define	Brightness	0xCF 
-
-
-#ifndef _OLED_H_
-#define _OLED_H_
 
 /************************************************************************/
 /* 常量                                                                 */
