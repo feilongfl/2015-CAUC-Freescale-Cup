@@ -1,6 +1,5 @@
 
 #include "common.h"
-#include "fl_messageshow.h"
 
 #ifdef MKL26Z4
 #include "MKL_gpio.h"

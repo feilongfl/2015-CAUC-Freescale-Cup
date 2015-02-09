@@ -18,7 +18,6 @@
 /************************************************************************/
 void UartHandler()
 {
-	FuncLocalShow("UartHandler");
 	////////////////´®¿Ú//////////////////////////////////////////////////////////
 	char ch;
 
@@ -35,7 +34,6 @@ void UartHandler()
 /************************************************************************/
 void BlueToothHandler()
 {
-	FuncLocalShow("BlueToothHandle");
 	////////////////´®¿Ú//////////////////////////////////////////////////////////
 	char ch;
 
@@ -52,7 +50,6 @@ void BlueToothHandler()
 /************************************************************************/
 void PIT_IRQHandler(void)
 {
-	FuncLocalShow("PIT_IRQHandler");
 	//TpmCountRead();
 	PIT_Flag_Clear(PIT0);
 }

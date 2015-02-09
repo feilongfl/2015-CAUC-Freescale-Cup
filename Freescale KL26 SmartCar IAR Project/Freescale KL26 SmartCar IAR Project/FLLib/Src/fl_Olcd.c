@@ -668,7 +668,7 @@ void Set_NOP(void)
 //void LCD_P14x16Str();
 void OlcdInit(void)
 {
-	//FuncLocalShow("OlcdInit");
+	//
 
 	gpio_init(LCD_DC, GPO, HIGH);//DC
 	gpio_init(LCD_RST, GPO, HIGH);//RST

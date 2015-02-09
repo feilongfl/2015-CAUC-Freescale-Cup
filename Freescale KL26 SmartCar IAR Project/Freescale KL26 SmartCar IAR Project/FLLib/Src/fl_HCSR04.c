@@ -23,7 +23,6 @@ uint32 flag;//指示数据是否有效
 /************************************************************************/
 uint32 Hcsr04Read()
 {
-	FuncLocalShow("Hcsr04Read");
 	flag = 0;
 	gpio_set(Hcsr04Trig, 1);               //产生触发脉冲
 	DELAY_US(15);
@@ -58,7 +57,7 @@ uint32 Hcsr04Read()
 /************************************************************************/
 void Hcsr04Init()
 {
-	FuncLocalShow("Hcsr04Init");
+	
 	gpio_init(Hcsr04Trig, GPO, 0);
 	gpio_init(Hcsr04Echo, GPI, 0);
 }
@@ -66,7 +65,7 @@ void Hcsr04Init()
 
 void Hcsr04Show()
 {
-	FuncLocalShow("Hcsr04Show");
+	
 	if (Distance < 999)
 	{
 		NumShow(Distance, DistanceX, DistanceY);

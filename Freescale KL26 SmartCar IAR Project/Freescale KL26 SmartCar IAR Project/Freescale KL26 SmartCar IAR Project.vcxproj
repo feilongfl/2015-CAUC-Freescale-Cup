@@ -48,7 +48,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Lib\CMSIS;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\FLLib\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\kinetis;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc\IAR;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Chip\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\Board\Inc;E:\Freescale KL26SmartCar V2.0\Freescale KL26 SmartCar IAR Project\Freescale KL26 SmartCar IAR Project\App\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>MKL26Z4;_FL_VISUAL_STUDIO_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MKL26Z4;_FL_VISUAL_STUDIO_;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -140,7 +140,6 @@
     <ClInclude Include="FLLib\Inc\fl_Init.h" />
     <ClInclude Include="FLLib\Inc\fl_Irq.h" />
     <ClInclude Include="FLLib\Inc\FL_Key.h" />
-    <ClInclude Include="FLLib\Inc\fl_MessageShow.h" />
     <ClInclude Include="FLLib\Inc\fl_Olcd.h" />
     <ClInclude Include="FLLib\Inc\fl_pid.h" />
     <ClInclude Include="FLLib\Inc\fl_PIT.h" />
@@ -207,7 +206,6 @@
     <ClCompile Include="FLLib\Src\fl_Init.c" />
     <ClCompile Include="FLLib\Src\fl_Irq.c" />
     <ClCompile Include="FLLib\Src\FL_KEY.c" />
-    <ClCompile Include="FLLib\Src\fl_MessageShow.c" />
     <ClCompile Include="FLLib\Src\fl_Olcd.c" />
     <ClCompile Include="FLLib\Src\fl_pid.c" />
     <ClCompile Include="FLLib\Src\fl_PIT.c" />

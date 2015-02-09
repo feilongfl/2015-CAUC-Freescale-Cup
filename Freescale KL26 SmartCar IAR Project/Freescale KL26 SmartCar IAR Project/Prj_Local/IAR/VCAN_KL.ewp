@@ -307,6 +307,7 @@
           <state>$PROJ_DIR$\..\..\Chip\inc\kinetis</state>
           <state>$PROJ_DIR$\..\..\Lib\CMSIS\Inc</state>
           <state>$PROJ_DIR$\..\..\Lib\SD_CARD</state>
+          <state>$PROJ_DIR$\..\..\FLLib\Inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2010,6 +2011,51 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\Chip\Src\IAR\vectors.c</name>
+    </file>
+  </group>
+  <group>
+    <name>FLLib</name>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_adc.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_error.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_HCSR04.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_Init.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_Irq.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\FL_KEY.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_Motor.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_Olcd.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_pid.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_PIT.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_setting.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\FL_SettingMenu.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_state.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_steer.c</name>
     </file>
   </group>
   <group>

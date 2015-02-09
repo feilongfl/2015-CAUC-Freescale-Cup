@@ -141,9 +141,6 @@
     <ClInclude Include="FLLib\Inc\FL_Key.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
-    <ClInclude Include="FLLib\Inc\fl_MessageShow.h">
-      <Filter>FLLib\Inc</Filter>
-    </ClInclude>
     <ClInclude Include="FLLib\Inc\fl_Olcd.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
@@ -342,9 +339,6 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\FL_KEY.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_MessageShow.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_Olcd.c">

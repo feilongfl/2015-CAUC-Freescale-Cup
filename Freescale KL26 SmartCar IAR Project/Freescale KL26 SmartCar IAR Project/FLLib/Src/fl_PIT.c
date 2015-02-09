@@ -16,7 +16,7 @@ extern void PIT_IRQHandler();
 /************************************************************************/
 void PitInit()
 {
-	FuncLocalShow("PitInit");
+	
 	pit_init_ms(CoderPit, CoderTimeCircle);                                //初始化PIT0，定时时间为： 1000ms
 	set_vector_handler(PIT_VECTORn, PIT_IRQHandler);       //设置PIT0的中断服务函数为 PIT_IRQHandler
 }
