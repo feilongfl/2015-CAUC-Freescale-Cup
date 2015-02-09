@@ -11,12 +11,12 @@
 #define MotorPIDDefaultI 1//电机默认I
 #define MotorPIDDefaultD 1//电机默认D
 //点击限制参数
-#define MotorPidMin_P  0//电机最小P
-#define MotorPidMin_I  0//电机最小I
-#define MotorPidMin_D  0//电机最小D
-#define MotorPidMax_P  1//电机最大P
-#define MotorPidMax_I  1//电机最大I
-#define MotorPidMax_D  1//电机最大D
+#define MotorPidMinP  0//电机最小P
+#define MotorPidMinI  0//电机最小I
+#define MotorPidMinD  0//电机最小D
+#define MotorPidMaxP  1//电机最大P
+#define MotorPidMaxI  1//电机最大I
+#define MotorPidMaxD  1//电机最大D
 
 
 

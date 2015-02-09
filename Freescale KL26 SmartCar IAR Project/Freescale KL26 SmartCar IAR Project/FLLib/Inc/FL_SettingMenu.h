@@ -1,6 +1,7 @@
 #include "common.h"
 #include "fl_Olcd.h"
 #include "FL_Key.h"
+#include "fl_error.h"
 
 #ifndef _FL_SETTINGMENU_
 #define _FL_SETTINGMENU_
@@ -94,22 +95,6 @@ void SettingMenuQuit();
 #define SteerMenuItemNum 4
 #define SpeedMenuItemNum 4
 #define ResetMenuItemNum 3
-
-
-typedef enum
-{
-	LcdErrOverMax,//超过最大值
-	LcdErrOverMin,//超过最小值
-
-	LcdErrKeyWrong,//当前界面不支持该按键
-
-	LcdErrOther,//未定义错误
-
-	LcdErrNumbers,//错误总数
-}LcdErr_e;//错误号
-
-#define LcdErrMsgLength 9//错误提示文字长度
-
 
 /************************************************************************/
 /* 菜单控制                                                             */

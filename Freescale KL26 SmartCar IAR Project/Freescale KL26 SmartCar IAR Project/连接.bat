@@ -12,4 +12,4 @@ xcopy Prj_Local z:\freescaleV2prjtmp /E /C /I /F /H /R /Y
 
 mklink /d prj z:\freescaleV2prjtmp
 
-pause
+

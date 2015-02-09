@@ -14,6 +14,8 @@ typedef enum
 #define PidPrecision 100//Pid精度
 
 #if PidPrecision < 0xff//根据精度选择数据类型
+
+
 struct Pid_s//pid结构体
 {
 	uint8 P;
