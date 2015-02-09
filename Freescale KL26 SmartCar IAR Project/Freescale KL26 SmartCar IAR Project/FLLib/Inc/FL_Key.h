@@ -52,7 +52,7 @@ typedef enum
 #define IrqKeyPortNum 7//定义中断引脚号
 
 
-extern struct MenuChoice_s MenuChoice;
+//extern struct MenuChoice_s MenuChoice;
 
 
 void FLKeyInit();

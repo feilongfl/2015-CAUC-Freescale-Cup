@@ -2,10 +2,11 @@
 
 
 
+
 //น้าปปฏ
 void AdcNormalizing()
 {
-
+	
 }
 
 
