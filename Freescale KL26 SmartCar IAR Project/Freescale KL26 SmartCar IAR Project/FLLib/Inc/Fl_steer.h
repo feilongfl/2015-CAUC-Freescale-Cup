@@ -17,7 +17,7 @@
 #define SteerPIDDefaultD 1//舵机默认D
 //舵机限制参数
 #define SteerTurnMax (SteerCenterDuty + SteerSafeTurnDuty)//舵机pwm最大值限制
-#define SteerTurnMax (SteerCenterDuty - SteerSafeTurnDuty)//舵机pwm最小值限制
+#define SteerTurnMin (SteerCenterDuty - SteerSafeTurnDuty)//舵机pwm最小值限制
 #define SteerPidMaxP  1//舵机最大P
 #define SteerPidMaxI  1//舵机最大I
 #define SteerPidMaxD  1//舵机最大D

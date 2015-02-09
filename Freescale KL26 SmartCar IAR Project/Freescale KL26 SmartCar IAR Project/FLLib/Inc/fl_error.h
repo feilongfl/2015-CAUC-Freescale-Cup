@@ -1,6 +1,8 @@
 #include "common.h"
 #include "fl_cfg.h"
 
+#ifndef  _FL_ERROR_
+#define _FL_ERROR_
 
 //////////////////////////////////////////////////////////////////////////
 typedef enum
@@ -32,3 +34,4 @@ typedef enum
 
 
 LcdErr_e ConvertSettingerrTOLcderr(SettingErr_e settingErr);
+#endif

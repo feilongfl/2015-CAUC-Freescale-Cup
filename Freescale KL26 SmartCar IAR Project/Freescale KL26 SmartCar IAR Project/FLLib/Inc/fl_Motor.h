@@ -3,10 +3,13 @@
 #include "fl_cfg.h"
 
 
+#ifndef _FL_MOTOR_
+#define _FL_MOTOR_
+
 //电机常规属性
 #define MotorDutyMax TpmMotorPrecison//最大值
 //电机默认参数
-#define SteerDefaultDuty 0//开机
+#define MotorDefaultDuty 0//开机
 #define MotorPIDDefaultP 1//电机默认P
 #define MotorPIDDefaultI 1//电机默认I
 #define MotorPIDDefaultD 1//电机默认D
@@ -21,7 +24,15 @@
 
 
 #if 0//结构体方式实现
-#if (TpmMotorPrecison > 255)
+#if (TpmMotorPrecison > 0xffff)
+struct MotorSpeed_s
+{
+	uint32 Acturally;
+	uint32 Expect;
+	uint32 Max;
+	uint32 Min;
+};
+#elif (TpmMotorPrecison > 0xff)
 struct MotorSpeed_s
 {
 	uint16 Acturally;
@@ -39,7 +50,13 @@ struct MotorSpeed_s
 };
 #endif
 #else//结构体和宏定义实现
-#if (TpmMotorPrecison > 255)
+#if (TpmMotorPrecison > 0xffff)
+struct MotorSpeed_s
+{
+	uint32 Acturally;
+	uint32 Expect;
+};
+#elif (TpmMotorPrecison > 0xff)
 struct MotorSpeed_s
 {
 	uint16 Acturally;
@@ -62,3 +79,5 @@ struct MotorSpeed_s
 /************************************************************************/
 void MotorInit();//初始化电机
 //////////////////////////////////////////////////////////////////////////
+
+#endif//_FL_MOTOR_
