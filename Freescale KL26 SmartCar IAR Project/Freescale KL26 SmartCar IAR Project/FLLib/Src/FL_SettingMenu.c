@@ -65,19 +65,43 @@ struct MenuChoice_s * MenuChoiceAddress = &MenuChoice;
 
 
 /************************************************************************/
+/* 静态函数声明                                                                     */
+/************************************************************************/
+
+static void LcdShowMainMenu(MenuChoice_e menuChoice);
+static void LcdShowMotorMenu(MenuChoice_e menuChoice);
+static void LcdShowSteerMenu(MenuChoice_e menuChoice);
+static void LcdShowSpeedMenu(MenuChoice_e menuChoice);
+static void LcdShowResetMenu(MenuChoice_e menuChoice);
+static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice);
+
+static void LcdErrShow(LcdErr_e lcdErr);//我觉得应该扔显示那边去
+
+static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove);
+
+static uint8 MenuMotorOperate();
+static uint8 MenuSteerOperate();
+static uint8 MenuSpeedOperate();
+static uint8 MenuResetOperate();
+static void MenuMainOperate();
+
+static void SettingMenuQuit();
+
+/************************************************************************/
 /* 初始化                                                               */
 /************************************************************************/
 void SettingMenuInit()
 {
 	//LCD_init();//已经初始化过了
 	LcdShowMenu(MenuMain, (MenuChoice_e)0);//选中第一个
+	MenuMainOperate();
 }
 
 /************************************************************************/
 /* 显示                                                                 */
 /************************************************************************/
 
-void LcdShowMainMenu(MenuChoice_e menuChoice)
+static void LcdShowMainMenu(MenuChoice_e menuChoice)
 {
 	ASSERT(menuChoice >= 0 && menuChoice < MainMenuItemNum);//断言
 
@@ -101,7 +125,7 @@ void LcdShowMainMenu(MenuChoice_e menuChoice)
 	}
 }
 
-void LcdShowMotorMenu(MenuChoice_e menuChoice)
+static void LcdShowMotorMenu(MenuChoice_e menuChoice)
 {
 	ASSERT(menuChoice < MotorMenuItemNum);//断言
 
@@ -125,7 +149,7 @@ void LcdShowMotorMenu(MenuChoice_e menuChoice)
 	}
 }
 
-void LcdShowSteerMenu(MenuChoice_e menuChoice)
+static void LcdShowSteerMenu(MenuChoice_e menuChoice)
 {
 	ASSERT(menuChoice < SteerMenuItemNum);//断言
 
@@ -149,7 +173,7 @@ void LcdShowSteerMenu(MenuChoice_e menuChoice)
 	}
 }
 
-void LcdShowSpeedMenu(MenuChoice_e menuChoice)
+static void LcdShowSpeedMenu(MenuChoice_e menuChoice)
 {
 	ASSERT(menuChoice < SpeedMenuItemNum);//断言
 
@@ -173,7 +197,7 @@ void LcdShowSpeedMenu(MenuChoice_e menuChoice)
 	}
 }
 
-void LcdShowResetMenu(MenuChoice_e menuChoice)
+static void LcdShowResetMenu(MenuChoice_e menuChoice)
 {
 	ASSERT(menuChoice < ResetMenuItemNum);//断言
 
@@ -197,7 +221,7 @@ void LcdShowResetMenu(MenuChoice_e menuChoice)
 	}
 }
 
-void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//显示菜单（菜单类型，选中菜单）
+static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//显示菜单（菜单类型，选中菜单）
 {
 	LcdCls();//清屏
 	//这里需要字模
@@ -236,7 +260,7 @@ void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//显示菜单（菜单类
 /************************************************************************/
 /* 错误界面                     要不要加个灯呢？                        */
 /************************************************************************/
-void LcdErrShow(LcdErr_e lcdErr)
+static void LcdErrShow(LcdErr_e lcdErr)
 {
 #if DEBUG//成品要不要呢
 	switch (lcdErr)
@@ -273,7 +297,7 @@ void LcdErrShow(LcdErr_e lcdErr)
 /* 菜单控制                                                             */
 /************************************************************************/
 
-void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
+static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 {
 	int8 menuMoveTemp;//临时变量，用于计算菜单位置
 	switch (menuMove)
@@ -348,13 +372,7 @@ void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 /* 菜单内容                                                             */
 /************************************************************************/
 
-uint8 MenuMotorOperate();
-uint8 MenuSteerOperate();
-uint8 MenuSpeedOperate();
-uint8 MenuResetOperate();
-void MenuMainOperate();
-
-uint8 MenuMotorOperate()
+static uint8 MenuMotorOperate()
 {
 	/*LcdShowMotorMenu((MenuChoice_e)0);*/
 	while (TRUE)//如果按键没有按下，继续执行
@@ -431,7 +449,7 @@ uint8 MenuMotorOperate()
 	//return FALSE;//unreachable
 }
 
-uint8 MenuSteerOperate()
+static uint8 MenuSteerOperate()
 {
 	while (TRUE)//如果按键没有按下，继续执行
 	{
@@ -508,7 +526,7 @@ uint8 MenuSteerOperate()
 	//return FALSE;//unreachable
 }
 
-uint8 MenuSpeedOperate()
+static uint8 MenuSpeedOperate()
 {
 	while (TRUE)//如果按键没有按下，继续执行
 	{
@@ -569,7 +587,7 @@ uint8 MenuSpeedOperate()
 	//return FALSE;//unreachable
 }
 
-uint8 MenuResetOperate()
+static uint8 MenuResetOperate()
 {
 	while (TRUE)//如果按键没有按下，继续执行
 	{
@@ -642,7 +660,7 @@ uint8 MenuResetOperate()
 	//return FALSE;//unreachable
 }
 
-void MenuMainOperate()
+static void MenuMainOperate()
 {
 	uint8 exitFunc = FALSE;
 	MenuChoice.MainMenu = (MenuChoice_e)0;
@@ -803,7 +821,7 @@ void MenuMainOperate()
 /************************************************************************/
 /* 退出                                                                 */
 /************************************************************************/
-void SettingMenuQuit()
+static void SettingMenuQuit()
 {
 	LcdCls();//清屏
 	//LcdShowAllData();//屏幕

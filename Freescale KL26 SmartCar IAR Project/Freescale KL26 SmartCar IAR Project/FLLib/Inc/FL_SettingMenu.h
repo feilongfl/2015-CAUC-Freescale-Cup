@@ -97,21 +97,8 @@ void SettingMenuQuit();
 #define ResetMenuItemNum 3
 
 /************************************************************************/
-/* 菜单控制                                                             */
-/************************************************************************/
-void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove);
-/************************************************************************/
 /* 初始化                                                               */
 /************************************************************************/
 void SettingMenuInit();
 
-/************************************************************************/
-/* 显示                                                                 */
-/************************************************************************/
-void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice);//显示主菜单
-void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice);//显示菜单（菜单类型，选中菜单）
-void LcdShowMotorMenu(MenuChoice_e menuChoice);//显示电机设置菜单
-void LcdErrShow(LcdErr_e lcdErr);
-
-void MenuMainOperate();
 #endif//_FL_SETTINGMENU_

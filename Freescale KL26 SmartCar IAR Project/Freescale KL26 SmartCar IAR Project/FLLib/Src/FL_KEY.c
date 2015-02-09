@@ -193,6 +193,5 @@ void FLIrqKeyDown()
 	FLKeyInit();//拉高所有引脚，禁用所有按键
 	//显示屏进入设置模式
 	SettingMenuInit();
-	MenuMainOperate();
 }
 

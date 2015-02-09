@@ -18,7 +18,7 @@ enum//按键行列
 
 typedef enum
 {
-	#warning please change these code !(very important)
+	//#warning please change these code !(very important)
 	FlKeyUp = 2,//上
 	FlKeyDown = 6,//下
 
