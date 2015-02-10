@@ -12,7 +12,7 @@
 /*     你需要在使用所有模块之前调用此函数。                             */
 /*                                                  20150107            */
 /************************************************************************/
-void Init ()
+InitRepot_e Init()
 {
 	led_init (LED_MAX);
 	SteerInit();
@@ -20,6 +20,7 @@ void Init ()
 	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏
 	FLKeyInit();//小键盘
+	return InitAllGreen;
 }
 
 

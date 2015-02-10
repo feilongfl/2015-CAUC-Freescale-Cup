@@ -6,7 +6,39 @@
 #ifndef _FL_ADC_
 #define _FL_ADC_
 
-void AdcNormalizing();//归一化
+typedef enum 
+{
+	FLAdc0,
+	FlAdc1,
+	FLAdc2,
+	FLAdc3,
+	FLAdc4,
+
+	FLAdcMax,
+}FLAdcn_e;//adc通道枚举
+
+typedef enum 
+{
+	OnLine,
+	LostLine,
+}FLAdcLostLine;//丢线状态枚举
+
+struct FLAdcState//adc存储结构
+{
+	uint16 FLAdc0;
+	uint16 FlAdc1;
+	uint16 FLAdc2;
+	uint16 FLAdc3;
+	uint16 FLAdc4;
+};
+
+#define FlAdcBit ADC_8bit//adc位数
+#define calcualteAdc(num) ((num * 3300) / 256)//貌似是adc读取的数值转电压值的计算公式
+#define AdcNormalizingPrecision 1000//adc归一化精度
+
+
+void AdcInit();//初始化
+uint16 AdcNormalizing();//归一化
 
 
 #endif//_FL_ADC_

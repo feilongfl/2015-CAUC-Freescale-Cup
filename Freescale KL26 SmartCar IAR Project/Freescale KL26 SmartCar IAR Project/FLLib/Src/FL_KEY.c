@@ -22,7 +22,7 @@ PTXn_e FLKeyPort[KeyPortMax] =
 /************************************************************************/
 /* 控制按键管教服复用                                                   */
 /************************************************************************/
-void    FLKeyInit()
+InitRepot_e    FLKeyInit()
 {
 	//ASSERT();//这里应该加一个断言
 
@@ -39,7 +39,7 @@ void    FLKeyInit()
 		gpio_init(FLKeyPort[keyPort - 1], GPI, HIGH);
 		port_init_NoALT(FLKeyPort[keyPort - 1], PULLUP);
 	}
-
+	return InitAllGreen;
 }
 
 /*!

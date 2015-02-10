@@ -35,7 +35,7 @@ PTXn_e LED_PTxn[LED_MAX] = {PTD4,PTD5,PTD6,PTD7};
  *  @since      v5.0
  *  Sample usage:       led_init (LED0);    //≥ı ºªØ LED0
  */
-void    led_init(LED_e ledn)
+InitRepot_e led_init(LED_e ledn)
 {
     if(ledn < LED_MAX)
     {
@@ -48,8 +48,8 @@ void    led_init(LED_e ledn)
         {
             gpio_init(LED_PTxn[ledn],GPO,LED_OFF);
         }
-
     }
+	return InitAllGreen;
 }
 
 

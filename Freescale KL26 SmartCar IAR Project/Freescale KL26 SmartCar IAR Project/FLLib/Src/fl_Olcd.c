@@ -666,7 +666,7 @@ void Set_NOP(void)
 /*                                                                      */
 /************************************************************************/
 //void LCD_P14x16Str();
-void OlcdInit(void)
+InitRepot_e OlcdInit(void)
 {
 	//
 
@@ -674,9 +674,9 @@ void OlcdInit(void)
 	gpio_init(LCD_RST, GPO, HIGH);//RST
 	gpio_init(LCD_SDA, GPO, HIGH);//SDA
 	gpio_init(LCD_SCL, GPO, HIGH);//SCL
-	DELAY();
+	DELAY_MS(50);
 	gpio_set(LCD_RST, HIGH);
-	DELAY();
+	DELAY_MS(50);
 	//从上电到下面开始初始化要有足够的时间，即等待RC复位完毕
 	Set_Display_On_Off(0x00);		  // Display Off (0x00/0x01)
 	Set_Display_Clock(0x80);		  // Set Clock as 100 Frames/Sec
@@ -697,6 +697,7 @@ void OlcdInit(void)
 	LCD_Fill(0x00);  //初始清屏
 	LCD_Set_Pos(0, 0);
 	//LCDPrint(0, 0, "飞龙");
+	return InitAllGreen;
 }
 //==============================================================
 //函数名： void LCD_PutPixel(byte x,byte y)

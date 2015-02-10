@@ -55,7 +55,7 @@ typedef enum
 //extern struct MenuChoice_s MenuChoice;
 
 
-void FLKeyInit();
+InitRepot_e FLKeyInit();
 KEY_STATUS_e    FLKeyGet(FL_KEY_e key);             //检测key状态（不带延时消抖）
 KEY_STATUS_e    FLKeyCheck(FL_KEY_e key);           //检测key状态（带延时消抖）
 void FLKeyIrqEnable();

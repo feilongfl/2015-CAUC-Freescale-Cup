@@ -51,9 +51,10 @@ uint16 SteerDuty[SteerDegreeNum] = {
 	200,
 };//舵机打角值数组
 
-void SteerInit()
+InitRepot_e SteerInit()
 {
 	tpm_pwm_init(TpmSteer, TpmSteerCh, TpmSteerFreq, SteerDefaultDuty);
+	return InitAllGreen;
 }
 
 void SteerTurn(SteerTurnDirection_e direction, SteerTurnDegree_e degree)

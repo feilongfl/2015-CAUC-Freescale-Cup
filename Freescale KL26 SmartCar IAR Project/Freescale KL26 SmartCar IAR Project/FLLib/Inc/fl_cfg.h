@@ -93,14 +93,14 @@ The pins from D3 to D7, E and R/W# (WR#)# can be connected to an external ground
 /************************************************************************/
 /* adc*/
 /************************************************************************/
+/*
 #define FlAdc0 ADC0_DM0
 #define FlAdc1 ADC0_DM1
 #define FlAdc2 ADC0_DM2
 #define FlAdc3 ADC0_DM3
-#define FlAdc4 ADC0_DP0
+#define FlAdc4 ADC0_DP0*/
 
-#define FlAdcBit ADC_8bit
-#define calcualteAdc(num) ((num * 3300) / 256)
+
 
 
 /************************************************************************/

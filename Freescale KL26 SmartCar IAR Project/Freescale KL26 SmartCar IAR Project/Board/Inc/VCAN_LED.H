@@ -36,7 +36,7 @@ typedef enum LED_status
 }LED_status; 
 
 
-extern void    led_init(LED_e);            //初始化LED端口
+extern InitRepot_e    led_init(LED_e);            //初始化LED端口
 extern void    led(LED_e,LED_status);      //设置LED灯亮灭
 extern void    led_turn(LED_e);            //设置LED灯亮灭反转
 
