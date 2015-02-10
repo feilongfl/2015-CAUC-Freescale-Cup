@@ -43,8 +43,8 @@ struct FLAdc_s//adc存储结构
 
 
 void AdcInit();//初始化
-uint16 AdcNormalizing(uint16 measure, FLAdcn_e adcn);//归一化
-
+struct FLAdc_s AdcNormalizing();//归一化
+void AdcNormalizingInit();//归一化最值设定
 
 #endif//_FL_ADC_
 
