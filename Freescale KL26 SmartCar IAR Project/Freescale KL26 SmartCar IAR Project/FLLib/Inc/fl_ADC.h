@@ -21,9 +21,9 @@ typedef enum
 {
 	OnLine,
 	LostLine,
-}FLAdcLostLine;//丢线状态枚举
+}FLAdcLostLine_e;//丢线状态枚举
 
-struct FLAdcState//adc存储结构
+struct FLAdc_s//adc存储结构
 {
 	uint16 FLAdc0;
 	uint16 FlAdc1;
@@ -31,6 +31,9 @@ struct FLAdcState//adc存储结构
 	uint16 FLAdc3;
 	uint16 FLAdc4;
 };
+
+#define FLAdcSaveFifoLength 50//adc记录缓冲区大小
+
 
 #define FlAdcBit ADC_8bit//adc位数
 #define calcualteAdc(num) ((num * 3300) / 256)//貌似是adc读取的数值转电压值的计算公式
