@@ -46,15 +46,8 @@ static struct FLAdc_s * AdcReadAll()
 struct FLAdc_s AdcMax;//最大值
 struct FLAdc_s AdcMin;//最小值
 
-//uint16 AdcNormalizing(uint16 measure, FLAdcn_e adcn)
-//{
-//	uint16 * adcMax = (uint16 *)&AdcMax;
-//	uint16 * adcMin = (uint16 *)&AdcMin;
-//	//（输入值-最小值）/（最大值 - 最小值）
-//	return (uint16)((measure - *(adcMin + (uint8)adcn)) * AdcNormalizingPrecision / (*(adcMax + (uint8)adcn) - *(adcMin + (uint8)adcn)));
-//}
 
-struct FLAdc_s AdcNormalizing()
+struct FLAdc_s AdcNormalizing()//归一化
 {
 	struct FLAdc_s adcNormalizing = *AdcReadAll();
 	uint16 * adcNormalizingAddress = (uint16*)&adcNormalizing;
@@ -63,9 +56,11 @@ struct FLAdc_s AdcNormalizing()
 	
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 	{
-		*(adcNormalizingAddress + (uint8)loopTemp) = (uint16)((*(adcNormalizingAddress + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)) * AdcNormalizingPrecision //（输入值-最小值）*精度
-													/ (*(adcMax + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)));//（最大值 - 最小值）
+		*(adcNormalizingAddress + (uint8)loopTemp) = (uint16)
+					((*(adcNormalizingAddress + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)) * AdcNormalizingPrecision //（输入值-最小值）*精度
+					/ (*(adcMax + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)));//除以（最大值 - 最小值）
 	}
+	return adcNormalizing;
 }
 
 void AdcNormalizingInit()//归一化最值设定
