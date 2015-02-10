@@ -1,5 +1,18 @@
 #include "fl_olcd.h"
 
+
+
+const char *LcdErrMsg[LcdErrNumbers] =
+{
+	"已最大!",
+	"已最小!",
+
+	"按键错误!",
+
+	"未知错误!",
+
+};//错误提示文字
+
 /************************************************************************/
 /*    字库                                                              */
 /************************************************************************/
@@ -1061,4 +1074,41 @@ void NumShow(uint16 num, uint8 x, uint8 y)
 
 	sprintf((char*)ShowTempStr, "%d", num);
 	LCD_P8x16Str(x, y, ShowTempStr);
+}
+
+
+/************************************************************************/
+/* 错误界面                     要不要加个灯呢？                        */
+/************************************************************************/
+void LcdErrShow(LcdErr_e lcdErr)
+{
+#if DEBUG//成品要不要呢
+	switch (lcdErr)
+	{
+	case LcdErrOverMax:
+		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
+		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
+		break;
+
+	case LcdErrOverMin:
+		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
+		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
+		break;
+
+	case LcdErrKeyWrong:
+		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
+		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
+		break;
+
+	case LcdErrOther:
+		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
+		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
+		break;
+
+	default:
+		DEBUG_PRINTF("%s%d", "I'm Die...\n", lcdErr);
+		ASSERT(TRUE);
+		break;
+	}
+#endif//DEBUG
 }

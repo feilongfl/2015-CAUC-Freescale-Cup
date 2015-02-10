@@ -32,7 +32,9 @@ struct FLAdc_s//adc存储结构
 	uint16 FLAdc4;
 };
 
-#define FLAdcSaveFifoLength 50//adc记录缓冲区大小
+
+
+#define FLAdcSaveBuffLength 50//adc记录缓冲区大小
 
 
 #define FlAdcBit ADC_8bit//adc位数
@@ -41,7 +43,7 @@ struct FLAdc_s//adc存储结构
 
 
 void AdcInit();//初始化
-uint16 AdcNormalizing();//归一化
+uint16 AdcNormalizing(uint16 measure, FLAdcn_e adcn);//归一化
 
 
 #endif//_FL_ADC_

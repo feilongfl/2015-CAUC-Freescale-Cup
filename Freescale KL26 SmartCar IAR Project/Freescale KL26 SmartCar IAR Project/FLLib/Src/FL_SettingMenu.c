@@ -5,18 +5,7 @@
 
 
 
-const char *LcdErrMsg[LcdErrNumbers] =
-{
-	"ÒÑ×î´ó!",
-	"ÒÑ×îÐ¡!",
-
-	"°´¼ü´íÎó!",
-
-	"Î´Öª´íÎó!",
-
-};//´íÎóÌáÊ¾ÎÄ×Ö
-
-const unsigned char * MainMenuItems[MainMenuItemNum] =
+const unsigned char * MainMenuItems[MenuMainItemNum] =
 {
 	"µç»ú",
 	"¶æ»ú",
@@ -24,7 +13,7 @@ const unsigned char * MainMenuItems[MainMenuItemNum] =
 	"ÖØÖÃÏµÍ³",
 };
 
-const unsigned char * MotorMenuItems[MotorMenuItemNum] =
+const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 {
 	"µç»úKp",
 	"µç»úKi",
@@ -32,7 +21,7 @@ const unsigned char * MotorMenuItems[MotorMenuItemNum] =
 	"ÖØÖÃµç»ú",
 };
 
-const unsigned char * SteerMenuItems[SteerMenuItemNum] =
+const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
 	"¶æ»úKp",
 	"¶æ»úKi",
@@ -40,7 +29,7 @@ const unsigned char * SteerMenuItems[SteerMenuItemNum] =
 	"ÖØÖÃ¶æ»ú",
 };
 
-const unsigned char * SpeedMenuItems[SpeedMenuItemNum] =
+const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
 {
 	"Éè¶¨ËÙ¶È",
 	"×îÐ¡ËÙ¶È",
@@ -48,7 +37,7 @@ const unsigned char * SpeedMenuItems[SpeedMenuItemNum] =
 	"ÖØÖÃËÙ¶È",
 };
 
-const unsigned char * ResetMenuItems[ResetMenuItemNum] =
+const unsigned char * ResetMenuItems[MenuResetItemNum] =
 {
 	"È¡Ïû",
 	"È¡Ïû",
@@ -74,8 +63,6 @@ static void LcdShowSteerMenu(MenuChoice_e menuChoice);
 static void LcdShowSpeedMenu(MenuChoice_e menuChoice);
 static void LcdShowResetMenu(MenuChoice_e menuChoice);
 static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice);
-
-static void LcdErrShow(LcdErr_e lcdErr);//ÎÒ¾õµÃÓ¦¸ÃÈÓÏÔÊ¾ÄÇ±ßÈ¥
 
 static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove);
 
@@ -103,7 +90,7 @@ void SettingMenuInit()
 
 static void LcdShowMainMenu(MenuChoice_e menuChoice)
 {
-	ASSERT(menuChoice >= 0 && menuChoice < MainMenuItemNum);//¶ÏÑÔ
+	ASSERT(menuChoice >= 0 && menuChoice < MenuMainItemNum);//¶ÏÑÔ
 
 	if (menuChoice == 0)//µÚÒ»Î»
 	{
@@ -111,7 +98,7 @@ static void LcdShowMainMenu(MenuChoice_e menuChoice)
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)MainMenuItems[menuChoice + 1]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)MainMenuItems[menuChoice + 2]);
 	}
-	else if (menuChoice == MainMenuItemNum - 1)//×îºóÒ»Î»
+	else if (menuChoice == MenuMainItemNum - 1)//×îºóÒ»Î»
 	{
 		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)MainMenuItems[menuChoice - 2]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)MainMenuItems[menuChoice - 1]);
@@ -127,7 +114,7 @@ static void LcdShowMainMenu(MenuChoice_e menuChoice)
 
 static void LcdShowMotorMenu(MenuChoice_e menuChoice)
 {
-	ASSERT(menuChoice < MotorMenuItemNum);//¶ÏÑÔ
+	ASSERT(menuChoice < MenuMotorItemNum);//¶ÏÑÔ
 
 	if (menuChoice == 0)//µÚÒ»Î»
 	{
@@ -135,7 +122,7 @@ static void LcdShowMotorMenu(MenuChoice_e menuChoice)
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)MotorMenuItems[menuChoice + 1]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)MotorMenuItems[menuChoice + 2]);
 	}
-	else if (menuChoice == MotorMenuItemNum - 1)//×îºóÒ»Î»
+	else if (menuChoice == MenuMotorItemNum - 1)//×îºóÒ»Î»
 	{
 		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)MotorMenuItems[menuChoice - 2]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)MotorMenuItems[menuChoice - 1]);
@@ -151,7 +138,7 @@ static void LcdShowMotorMenu(MenuChoice_e menuChoice)
 
 static void LcdShowSteerMenu(MenuChoice_e menuChoice)
 {
-	ASSERT(menuChoice < SteerMenuItemNum);//¶ÏÑÔ
+	ASSERT(menuChoice < MenuSteerItemNum);//¶ÏÑÔ
 
 	if (menuChoice == 0)//µÚÒ»Î»
 	{
@@ -159,7 +146,7 @@ static void LcdShowSteerMenu(MenuChoice_e menuChoice)
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)SteerMenuItems[menuChoice + 1]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)SteerMenuItems[menuChoice + 2]);
 	}
-	else if (menuChoice == SteerMenuItemNum - 1)//×îºóÒ»Î»
+	else if (menuChoice == MenuSteerItemNum - 1)//×îºóÒ»Î»
 	{
 		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)SteerMenuItems[menuChoice - 2]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)SteerMenuItems[menuChoice - 1]);
@@ -175,7 +162,7 @@ static void LcdShowSteerMenu(MenuChoice_e menuChoice)
 
 static void LcdShowSpeedMenu(MenuChoice_e menuChoice)
 {
-	ASSERT(menuChoice < SpeedMenuItemNum);//¶ÏÑÔ
+	ASSERT(menuChoice < MenuSpeedItemNum);//¶ÏÑÔ
 
 	if (menuChoice == 0)//µÚÒ»Î»
 	{
@@ -183,7 +170,7 @@ static void LcdShowSpeedMenu(MenuChoice_e menuChoice)
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)SpeedMenuItems[menuChoice + 1]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)SpeedMenuItems[menuChoice + 2]);
 	}
-	else if (menuChoice == SpeedMenuItemNum - 1)//×îºóÒ»Î»
+	else if (menuChoice == MenuSpeedItemNum - 1)//×îºóÒ»Î»
 	{
 		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)SpeedMenuItems[menuChoice - 2]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)SpeedMenuItems[menuChoice - 1]);
@@ -199,7 +186,7 @@ static void LcdShowSpeedMenu(MenuChoice_e menuChoice)
 
 static void LcdShowResetMenu(MenuChoice_e menuChoice)
 {
-	ASSERT(menuChoice < ResetMenuItemNum);//¶ÏÑÔ
+	ASSERT(menuChoice < MenuResetItemNum);//¶ÏÑÔ
 
 	if (menuChoice == 0)//µÚÒ»Î»
 	{
@@ -207,7 +194,7 @@ static void LcdShowResetMenu(MenuChoice_e menuChoice)
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)ResetMenuItems[menuChoice + 1]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)ResetMenuItems[menuChoice + 2]);
 	}
-	else if (menuChoice == ResetMenuItemNum - 1)//×îºóÒ»Î»
+	else if (menuChoice == MenuResetItemNum - 1)//×îºóÒ»Î»
 	{
 		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)ResetMenuItems[menuChoice - 2]);
 		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)ResetMenuItems[menuChoice - 1]);
@@ -257,41 +244,6 @@ static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//ÏÔÊ¾²Ëµ¥£
 
 }
 
-/************************************************************************/
-/* ´íÎó½çÃæ                     Òª²»Òª¼Ó¸öµÆÄØ£¿                        */
-/************************************************************************/
-static void LcdErrShow(LcdErr_e lcdErr)
-{
-#if DEBUG//³ÉÆ·Òª²»ÒªÄØ
-	switch (lcdErr)
-	{
-	case LcdErrOverMax:
-		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
-		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
-		break;
-
-	case LcdErrOverMin:
-		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
-		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
-		break;
-
-	case LcdErrKeyWrong:
-		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
-		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
-		break;
-
-	case LcdErrOther:
-		DEBUG_PRINTF("%s", LcdErrMsg[lcdErr]);
-		LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)LcdErrMsg[lcdErr]);
-		break;
-
-	default:
-		DEBUG_PRINTF("%s%d", "I'm Die...\n", lcdErr);
-		ASSERT(TRUE);
-		break;
-	}
-#endif//DEBUG
-}
 
 /************************************************************************/
 /* ²Ëµ¥¿ØÖÆ                                                             */
@@ -317,7 +269,7 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 	{
 	case MenuMain:
 		menuMoveTemp += MenuChoice.MainMenu;
-		if (menuMoveTemp >= 0 && menuMoveTemp < MainMenuItemNum)
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuMainItemNum)
 		{
 			MenuChoice.MainMenu = (MenuChoice_e)menuMoveTemp;
 		}
@@ -327,7 +279,7 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 
 	case MenuMotor:
 		menuMoveTemp += MenuChoice.MotorMenu;
-		if (menuMoveTemp >= 0 && menuMoveTemp < MotorMenuItemNum)
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuMotorItemNum)
 		{
 			MenuChoice.MotorMenu = (MenuChoice_e)menuMoveTemp;
 		}
@@ -336,7 +288,7 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 
 	case MenuSteer:
 		menuMoveTemp += MenuChoice.SteerMenu;
-		if (menuMoveTemp >= 0 && menuMoveTemp < SteerMenuItemNum)
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuSteerItemNum)
 		{
 			MenuChoice.SteerMenu = (MenuChoice_e)menuMoveTemp;
 		}
@@ -345,7 +297,7 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 
 	case MenuSpeed:
 		menuMoveTemp += MenuChoice.SpeedMenu;
-		if (menuMoveTemp >= 0 && menuMoveTemp < SpeedMenuItemNum)
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuSpeedItemNum)
 		{
 			MenuChoice.SpeedMenu = (MenuChoice_e)menuMoveTemp;
 		}
@@ -354,7 +306,7 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 
 	case MenuReset:
 		menuMoveTemp += MenuChoice.ResetMenu;
-		if (menuMoveTemp >= 0 && menuMoveTemp < ResetMenuItemNum)
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuResetItemNum)
 		{
 			MenuChoice.ResetMenu = (MenuChoice_e)menuMoveTemp;
 		}

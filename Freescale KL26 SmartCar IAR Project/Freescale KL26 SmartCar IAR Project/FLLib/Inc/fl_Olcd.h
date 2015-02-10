@@ -1,6 +1,6 @@
 
 #include "common.h"
-
+#include "fl_error.h"
 #ifdef MKL26Z4
 #include "MKL_gpio.h"
 #elif MK60F15
@@ -57,6 +57,20 @@ RD  低电平 ，也可悬空，但最好设为低电平
 #define byte unsigned char  
 #define word unsigned int   
 
+
+
+/************************************************************************/
+/* 菜单位置控制                                                         */
+/************************************************************************/
+#define LcdTitleLocal 0//标题左边距
+#define LcdMenuLocal 0//菜单左边距
+
+#define LcdTitleLine LcdLine1//标题位置
+
+#define LcdMenuLine1 LcdLine2//菜单位置
+#define LcdMenuLine2 LcdLine3
+#define LcdMenuLine3 LcdLine4
+
 typedef enum //行号，貌似只能显示四行，大的显示屏，只是尺寸大了，字还是只能显示那么多
 {
 	LcdLine1 = 0,
@@ -81,5 +95,8 @@ void NumShow(uint16 num, uint8 x, uint8 y);
 /****输出汉字和字符混合字符串******/
 void LCDPrint(byte x, byte y, byte ch[]);
 void LCDPrintInverse(byte x, byte y, byte ch[]);//反色
+
+void LcdErrShow(LcdErr_e lcdErr);
+
 
 #endif//_OLED_H_

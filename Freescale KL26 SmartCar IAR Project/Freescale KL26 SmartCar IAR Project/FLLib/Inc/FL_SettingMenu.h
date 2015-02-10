@@ -33,27 +33,34 @@ typedef enum
 	MenuMainSteer,
 	MenuMainSpeed,
 	MenuMainReset,
+	MenuMainItemNum,
 
 	//电机菜单
 	MenuMotorKp = 0,
 	MenuMotorKi,
 	MenuMotorKd,
 	MenuMotorReset,
+	MenuMotorItemNum,
 
 	//舵机菜单
 	MenuSteerKp = 0,
 	MenuSteerKi,
 	MenuSteerKd,
 	MenuSteerReset,
+	MenuSteerItemNum,
 
 	//速度菜单
 	MenuSpeedSet = 0,
+	MenuSpeedSetMax,
+	MenuSpeedSetMin,
 	MenuSpeedReset,
+	MenuSpeedItemNum,
 
 	//重置
 	MenuResetCancel1 = 0,
 	MenuResetCancel2,
 	MenuResetAccept,
+	MenuResetItemNum,
 
 }MenuChoice_e;
 
@@ -74,27 +81,9 @@ void SettingMenuQuit();
 
 
 /************************************************************************/
-/* 菜单位置控制                                                         */
-/************************************************************************/
-#define LcdTitleLocal 0//标题左边距
-#define LcdMenuLocal 0//菜单左边距
-
-#define LcdTitleLine LcdLine1//标题位置
-
-#define LcdMenuLine1 LcdLine2//菜单位置
-#define LcdMenuLine2 LcdLine3
-#define LcdMenuLine3 LcdLine4
-
-/************************************************************************/
 /* 菜单列表                                                             */
 /************************************************************************/
-#define MenuTitle "SmartCarMenu"//菜单名字的哈
-
-#define MainMenuItemNum 4
-#define MotorMenuItemNum 4
-#define SteerMenuItemNum 4
-#define SpeedMenuItemNum 4
-#define ResetMenuItemNum 3
+#define MenuTitle (unsigned char *)"SmartCarMenu"//菜单名字的哈
 
 /************************************************************************/
 /* 初始化                                                               */
