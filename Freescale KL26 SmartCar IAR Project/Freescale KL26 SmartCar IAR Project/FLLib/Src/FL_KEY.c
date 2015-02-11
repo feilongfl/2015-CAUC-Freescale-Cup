@@ -10,7 +10,7 @@ PTXn_e FLKeyPtxn[KeyMax][FLKeyRange] =
 	{ KeyLine1, KeyRank1 }/*Kp*/, { KeyLine1, KeyRank2 }/*电机*/, { KeyLine1, KeyRank3 }/*up\+1*/, { KeyLine1, KeyRank4 }/*+10*/,
 	{ KeyLine2, KeyRank1 }/*Ki*/, { KeyLine2, KeyRank2 }/*舵机*/, { KeyLine2, KeyRank3 }/*down\-1*/, { KeyLine2, KeyRank4 }/*-10*/,
 	{ KeyLine3, KeyRank1 }/*Kd*/, { KeyLine3, KeyRank2 }/*speed*/, { KeyLine3, KeyRank3 }/*back*/, { KeyLine3, KeyRank4 }/*enter*/,
-	{ KeyLine4, KeyRank1 }/*保留*/, { KeyLine4, KeyRank2 }/*保留*/, { KeyLine4, KeyRank3 }/*reset*/, { KeyLine4, KeyRank4 }/*irq*/
+	{ KeyLine4, KeyRank1 }/*保留*/, { KeyLine4, KeyRank2 }/*归一化*/, { KeyLine4, KeyRank3 }/*reset*/, { KeyLine4, KeyRank4 }/*irq、菜单*/
 };
 
 PTXn_e FLKeyPort[KeyPortMax] =
@@ -177,6 +177,20 @@ FL_KEY_e KeyScan()//遍历所有按键
 	while (TRUE)
 	{
 		for (uint8 keyTemp = 0; keyTemp < FLKeyMax; keyTemp++)
+		{
+			if (FLKeyCheck((FL_KEY_e)keyTemp) == KEY_DOWN)
+			{
+				return (FL_KEY_e)keyTemp;//终于等来了按键:)
+			}
+		}
+	}
+}
+
+FL_KEY_e KeyScanWithoutIrq()//只扫描前三个键
+{
+	while (TRUE)
+	{
+		for (uint8 keyTemp = 0; keyTemp < 3; keyTemp++)
 		{
 			if (FLKeyCheck((FL_KEY_e)keyTemp) == KEY_DOWN)
 			{

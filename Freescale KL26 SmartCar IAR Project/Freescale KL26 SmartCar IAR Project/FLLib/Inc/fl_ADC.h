@@ -1,6 +1,7 @@
 #include "common.h"
 #include "fl_cfg.h"
 #include "MKL_adc.h"
+#include "FL_Key.h"
 
 
 #ifndef _FL_ADC_
@@ -42,9 +43,11 @@ struct FLAdc_s//adc存储结构
 #define AdcNormalizingPrecision 1000//adc归一化精度
 
 
-void AdcInit();//初始化
+void AdcInit();//初始化adc通道
 struct FLAdc_s AdcNormalizing();//归一化
-void AdcNormalizingInit();//归一化最值设定
+//void AdcNormalizingOnce();//归一化最值设定
+//void AdcNormalizingExtremumClear();//清空归一化最值
+void AdcNormalizingInit();//归一化初始化
 
 #endif//_FL_ADC_
 

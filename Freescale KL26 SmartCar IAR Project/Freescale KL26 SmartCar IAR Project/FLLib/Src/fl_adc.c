@@ -63,12 +63,12 @@ struct FLAdc_s AdcNormalizing()//归一化
 	return adcNormalizing;
 }
 
-void AdcNormalizingInit()//归一化最值设定
+static void AdcNormalizingOnce()//归一化最值设定，调用之前先清空最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
 	uint16 * adcMinAddress = (uint16*)&AdcMin;
-	*adcMaxAddress = *adcMinAddress = *adcReadTemp;
+	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax;loopTemp++)
 	{
@@ -77,9 +77,53 @@ void AdcNormalizingInit()//归一化最值设定
 	}
 }
 
+static void AdcNormalizingExtremumClear()//清空归一化最值
+{
+	uint16 * adcReadTemp = (uint16*)AdcReadAll();
+	uint16 * adcMaxAddress = (uint16*)&AdcMax;
+	uint16 * adcMinAddress = (uint16*)&AdcMin;
+	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
+
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+	{
+		*(adcMaxAddress + loopTemp) = *(adcReadTemp + loopTemp);
+		*(adcMinAddress + loopTemp) = *(adcReadTemp + loopTemp);
+	}
+}
 
 
 
+void AdcNormalizingInit()
+{
+	uint8 exitFunc = FALSE;
+	AdcNormalizingExtremumClear();
+	while (TRUE)
+	{
+		if (exitFunc)//判断退出
+		{
+			break;
+		}
+
+		AdcNormalizingOnce();//归一化
+
+		//TODO:
+		//输出数据
+
+		switch (KeyScanWithoutIrq())//按键检测
+		{
+		case FLKeyReNormalizing:
+			AdcNormalizingExtremumClear();//重新归一化
+			break;
+
+		case FLKeyStartCar:
+			exitFunc = TRUE;//退出
+			break;
+
+		default:
+			break;
+		}
+	}
+}
 
 
 

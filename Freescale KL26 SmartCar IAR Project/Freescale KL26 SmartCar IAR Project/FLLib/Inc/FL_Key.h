@@ -28,7 +28,8 @@ typedef enum
 	FLKeySubtract10 = 7,//-10
 
 	FLKeyReserve1 = 12,//保留
-	FLKeyReserve2 = 13,
+
+	FLKeyNormalizing = 13,//归一化
 
 	FLKeyKp = 0,//Kp
 	FLKeyKi = 4,//Ki
@@ -44,6 +45,10 @@ typedef enum
 	FLKeyReset = 14,//恢复默认设定
 
 	FLKeyIrq = 15,//进入、退出按键中断
+	FLKeyMenu = 15,//进入、退出菜单
+
+	FLKeyReNormalizing = 0,//重新归一化
+	FLKeyStartCar = 1,//开跑了
 
 	FLKeyMax = 16,//按键总数
 } FL_KEY_e;//这里面数值需要调整一下
@@ -62,8 +67,8 @@ void FLKeyIrqEnable();
 void FLKeyIrqDisable();
 void FLIrqHandle();
 void FLIrqKeyDown();
-FL_KEY_e KeyScan();
-
+FL_KEY_e KeyScan();//扫描所有按键
+FL_KEY_e KeyScanWithoutIrq();//不扫描按键第四行
 
 
 
