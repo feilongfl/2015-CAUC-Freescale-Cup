@@ -10,6 +10,15 @@ struct FLAdc_s FLAdcLast = {
 };//最后一次adc读取数值
 
 
+uint8 LcdAdcNumLocation[FLAdcMax][2] = {
+	{ LcdLine2, LcdLocal1 },
+	{ LcdLine2, LcdLocal2 },
+	{ LcdLine2, LcdLocal3 },
+	{ LcdLine2, LcdLocal4 },
+	{ LcdLine3, LcdLocal1 },
+};//数据坐标
+
+
 FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 //给个默认值防止出现问题
 
@@ -34,10 +43,11 @@ void AdcInit()
 static struct FLAdc_s * AdcReadAll()
 {
 	uint16 * FLAdcLastAddress = (uint16 *)&FLAdcLast;
-	for (uint8 adcLoopTemp = 0; adcLoopTemp < FLAdcMax;adcLoopTemp++)
+	for (uint8 adcLoopTemp = 0; adcLoopTemp < FLAdcMax; adcLoopTemp++)
 	{
 		*FLAdcLastAddress++ = adc_once((ADCn_Ch_e)FLAdc_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
 	}
+	DELAY();
 	return &FLAdcLast;//返回保存结构体地址
 }
 
@@ -72,8 +82,8 @@ static void AdcNormalizingOnce()//归一化最值设定，调用之前先清空最值
 
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax;loopTemp++)
 	{
-		*(adcMaxAddress + loopTemp) = max(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
-		*(adcMinAddress + loopTemp) = min(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
+		*(adcMaxAddress + loopTemp) = MAX(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
+		*(adcMinAddress + loopTemp) = MIN(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
 	}
 }
 
@@ -91,26 +101,18 @@ static void AdcNormalizingExtremumClear()//清空归一化最值
 	}
 }
 
-
-unsigned char LcdAdcNumLocal[FLAdcMax][2] = {
-	{ LcdLine2, LcdLocal1 },
-	{ LcdLine2, LcdLocal2 },
-	{ LcdLine2, LcdLocal3 },
-	{ LcdLine2, LcdLocal4 },
-	{ LcdLine3, LcdLocal1 },
-};//数据坐标
-
 void LcdAdcShow(struct FLAdc_s * flAdcn)
 {
 	for (uint8 lcdShowTemp = 0; lcdShowTemp < FLAdcMax; lcdShowTemp++)
 	{
-		NumShow((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocal[lcdShowTemp][LcdLine], LcdAdcNumLocal[lcdShowTemp][LcdLocal]);
+		NumShow((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocation[lcdShowTemp][LcdLocal], LcdAdcNumLocation[lcdShowTemp][LcdLine]);
 	}
 }
 
 
 static void LCDAdcShowMaxOrMin(LcdAdcShowMaxOrMin_e lcdAdcType)
 {
+	//LcdCls();
 	switch (lcdAdcType)
 	{
 	case LcdShowMax:
@@ -135,6 +137,7 @@ void AdcNormalizingInit()
 {
 	uint8 exitFunc = FALSE;
 	LcdAdcShowMaxOrMin_e maxOrMin = LcdShowMax;//默认最大值
+	AdcInit();//如果不初始化会进入未定义中断RES(3)
 	AdcNormalizingExtremumClear();
 	while (TRUE)
 	{
@@ -161,7 +164,11 @@ void AdcNormalizingInit()
 			maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
 			break;
 
+		case FLNoKeyDown:
+			break;
+
 		default:
+			ASSERT(TRUE);
 			break;
 		}
 	}

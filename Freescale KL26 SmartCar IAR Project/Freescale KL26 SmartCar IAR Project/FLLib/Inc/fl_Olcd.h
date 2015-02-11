@@ -58,7 +58,13 @@ RD  低电平 ，也可悬空，但最好设为低电平
 #define word unsigned int   
 
 
-
+typedef enum //行号，貌似只能显示四行，大的显示屏，只是尺寸大了，字还是只能显示那么多
+{
+	LcdLine1 = 0,
+	LcdLine2 = 2,//每行占两个 
+	LcdLine3 = 4,
+	LcdLine4 = 6,
+}LcdLine_e;
 /************************************************************************/
 /* 菜单位置控制                                                         */
 /************************************************************************/
@@ -71,18 +77,12 @@ RD  低电平 ，也可悬空，但最好设为低电平
 #define LcdMenuLine2 LcdLine3
 #define LcdMenuLine3 LcdLine4
 
-typedef enum //行号，貌似只能显示四行，大的显示屏，只是尺寸大了，字还是只能显示那么多
-{
-	LcdLine1 = 0,
-	LcdLine2 = 2,//每行占两个 
-	LcdLine3 = 4,
-	LcdLine4 = 6,
-}LcdLine_e;
+
 
 #define LcdLocal1 0
-#define LcdLocal2 0
-#define LcdLocal3 0
-#define LcdLocal4 0
+#define LcdLocal2 30
+#define LcdLocal3 60
+#define LcdLocal4 90
 
 #define LcdLine 0
 #define LcdLocal 1

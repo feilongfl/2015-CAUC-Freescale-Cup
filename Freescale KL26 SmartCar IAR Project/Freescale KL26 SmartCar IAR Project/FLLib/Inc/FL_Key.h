@@ -13,7 +13,7 @@ enum//按键行列
 	FLKeyLine,//行
 	FLKeyRank,//列
 
-	FLKeyRange,
+	FLKeyPortNum,
 };
 
 typedef enum
@@ -51,6 +51,7 @@ typedef enum
 	FLKeyReNormalizing = 1,//重新归一化
 	FLKeySwitch = 2,//切换显示最大值或最小值
 
+	FLNoKeyDown = 16,//没有按键按下
 	FLKeyMax = 16,//按键总数
 } FL_KEY_e;//这里面数值需要调整一下
 

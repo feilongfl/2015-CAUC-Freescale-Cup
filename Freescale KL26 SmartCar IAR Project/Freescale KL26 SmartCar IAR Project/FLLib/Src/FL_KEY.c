@@ -5,7 +5,7 @@
 #include "fl_settingmenu.h"
 
 
-PTXn_e FLKeyPtxn[KeyMax][FLKeyRange] =
+PTXn_e FLKeyPtxn[KeyMax][FLKeyPortNum] =
 {
 	{ KeyLine1, KeyRank1 }/*Kp*/, { KeyLine1, KeyRank2 }/*电机*/, { KeyLine1, KeyRank3 }/*up\+1*/, { KeyLine1, KeyRank4 }/*+10*/,
 	{ KeyLine2, KeyRank1 }/*Ki*/, { KeyLine2, KeyRank2 }/*舵机*/, { KeyLine2, KeyRank3 }/*down\-1*/, { KeyLine2, KeyRank4 }/*-10*/,
@@ -188,16 +188,14 @@ FL_KEY_e KeyScan()//遍历所有按键
 
 FL_KEY_e KeyScanWithoutIrq()//只扫描前三个键
 {
-	while (TRUE)
+	for (uint8 keyTemp = 0; keyTemp < 3; keyTemp++)
 	{
-		for (uint8 keyTemp = 0; keyTemp < 3; keyTemp++)
+		if (FLKeyCheck((FL_KEY_e)keyTemp) == KEY_DOWN)
 		{
-			if (FLKeyCheck((FL_KEY_e)keyTemp) == KEY_DOWN)
-			{
-				return (FL_KEY_e)keyTemp;//终于等来了按键:)
-			}
+			return (FL_KEY_e)keyTemp;//终于等来了按键:)
 		}
 	}
+	return FLNoKeyDown;
 }
 
 

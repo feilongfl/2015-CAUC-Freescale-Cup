@@ -1,8 +1,8 @@
 #include "common.h"
 #include "fl_cfg.h"
+#include "fl_Olcd.h"
 #include "MKL_adc.h"
 #include "FL_Key.h"
-#include "fl_Olcd.h"
 
 
 #ifndef _FL_ADC_
@@ -47,8 +47,8 @@ struct FLAdc_s//adc存储结构
 
 void LcdAdcShow(struct FLAdc_s * flAdcn);
 
-#define LcdAdcTitleNorMax (unsigned char *)"ADC归一化--最大值"
-#define LcdAdcTitleNorMin (unsigned char *)"ADC归一化--最小值"
+#define LcdAdcTitleNorMax (unsigned char *)"归一化--最大值"
+#define LcdAdcTitleNorMin (unsigned char *)"归一化--最小值"
 
 
 
