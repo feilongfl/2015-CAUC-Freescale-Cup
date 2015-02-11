@@ -10,7 +10,7 @@
 #elif MK60DZ10
 #include "MK60_gpio.h"
 #endif
-
+//#include "fl_ADC.h"
 
 
 #ifndef _OLED_H_
@@ -79,6 +79,20 @@ typedef enum //ÐÐºÅ£¬Ã²ËÆÖ»ÄÜÏÔÊ¾ËÄÐÐ£¬´óµÄÏÔÊ¾ÆÁ£¬Ö»ÊÇ³ß´ç´óÁË£¬×Ö»¹ÊÇÖ»ÄÜÏÔÊ¾Ä
 	LcdLine4 = 6,
 }LcdLine_e;
 
+#define LcdLocal1 0
+#define LcdLocal2 0
+#define LcdLocal3 0
+#define LcdLocal4 0
+
+#define LcdLine 0
+#define LcdLocal 1
+
+typedef enum 
+{
+	LcdShowMax,
+	LcdShowMin,
+}LcdAdcShowMaxOrMin_e;//adcÊä³ö×î´ó¡¢×îÐ¡Öµ
+
 extern byte longqiu96x64[768];
 /************************************************************************/
 /* ³õÊ¼»¯Òº¾§ÆÁ                                                         */
@@ -95,6 +109,7 @@ void NumShow(uint16 num, uint8 x, uint8 y);
 /****Êä³öºº×ÖºÍ×Ö·û»ìºÏ×Ö·û´®******/
 void LCDPrint(byte x, byte y, byte ch[]);
 void LCDPrintInverse(byte x, byte y, byte ch[]);//·´É«
+
 
 void LcdErrShow(LcdErr_e lcdErr);
 

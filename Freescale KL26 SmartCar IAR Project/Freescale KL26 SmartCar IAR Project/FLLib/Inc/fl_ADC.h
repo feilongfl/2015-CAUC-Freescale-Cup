@@ -2,6 +2,7 @@
 #include "fl_cfg.h"
 #include "MKL_adc.h"
 #include "FL_Key.h"
+#include "fl_Olcd.h"
 
 
 #ifndef _FL_ADC_
@@ -41,6 +42,14 @@ struct FLAdc_s//adc存储结构
 #define FlAdcBit ADC_8bit//adc位数
 #define calcualteAdc(num) ((num * 3300) / 256)//貌似是adc读取的数值转电压值的计算公式
 #define AdcNormalizingPrecision 1000//adc归一化精度
+
+
+
+void LcdAdcShow(struct FLAdc_s * flAdcn);
+
+#define LcdAdcTitleNorMax (unsigned char *)"ADC归一化--最大值"
+#define LcdAdcTitleNorMin (unsigned char *)"ADC归一化--最小值"
+
 
 
 void AdcInit();//初始化adc通道

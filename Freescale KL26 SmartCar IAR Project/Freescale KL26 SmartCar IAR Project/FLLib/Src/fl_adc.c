@@ -92,10 +92,49 @@ static void AdcNormalizingExtremumClear()//清空归一化最值
 }
 
 
+unsigned char LcdAdcNumLocal[FLAdcMax][2] = {
+	{ LcdLine2, LcdLocal1 },
+	{ LcdLine2, LcdLocal2 },
+	{ LcdLine2, LcdLocal3 },
+	{ LcdLine2, LcdLocal4 },
+	{ LcdLine3, LcdLocal1 },
+};//数据坐标
+
+void LcdAdcShow(struct FLAdc_s * flAdcn)
+{
+	for (uint8 lcdShowTemp = 0; lcdShowTemp < FLAdcMax; lcdShowTemp++)
+	{
+		NumShow((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocal[lcdShowTemp][LcdLine], LcdAdcNumLocal[lcdShowTemp][LcdLocal]);
+	}
+}
+
+
+static void LCDAdcShowMaxOrMin(LcdAdcShowMaxOrMin_e lcdAdcType)
+{
+	switch (lcdAdcType)
+	{
+	case LcdShowMax:
+		LCDPrint(LcdTitleLocal, LcdTitleLine, LcdAdcTitleNorMax);
+		LcdAdcShow(&AdcMax);
+		break;
+
+	case LcdShowMin:
+		LCDPrint(LcdTitleLocal, LcdTitleLine, LcdAdcTitleNorMin);
+		LcdAdcShow(&AdcMin);
+		break;
+
+	default:
+		ASSERT(TRUE);
+		break;
+	}
+}
+
+
 
 void AdcNormalizingInit()
 {
 	uint8 exitFunc = FALSE;
+	LcdAdcShowMaxOrMin_e maxOrMin = LcdShowMax;//默认最大值
 	AdcNormalizingExtremumClear();
 	while (TRUE)
 	{
@@ -106,8 +145,7 @@ void AdcNormalizingInit()
 
 		AdcNormalizingOnce();//归一化
 
-		//TODO:
-		//输出数据
+		LCDAdcShowMaxOrMin(maxOrMin);//输出数据
 
 		switch (KeyScanWithoutIrq())//按键检测
 		{
@@ -117,6 +155,10 @@ void AdcNormalizingInit()
 
 		case FLKeyStartCar:
 			exitFunc = TRUE;//退出
+			break;
+
+		case FLKeySwitch://切换显示
+			maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
 			break;
 
 		default:

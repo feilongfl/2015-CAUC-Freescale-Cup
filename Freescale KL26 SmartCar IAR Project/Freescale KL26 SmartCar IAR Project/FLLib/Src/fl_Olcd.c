@@ -1112,3 +1112,4 @@ void LcdErrShow(LcdErr_e lcdErr)
 	}
 #endif//DEBUG
 }
+
