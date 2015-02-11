@@ -61,11 +61,14 @@
     <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a">
       <Filter>CMSIS</Filter>
     </None>
-    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书.docx">
-      <Filter>说明文档\键盘</Filter>
-    </None>
     <None Include="design\架构\架构.docx">
       <Filter>说明文档\架构</Filter>
+    </None>
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V1.docx">
+      <Filter>说明文档\键盘</Filter>
+    </None>
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V2.docx">
+      <Filter>说明文档\键盘</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

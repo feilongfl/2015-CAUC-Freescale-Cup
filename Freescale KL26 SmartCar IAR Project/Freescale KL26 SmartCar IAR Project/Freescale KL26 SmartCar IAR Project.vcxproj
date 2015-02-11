@@ -71,7 +71,8 @@
   <ItemGroup>
     <None Include="Chip\Src\IAR\startup_MKL.s" />
     <None Include="design\架构\架构.docx" />
-    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书.docx" />
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V1.docx" />
+    <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V2.docx" />
     <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a" />
     <None Include="VCAN_KL.eww" />
   </ItemGroup>

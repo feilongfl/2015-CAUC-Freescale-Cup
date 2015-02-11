@@ -47,7 +47,7 @@ typedef enum
 	FLKeyIrq = 15,//进入、退出按键中断
 	FLKeyMenu = 15,//进入、退出菜单
 
-	FLKeyStartCar = 0,//开跑了
+	FLKeyAdcNorExit = 0,//开跑了
 	FLKeyReNormalizing = 1,//重新归一化
 	FLKeySwitch = 2,//切换显示最大值或最小值
 

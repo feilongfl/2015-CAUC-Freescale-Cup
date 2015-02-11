@@ -157,7 +157,7 @@ void AdcNormalizingInit()
 			AdcNormalizingExtremumClear();//重新归一化
 			break;
 
-		case FLKeyStartCar:
+		case FLKeyAdcNorExit:
 			exitFunc = TRUE;//退出
 			break;
 
