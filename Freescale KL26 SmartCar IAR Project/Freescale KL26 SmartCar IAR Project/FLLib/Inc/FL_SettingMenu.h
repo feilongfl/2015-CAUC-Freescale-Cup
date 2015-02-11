@@ -32,6 +32,7 @@ typedef enum
 	MenuMainMotor = 0,
 	MenuMainSteer,
 	MenuMainSpeed,
+	MenuMainAdcNor,
 	MenuMainReset,
 	MenuMainItemNum,
 

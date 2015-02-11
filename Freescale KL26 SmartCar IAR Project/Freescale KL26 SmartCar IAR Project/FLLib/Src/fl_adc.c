@@ -137,6 +137,7 @@ void AdcNormalizingInit()
 {
 	uint8 exitFunc = FALSE;
 	LcdAdcShowMaxOrMin_e maxOrMin = LcdShowMax;//默认最大值
+	LcdCls();
 	AdcInit();//如果不初始化会进入未定义中断RES(3)
 	AdcNormalizingExtremumClear();
 	while (TRUE)
@@ -172,6 +173,7 @@ void AdcNormalizingInit()
 			break;
 		}
 	}
+	LcdCls();
 }
 
 

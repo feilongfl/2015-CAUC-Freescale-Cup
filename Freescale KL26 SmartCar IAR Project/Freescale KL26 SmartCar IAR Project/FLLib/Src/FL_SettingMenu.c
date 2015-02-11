@@ -7,9 +7,10 @@
 
 const unsigned char * MainMenuItems[MenuMainItemNum] =
 {
-	"电机",
-	"舵机",
-	"车速",
+	"电机设置",
+	"舵机设置",
+	"车速设置",
+	"归一化",
 	"重置系统",
 };
 
@@ -393,6 +394,11 @@ static uint8 MenuMotorOperate()
 			LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
 			break;
 
+		case FLKeyNormalizing:
+			AdcNormalizingInit();
+			LcdShowMenu(MenuMain, MenuChoice.MainMenu);//返回菜单
+			break;
+
 		default:
 			LcdErrShow(LcdErrKeyWrong);
 			break;
@@ -658,6 +664,11 @@ static void MenuMainOperate()
 				MenuChoice.ResetMenu = (MenuChoice_e)0;
 				LcdShowMenu(MenuReset, MenuChoice.ResetMenu);
 				exitFunc = MenuResetOperate();
+				break;
+
+			case MenuMainAdcNor:
+				AdcNormalizingInit();
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
 				break;
 
 			default:
