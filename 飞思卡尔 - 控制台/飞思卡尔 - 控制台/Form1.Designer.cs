@@ -187,6 +187,9 @@
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBoxOscMax = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -2471,6 +2474,9 @@
             // 
             // splitContainer6.Panel1
             // 
+            this.splitContainer6.Panel1.Controls.Add(this.label15);
+            this.splitContainer6.Panel1.Controls.Add(this.comboBoxOscMax);
+            this.splitContainer6.Panel1.Controls.Add(this.label14);
             this.splitContainer6.Panel1.Controls.Add(this.comboBoxOscRes);
             this.splitContainer6.Panel1.Controls.Add(this.checkBoxData8);
             this.splitContainer6.Panel1.Controls.Add(this.checkBoxData4);
@@ -2491,6 +2497,7 @@
             // 
             // comboBoxOscRes
             // 
+            this.comboBoxOscRes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOscRes.FormattingEnabled = true;
             this.comboBoxOscRes.Items.AddRange(new object[] {
             "100",
@@ -2626,6 +2633,7 @@
             // timerStatusStripTimeShow
             // 
             this.timerStatusStripTimeShow.Enabled = true;
+            this.timerStatusStripTimeShow.Interval = 200;
             this.timerStatusStripTimeShow.Tick += new System.EventHandler(this.timerStatusStripTimeShow_Tick);
             // 
             // timerFindSerialPort
@@ -2641,6 +2649,46 @@
             // backgroundWorkerSetBlueTooth
             // 
             this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(277, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "分辨率：";
+            // 
+            // comboBoxOscMax
+            // 
+            this.comboBoxOscMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOscMax.FormattingEnabled = true;
+            this.comboBoxOscMax.Items.AddRange(new object[] {
+            "2",
+            "5",
+            "10",
+            "20",
+            "50",
+            "100",
+            "200",
+            "500",
+            "1000"});
+            this.comboBoxOscMax.Location = new System.Drawing.Point(220, 2);
+            this.comboBoxOscMax.Name = "comboBoxOscMax";
+            this.comboBoxOscMax.Size = new System.Drawing.Size(55, 20);
+            this.comboBoxOscMax.TabIndex = 2;
+            this.comboBoxOscMax.Text = "100";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(167, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "最大值：";
             // 
             // Form1
             // 
@@ -2880,6 +2928,9 @@
         private System.Windows.Forms.CheckBox checkBoxData1;
         private System.Windows.Forms.PictureBox pictureBoxOsc;
         private System.Windows.Forms.ComboBox comboBoxOscRes;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox comboBoxOscMax;
+        private System.Windows.Forms.Label label14;
     }
 }
 
