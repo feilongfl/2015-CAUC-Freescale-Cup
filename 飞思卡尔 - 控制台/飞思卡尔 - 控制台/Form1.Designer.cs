@@ -42,6 +42,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxClearBits = new System.Windows.Forms.TextBox();
+            this.checkBoxReLink = new System.Windows.Forms.CheckBox();
             this.checkBoxRevToSend = new System.Windows.Forms.CheckBox();
             this.checkBoxSendAndClearRev = new System.Windows.Forms.CheckBox();
             this.checkBoxClear = new System.Windows.Forms.CheckBox();
@@ -136,6 +137,10 @@
             this.buttonRemoteRight = new System.Windows.Forms.Button();
             this.buttonRemoteLeft = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.buttonReset = new System.Windows.Forms.Button();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.buttonAdcNor = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button28 = new System.Windows.Forms.Button();
             this.domainUpDownSteerKd = new System.Windows.Forms.DomainUpDown();
@@ -165,16 +170,23 @@
             this.tabPageSmartCar = new System.Windows.Forms.TabPage();
             this.小车轨迹 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
+            this.comboBoxOscRes = new System.Windows.Forms.ComboBox();
+            this.checkBoxData8 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData4 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData7 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData6 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxData5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxOscEnable = new System.Windows.Forms.CheckBox();
+            this.checkBoxData1 = new System.Windows.Forms.CheckBox();
+            this.pictureBoxOsc = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timerStatusStripTimeShow = new System.Windows.Forms.Timer(this.components);
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
-            this.checkBoxReLink = new System.Windows.Forms.CheckBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.buttonAdcNor = new System.Windows.Forms.Button();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.buttonReset = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -208,6 +220,8 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -215,8 +229,12 @@
             this.groupBox9.SuspendLayout();
             this.tabPageSmartCar.SuspendLayout();
             this.小车轨迹.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.groupBox12.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
+            this.splitContainer6.Panel1.SuspendLayout();
+            this.splitContainer6.Panel2.SuspendLayout();
+            this.splitContainer6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOsc)).BeginInit();
             this.SuspendLayout();
             // 
             // saveFileDialog1
@@ -323,6 +341,18 @@
             this.textBoxClearBits.Size = new System.Drawing.Size(30, 21);
             this.textBoxClearBits.TabIndex = 4;
             this.textBoxClearBits.Text = "0A";
+            // 
+            // checkBoxReLink
+            // 
+            this.checkBoxReLink.AutoSize = true;
+            this.checkBoxReLink.Checked = true;
+            this.checkBoxReLink.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxReLink.Location = new System.Drawing.Point(6, 107);
+            this.checkBoxReLink.Name = "checkBoxReLink";
+            this.checkBoxReLink.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxReLink.TabIndex = 3;
+            this.checkBoxReLink.Text = "断开重连";
+            this.checkBoxReLink.UseVisualStyleBackColor = true;
             // 
             // checkBoxRevToSend
             // 
@@ -558,6 +588,7 @@
             // 
             // textBoxAutoSaveFileLocal
             // 
+            this.textBoxAutoSaveFileLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAutoSaveFileLocal.Location = new System.Drawing.Point(141, 4);
             this.textBoxAutoSaveFileLocal.Name = "textBoxAutoSaveFileLocal";
             this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(338, 21);
@@ -565,6 +596,7 @@
             // 
             // checkBoxAutoSave
             // 
+            this.checkBoxAutoSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxAutoSave.AutoSize = true;
             this.checkBoxAutoSave.Location = new System.Drawing.Point(7, 6);
             this.checkBoxAutoSave.Name = "checkBoxAutoSave";
@@ -576,6 +608,7 @@
             // 
             // buttonOpenFile
             // 
+            this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOpenFile.Location = new System.Drawing.Point(520, 3);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(64, 23);
@@ -586,6 +619,7 @@
             // 
             // buttonSetRevFileDir
             // 
+            this.buttonSetRevFileDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSetRevFileDir.Location = new System.Drawing.Point(481, 3);
             this.buttonSetRevFileDir.Name = "buttonSetRevFileDir";
             this.buttonSetRevFileDir.Size = new System.Drawing.Size(37, 23);
@@ -596,6 +630,7 @@
             // 
             // buttonSaveRev
             // 
+            this.buttonSaveRev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSaveRev.Location = new System.Drawing.Point(586, 3);
             this.buttonSaveRev.Name = "buttonSaveRev";
             this.buttonSaveRev.Size = new System.Drawing.Size(75, 23);
@@ -606,6 +641,7 @@
             // 
             // buttonRevClear
             // 
+            this.buttonRevClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRevClear.Location = new System.Drawing.Point(663, 3);
             this.buttonRevClear.Name = "buttonRevClear";
             this.buttonRevClear.Size = new System.Drawing.Size(75, 23);
@@ -619,6 +655,7 @@
             this.richTextBoxRev.BackColor = System.Drawing.Color.Black;
             this.richTextBoxRev.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxRev.ForeColor = System.Drawing.Color.White;
+            this.richTextBoxRev.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.richTextBoxRev.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxRev.Name = "richTextBoxRev";
             this.richTextBoxRev.Size = new System.Drawing.Size(745, 142);
@@ -677,6 +714,7 @@
             this.richTextBoxSend.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBoxSend.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxSend.ForeColor = System.Drawing.Color.White;
+            this.richTextBoxSend.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.richTextBoxSend.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxSend.Name = "richTextBoxSend";
             this.richTextBoxSend.Size = new System.Drawing.Size(596, 150);
@@ -1370,6 +1408,46 @@
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "参数设置";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.buttonReset);
+            this.groupBox12.Location = new System.Drawing.Point(348, 68);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(92, 47);
+            this.groupBox12.TabIndex = 1;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "小车";
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(6, 16);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 3;
+            this.buttonReset.Text = "重启";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.buttonAdcNor);
+            this.groupBox11.Location = new System.Drawing.Point(348, 15);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(92, 47);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "电感";
+            // 
+            // buttonAdcNor
+            // 
+            this.buttonAdcNor.Location = new System.Drawing.Point(6, 16);
+            this.buttonAdcNor.Name = "buttonAdcNor";
+            this.buttonAdcNor.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdcNor.TabIndex = 3;
+            this.buttonAdcNor.Text = "归一化";
+            this.buttonAdcNor.UseVisualStyleBackColor = true;
+            this.buttonAdcNor.Click += new System.EventHandler(this.buttonAdcNor_Click);
             // 
             // groupBox8
             // 
@@ -2374,6 +2452,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.splitContainer6);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -2381,6 +2460,158 @@
             this.tabPage5.TabIndex = 0;
             this.tabPage5.Text = "虚拟示波器";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer6
+            // 
+            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer6.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer6.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer6.Name = "splitContainer6";
+            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer6.Panel1
+            // 
+            this.splitContainer6.Panel1.Controls.Add(this.comboBoxOscRes);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData8);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData4);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData7);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData3);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData6);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData2);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData5);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxOscEnable);
+            this.splitContainer6.Panel1.Controls.Add(this.checkBoxData1);
+            // 
+            // splitContainer6.Panel2
+            // 
+            this.splitContainer6.Panel2.Controls.Add(this.pictureBoxOsc);
+            this.splitContainer6.Size = new System.Drawing.Size(925, 337);
+            this.splitContainer6.SplitterDistance = 25;
+            this.splitContainer6.TabIndex = 0;
+            // 
+            // comboBoxOscRes
+            // 
+            this.comboBoxOscRes.FormattingEnabled = true;
+            this.comboBoxOscRes.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "500",
+            "1000"});
+            this.comboBoxOscRes.Location = new System.Drawing.Point(330, 2);
+            this.comboBoxOscRes.Name = "comboBoxOscRes";
+            this.comboBoxOscRes.Size = new System.Drawing.Size(55, 20);
+            this.comboBoxOscRes.TabIndex = 2;
+            this.comboBoxOscRes.Text = "100";
+            // 
+            // checkBoxData8
+            // 
+            this.checkBoxData8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData8.AutoSize = true;
+            this.checkBoxData8.Location = new System.Drawing.Point(862, 3);
+            this.checkBoxData8.Name = "checkBoxData8";
+            this.checkBoxData8.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData8.TabIndex = 0;
+            this.checkBoxData8.Text = "数据八";
+            this.checkBoxData8.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData4
+            // 
+            this.checkBoxData4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData4.AutoSize = true;
+            this.checkBoxData4.Location = new System.Drawing.Point(598, 3);
+            this.checkBoxData4.Name = "checkBoxData4";
+            this.checkBoxData4.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData4.TabIndex = 0;
+            this.checkBoxData4.Text = "数据四";
+            this.checkBoxData4.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData7
+            // 
+            this.checkBoxData7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData7.AutoSize = true;
+            this.checkBoxData7.Location = new System.Drawing.Point(796, 3);
+            this.checkBoxData7.Name = "checkBoxData7";
+            this.checkBoxData7.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData7.TabIndex = 0;
+            this.checkBoxData7.Text = "数据七";
+            this.checkBoxData7.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData3
+            // 
+            this.checkBoxData3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData3.AutoSize = true;
+            this.checkBoxData3.Location = new System.Drawing.Point(532, 3);
+            this.checkBoxData3.Name = "checkBoxData3";
+            this.checkBoxData3.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData3.TabIndex = 0;
+            this.checkBoxData3.Text = "数据三";
+            this.checkBoxData3.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData6
+            // 
+            this.checkBoxData6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData6.AutoSize = true;
+            this.checkBoxData6.Location = new System.Drawing.Point(730, 3);
+            this.checkBoxData6.Name = "checkBoxData6";
+            this.checkBoxData6.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData6.TabIndex = 0;
+            this.checkBoxData6.Text = "数据六";
+            this.checkBoxData6.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData2
+            // 
+            this.checkBoxData2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData2.AutoSize = true;
+            this.checkBoxData2.Location = new System.Drawing.Point(466, 3);
+            this.checkBoxData2.Name = "checkBoxData2";
+            this.checkBoxData2.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData2.TabIndex = 0;
+            this.checkBoxData2.Text = "数据二";
+            this.checkBoxData2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData5
+            // 
+            this.checkBoxData5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData5.AutoSize = true;
+            this.checkBoxData5.Location = new System.Drawing.Point(664, 3);
+            this.checkBoxData5.Name = "checkBoxData5";
+            this.checkBoxData5.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData5.TabIndex = 0;
+            this.checkBoxData5.Text = "数据五";
+            this.checkBoxData5.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOscEnable
+            // 
+            this.checkBoxOscEnable.AutoSize = true;
+            this.checkBoxOscEnable.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxOscEnable.Name = "checkBoxOscEnable";
+            this.checkBoxOscEnable.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxOscEnable.TabIndex = 0;
+            this.checkBoxOscEnable.Text = "启用";
+            this.checkBoxOscEnable.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxData1
+            // 
+            this.checkBoxData1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxData1.AutoSize = true;
+            this.checkBoxData1.Location = new System.Drawing.Point(400, 3);
+            this.checkBoxData1.Name = "checkBoxData1";
+            this.checkBoxData1.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxData1.TabIndex = 0;
+            this.checkBoxData1.Text = "数据一";
+            this.checkBoxData1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxOsc
+            // 
+            this.pictureBoxOsc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxOsc.Image = global::飞思卡尔___控制台.Properties.Resources._104111s1s8gcojcsssgyjo;
+            this.pictureBoxOsc.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxOsc.Name = "pictureBoxOsc";
+            this.pictureBoxOsc.Size = new System.Drawing.Size(925, 308);
+            this.pictureBoxOsc.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxOsc.TabIndex = 0;
+            this.pictureBoxOsc.TabStop = false;
+            this.pictureBoxOsc.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxOsc_Paint);
             // 
             // tabPage6
             // 
@@ -2395,7 +2626,6 @@
             // timerStatusStripTimeShow
             // 
             this.timerStatusStripTimeShow.Enabled = true;
-            this.timerStatusStripTimeShow.Interval = 1000;
             this.timerStatusStripTimeShow.Tick += new System.EventHandler(this.timerStatusStripTimeShow_Tick);
             // 
             // timerFindSerialPort
@@ -2411,58 +2641,6 @@
             // backgroundWorkerSetBlueTooth
             // 
             this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
-            // 
-            // checkBoxReLink
-            // 
-            this.checkBoxReLink.AutoSize = true;
-            this.checkBoxReLink.Checked = true;
-            this.checkBoxReLink.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxReLink.Location = new System.Drawing.Point(6, 107);
-            this.checkBoxReLink.Name = "checkBoxReLink";
-            this.checkBoxReLink.Size = new System.Drawing.Size(72, 16);
-            this.checkBoxReLink.TabIndex = 3;
-            this.checkBoxReLink.Text = "断开重连";
-            this.checkBoxReLink.UseVisualStyleBackColor = true;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.buttonAdcNor);
-            this.groupBox11.Location = new System.Drawing.Point(348, 15);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(92, 47);
-            this.groupBox11.TabIndex = 1;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "电感";
-            // 
-            // buttonAdcNor
-            // 
-            this.buttonAdcNor.Location = new System.Drawing.Point(6, 16);
-            this.buttonAdcNor.Name = "buttonAdcNor";
-            this.buttonAdcNor.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdcNor.TabIndex = 3;
-            this.buttonAdcNor.Text = "归一化";
-            this.buttonAdcNor.UseVisualStyleBackColor = true;
-            this.buttonAdcNor.Click += new System.EventHandler(this.buttonAdcNor_Click);
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.buttonReset);
-            this.groupBox12.Location = new System.Drawing.Point(348, 68);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(92, 47);
-            this.groupBox12.TabIndex = 1;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "小车";
-            // 
-            // buttonReset
-            // 
-            this.buttonReset.Location = new System.Drawing.Point(6, 16);
-            this.buttonReset.Name = "buttonReset";
-            this.buttonReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonReset.TabIndex = 3;
-            this.buttonReset.Text = "重启";
-            this.buttonReset.UseVisualStyleBackColor = true;
-            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
             // 
             // Form1
             // 
@@ -2519,6 +2697,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -2529,8 +2709,13 @@
             this.groupBox9.PerformLayout();
             this.tabPageSmartCar.ResumeLayout(false);
             this.小车轨迹.ResumeLayout(false);
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.splitContainer6.Panel1.ResumeLayout(false);
+            this.splitContainer6.Panel1.PerformLayout();
+            this.splitContainer6.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
+            this.splitContainer6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOsc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2683,6 +2868,18 @@
         private System.Windows.Forms.Button buttonAdcNor;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Button buttonReset;
+        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.CheckBox checkBoxData8;
+        private System.Windows.Forms.CheckBox checkBoxData4;
+        private System.Windows.Forms.CheckBox checkBoxData7;
+        private System.Windows.Forms.CheckBox checkBoxData3;
+        private System.Windows.Forms.CheckBox checkBoxData6;
+        private System.Windows.Forms.CheckBox checkBoxData2;
+        private System.Windows.Forms.CheckBox checkBoxData5;
+        private System.Windows.Forms.CheckBox checkBoxOscEnable;
+        private System.Windows.Forms.CheckBox checkBoxData1;
+        private System.Windows.Forms.PictureBox pictureBoxOsc;
+        private System.Windows.Forms.ComboBox comboBoxOscRes;
     }
 }
 

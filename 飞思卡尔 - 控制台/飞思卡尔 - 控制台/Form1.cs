@@ -20,6 +20,39 @@ namespace 飞思卡尔___控制台
         FileStream saveStream;
         StreamWriter saveWritter;
 
+        private bool SaveData = false;
+        string LineDataRev ;
+        string[] LineDataRevArr;
+        string[,] LineDataRevArrs = new string[10000,8];
+
+        Int32[] LineDataArr1 = new Int32[10000];
+        Int32[] LineDataArr2 = new Int32[10000];
+        Int32[] LineDataArr3 = new Int32[10000];
+        Int32[] LineDataArr4 = new Int32[10000];
+        Int32[] LineDataArr5 = new Int32[10000];
+        Int32[] LineDataArr6 = new Int32[10000];
+        Int32[] LineDataArr7 = new Int32[10000];
+        Int32[] LineDataArr8 = new Int32[10000];
+
+        Pen pen1 = new Pen(Brushes.Black, 5);
+        Pen pen2 = new Pen(Brushes.Red, 5);
+        Pen pen3 = new Pen(Brushes.Orange, 5);
+        Pen pen4 = new Pen(Brushes.Blue, 5);
+        Pen pen5 = new Pen(Brushes.Brown, 5);
+        Pen pen6 = new Pen(Brushes.Green, 5);
+        Pen pen7 = new Pen(Brushes.Purple, 5);
+        Pen pen8 = new Pen(Brushes.Pink, 5);
+
+        Point[] Line1 = new Point[10000];
+        Point[] Line2 = new Point[10000];
+        Point[] Line3 = new Point[10000];
+        Point[] Line4 = new Point[10000];
+        Point[] Line5 = new Point[10000];
+        Point[] Line6 = new Point[10000];
+        Point[] Line7 = new Point[10000];
+        Point[] Line8 = new Point[10000];
+
+
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +95,50 @@ namespace 飞思卡尔___控制台
                     }
                 }
 
+                if (checkBoxOscEnable.Checked)
+                {
+                    //TODO
+                    if (SaveData)
+                    {
+                        //$1,2,3,4,5,6,7,8#
+                        if (letter == '#')
+                        {
+                            //停
+                            SaveData = false;
+                            LineDataRevArr = LineDataRev.Split(',');
+                            if (LineDataRevArr.Length == 8)
+                            {
+                                for (int loopTemp = 0; loopTemp + 1 < Convert.ToInt32(comboBoxOscRes.Text); loopTemp++)
+                                {
+                                    for (int i = 0; i < 8; i++)
+                                    {
+                                        LineDataRevArrs[loopTemp,i] = LineDataRevArrs[loopTemp + 1,i];
+                                    }
+                                }
+                                for (int i = 0; i < 8; i++)
+                                {
+                                    LineDataRevArrs[Convert.ToInt32(comboBoxOscRes.Text) - 1, i] = LineDataRevArr[i];
+                                }
+                            }
+                            LineDataRev = "";
+                        }
+                        else if ((Convert.ToInt32(letter) >= 48 &&Convert.ToInt32(letter) <= 57) || letter == ',')
+                        {
+                            LineDataRev += letter.ToString();
+                        }
+                        else
+                        {
+                            SaveData = false;
+                            LineDataRev = "";
+                        }
+                    }
+                    if (letter == '$')
+                    {
+                        LineDataRev = "";
+                        SaveData = true;
+                    }
+                }
+
                 if (writeFile)
                 {
                     saveWritter.Write(letter);
@@ -74,6 +151,7 @@ namespace 飞思卡尔___控制台
         private void timerStatusStripTimeShow_Tick(object sender, EventArgs e)
         {
             toolStripStatusLabelTime.Text = DateTime.Now.ToString();
+            pictureBoxOsc.Refresh();
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -448,15 +526,15 @@ namespace 飞思卡尔___控制台
                           "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
                         serialPort1.Write("AT");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
                         serialPort1.Write("AT+VERSION");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
                         serialPort1.Write("AT+BAUD8");//115200
-                        Thread.Sleep(1000);
+                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
                         serialPort1.Write("AT+NAMEFLSmartCar");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
                         serialPort1.Write("AT+PIN0000");
-                        Thread.Sleep(1000);
+                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
                         serialPort1.Write("AT+PN");
                     }
                 }
@@ -612,6 +690,109 @@ namespace 飞思卡尔___控制台
         private void buttonReset_Click(object sender, EventArgs e)
         {
             SerialPortWrite("RS");
+        }
+                        
+        private void pictureBoxOsc_Paint(object sender, PaintEventArgs e)
+        {
+            if (checkBoxOscEnable.Checked)
+            {
+
+                if(checkBoxData1.Checked)
+                {
+                    Line1[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line1[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 0]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line1[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line1[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 0]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen1, Line1[lineLoopTemp], Line1[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData2.Checked)
+                {
+                    Line2[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line2[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 1]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line2[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line2[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 1]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen2, Line2[lineLoopTemp], Line2[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData3.Checked)
+                {
+                    Line3[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line3[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 2]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line3[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line3[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 2]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen3, Line3[lineLoopTemp], Line3[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData4.Checked)
+                {
+                    Line4[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line4[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 3]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line4[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line4[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 3]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen4, Line4[lineLoopTemp], Line4[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData5.Checked)
+                {
+                    Line5[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line5[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 4]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line5[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line5[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 4]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen5, Line5[lineLoopTemp], Line5[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData6.Checked)
+                {
+                    Line6[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line6[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 5]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line6[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line6[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 5]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen6, Line6[lineLoopTemp], Line6[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData7.Checked)
+                {
+                    Line7[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line7[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 6]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line7[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line7[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 6]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen7, Line7[lineLoopTemp], Line7[lineLoopTemp - 1]);
+                    }
+                }
+
+                if (checkBoxData8.Checked)
+                {
+                    Line8[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line8[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 7]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    {
+                        Line8[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line8[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 7]) * (pictureBoxOsc.Height - 50) / 100 + 25);
+                        e.Graphics.DrawLine(pen8, Line8[lineLoopTemp], Line8[lineLoopTemp - 1]);
+                    }
+                }
+            }
         }
 
 
