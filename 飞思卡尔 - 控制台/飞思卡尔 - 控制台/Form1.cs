@@ -108,6 +108,65 @@ namespace 飞思卡尔___控制台
         {
             comboBoxPortName.Items.Clear();
             comboBoxPortName.Items.AddRange(SerialPort.GetPortNames());
+
+            if (!serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.PortName = comboBoxPortName.Text;
+                    serialPort1.BaudRate = Convert.ToInt32(comboBoxBaudRate.Text);
+                    serialPort1.DataBits = Convert.ToInt32(comboBoxDataBits.Text);
+                    switch (comboBoxParity.Text)
+                    {
+                        case "无校验":
+                            serialPort1.Parity = Parity.None;
+                            break;
+
+                        case "奇校验":
+                            serialPort1.Parity = Parity.Odd;
+                            break;
+
+                        case "偶校验":
+                            serialPort1.Parity = Parity.Even;
+                            break;
+
+                        default:
+                            serialPort1.Parity = Parity.None;
+                            break;
+                    }
+
+                    switch (comboBoxStopBits.Text)
+                    {
+                        case "None":
+                            serialPort1.StopBits = StopBits.None;
+                            break;
+
+                        case "One":
+                            serialPort1.StopBits = StopBits.One;
+                            break;
+
+                        case "OnePonitFive":
+                            serialPort1.StopBits = StopBits.OnePointFive;
+                            break;
+
+                        case "Two":
+                            serialPort1.StopBits = StopBits.Two;
+                            break;
+
+                        default:
+                            serialPort1.StopBits = StopBits.None;
+                            break;
+                    }
+
+                    serialPort1.Open();
+                    buttonOpenSerialPort.Text = "关闭串口";
+
+                }
+                catch
+                {
+                    buttonOpenSerialPort.Text = "打开串口";
+                }
+            }
         }
 
         private void buttonSerialPort_Click(object sender, EventArgs e)
@@ -171,6 +230,7 @@ namespace 飞思卡尔___控制台
                 }
                 catch (SystemException se)
                 {
+                    buttonOpenSerialPort.Text = "打开串口";
                     MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
                 }
 
@@ -413,6 +473,313 @@ namespace 飞思卡尔___控制台
                 MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
             }
         }
+
+        private void buttonRemoteup_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("U");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteup_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("u");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeftUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("LU");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeftUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("lu");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRightUp_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("RU");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRightUp_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("ru");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeft_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("L");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeft_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("l");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteStop_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("s");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteStart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("S");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("R");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRight_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("r");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeftDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("LD");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteLeftDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("ld");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("D");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("d");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRightDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("RD");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonRemoteRightDown_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("rd");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownMotorKp_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("MP" + domainUpDownMotorKp.Text.Remove(0, 2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownMotorKi_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("MI" + domainUpDownMotorKi.Text.Remove(0, 2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownMotorKd_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("MD" + domainUpDownMotorKd.Text.Remove(0, 2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownMotorSpeed_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("MS" + domainUpDownMotorSpeed.Text);
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownSteerKp_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("SP" + domainUpDownSteerKp.Text.Remove(0, 2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownSteerKi_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("SI" + domainUpDownSteerKi.Text.Remove(0, 2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void domainUpDownSteerKd_SelectedItemChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.Write("SD" + domainUpDownSteerKd.Text.Remove(0,2));
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
+        private void toolStripStatusLabelLogo_Click(object sender, EventArgs e)
+        {
+            AboutBox1 aboutBox = new AboutBox1();
+            aboutBox.ShowDialog(this);
+        }
+
 
     }
 }

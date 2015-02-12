@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("飞思卡尔 - 控制台")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("我眼中最好用的串口调试助手。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("飞龙")]
 [assembly: AssemblyProduct("飞思卡尔 - 控制台")]
