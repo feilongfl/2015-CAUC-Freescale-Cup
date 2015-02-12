@@ -41,8 +41,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxClearBits = new System.Windows.Forms.TextBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRevToSend = new System.Windows.Forms.CheckBox();
+            this.checkBoxSendAndClearRev = new System.Windows.Forms.CheckBox();
             this.checkBoxClear = new System.Windows.Forms.CheckBox();
             this.checkBoxRevHex = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -63,17 +63,17 @@
             this.textBoxAutoSaveFileLocal = new System.Windows.Forms.TextBox();
             this.checkBox27 = new System.Windows.Forms.CheckBox();
             this.buttonSetRevFileDir = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.buttonRevClear = new System.Windows.Forms.Button();
             this.richTextBoxRev = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.richTextBoxSend = new System.Windows.Forms.RichTextBox();
+            this.buttonSendSingle = new System.Windows.Forms.Button();
+            this.buttonSendClear = new System.Windows.Forms.Button();
+            this.checkBoxAutoSendSingle = new System.Windows.Forms.CheckBox();
+            this.comboBoxAutoSendSingleTime = new System.Windows.Forms.ComboBox();
+            this.checkBoxSendHex = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button9 = new System.Windows.Forms.Button();
@@ -158,6 +158,7 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.timerStatusStripTimeShow = new System.Windows.Forms.Timer(this.components);
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
+            this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -273,8 +274,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBoxClearBits);
-            this.groupBox2.Controls.Add(this.checkBox4);
-            this.groupBox2.Controls.Add(this.checkBox3);
+            this.groupBox2.Controls.Add(this.checkBoxRevToSend);
+            this.groupBox2.Controls.Add(this.checkBoxSendAndClearRev);
             this.groupBox2.Controls.Add(this.checkBoxClear);
             this.groupBox2.Controls.Add(this.checkBoxRevHex);
             this.groupBox2.Controls.Add(this.label6);
@@ -288,32 +289,31 @@
             // 
             // textBoxClearBits
             // 
-            this.textBoxClearBits.Enabled = false;
             this.textBoxClearBits.Location = new System.Drawing.Point(63, 40);
             this.textBoxClearBits.Name = "textBoxClearBits";
             this.textBoxClearBits.Size = new System.Drawing.Size(30, 21);
             this.textBoxClearBits.TabIndex = 4;
             this.textBoxClearBits.Text = "0A";
             // 
-            // checkBox4
+            // checkBoxRevToSend
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(6, 86);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(72, 16);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "接收回发";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBoxRevToSend.AutoSize = true;
+            this.checkBoxRevToSend.Location = new System.Drawing.Point(6, 86);
+            this.checkBoxRevToSend.Name = "checkBoxRevToSend";
+            this.checkBoxRevToSend.Size = new System.Drawing.Size(72, 16);
+            this.checkBoxRevToSend.TabIndex = 3;
+            this.checkBoxRevToSend.Text = "接收回发";
+            this.checkBoxRevToSend.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxSendAndClearRev
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(6, 64);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(120, 16);
-            this.checkBox3.TabIndex = 3;
-            this.checkBox3.Text = "发送后清空接收区";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxSendAndClearRev.AutoSize = true;
+            this.checkBoxSendAndClearRev.Location = new System.Drawing.Point(6, 64);
+            this.checkBoxSendAndClearRev.Name = "checkBoxSendAndClearRev";
+            this.checkBoxSendAndClearRev.Size = new System.Drawing.Size(120, 16);
+            this.checkBoxSendAndClearRev.TabIndex = 3;
+            this.checkBoxSendAndClearRev.Text = "发送后清空接收区";
+            this.checkBoxSendAndClearRev.UseVisualStyleBackColor = true;
             // 
             // checkBoxClear
             // 
@@ -516,7 +516,7 @@
             this.splitContainer5.Panel1.Controls.Add(this.textBoxAutoSaveFileLocal);
             this.splitContainer5.Panel1.Controls.Add(this.checkBox27);
             this.splitContainer5.Panel1.Controls.Add(this.buttonSetRevFileDir);
-            this.splitContainer5.Panel1.Controls.Add(this.button14);
+            this.splitContainer5.Panel1.Controls.Add(this.buttonRevClear);
             // 
             // splitContainer5.Panel2
             // 
@@ -552,14 +552,15 @@
             this.buttonSetRevFileDir.UseVisualStyleBackColor = true;
             this.buttonSetRevFileDir.Click += new System.EventHandler(this.buttonSetRevFileDir_Click);
             // 
-            // button14
+            // buttonRevClear
             // 
-            this.button14.Location = new System.Drawing.Point(667, 3);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(75, 23);
-            this.button14.TabIndex = 0;
-            this.button14.Text = "清空接收区";
-            this.button14.UseVisualStyleBackColor = true;
+            this.buttonRevClear.Location = new System.Drawing.Point(667, 3);
+            this.buttonRevClear.Name = "buttonRevClear";
+            this.buttonRevClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonRevClear.TabIndex = 0;
+            this.buttonRevClear.Text = "清空接收区";
+            this.buttonRevClear.UseVisualStyleBackColor = true;
+            this.buttonRevClear.Click += new System.EventHandler(this.buttonRevClear_Click);
             // 
             // richTextBoxRev
             // 
@@ -605,77 +606,89 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.richTextBox2);
+            this.splitContainer3.Panel1.Controls.Add(this.richTextBoxSend);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.button3);
-            this.splitContainer3.Panel2.Controls.Add(this.button2);
-            this.splitContainer3.Panel2.Controls.Add(this.checkBox6);
-            this.splitContainer3.Panel2.Controls.Add(this.comboBox6);
-            this.splitContainer3.Panel2.Controls.Add(this.checkBox5);
+            this.splitContainer3.Panel2.Controls.Add(this.buttonSendSingle);
+            this.splitContainer3.Panel2.Controls.Add(this.buttonSendClear);
+            this.splitContainer3.Panel2.Controls.Add(this.checkBoxAutoSendSingle);
+            this.splitContainer3.Panel2.Controls.Add(this.comboBoxAutoSendSingleTime);
+            this.splitContainer3.Panel2.Controls.Add(this.checkBoxSendHex);
             this.splitContainer3.Size = new System.Drawing.Size(731, 150);
             this.splitContainer3.SplitterDistance = 596;
             this.splitContainer3.TabIndex = 0;
             // 
-            // richTextBox2
+            // richTextBoxSend
             // 
-            this.richTextBox2.BackColor = System.Drawing.Color.Black;
-            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.ForeColor = System.Drawing.Color.White;
-            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(596, 150);
-            this.richTextBox2.TabIndex = 0;
-            this.richTextBox2.Text = "";
+            this.richTextBoxSend.BackColor = System.Drawing.Color.Black;
+            this.richTextBoxSend.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBoxSend.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxSend.ForeColor = System.Drawing.Color.White;
+            this.richTextBoxSend.Location = new System.Drawing.Point(0, 0);
+            this.richTextBoxSend.Name = "richTextBoxSend";
+            this.richTextBoxSend.Size = new System.Drawing.Size(596, 150);
+            this.richTextBoxSend.TabIndex = 0;
+            this.richTextBoxSend.Text = "";
             // 
-            // button3
+            // buttonSendSingle
             // 
-            this.button3.Location = new System.Drawing.Point(4, 103);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "发送";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonSendSingle.Location = new System.Drawing.Point(4, 103);
+            this.buttonSendSingle.Name = "buttonSendSingle";
+            this.buttonSendSingle.Size = new System.Drawing.Size(123, 23);
+            this.buttonSendSingle.TabIndex = 4;
+            this.buttonSendSingle.Text = "发送";
+            this.buttonSendSingle.UseVisualStyleBackColor = true;
+            this.buttonSendSingle.Click += new System.EventHandler(this.buttonSendSingle_Click);
             // 
-            // button2
+            // buttonSendClear
             // 
-            this.button2.Location = new System.Drawing.Point(4, 74);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "清空发送区";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonSendClear.Location = new System.Drawing.Point(4, 74);
+            this.buttonSendClear.Name = "buttonSendClear";
+            this.buttonSendClear.Size = new System.Drawing.Size(123, 23);
+            this.buttonSendClear.TabIndex = 4;
+            this.buttonSendClear.Text = "清空发送区";
+            this.buttonSendClear.UseVisualStyleBackColor = true;
+            this.buttonSendClear.Click += new System.EventHandler(this.buttonSendClear_Click);
             // 
-            // checkBox6
+            // checkBoxAutoSendSingle
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(6, 29);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(108, 16);
-            this.checkBox6.TabIndex = 3;
-            this.checkBox6.Text = "定时发送（ms）";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBoxAutoSendSingle.AutoSize = true;
+            this.checkBoxAutoSendSingle.Location = new System.Drawing.Point(6, 29);
+            this.checkBoxAutoSendSingle.Name = "checkBoxAutoSendSingle";
+            this.checkBoxAutoSendSingle.Size = new System.Drawing.Size(108, 16);
+            this.checkBoxAutoSendSingle.TabIndex = 3;
+            this.checkBoxAutoSendSingle.Text = "定时发送（ms）";
+            this.checkBoxAutoSendSingle.UseVisualStyleBackColor = true;
+            this.checkBoxAutoSendSingle.CheckedChanged += new System.EventHandler(this.checkBoxAutoSendSingle_CheckedChanged);
             // 
-            // comboBox6
+            // comboBoxAutoSendSingleTime
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.comboBox6.Location = new System.Drawing.Point(24, 48);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(103, 20);
-            this.comboBox6.TabIndex = 1;
+            this.comboBoxAutoSendSingleTime.FormattingEnabled = true;
+            this.comboBoxAutoSendSingleTime.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.comboBoxAutoSendSingleTime.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "500",
+            "1000",
+            "2000",
+            "5000",
+            "10000"});
+            this.comboBoxAutoSendSingleTime.Location = new System.Drawing.Point(24, 48);
+            this.comboBoxAutoSendSingleTime.Name = "comboBoxAutoSendSingleTime";
+            this.comboBoxAutoSendSingleTime.Size = new System.Drawing.Size(103, 20);
+            this.comboBoxAutoSendSingleTime.TabIndex = 1;
+            this.comboBoxAutoSendSingleTime.Text = "1000";
             // 
-            // checkBox5
+            // checkBoxSendHex
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(6, 7);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(84, 16);
-            this.checkBox5.TabIndex = 3;
-            this.checkBox5.Text = "16进制发送";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBoxSendHex.AutoSize = true;
+            this.checkBoxSendHex.Location = new System.Drawing.Point(6, 7);
+            this.checkBoxSendHex.Name = "checkBoxSendHex";
+            this.checkBoxSendHex.Size = new System.Drawing.Size(84, 16);
+            this.checkBoxSendHex.TabIndex = 3;
+            this.checkBoxSendHex.Text = "16进制发送";
+            this.checkBoxSendHex.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -1530,8 +1543,12 @@
             // timerFindSerialPort
             // 
             this.timerFindSerialPort.Enabled = true;
-            this.timerFindSerialPort.Interval = 500;
+            this.timerFindSerialPort.Interval = 2000;
             this.timerFindSerialPort.Tick += new System.EventHandler(this.timerFindSerialPort_Tick);
+            // 
+            // timerSendSingle
+            // 
+            this.timerSendSingle.Tick += new System.EventHandler(this.timerSendSingle_Tick);
             // 
             // Form1
             // 
@@ -1614,8 +1631,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxClearBits;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBoxRevToSend;
+        private System.Windows.Forms.CheckBox checkBoxSendAndClearRev;
         private System.Windows.Forms.CheckBox checkBoxClear;
         private System.Windows.Forms.CheckBox checkBoxRevHex;
         private System.Windows.Forms.Label label6;
@@ -1635,15 +1652,15 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.ComboBox comboBox6;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Button buttonSendSingle;
+        private System.Windows.Forms.Button buttonSendClear;
+        private System.Windows.Forms.CheckBox checkBoxAutoSendSingle;
+        private System.Windows.Forms.ComboBox comboBoxAutoSendSingleTime;
+        private System.Windows.Forms.CheckBox checkBoxSendHex;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox richTextBoxSend;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.SplitContainer splitContainer4;
@@ -1704,7 +1721,7 @@
         private System.Windows.Forms.TextBox textBoxAutoSaveFileLocal;
         private System.Windows.Forms.CheckBox checkBox27;
         private System.Windows.Forms.Button buttonSetRevFileDir;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button buttonRevClear;
         private System.Windows.Forms.RichTextBox richTextBoxRev;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
@@ -1729,6 +1746,7 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Timer timerFindSerialPort;
+        private System.Windows.Forms.Timer timerSendSingle;
     }
 }
 

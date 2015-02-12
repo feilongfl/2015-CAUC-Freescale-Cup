@@ -28,13 +28,35 @@ namespace 飞思卡尔___控制台
                 }
                 else//文本显示
                 {
-                    richTextBoxRev.AppendText(serialPort1.ReadExisting());
+                    richTextBoxRev.AppendText(letter.ToString());
                 }
-                if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text,16)))
+
+                if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text,16)))//清屏
                 {
                     richTextBoxRev.Text = "";
                 }
+
+                if (checkBoxRevToSend.Checked)//接收回发
+                {
+                    try
+                    {
+                        if (checkBoxSendHex.Checked)
+                        {
+                            serialPort1.Write(string.Format("{0:X}", Convert.ToInt32(letter)));
+                        }
+                        else
+                        {
+                            serialPort1.Write(richTextBoxSend.Text);
+                        }
+                    }
+                    catch (SystemException se)
+                    {
+                        MessageBox.Show(se.Message);
+                    }
+                }
             }
+            //richTextBoxRev.Select(richTextBoxRev.Text.Length, 0);
+            richTextBoxRev.ScrollToCaret();
         }
 
         private void timerStatusStripTimeShow_Tick(object sender, EventArgs e)
@@ -46,6 +68,28 @@ namespace 飞思卡尔___控制台
         {
             toolStripStatusLabelTime.Text = DateTime.Now.ToString();
             textBoxAutoSaveFileLocal.Text = System.Windows.Forms.Application.StartupPath + "\\Rev.log";
+
+            comboBoxPortName.Items.Clear();
+            comboBoxPortName.Items.AddRange(SerialPort.GetPortNames());
+            try
+            {
+                comboBoxPortName.SelectedIndex = 0;
+                comboBoxPortName.Text = comboBoxPortName.SelectedItem.ToString();
+
+
+                serialPort1.PortName = comboBoxPortName.Text;
+                serialPort1.BaudRate = 115200;
+                serialPort1.DataBits = 8;
+                serialPort1.Parity = Parity.None;
+                serialPort1.StopBits = StopBits.One;
+
+                serialPort1.Open();
+                buttonOpenSerialPort.Text = "关闭串口";
+
+            }
+            catch { }
+
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         private void timerFindSerialPort_Tick(object sender, EventArgs e)
@@ -59,6 +103,7 @@ namespace 飞思卡尔___控制台
             if (serialPort1.IsOpen)
             {
                 serialPort1.Close();
+                buttonOpenSerialPort.Text = "打开串口";
             }
             else
             {
@@ -141,6 +186,86 @@ namespace 飞思卡尔___控制台
             if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 textBoxAutoSaveFileLocal.Text = saveFileDialog1.FileName;
+            }
+        }
+
+        private void buttonSendSingle_Click(object sender, EventArgs e)
+        {
+            if (checkBoxSendAndClearRev.Checked)
+            {
+                richTextBoxRev.Text = "";
+            }
+
+            try
+            {
+                if (checkBoxSendHex.Checked)
+                {
+                    foreach (char letter in richTextBoxSend.Text.ToCharArray())
+                    {
+                        serialPort1.Write(string.Format("{0:X}", Convert.ToInt32(letter)));
+                    }
+                }
+                else
+                {
+                    serialPort1.Write(richTextBoxSend.Text);
+                }
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(se.Message);
+            }
+        }
+       
+
+        private void buttonSendClear_Click(object sender, EventArgs e)
+        {
+            richTextBoxSend.Text = "";
+        }
+
+        private void buttonRevClear_Click(object sender, EventArgs e)
+        {
+            richTextBoxRev.Text = "";
+        }
+
+        private void checkBoxAutoSendSingle_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxAutoSendSingle.Checked)
+            {
+                timerSendSingle.Interval = Convert.ToInt32(comboBoxAutoSendSingleTime.Text);
+                timerSendSingle.Start();
+            }
+            else
+            {
+                timerSendSingle.Stop();
+            }
+            
+        }
+
+        private void timerSendSingle_Tick(object sender, EventArgs e)
+        {
+            if (checkBoxSendAndClearRev.Checked)
+            {
+                richTextBoxRev.Text = "";
+            }
+
+            try
+            {
+                if (checkBoxSendHex.Checked)
+                {
+                    foreach (char letter in richTextBoxSend.Text.ToCharArray())
+                    {
+                        serialPort1.Write(string.Format("{0:X}", Convert.ToInt32(letter)));
+                    }
+                }
+                else
+                {
+                    serialPort1.Write(richTextBoxSend.Text);
+                }
+            }
+            catch (SystemException se)
+            {
+                timerSendSingle.Stop();
+                MessageBox.Show(se.Message);
             }
         }
     }
