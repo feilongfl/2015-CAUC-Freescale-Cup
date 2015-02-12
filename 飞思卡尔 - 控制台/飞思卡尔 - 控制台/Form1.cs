@@ -16,14 +16,21 @@ namespace 飞思卡尔___控制台
 {
     public partial class Form1 : Form
     {
+        /*
+        $10,20,30,40,50,60,70,80#
+        $5,15,25,35,45,55,65,75#
+        $20,30,40,50,60,70,80,90#
+        $25,35,45,55,65,75,85,95#
+        */
+
         private bool writeFile = false;
         FileStream saveStream;
         StreamWriter saveWritter;
 
         private bool SaveData = false;
-        string LineDataRev ;
+        string LineDataRev;
         string[] LineDataRevArr;
-        string[,] LineDataRevArrs = new string[10000,8];
+        string[,] LineDataRevArrs = new string[10000, 8];
 
         Int32[] LineDataArr1 = new Int32[10000];
         Int32[] LineDataArr2 = new Int32[10000];
@@ -91,7 +98,7 @@ namespace 飞思卡尔___控制台
                     }
                     catch (SystemException se)
                     {
-                        MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                        MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
                     }
                 }
 
@@ -112,7 +119,7 @@ namespace 飞思卡尔___控制台
                                 {
                                     for (int i = 0; i < 8; i++)
                                     {
-                                        LineDataRevArrs[loopTemp,i] = LineDataRevArrs[loopTemp + 1,i];
+                                        LineDataRevArrs[loopTemp, i] = LineDataRevArrs[loopTemp + 1, i];
                                     }
                                 }
                                 for (int i = 0; i < 8; i++)
@@ -122,7 +129,7 @@ namespace 飞思卡尔___控制台
                             }
                             LineDataRev = "";
                         }
-                        else if ((Convert.ToInt32(letter) >= 48 &&Convert.ToInt32(letter) <= 57) || letter == ',')
+                        else if ((Convert.ToInt32(letter) >= 48 && Convert.ToInt32(letter) <= 57) || letter == ',')
                         {
                             LineDataRev += letter.ToString();
                         }
@@ -309,7 +316,7 @@ namespace 飞思卡尔___控制台
                 catch (SystemException se)
                 {
                     buttonOpenSerialPort.Text = "打开串口";
-                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                    MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 }
 
             }
@@ -325,7 +332,7 @@ namespace 飞思卡尔___控制台
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show(this, "真的要退出么？", "飞龙", MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show(this, "真的要退出么？", "飞龙", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
             {
                 e.Cancel = true;
             }
@@ -362,7 +369,7 @@ namespace 飞思卡尔___控制台
             }
             catch (SystemException se)
             {
-                MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
 
@@ -414,7 +421,7 @@ namespace 飞思卡尔___控制台
             catch (SystemException se)
             {
                 timerSendSingle.Stop();
-                MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
             }
         }
 
@@ -436,7 +443,7 @@ namespace 飞思卡尔___控制台
                 }
                 catch (SystemException se)
                 {
-                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                    MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
                 }
             }
             else
@@ -481,7 +488,7 @@ namespace 飞思卡尔___控制台
                 }
                 catch (SystemException se)
                 {
-                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                    MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
                 }
             }
         }
@@ -492,7 +499,7 @@ namespace 飞思卡尔___控制台
             SerialPortWrite("AT");
         }
 
-        private void SerialPortWrite (string str)
+        private void SerialPortWrite(string str)
         {
             //try\s*\n\s*{\s*serialPort1.Write(\([^;]*;)\s*\}\s*catch\s+\(\w+\s+\w+\)\s+\{\s+M[^;]*;\s+\}
             //SerialPortWrite$1
@@ -502,7 +509,7 @@ namespace 飞思卡尔___控制台
             }
             catch (SystemException se)
             {
-                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1);
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
 
@@ -522,7 +529,7 @@ namespace 飞思卡尔___控制台
             {
                 try
                 {
-                    if (MessageBox.Show(this,"确定设置？\n\n波特率：115200\n校验位：无\n蓝牙名称：FLSmartCar\n蓝牙密码：0000",
+                    if (MessageBox.Show(this, "确定设置？\n\n波特率：115200\n校验位：无\n蓝牙名称：FLSmartCar\n蓝牙密码：0000",
                           "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
                         serialPort1.Write("AT");
@@ -540,7 +547,7 @@ namespace 飞思卡尔___控制台
                 }
                 catch (SystemException se)
                 {
-                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                    MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
                 }
             }
         }
@@ -673,7 +680,7 @@ namespace 飞思卡尔___控制台
 
         private void domainUpDownSteerKd_SelectedItemChanged(object sender, EventArgs e)
         {
-            SerialPortWrite("SD" + domainUpDownSteerKd.Text.Remove(0,2));
+            SerialPortWrite("SD" + domainUpDownSteerKd.Text.Remove(0, 2));
         }
 
         private void toolStripStatusLabelLogo_Click(object sender, EventArgs e)
@@ -691,13 +698,13 @@ namespace 飞思卡尔___控制台
         {
             SerialPortWrite("RS");
         }
-                        
+
         private void pictureBoxOsc_Paint(object sender, PaintEventArgs e)
         {
             if (checkBoxOscEnable.Checked)
             {
 
-                if(checkBoxData1.Checked)
+                if (checkBoxData1.Checked)
                 {
                     Line1[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
                     Line1[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 0]) * (pictureBoxOsc.Height - 50) / 100 + 25);
@@ -794,7 +801,5 @@ namespace 飞思卡尔___控制台
                 }
             }
         }
-
-
     }
 }
