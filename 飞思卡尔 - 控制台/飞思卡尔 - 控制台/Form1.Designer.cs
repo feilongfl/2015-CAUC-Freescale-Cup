@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -170,6 +171,10 @@
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
             this.checkBoxReLink = new System.Windows.Forms.CheckBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.buttonAdcNor = new System.Windows.Forms.Button();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.buttonReset = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -210,6 +215,8 @@
             this.groupBox9.SuspendLayout();
             this.tabPageSmartCar.SuspendLayout();
             this.小车轨迹.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveFileDialog1
@@ -1352,6 +1359,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.groupBox12);
+            this.groupBox6.Controls.Add(this.groupBox11);
             this.groupBox6.Controls.Add(this.groupBox8);
             this.groupBox6.Controls.Add(this.groupBox7);
             this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2415,6 +2424,46 @@
             this.checkBoxReLink.Text = "断开重连";
             this.checkBoxReLink.UseVisualStyleBackColor = true;
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.buttonAdcNor);
+            this.groupBox11.Location = new System.Drawing.Point(348, 15);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(92, 47);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "电感";
+            // 
+            // buttonAdcNor
+            // 
+            this.buttonAdcNor.Location = new System.Drawing.Point(6, 16);
+            this.buttonAdcNor.Name = "buttonAdcNor";
+            this.buttonAdcNor.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdcNor.TabIndex = 3;
+            this.buttonAdcNor.Text = "归一化";
+            this.buttonAdcNor.UseVisualStyleBackColor = true;
+            this.buttonAdcNor.Click += new System.EventHandler(this.buttonAdcNor_Click);
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.buttonReset);
+            this.groupBox12.Location = new System.Drawing.Point(348, 68);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(92, 47);
+            this.groupBox12.TabIndex = 1;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "小车";
+            // 
+            // buttonReset
+            // 
+            this.buttonReset.Location = new System.Drawing.Point(6, 16);
+            this.buttonReset.Name = "buttonReset";
+            this.buttonReset.Size = new System.Drawing.Size(75, 23);
+            this.buttonReset.TabIndex = 3;
+            this.buttonReset.Text = "重启";
+            this.buttonReset.UseVisualStyleBackColor = true;
+            this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2422,6 +2471,7 @@
             this.ClientSize = new System.Drawing.Size(947, 417);
             this.Controls.Add(this.tabControlMainForm);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "飞龙";
@@ -2479,6 +2529,8 @@
             this.groupBox9.PerformLayout();
             this.tabPageSmartCar.ResumeLayout(false);
             this.小车轨迹.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2627,6 +2679,10 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerSetBlueTooth;
         private System.Windows.Forms.Button buttonBlueGetVersion;
         private System.Windows.Forms.CheckBox checkBoxReLink;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button buttonAdcNor;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Button buttonReset;
     }
 }
 
