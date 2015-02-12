@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -37,7 +38,7 @@ namespace 飞思卡尔___控制台
                     richTextBoxRev.AppendText(letter.ToString());
                 }
 
-                if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text,16)))//清屏
+                if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text, 16)))//清屏
                 {
                     richTextBoxRev.Text = "";
                 }
@@ -57,11 +58,11 @@ namespace 飞思卡尔___控制台
                     }
                     catch (SystemException se)
                     {
-                        MessageBox.Show(se.Message);
+                        MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
                     }
                 }
 
-                if(writeFile)
+                if (writeFile)
                 {
                     saveWritter.Write(letter);
                 }
@@ -170,7 +171,7 @@ namespace 飞思卡尔___控制台
                 }
                 catch (SystemException se)
                 {
-                    MessageBox.Show(se.Message);
+                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
                 }
 
             }
@@ -186,7 +187,7 @@ namespace 飞思卡尔___控制台
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(MessageBox.Show("真的要退出么？","飞龙",MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show(this, "真的要退出么？", "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
             {
                 e.Cancel = true;
             }
@@ -223,10 +224,10 @@ namespace 飞思卡尔___控制台
             }
             catch (SystemException se)
             {
-                MessageBox.Show(se.Message);
+                MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
             }
         }
-       
+
 
         private void buttonSendClear_Click(object sender, EventArgs e)
         {
@@ -240,7 +241,7 @@ namespace 飞思卡尔___控制台
 
         private void checkBoxAutoSendSingle_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkBoxAutoSendSingle.Checked)
+            if (checkBoxAutoSendSingle.Checked)
             {
                 timerSendSingle.Interval = Convert.ToInt32(comboBoxAutoSendSingleTime.Text);
                 timerSendSingle.Start();
@@ -249,7 +250,7 @@ namespace 飞思卡尔___控制台
             {
                 timerSendSingle.Stop();
             }
-            
+
         }
 
         private void timerSendSingle_Tick(object sender, EventArgs e)
@@ -276,7 +277,7 @@ namespace 飞思卡尔___控制台
             catch (SystemException se)
             {
                 timerSendSingle.Stop();
-                MessageBox.Show(se.Message);
+                MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
             }
         }
 
@@ -286,8 +287,8 @@ namespace 飞思卡尔___控制台
             {
                 try
                 {
-                    saveStream = File.Open(textBoxAutoSaveFileLocal.Text,FileMode.Create);
-                    saveWritter = new StreamWriter(saveStream,Encoding.UTF8);
+                    saveStream = File.Open(textBoxAutoSaveFileLocal.Text, FileMode.Create);
+                    saveWritter = new StreamWriter(saveStream, Encoding.UTF8);
 
                     saveWritter.WriteLine("\n***********************************************");
                     saveWritter.WriteLine("            飞龙  ——  串口助手");
@@ -296,9 +297,9 @@ namespace 飞思卡尔___控制台
 
                     writeFile = true;
                 }
-                catch(SystemException se)
+                catch (SystemException se)
                 {
-                    MessageBox.Show(se.Message);
+                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
                 }
             }
             else
@@ -336,16 +337,82 @@ namespace 飞思卡尔___控制台
                     saveRevWritter.Close();
                     saveRevStream.Close();
 
-                    if (MessageBox.Show("保存成功！\n\n打开？","飞龙",MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    if (MessageBox.Show(this, "保存成功！\n\n打开？", "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
                         Process.Start("notepad.exe", openFileDialog1.FileName);
                     }
                 }
                 catch (SystemException se)
                 {
-                    MessageBox.Show(se.Message);
+                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
                 }
             }
         }
+
+        private void buttonBlueTest_Click(object sender, EventArgs e)
+        {
+            richTextBoxRev.Text = "";
+            try
+            {
+                serialPort1.Write("AT");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+            }
+        }
+
+        private void buttonBuleQuickSet_Click(object sender, EventArgs e)
+        {
+            richTextBoxRev.Text = "";
+            backgroundWorkerSetBlueTooth.RunWorkerAsync();
+        }
+
+        private void backgroundWorkerSetBlueTooth_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (radioButtonHc05.Checked)
+            {
+
+            }
+            if (radioButtonHc06.Checked)
+            {
+                try
+                {
+                    if (MessageBox.Show(this,"确定设置？\n\n波特率：115200\n校验位：无\n蓝牙名称：FLSmartCar\n蓝牙密码：0000",
+                          "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        serialPort1.Write("AT");
+                        Thread.Sleep(1000);
+                        serialPort1.Write("AT+VERSION");
+                        Thread.Sleep(1000);
+                        serialPort1.Write("AT+BAUD8");//115200
+                        Thread.Sleep(1000);
+                        serialPort1.Write("AT+NAMEFLSmartCar");
+                        Thread.Sleep(1000);
+                        serialPort1.Write("AT+PIN0000");
+                        Thread.Sleep(1000);
+                        serialPort1.Write("AT+PN");
+                    }
+                }
+                catch (SystemException se)
+                {
+                    MessageBox.Show(this,se.Message,"飞龙",MessageBoxButtons.OK);
+                }
+            }
+        }
+
+        private void buttonBlueGetVersion_Click(object sender, EventArgs e)
+        {
+            richTextBoxRev.Text = "";
+            try
+            {
+                serialPort1.Write("AT+VERSION");
+            }
+            catch (SystemException se)
+            {
+                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+            }
+        }
+
     }
-    }
+}

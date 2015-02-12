@@ -62,7 +62,9 @@
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.textBoxAutoSaveFileLocal = new System.Windows.Forms.TextBox();
             this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
             this.buttonSetRevFileDir = new System.Windows.Forms.Button();
+            this.buttonSaveRev = new System.Windows.Forms.Button();
             this.buttonRevClear = new System.Windows.Forms.Button();
             this.richTextBoxRev = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -152,6 +154,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.buttonBuleQuickSet = new System.Windows.Forms.Button();
+            this.buttonBlueGetVersion = new System.Windows.Forms.Button();
+            this.buttonBlueTest = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.radioButtonHc06 = new System.Windows.Forms.RadioButton();
+            this.radioButtonHc05 = new System.Windows.Forms.RadioButton();
             this.tabPageSmartCar = new System.Windows.Forms.TabPage();
             this.小车轨迹 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -159,8 +168,7 @@
             this.timerStatusStripTimeShow = new System.Windows.Forms.Timer(this.components);
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
-            this.buttonOpenFile = new System.Windows.Forms.Button();
-            this.buttonSaveRev = new System.Windows.Forms.Button();
+            this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -196,6 +204,9 @@
             this.groupBox6.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.tabPageSmartCar.SuspendLayout();
             this.小车轨迹.SuspendLayout();
             this.SuspendLayout();
@@ -536,7 +547,7 @@
             // 
             // textBoxAutoSaveFileLocal
             // 
-            this.textBoxAutoSaveFileLocal.Location = new System.Drawing.Point(129, 5);
+            this.textBoxAutoSaveFileLocal.Location = new System.Drawing.Point(141, 4);
             this.textBoxAutoSaveFileLocal.Name = "textBoxAutoSaveFileLocal";
             this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(338, 21);
             this.textBoxAutoSaveFileLocal.TabIndex = 2;
@@ -544,7 +555,7 @@
             // checkBoxAutoSave
             // 
             this.checkBoxAutoSave.AutoSize = true;
-            this.checkBoxAutoSave.Location = new System.Drawing.Point(7, 9);
+            this.checkBoxAutoSave.Location = new System.Drawing.Point(7, 6);
             this.checkBoxAutoSave.Name = "checkBoxAutoSave";
             this.checkBoxAutoSave.Size = new System.Drawing.Size(132, 16);
             this.checkBoxAutoSave.TabIndex = 1;
@@ -552,9 +563,19 @@
             this.checkBoxAutoSave.UseVisualStyleBackColor = true;
             this.checkBoxAutoSave.CheckedChanged += new System.EventHandler(this.checkBoxAutoSave_CheckedChanged);
             // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(520, 3);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(64, 23);
+            this.buttonOpenFile.TabIndex = 0;
+            this.buttonOpenFile.Text = "打开文本";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
             // buttonSetRevFileDir
             // 
-            this.buttonSetRevFileDir.Location = new System.Drawing.Point(473, 5);
+            this.buttonSetRevFileDir.Location = new System.Drawing.Point(481, 3);
             this.buttonSetRevFileDir.Name = "buttonSetRevFileDir";
             this.buttonSetRevFileDir.Size = new System.Drawing.Size(37, 23);
             this.buttonSetRevFileDir.TabIndex = 0;
@@ -562,9 +583,19 @@
             this.buttonSetRevFileDir.UseVisualStyleBackColor = true;
             this.buttonSetRevFileDir.Click += new System.EventHandler(this.buttonSetRevFileDir_Click);
             // 
+            // buttonSaveRev
+            // 
+            this.buttonSaveRev.Location = new System.Drawing.Point(586, 3);
+            this.buttonSaveRev.Name = "buttonSaveRev";
+            this.buttonSaveRev.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveRev.TabIndex = 0;
+            this.buttonSaveRev.Text = "保存接收区";
+            this.buttonSaveRev.UseVisualStyleBackColor = true;
+            this.buttonSaveRev.Click += new System.EventHandler(this.buttonSaveRev_Click);
+            // 
             // buttonRevClear
             // 
-            this.buttonRevClear.Location = new System.Drawing.Point(667, 3);
+            this.buttonRevClear.Location = new System.Drawing.Point(663, 3);
             this.buttonRevClear.Name = "buttonRevClear";
             this.buttonRevClear.Size = new System.Drawing.Size(75, 23);
             this.buttonRevClear.TabIndex = 0;
@@ -1496,12 +1527,89 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox10);
+            this.tabPage4.Controls.Add(this.groupBox9);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(737, 156);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "蓝牙串口设置";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.buttonBuleQuickSet);
+            this.groupBox10.Controls.Add(this.buttonBlueGetVersion);
+            this.groupBox10.Controls.Add(this.buttonBlueTest);
+            this.groupBox10.Location = new System.Drawing.Point(182, 8);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(173, 145);
+            this.groupBox10.TabIndex = 1;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "通用";
+            // 
+            // buttonBuleQuickSet
+            // 
+            this.buttonBuleQuickSet.Location = new System.Drawing.Point(6, 49);
+            this.buttonBuleQuickSet.Name = "buttonBuleQuickSet";
+            this.buttonBuleQuickSet.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuleQuickSet.TabIndex = 0;
+            this.buttonBuleQuickSet.Text = "快速设置";
+            this.buttonBuleQuickSet.UseVisualStyleBackColor = true;
+            this.buttonBuleQuickSet.Click += new System.EventHandler(this.buttonBuleQuickSet_Click);
+            // 
+            // buttonBlueGetVersion
+            // 
+            this.buttonBlueGetVersion.Location = new System.Drawing.Point(92, 20);
+            this.buttonBlueGetVersion.Name = "buttonBlueGetVersion";
+            this.buttonBlueGetVersion.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlueGetVersion.TabIndex = 0;
+            this.buttonBlueGetVersion.Text = "获取版本";
+            this.buttonBlueGetVersion.UseVisualStyleBackColor = true;
+            this.buttonBlueGetVersion.Click += new System.EventHandler(this.buttonBlueGetVersion_Click);
+            // 
+            // buttonBlueTest
+            // 
+            this.buttonBlueTest.Location = new System.Drawing.Point(6, 20);
+            this.buttonBlueTest.Name = "buttonBlueTest";
+            this.buttonBlueTest.Size = new System.Drawing.Size(75, 23);
+            this.buttonBlueTest.TabIndex = 0;
+            this.buttonBlueTest.Text = "连接测试";
+            this.buttonBlueTest.UseVisualStyleBackColor = true;
+            this.buttonBlueTest.Click += new System.EventHandler(this.buttonBlueTest_Click);
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.radioButtonHc06);
+            this.groupBox9.Controls.Add(this.radioButtonHc05);
+            this.groupBox9.Location = new System.Drawing.Point(3, 3);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(173, 60);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "蓝牙串口型号";
+            // 
+            // radioButtonHc06
+            // 
+            this.radioButtonHc06.AutoSize = true;
+            this.radioButtonHc06.Checked = true;
+            this.radioButtonHc06.Location = new System.Drawing.Point(15, 37);
+            this.radioButtonHc06.Name = "radioButtonHc06";
+            this.radioButtonHc06.Size = new System.Drawing.Size(131, 16);
+            this.radioButtonHc06.TabIndex = 0;
+            this.radioButtonHc06.TabStop = true;
+            this.radioButtonHc06.Text = "HC 06 从机蓝牙模块";
+            this.radioButtonHc06.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonHc05
+            // 
+            this.radioButtonHc05.AutoSize = true;
+            this.radioButtonHc05.Location = new System.Drawing.Point(15, 18);
+            this.radioButtonHc05.Name = "radioButtonHc05";
+            this.radioButtonHc05.Size = new System.Drawing.Size(155, 16);
+            this.radioButtonHc05.TabIndex = 0;
+            this.radioButtonHc05.Text = "HC 05 主从一体蓝牙模块";
+            this.radioButtonHc05.UseVisualStyleBackColor = true;
             // 
             // tabPageSmartCar
             // 
@@ -1560,25 +1668,9 @@
             // 
             this.timerSendSingle.Tick += new System.EventHandler(this.timerSendSingle_Tick);
             // 
-            // buttonOpenFile
+            // backgroundWorkerSetBlueTooth
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(516, 5);
-            this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(64, 23);
-            this.buttonOpenFile.TabIndex = 0;
-            this.buttonOpenFile.Text = "打开文本";
-            this.buttonOpenFile.UseVisualStyleBackColor = true;
-            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
-            // 
-            // buttonSaveRev
-            // 
-            this.buttonSaveRev.Location = new System.Drawing.Point(586, 5);
-            this.buttonSaveRev.Name = "buttonSaveRev";
-            this.buttonSaveRev.Size = new System.Drawing.Size(75, 23);
-            this.buttonSaveRev.TabIndex = 0;
-            this.buttonSaveRev.Text = "保存接收区";
-            this.buttonSaveRev.UseVisualStyleBackColor = true;
-            this.buttonSaveRev.Click += new System.EventHandler(this.buttonSaveRev_Click);
+            this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
             // 
             // Form1
             // 
@@ -1638,6 +1730,10 @@
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.tabPageSmartCar.ResumeLayout(false);
             this.小车轨迹.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1779,6 +1875,14 @@
         private System.Windows.Forms.Timer timerSendSingle;
         private System.Windows.Forms.Button buttonOpenFile;
         private System.Windows.Forms.Button buttonSaveRev;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Button buttonBlueTest;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.RadioButton radioButtonHc06;
+        private System.Windows.Forms.RadioButton radioButtonHc05;
+        private System.Windows.Forms.Button buttonBuleQuickSet;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerSetBlueTooth;
+        private System.Windows.Forms.Button buttonBlueGetVersion;
     }
 }
 
