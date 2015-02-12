@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,12 @@ namespace 飞思卡尔___控制台
         private void Form1_Shown(object sender, EventArgs e)
         {
             toolStripStatusLabelTime.Text = DateTime.Now.ToString();
+        }
+
+        private void timerFindSerialPort_Tick(object sender, EventArgs e)
+        {
+            SerialPort.GetPortNames();
+            
         }
     }
 }
