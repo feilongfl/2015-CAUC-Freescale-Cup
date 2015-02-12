@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,10 @@ namespace 飞思卡尔___控制台
 {
     public partial class Form1 : Form
     {
+        private bool writeFile = false;
+        FileStream saveStream;
+        StreamWriter saveWritter;
+
         public Form1()
         {
             InitializeComponent();
@@ -53,6 +59,11 @@ namespace 飞思卡尔___控制台
                     {
                         MessageBox.Show(se.Message);
                     }
+                }
+
+                if(writeFile)
+                {
+                    saveWritter.Write(letter);
                 }
             }
             //richTextBoxRev.Select(richTextBoxRev.Text.Length, 0);
@@ -267,6 +278,43 @@ namespace 飞思卡尔___控制台
                 timerSendSingle.Stop();
                 MessageBox.Show(se.Message);
             }
+        }
+
+        private void checkBoxAutoSave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxAutoSave.Checked)
+            {
+                try
+                {
+                    saveStream = File.Open(textBoxAutoSaveFileLocal.Text,FileMode.OpenOrCreate);
+                    saveWritter = new StreamWriter(saveStream,Encoding.UTF8);
+
+                    saveWritter.WriteLine("\n***********************************************");
+                    saveWritter.WriteLine("            飞龙  ——  串口助手");
+                    saveWritter.WriteLine("\n\t\t\t\t" + DateTime.Now.ToString());
+                    saveWritter.WriteLine("***********************************************");
+
+                    writeFile = true;
+                }
+                catch(SystemException se)
+                {
+                    MessageBox.Show(se.Message);
+                }
+            }
+            else
+            {
+                writeFile = false;
+
+                saveWritter.Close();
+                saveStream.Close();
+            }
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            checkBoxAutoSave.Checked = false;
+
+            Process.Start("notepad.exe", textBoxAutoSaveFileLocal.Text);
         }
     }
 }

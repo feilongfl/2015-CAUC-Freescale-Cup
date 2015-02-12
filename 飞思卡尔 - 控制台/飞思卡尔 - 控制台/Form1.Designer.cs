@@ -61,7 +61,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.textBoxAutoSaveFileLocal = new System.Windows.Forms.TextBox();
-            this.checkBox27 = new System.Windows.Forms.CheckBox();
+            this.checkBoxAutoSave = new System.Windows.Forms.CheckBox();
             this.buttonSetRevFileDir = new System.Windows.Forms.Button();
             this.buttonRevClear = new System.Windows.Forms.Button();
             this.richTextBoxRev = new System.Windows.Forms.RichTextBox();
@@ -159,6 +159,7 @@
             this.timerStatusStripTimeShow = new System.Windows.Forms.Timer(this.components);
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
+            this.buttonOpenFile = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -197,6 +198,11 @@
             this.tabPageSmartCar.SuspendLayout();
             this.小车轨迹.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.FileName = "Rev.log";
+            this.saveFileDialog1.Filter = "\"历史记录|*.log\"";
             // 
             // openFileDialog1
             // 
@@ -514,7 +520,8 @@
             // splitContainer5.Panel1
             // 
             this.splitContainer5.Panel1.Controls.Add(this.textBoxAutoSaveFileLocal);
-            this.splitContainer5.Panel1.Controls.Add(this.checkBox27);
+            this.splitContainer5.Panel1.Controls.Add(this.checkBoxAutoSave);
+            this.splitContainer5.Panel1.Controls.Add(this.buttonOpenFile);
             this.splitContainer5.Panel1.Controls.Add(this.buttonSetRevFileDir);
             this.splitContainer5.Panel1.Controls.Add(this.buttonRevClear);
             // 
@@ -529,26 +536,27 @@
             // 
             this.textBoxAutoSaveFileLocal.Location = new System.Drawing.Point(129, 5);
             this.textBoxAutoSaveFileLocal.Name = "textBoxAutoSaveFileLocal";
-            this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(462, 21);
+            this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(419, 21);
             this.textBoxAutoSaveFileLocal.TabIndex = 2;
             // 
-            // checkBox27
+            // checkBoxAutoSave
             // 
-            this.checkBox27.AutoSize = true;
-            this.checkBox27.Location = new System.Drawing.Point(7, 9);
-            this.checkBox27.Name = "checkBox27";
-            this.checkBox27.Size = new System.Drawing.Size(132, 16);
-            this.checkBox27.TabIndex = 1;
-            this.checkBox27.Text = "自动保存接收区至：";
-            this.checkBox27.UseVisualStyleBackColor = true;
+            this.checkBoxAutoSave.AutoSize = true;
+            this.checkBoxAutoSave.Location = new System.Drawing.Point(7, 9);
+            this.checkBoxAutoSave.Name = "checkBoxAutoSave";
+            this.checkBoxAutoSave.Size = new System.Drawing.Size(132, 16);
+            this.checkBoxAutoSave.TabIndex = 1;
+            this.checkBoxAutoSave.Text = "自动保存接收区至：";
+            this.checkBoxAutoSave.UseVisualStyleBackColor = true;
+            this.checkBoxAutoSave.CheckedChanged += new System.EventHandler(this.checkBoxAutoSave_CheckedChanged);
             // 
             // buttonSetRevFileDir
             // 
-            this.buttonSetRevFileDir.Location = new System.Drawing.Point(597, 3);
+            this.buttonSetRevFileDir.Location = new System.Drawing.Point(554, 3);
             this.buttonSetRevFileDir.Name = "buttonSetRevFileDir";
-            this.buttonSetRevFileDir.Size = new System.Drawing.Size(64, 23);
+            this.buttonSetRevFileDir.Size = new System.Drawing.Size(37, 23);
             this.buttonSetRevFileDir.TabIndex = 0;
-            this.buttonSetRevFileDir.Text = "打开...";
+            this.buttonSetRevFileDir.Text = "...";
             this.buttonSetRevFileDir.UseVisualStyleBackColor = true;
             this.buttonSetRevFileDir.Click += new System.EventHandler(this.buttonSetRevFileDir_Click);
             // 
@@ -1550,6 +1558,16 @@
             // 
             this.timerSendSingle.Tick += new System.EventHandler(this.timerSendSingle_Tick);
             // 
+            // buttonOpenFile
+            // 
+            this.buttonOpenFile.Location = new System.Drawing.Point(597, 3);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(64, 23);
+            this.buttonOpenFile.TabIndex = 0;
+            this.buttonOpenFile.Text = "打开文本";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1719,7 +1737,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.SplitContainer splitContainer5;
         private System.Windows.Forms.TextBox textBoxAutoSaveFileLocal;
-        private System.Windows.Forms.CheckBox checkBox27;
+        private System.Windows.Forms.CheckBox checkBoxAutoSave;
         private System.Windows.Forms.Button buttonSetRevFileDir;
         private System.Windows.Forms.Button buttonRevClear;
         private System.Windows.Forms.RichTextBox richTextBoxRev;
@@ -1747,6 +1765,7 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Timer timerFindSerialPort;
         private System.Windows.Forms.Timer timerSendSingle;
+        private System.Windows.Forms.Button buttonOpenFile;
     }
 }
 
