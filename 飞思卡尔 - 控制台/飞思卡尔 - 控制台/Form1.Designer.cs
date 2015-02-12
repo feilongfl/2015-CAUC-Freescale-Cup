@@ -160,6 +160,7 @@
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.buttonSaveRev = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -523,6 +524,7 @@
             this.splitContainer5.Panel1.Controls.Add(this.checkBoxAutoSave);
             this.splitContainer5.Panel1.Controls.Add(this.buttonOpenFile);
             this.splitContainer5.Panel1.Controls.Add(this.buttonSetRevFileDir);
+            this.splitContainer5.Panel1.Controls.Add(this.buttonSaveRev);
             this.splitContainer5.Panel1.Controls.Add(this.buttonRevClear);
             // 
             // splitContainer5.Panel2
@@ -536,7 +538,7 @@
             // 
             this.textBoxAutoSaveFileLocal.Location = new System.Drawing.Point(129, 5);
             this.textBoxAutoSaveFileLocal.Name = "textBoxAutoSaveFileLocal";
-            this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(419, 21);
+            this.textBoxAutoSaveFileLocal.Size = new System.Drawing.Size(338, 21);
             this.textBoxAutoSaveFileLocal.TabIndex = 2;
             // 
             // checkBoxAutoSave
@@ -552,7 +554,7 @@
             // 
             // buttonSetRevFileDir
             // 
-            this.buttonSetRevFileDir.Location = new System.Drawing.Point(554, 3);
+            this.buttonSetRevFileDir.Location = new System.Drawing.Point(473, 5);
             this.buttonSetRevFileDir.Name = "buttonSetRevFileDir";
             this.buttonSetRevFileDir.Size = new System.Drawing.Size(37, 23);
             this.buttonSetRevFileDir.TabIndex = 0;
@@ -1560,13 +1562,23 @@
             // 
             // buttonOpenFile
             // 
-            this.buttonOpenFile.Location = new System.Drawing.Point(597, 3);
+            this.buttonOpenFile.Location = new System.Drawing.Point(516, 5);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(64, 23);
             this.buttonOpenFile.TabIndex = 0;
             this.buttonOpenFile.Text = "打开文本";
             this.buttonOpenFile.UseVisualStyleBackColor = true;
             this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
+            // 
+            // buttonSaveRev
+            // 
+            this.buttonSaveRev.Location = new System.Drawing.Point(586, 5);
+            this.buttonSaveRev.Name = "buttonSaveRev";
+            this.buttonSaveRev.Size = new System.Drawing.Size(75, 23);
+            this.buttonSaveRev.TabIndex = 0;
+            this.buttonSaveRev.Text = "保存接收区";
+            this.buttonSaveRev.UseVisualStyleBackColor = true;
+            this.buttonSaveRev.Click += new System.EventHandler(this.buttonSaveRev_Click);
             // 
             // Form1
             // 
@@ -1766,6 +1778,7 @@
         private System.Windows.Forms.Timer timerFindSerialPort;
         private System.Windows.Forms.Timer timerSendSingle;
         private System.Windows.Forms.Button buttonOpenFile;
+        private System.Windows.Forms.Button buttonSaveRev;
     }
 }
 

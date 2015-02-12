@@ -286,7 +286,7 @@ namespace 飞思卡尔___控制台
             {
                 try
                 {
-                    saveStream = File.Open(textBoxAutoSaveFileLocal.Text,FileMode.OpenOrCreate);
+                    saveStream = File.Open(textBoxAutoSaveFileLocal.Text,FileMode.Create);
                     saveWritter = new StreamWriter(saveStream,Encoding.UTF8);
 
                     saveWritter.WriteLine("\n***********************************************");
@@ -316,5 +316,36 @@ namespace 飞思卡尔___控制台
 
             Process.Start("notepad.exe", textBoxAutoSaveFileLocal.Text);
         }
+
+        private void buttonSaveRev_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    FileStream saveRevStream = File.OpenWrite(openFileDialog1.FileName);
+                    StreamWriter saveRevWritter = new StreamWriter(saveRevStream);
+
+                    saveRevWritter.WriteLine("\n***********************************************");
+                    saveRevWritter.WriteLine("            飞龙  ——  串口助手");
+                    saveRevWritter.WriteLine("\n\t\t\t\t" + DateTime.Now.ToString());
+                    saveRevWritter.WriteLine("***********************************************");
+
+                    saveRevWritter.Write(richTextBoxRev.Text);
+
+                    saveRevWritter.Close();
+                    saveRevStream.Close();
+
+                    if (MessageBox.Show("保存成功！\n\n打开？","飞龙",MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        Process.Start("notepad.exe", openFileDialog1.FileName);
+                    }
+                }
+                catch (SystemException se)
+                {
+                    MessageBox.Show(se.Message);
+                }
+            }
+        }
     }
-}
+    }
