@@ -20,7 +20,21 @@ namespace 飞思卡尔___控制台
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-
+            foreach (char letter in serialPort1.ReadExisting().ToCharArray())
+            {
+                if (checkBoxRevHex.Checked)//hex显示
+                {
+                    richTextBoxRev.AppendText(string.Format("{0:X}", Convert.ToInt32(letter)) + "\t");
+                }
+                else//文本显示
+                {
+                    richTextBoxRev.AppendText(serialPort1.ReadExisting());
+                }
+                if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text,16)))
+                {
+                    richTextBoxRev.Text = "";
+                }
+            }
         }
 
         private void timerStatusStripTimeShow_Tick(object sender, EventArgs e)

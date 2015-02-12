@@ -40,11 +40,11 @@
             this.tabPageSerialPort = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxClearBits = new System.Windows.Forms.TextBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxClear = new System.Windows.Forms.CheckBox();
+            this.checkBoxRevHex = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonOpenSerialPort = new System.Windows.Forms.Button();
@@ -64,7 +64,7 @@
             this.checkBox27 = new System.Windows.Forms.CheckBox();
             this.buttonSetRevFileDir = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxRev = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -272,11 +272,11 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.textBoxClearBits);
             this.groupBox2.Controls.Add(this.checkBox4);
             this.groupBox2.Controls.Add(this.checkBox3);
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.checkBoxClear);
+            this.groupBox2.Controls.Add(this.checkBoxRevHex);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.groupBox2.Location = new System.Drawing.Point(5, 185);
@@ -286,14 +286,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "串口辅助";
             // 
-            // textBox1
+            // textBoxClearBits
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(63, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(30, 21);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "0A";
+            this.textBoxClearBits.Enabled = false;
+            this.textBoxClearBits.Location = new System.Drawing.Point(63, 40);
+            this.textBoxClearBits.Name = "textBoxClearBits";
+            this.textBoxClearBits.Size = new System.Drawing.Size(30, 21);
+            this.textBoxClearBits.TabIndex = 4;
+            this.textBoxClearBits.Text = "0A";
             // 
             // checkBox4
             // 
@@ -315,25 +315,25 @@
             this.checkBox3.Text = "发送后清空接收区";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // checkBoxClear
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(6, 42);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(60, 16);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "接收到";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBoxClear.AutoSize = true;
+            this.checkBoxClear.Location = new System.Drawing.Point(6, 42);
+            this.checkBoxClear.Name = "checkBoxClear";
+            this.checkBoxClear.Size = new System.Drawing.Size(60, 16);
+            this.checkBoxClear.TabIndex = 3;
+            this.checkBoxClear.Text = "接收到";
+            this.checkBoxClear.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBoxRevHex
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 20);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(84, 16);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "16进制显示";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxRevHex.AutoSize = true;
+            this.checkBoxRevHex.Location = new System.Drawing.Point(6, 20);
+            this.checkBoxRevHex.Name = "checkBoxRevHex";
+            this.checkBoxRevHex.Size = new System.Drawing.Size(84, 16);
+            this.checkBoxRevHex.TabIndex = 2;
+            this.checkBoxRevHex.Text = "16进制显示";
+            this.checkBoxRevHex.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -520,7 +520,7 @@
             // 
             // splitContainer5.Panel2
             // 
-            this.splitContainer5.Panel2.Controls.Add(this.richTextBox1);
+            this.splitContainer5.Panel2.Controls.Add(this.richTextBoxRev);
             this.splitContainer5.Size = new System.Drawing.Size(745, 177);
             this.splitContainer5.SplitterDistance = 31;
             this.splitContainer5.TabIndex = 0;
@@ -561,16 +561,16 @@
             this.button14.Text = "清空接收区";
             this.button14.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // richTextBoxRev
             // 
-            this.richTextBox1.BackColor = System.Drawing.Color.Black;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(745, 142);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextBoxRev.BackColor = System.Drawing.Color.Black;
+            this.richTextBoxRev.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxRev.ForeColor = System.Drawing.Color.White;
+            this.richTextBoxRev.Location = new System.Drawing.Point(0, 0);
+            this.richTextBoxRev.Name = "richTextBoxRev";
+            this.richTextBoxRev.Size = new System.Drawing.Size(745, 142);
+            this.richTextBoxRev.TabIndex = 0;
+            this.richTextBoxRev.Text = "";
             // 
             // tabControl1
             // 
@@ -1613,11 +1613,11 @@
         private System.Windows.Forms.Timer timerStatusStripTimeShow;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxClearBits;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxClear;
+        private System.Windows.Forms.CheckBox checkBoxRevHex;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonOpenSerialPort;
@@ -1705,7 +1705,7 @@
         private System.Windows.Forms.CheckBox checkBox27;
         private System.Windows.Forms.Button buttonSetRevFileDir;
         private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxRev;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DomainUpDown domainUpDown1;
