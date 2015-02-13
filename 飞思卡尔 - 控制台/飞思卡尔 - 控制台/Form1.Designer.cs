@@ -171,6 +171,9 @@
             this.小车轨迹 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxOscMax = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.comboBoxOscRes = new System.Windows.Forms.ComboBox();
             this.checkBoxData8 = new System.Windows.Forms.CheckBox();
             this.checkBoxData4 = new System.Windows.Forms.CheckBox();
@@ -187,9 +190,6 @@
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
-            this.label14 = new System.Windows.Forms.Label();
-            this.comboBoxOscMax = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -243,7 +243,7 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileName = "Rev.log";
-            this.saveFileDialog1.Filter = "\"历史记录|*.log\"";
+            this.saveFileDialog1.Filter = "历史记录|*.log";
             // 
             // openFileDialog1
             // 
@@ -386,6 +386,7 @@
             this.checkBoxClear.TabIndex = 3;
             this.checkBoxClear.Text = "接收到";
             this.checkBoxClear.UseVisualStyleBackColor = true;
+            this.checkBoxClear.CheckedChanged += new System.EventHandler(this.checkBoxClear_CheckedChanged);
             // 
             // checkBoxRevHex
             // 
@@ -2495,6 +2496,46 @@
             this.splitContainer6.SplitterDistance = 25;
             this.splitContainer6.TabIndex = 0;
             // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(167, 5);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "最大值：";
+            // 
+            // comboBoxOscMax
+            // 
+            this.comboBoxOscMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOscMax.FormattingEnabled = true;
+            this.comboBoxOscMax.Items.AddRange(new object[] {
+            "2",
+            "5",
+            "10",
+            "20",
+            "50",
+            "100",
+            "200",
+            "500",
+            "1000"});
+            this.comboBoxOscMax.Location = new System.Drawing.Point(220, 2);
+            this.comboBoxOscMax.Name = "comboBoxOscMax";
+            this.comboBoxOscMax.Size = new System.Drawing.Size(55, 20);
+            this.comboBoxOscMax.TabIndex = 2;
+            this.comboBoxOscMax.Text = "100";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(277, 5);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "分辨率：";
+            // 
             // comboBoxOscRes
             // 
             this.comboBoxOscRes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -2649,46 +2690,6 @@
             // backgroundWorkerSetBlueTooth
             // 
             this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(277, 5);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 12);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "分辨率：";
-            // 
-            // comboBoxOscMax
-            // 
-            this.comboBoxOscMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOscMax.FormattingEnabled = true;
-            this.comboBoxOscMax.Items.AddRange(new object[] {
-            "2",
-            "5",
-            "10",
-            "20",
-            "50",
-            "100",
-            "200",
-            "500",
-            "1000"});
-            this.comboBoxOscMax.Location = new System.Drawing.Point(220, 2);
-            this.comboBoxOscMax.Name = "comboBoxOscMax";
-            this.comboBoxOscMax.Size = new System.Drawing.Size(55, 20);
-            this.comboBoxOscMax.TabIndex = 2;
-            this.comboBoxOscMax.Text = "100";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(167, 5);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(53, 12);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "最大值：";
             // 
             // Form1
             // 

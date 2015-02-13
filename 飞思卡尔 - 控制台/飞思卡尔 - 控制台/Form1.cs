@@ -151,6 +151,10 @@ namespace 飞思卡尔___控制台
                     saveWritter.Write(letter);
                 }
             }
+            if(richTextBoxRev.Text.Length > 10000)
+            {
+                richTextBoxRev.Text = "";
+            }
             //richTextBoxRev.Select(richTextBoxRev.Text.Length, 0);
             richTextBoxRev.ScrollToCaret();
         }
@@ -198,6 +202,12 @@ namespace 飞思卡尔___控制台
             {
                 try
                 {
+                    if(comboBoxPortName.Text == "")
+                    {
+                        comboBoxPortName.SelectedIndex = 0;
+                        comboBoxPortName.Text = comboBoxPortName.SelectedItem.ToString();
+                    }
+
                     serialPort1.PortName = comboBoxPortName.Text;
                     serialPort1.BaudRate = Convert.ToInt32(comboBoxBaudRate.Text);
                     serialPort1.DataBits = Convert.ToInt32(comboBoxDataBits.Text);
@@ -388,11 +398,13 @@ namespace 飞思卡尔___控制台
             if (checkBoxAutoSendSingle.Checked)
             {
                 timerSendSingle.Interval = Convert.ToInt32(comboBoxAutoSendSingleTime.Text);
+                comboBoxAutoSendSingleTime.Enabled = false;
                 timerSendSingle.Start();
             }
             else
             {
                 timerSendSingle.Stop();
+                comboBoxAutoSendSingleTime.Enabled = true;
             }
 
         }
@@ -440,6 +452,7 @@ namespace 飞思卡尔___控制台
                     saveWritter.WriteLine("***********************************************");
 
                     writeFile = true;
+                    textBoxAutoSaveFileLocal.Enabled = false;
                 }
                 catch (SystemException se)
                 {
@@ -452,6 +465,7 @@ namespace 飞思卡尔___控制台
 
                 saveWritter.Close();
                 saveStream.Close();
+                textBoxAutoSaveFileLocal.Enabled = true;
             }
         }
 
@@ -799,6 +813,18 @@ namespace 飞思卡尔___控制台
                         e.Graphics.DrawLine(pen8, Line8[lineLoopTemp], Line8[lineLoopTemp - 1]);
                     }
                 }
+            }
+        }
+
+        private void checkBoxClear_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBoxClear.Checked)
+            {
+                textBoxClearBits.Enabled = false;
+            }
+            else
+            {
+                textBoxClearBits.Enabled = true;
             }
         }
     }
