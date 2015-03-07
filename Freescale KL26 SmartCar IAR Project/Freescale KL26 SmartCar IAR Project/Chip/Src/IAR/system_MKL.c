@@ -54,6 +54,8 @@ void start(void)
 
     main();             // 执行用户主函数
 
+	uart_init(VCAN_PORT, VCAN_BAUD);//防止主程序破坏uart
+
     while(1)           // 死循环,程序不能离开main
     {
 		printf ("You Leave the main func!\r\n");
