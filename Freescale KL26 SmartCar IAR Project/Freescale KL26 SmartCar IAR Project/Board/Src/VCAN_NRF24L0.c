@@ -48,7 +48,7 @@ typedef enum
 uint8 TX_ADDRESS[5] = {0x34, 0x43, 0x10, 0x10, 0x01};   // 定义一个静态发送地址
 uint8 RX_ADDRESS[5] = {0x34, 0x43, 0x10, 0x10, 0x01};
 
-#define CHANAL          40                              //频道选择
+#define CHANAL          129                              //频道选择
 
 
 // 内部配置参量
