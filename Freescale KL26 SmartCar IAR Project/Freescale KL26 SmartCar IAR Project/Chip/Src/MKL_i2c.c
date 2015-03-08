@@ -203,7 +203,7 @@ void Pause(void)
 
     while(n--)
     {
-        asm("nop");
+        Nop;
     }
 }
 

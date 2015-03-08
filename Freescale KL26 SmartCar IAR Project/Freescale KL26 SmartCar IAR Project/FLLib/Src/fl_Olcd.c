@@ -397,7 +397,8 @@ void LCD_WrDat(byte data)
 	gpio_set(LCD_DC, HIGH);
 	//LCD_SCL = 0;
 	gpio_set(LCD_SCL, LOW);
-	//asm("nop");    
+	DisableInterrupts();
+	//Nop;    
 	while (i--)
 	{
 		if (data & 0x80)
@@ -412,12 +413,13 @@ void LCD_WrDat(byte data)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		asm("nop");
-		//asm("nop");            
+		Nop;
+		//Nop;            
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
 		data <<= 1;
 	}//LCD_CS=1;
+	EnableInterrupts();
 }
 /************************************************************************/
 /*                                                                      */
@@ -430,7 +432,8 @@ void LCD_WrCmd(byte cmd)
 	gpio_set(LCD_DC, LOW);
 	//LCD_SCL = 0;
 	gpio_set(LCD_SCL, LOW);
-	//asm("nop");   
+	//Nop;   
+	DisableInterrupts();
 	while (i--)
 	{
 		if (cmd & 0x80)
@@ -445,12 +448,13 @@ void LCD_WrCmd(byte cmd)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		asm("nop");
-		//asm("nop");             
+		Nop;
+		//Nop;             
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
 		cmd <<= 1;
 	} 	//LCD_CS=1;
+	EnableInterrupts();
 }
 /************************************************************************/
 /*                                                                      */
@@ -687,7 +691,7 @@ void Set_NOP(void)
 InitRepot_e OlcdInit(void)
 {
 	//
-
+	DisableInterrupts();
 	gpio_init(LCD_DC, GPO, HIGH);//DC
 	gpio_init(LCD_RST, GPO, HIGH);//RST
 	gpio_init(LCD_SDA, GPO, HIGH);//SDA
@@ -715,6 +719,7 @@ InitRepot_e OlcdInit(void)
 	LCD_Fill(0x00);  //³õÊ¼ÇåÆÁ
 	LCD_Set_Pos(0, 0);
 	//LCDPrint(0, 0, "·ÉÁú");
+	EnableInterrupts();
 	return InitAllGreen;
 }
 //==============================================================

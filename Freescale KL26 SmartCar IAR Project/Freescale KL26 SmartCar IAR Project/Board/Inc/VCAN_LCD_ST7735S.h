@@ -63,7 +63,7 @@
 #define     LCD_ST7735S_PDDR_IN()       (PTB_B2_DDR = 0)
 
 
-#define ST7735S_DELAY()                         //do{asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");asm("nop");}while(0)
+#define ST7735S_DELAY()                         //do{Nop;Nop;Nop;Nop;Nop;Nop;Nop;Nop;}while(0)
 #define ST7735S_DELAY_MS(ms)    DELAY_MS(ms)
 
 
