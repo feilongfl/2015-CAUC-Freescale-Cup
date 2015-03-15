@@ -20,8 +20,6 @@
 #define MotorPidMaxI  1//电机最大I
 #define MotorPidMaxD  1//电机最大D
 
-
-
 #if 0//结构体方式实现
 #if (TpmMotorPrecison > 0xffff)
 struct MotorSpeed_s
