@@ -1,6 +1,5 @@
 #include "fl_motor.h"
 
-
 struct Pid_s * MotorPid;
 struct MotorSpeed_s *Speed;
 
