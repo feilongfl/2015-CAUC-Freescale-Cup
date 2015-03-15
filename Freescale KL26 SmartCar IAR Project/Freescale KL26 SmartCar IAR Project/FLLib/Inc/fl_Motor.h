@@ -6,8 +6,7 @@
 #ifndef _FL_MOTOR_
 #define _FL_MOTOR_
 
-//电机常规属性
-#define MotorDutyMax TpmMotorPrecison//最大值
+
 //电机默认参数
 #define MotorDefaultDuty 0//开机
 #define MotorPIDDefaultP 1//电机默认P
@@ -78,6 +77,7 @@ struct MotorSpeed_s
 /*                                                                      */
 /************************************************************************/
 void MotorInit();//初始化电机
+void MotorPidSet(struct Pid_s * pid);//pid设置
 //////////////////////////////////////////////////////////////////////////
 
 #endif//_FL_MOTOR_

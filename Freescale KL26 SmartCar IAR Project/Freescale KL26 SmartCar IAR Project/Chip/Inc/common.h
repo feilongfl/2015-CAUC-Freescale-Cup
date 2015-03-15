@@ -364,5 +364,5 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 #include "fl_CFG.H"
 #include "fl_Init.h"
 
-#define Nop Nop
+#define Nop() asm("nop")
 #endif /* _COMMON_H_ */

@@ -2034,6 +2034,9 @@
       <name>$PROJ_DIR$\..\..\FLLib\Src\FL_KEY.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\..\FLLib\Src\fl_math.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\FLLib\Src\fl_Motor.c</name>
     </file>
     <file>

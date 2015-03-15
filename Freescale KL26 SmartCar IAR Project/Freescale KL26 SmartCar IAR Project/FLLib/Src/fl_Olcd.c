@@ -397,7 +397,8 @@ void LCD_WrDat(byte data)
 	gpio_set(LCD_DC, HIGH);
 	//LCD_SCL = 0;
 	gpio_set(LCD_SCL, LOW);
-	DisableInterrupts();
+	
+	//DisableInterrupts();
 	//Nop;    
 	while (i--)
 	{
@@ -413,13 +414,13 @@ void LCD_WrDat(byte data)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		Nop;
+		Nop();
 		//Nop;            
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
 		data <<= 1;
 	}//LCD_CS=1;
-	EnableInterrupts();
+	//EnableInterrupts();
 }
 /************************************************************************/
 /*                                                                      */
@@ -433,7 +434,8 @@ void LCD_WrCmd(byte cmd)
 	//LCD_SCL = 0;
 	gpio_set(LCD_SCL, LOW);
 	//Nop;   
-	DisableInterrupts();
+	
+	//DisableInterrupts();
 	while (i--)
 	{
 		if (cmd & 0x80)
@@ -448,13 +450,13 @@ void LCD_WrCmd(byte cmd)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		Nop;
+		Nop();
 		//Nop;             
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
 		cmd <<= 1;
 	} 	//LCD_CS=1;
-	EnableInterrupts();
+	//EnableInterrupts();
 }
 /************************************************************************/
 /*                                                                      */
