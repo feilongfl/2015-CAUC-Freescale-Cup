@@ -65,6 +65,27 @@ namespace 飞思卡尔___控制台
             InitializeComponent();
         }
 
+        delegate void SetTextCallback(string text);
+
+        private void SetText(string str)
+        {
+            this.richTextBoxRev.Text = str;
+        }
+
+        private void RichApp(string str)
+        {
+            if (this.richTextBoxRev.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { str });
+            }
+            else
+            {
+                this.richTextBoxRev.Text = str;
+            }
+
+        }
+
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             foreach (char letter in serialPort1.ReadExisting().ToCharArray())
@@ -75,7 +96,8 @@ namespace 飞思卡尔___控制台
                 }
                 else//文本显示
                 {
-                    richTextBoxRev.AppendText(letter.ToString());
+                    //richTextBoxRev.AppendText(letter.ToString());
+                    RichApp(letter.ToString());
                 }
 
                 if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text, 16)))//清屏
@@ -190,7 +212,7 @@ namespace 飞思卡尔___控制台
             }
             catch { }
 
-            CheckForIllegalCrossThreadCalls = false;
+            //CheckForIllegalCrossThreadCalls = false;
         }
 
         private void timerFindSerialPort_Tick(object sender, EventArgs e)

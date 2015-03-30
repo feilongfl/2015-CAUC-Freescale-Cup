@@ -397,10 +397,10 @@ void LCD_WrDat(byte data)
 	gpio_set(LCD_DC, HIGH);
 	//LCD_SCL = 0;
 	gpio_set(LCD_SCL, LOW);
+
+	spi_mosi(SPI0, NULL, &data, NULL, 1);
 	
-	//DisableInterrupts();
-	//Nop;    
-	while (i--)
+	/*while (i--)
 	{
 		if (data & 0x80)
 		{
@@ -419,8 +419,7 @@ void LCD_WrDat(byte data)
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
 		data <<= 1;
-	}//LCD_CS=1;
-	//EnableInterrupts();
+	}//LCD_CS=1;*/
 }
 /************************************************************************/
 /*                                                                      */
@@ -435,7 +434,9 @@ void LCD_WrCmd(byte cmd)
 	gpio_set(LCD_SCL, LOW);
 	//Nop;   
 	
-	//DisableInterrupts();
+	spi_mosi(SPI0, NULL, &cmd, NULL, 1);
+
+	/*
 	while (i--)
 	{
 		if (cmd & 0x80)
@@ -456,30 +457,30 @@ void LCD_WrCmd(byte cmd)
 		gpio_set(LCD_SCL, LOW);
 		cmd <<= 1;
 	} 	//LCD_CS=1;
-	//EnableInterrupts();
+	*/
 }
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-void LCD_Set_Pos(byte x, byte y)
+void LCD_Set_Pos(byte PosX, byte PosY)
 {
-	LCD_WrCmd(0xb0 + y);
-	LCD_WrCmd(((x & 0xf0) >> 4) | 0x10);
-	LCD_WrCmd((x & 0x0f) | 0x01);
+	LCD_WrCmd(0xb0 + PosY);
+	LCD_WrCmd(((PosX & 0xf0) >> 4) | 0x10);
+	LCD_WrCmd((PosX & 0x0f) | 0x01);
 }
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
-void LCD_Fill(byte bmp_data)
+void LCD_Fill(byte BmpData)
 {
-	byte y, x;
-	for (y = 0; y<8; y++)
+	byte PosY, PosX;
+	for (PosY = 0; PosY<8; PosY++)
 	{
-		LCD_WrCmd(0xb0 + y);
+		LCD_WrCmd(0xb0 + PosY);
 		LCD_WrCmd(0x01);
 		LCD_WrCmd(0x10);
-		for (x = 0; x<X_WIDTH; x++)
-			LCD_WrDat(bmp_data);
+		for (PosX = 0; PosX<OlcdWidthX; PosX++)
+			LCD_WrDat(BmpData);
 	}
 }
 /************************************************************************/
@@ -487,13 +488,13 @@ void LCD_Fill(byte bmp_data)
 /************************************************************************/
 void LcdCls(void)
 {
-	byte y, x;
-	for (y = 0; y<8; y++)
+	byte PosY, PosX;
+	for (PosY = 0; PosY<8; PosY++)
 	{
-		LCD_WrCmd(0xb0 + y);
+		LCD_WrCmd(0xb0 + PosY);
 		LCD_WrCmd(0x01);
 		LCD_WrCmd(0x10);
-		for (x = 0; x<X_WIDTH; x++)
+		for (PosX = 0; PosX<OlcdWidthX; PosX++)
 			LCD_WrDat(0x00);
 	}
 }
@@ -694,6 +695,7 @@ InitRepot_e OlcdInit(void)
 {
 	//
 	DisableInterrupts();
+	spi_init(SPI0, NULL, MASTER, 12500 * 1000);
 	gpio_init(LCD_DC, GPO, HIGH);//DC
 	gpio_init(LCD_RST, GPO, HIGH);//RST
 	gpio_init(LCD_SDA, GPO, HIGH);//SDA

@@ -111,6 +111,7 @@ typedef struct
 #define TRUE    1
 #define FALSE   0
 
+#define	NULL	0
 
 /*
  * 中断号类型声明

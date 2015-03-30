@@ -3,6 +3,7 @@
 #include "fl_error.h"
 #ifdef MKL26Z4
 #include "MKL_gpio.h"
+#include "MKL_spi.h"
 #elif MK60F15
 #include "MK60_gpio.h
 #elif  _FL_VISUAL_STUDIO_
@@ -51,7 +52,7 @@ RD  低电平 ，也可悬空，但最好设为低电平
 /************************************************************************/
 /* 常量                                                                 */
 /************************************************************************/
-#define X_WIDTH 128
+#define OlcdWidthX 128
 #define Y_WIDTH 64
 
 #define byte unsigned char  
