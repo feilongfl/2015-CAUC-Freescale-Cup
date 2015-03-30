@@ -3,13 +3,13 @@
 struct Pid_s * MotorPid;
 struct MotorSpeed_s *Speed;
 
-void MotorPidSet(struct Pid_s * pid)
-{
-	ASSERT(pid->P > MotorPidMinP && pid->P < MotorPidMaxP);
-	ASSERT(pid->I > MotorPidMinI && pid->I < MotorPidMaxI);
-	ASSERT(pid->D > MotorPidMinD && pid->D < MotorPidMaxD);
-	MotorPid = pid;
-}
+//void MotorPidSet(struct Pid_s * pid)
+//{
+//	ASSERT(pid->P > MotorPidMinP && pid->P < MotorPidMaxP);
+//	ASSERT(pid->I > MotorPidMinI && pid->I < MotorPidMaxI);
+//	ASSERT(pid->D > MotorPidMinD && pid->D < MotorPidMaxD);
+//	MotorPid = pid;
+//}
 
 void MotorPidSetP(int16 p)
 {

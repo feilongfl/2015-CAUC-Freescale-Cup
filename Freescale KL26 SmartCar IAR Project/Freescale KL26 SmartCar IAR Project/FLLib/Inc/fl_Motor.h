@@ -75,7 +75,7 @@ struct MotorSpeed_s
 /*                                                                      */
 /************************************************************************/
 void MotorInit();//初始化电机
-void MotorPidSet(struct Pid_s * pid);//pid设置
+//void MotorPidSet(struct Pid_s * pid);//pid设置
 void MotorPidSetP(int16 p);
 void MotorPidSetI(int16 i);
 void MotorPidSetD(int16 d);

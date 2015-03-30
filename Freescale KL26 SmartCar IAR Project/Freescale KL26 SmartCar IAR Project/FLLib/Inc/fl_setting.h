@@ -11,7 +11,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-//#warning pid初始值未设定
+//#warning pid初始值未设定 
 ////状态值
 //extern volatile struct Pid_s PidMotor;//电机
 //extern volatile struct Pid_s PidSteer;//舵机
