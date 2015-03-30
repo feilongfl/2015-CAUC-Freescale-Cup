@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace 飞思卡尔控制台V2._0
 {
+    //委托
+    public delegate void PortSendDelegate(string message);
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -22,9 +25,14 @@ namespace 飞思卡尔控制台V2._0
             toolStripStatusLabelTime.Text = DateTime.Now.ToString();
         }
 
-        private void buttonSendSingle_Click(object sender, EventArgs e)
+        private void PortSend (string str)
         {
 
+        }
+
+        private void buttonSendSingle_Click(object sender, EventArgs e)
+        {
+            PortSendDelegate portSendDelegate = new PortSendDelegate(PortSend);
         }
     }
 }
