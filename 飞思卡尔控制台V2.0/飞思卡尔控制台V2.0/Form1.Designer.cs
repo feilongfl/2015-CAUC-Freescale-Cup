@@ -418,6 +418,7 @@
             this.buttonOpenSerialPort.TabIndex = 1;
             this.buttonOpenSerialPort.Text = "打开串口";
             this.buttonOpenSerialPort.UseVisualStyleBackColor = true;
+            this.buttonOpenSerialPort.Click += new System.EventHandler(this.buttonOpenSerialPort_Click);
             // 
             // comboBoxStopBits
             // 
@@ -2625,6 +2626,7 @@
             // serialPort1
             // 
             this.serialPort1.BaudRate = 15200;
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // timerStatusStripTimeShow
             // 
@@ -2636,6 +2638,7 @@
             // 
             this.timerFindSerialPort.Enabled = true;
             this.timerFindSerialPort.Interval = 2000;
+            this.timerFindSerialPort.Tick += new System.EventHandler(this.timerFindSerialPort_Tick);
             // 
             // Form1
             // 
@@ -2645,7 +2648,9 @@
             this.Controls.Add(this.tabControlMainForm);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControlMainForm.ResumeLayout(false);
