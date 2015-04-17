@@ -287,3 +287,88 @@ void i2c_write_reg(I2Cn_e i2cn, uint8 SlaveID, uint8 reg, uint8 Data)
     Pause();                                            //延时太短的话，可能写出错
 }
 
+/*!
+*  @brief      读取I2C设备指定地址寄存器的数据
+*  @param      I2Cn_e        I2C模块(I2C0、I2C1)
+*  @param      SlaveID     从机地址(7位地址)
+*  @param      reg         从机寄存器地址
+*  @return                 读取的寄存器值
+*  @since      v5.0
+*  Sample usage:       uint8 value = i2c_read_reg(I2C0, 0x1D, 1);
+*/
+uint8 i2c_read_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg)
+{
+
+	//先写入寄存器地址,再读取数据,因此此过程是 I2C 的复合格式,改变数据方向时需要重新启动
+	uint8 result;
+
+	ASSERT((SlaveID & 0x80) == 0);                      //断言，我们要求的7位地址的值仅仅是7bit,不是通信时要求的高7位
+	//有些手册，给出的7位地址指的是8bit里的高7位
+	//有些手册，给出的7位地址指的是7bit
+	//请自行确认，可以尝试是否通信正常来确认
+
+	i2c_Start(i2cn);                                    //发送启动信号
+
+	i2c_write_byte(i2cn, (SlaveID << 1) | MWSR);      //发送从机地址和写位
+	i2c_Wait(i2cn);
+
+	i2c_write_byte(i2cn, (uint8)(reg >> 8));                          //发送从机里的寄存器地址高八位
+	i2c_Wait(i2cn);
+
+	i2c_write_byte(i2cn, (uint8)reg);                          //发送从机里的寄存器地址低八位
+	i2c_Wait(i2cn);
+
+	i2c_RepeatedStart(i2cn);                            //复合格式，发送重新启动信号
+
+	i2c_write_byte(i2cn, (SlaveID << 1) | MRSW);      //发送从机地址和读位
+	i2c_Wait(i2cn);
+
+	//i2c_EnterRxMode(i2cn) ;
+	i2c_PutinRxMode(i2cn);                              //进入接收模式(不应答,只接收一个字节)
+
+
+	result = I2C_D_REG(I2CN[i2cn]);                     //虚假读取一次，启动接收数据
+	i2c_Wait(i2cn);                                     //等待接收完成
+
+	i2c_Stop(i2cn);                                     //发送停止信号
+
+	result = I2C_D_REG(I2CN[i2cn]);                     //读取数据
+
+	Pause();                                            //必须延时一下，否则出错
+
+	return result;
+}
+
+
+/*!
+*  @brief      写入一个字节数据到I2C设备指定寄存器地址
+*  @param      I2Cn_e        I2C模块(I2C0、I2C1)
+*  @param      SlaveID     从机地址(7位地址)
+*  @param      reg         从机寄存器地址
+*  @param      Data        数据
+*  @since      v5.0
+*  Sample usage:       i2c_write_reg(I2C0, 0x1D, 1,2);     //向从机0x1D 的寄存器 1 写入数据 2
+*/
+
+void i2c_write_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg, uint8 Data)
+{
+
+	i2c_Start(i2cn);                                    //发送启动信号
+
+	i2c_write_byte(i2cn, (SlaveID << 1) | MWSR);      //发送从机地址和写位
+	i2c_Wait(i2cn);
+	if (i2c_IsAsk(i2cn) == 0) return;                  //没有应答
+
+	i2c_write_byte(i2cn, (uint8)(reg >> 8));          //发送从机里的寄存器地址高八位
+	i2c_Wait(i2cn);
+
+	i2c_write_byte(i2cn, (uint8)reg);                //发送从机里的寄存器地址
+	i2c_Wait(i2cn);
+
+	i2c_write_byte(i2cn, Data);                         //发送需要写入的数据
+	i2c_Wait(i2cn);
+
+	i2c_Stop(i2cn);
+
+	Pause();                                            //延时太短的话，可能写出错
+}

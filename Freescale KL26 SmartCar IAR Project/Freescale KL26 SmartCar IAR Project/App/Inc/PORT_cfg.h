@@ -65,7 +65,7 @@
 /**********************************  I2C   ***************************************/
 
 //      模块通道    端口          可选范围                                    建议
-//先占一个，接个小屏幕吧
+//eeprom
 #define I2C0_SCL_PIN    PTC8        // PTB0、PTB2、PTC8、PTE19、PTE24
 #define I2C0_SDA_PIN    PTC9        // PTB1、PTB3、PTC9、PTE18、PTE25
 
