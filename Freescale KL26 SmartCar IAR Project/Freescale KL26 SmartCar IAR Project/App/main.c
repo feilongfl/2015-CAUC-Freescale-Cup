@@ -50,7 +50,7 @@ void main()
 	printf("start");
 	//AdcNormalizingInit();//初始化归一化变量
 
-	EepromInit();
+	/*EepromInit();
 	EepromWrite(0x0001, 0x01);
 
 	while (1)
@@ -58,7 +58,7 @@ void main()
 		uint8 a = EepromRead(0x0001);
 		printf("%d", a);
 		DELAY_MS(1000);
-	}
+	}*/
 
 	//程序循环
 	while (1)
