@@ -340,6 +340,7 @@ uint8 i2c_read_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg)
 }
 
 
+
 /*!
 *  @brief      写入一个字节数据到I2C设备指定寄存器地址
 *  @param      I2Cn_e        I2C模块(I2C0、I2C1)
@@ -349,7 +350,7 @@ uint8 i2c_read_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg)
 *  @since      v5.0
 *  Sample usage:       i2c_write_reg(I2C0, 0x1D, 1,2);     //向从机0x1D 的寄存器 1 写入数据 2
 */
-
+/*
 void i2c_write_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg, uint8 Data)
 {
 
@@ -371,4 +372,4 @@ void i2c_write_reg_16(I2Cn_e i2cn, uint8 SlaveID, uint16 reg, uint8 Data)
 	i2c_Stop(i2cn);
 
 	Pause();                                            //延时太短的话，可能写出错
-}
+}*/
