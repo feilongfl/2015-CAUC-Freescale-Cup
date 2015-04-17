@@ -1,6 +1,8 @@
 #include "common.h"
 #include "fl_cfg.h"
 #include "fl_eeprom.h"
+#include "fl_ADC.h"
+#include "fl_pid.h"
 
 #ifndef _FL_config_
 #define _FL_config_
@@ -25,9 +27,7 @@ struct  ConfigPid_s
 #if UseCheck
 	uint8 PidStart;
 #endif // UseCheck
-	uint16 P;
-	uint16 I;
-	uint16 D;
+	struct Pid_s Pid;
 #if UseCheck
 	uint8 PidStop;
 #endif // UseCheck
@@ -61,10 +61,7 @@ struct ConfigAdcNom_s
 #if UseCheck
 	uint8 AdcStart;
 #endif // UseCheck
-	uint16 Adc1;
-	uint16 Adc2;
-	uint16 Adc3;
-	uint16 Adc4;
+	struct FLAdc_s Adc;
 #if UseCheck
 	uint8 AdcEnd;
 #endif // UseCheck
@@ -76,7 +73,8 @@ struct Config_s
 	uint8 ConfigStart;
 #endif // UseCheck
 	struct ConfigAdcNom_s AdcNormalMax;
-	struct ConfigPid_s;
+	struct ConfigSteer Steer;
+	struct ConfigMotor_s Motor;
 #if UseCheck
 	uint8 ConfigEnd;
 #endif // UseCheck
