@@ -18,6 +18,7 @@
 #include "fL_SettingMenu.h"
 #include "fl_state.h"
 #include "fl_steer.h"
+#include "fl_eeprom.h"
 
 
 #endif //_FL_INCLUDE_

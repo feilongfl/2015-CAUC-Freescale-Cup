@@ -327,6 +327,12 @@
     <ClInclude Include="FLLib\Inc\fl_math.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_eeprom.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_config.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -486,6 +492,12 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_math.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_eeprom.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_config.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

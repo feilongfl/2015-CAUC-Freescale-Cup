@@ -47,10 +47,18 @@ void main()
 	//                       用户操作                                       //
 	//////////////////////////////////////////////////////////////////////////
 	
-	
-	AdcNormalizingInit();//初始化归一化变量
+	printf("start");
+	//AdcNormalizingInit();//初始化归一化变量
 
+	EepromInit();
+	EepromWrite(0x0001, 0x01);
 
+	while (1)
+	{
+		uint8 a = EepromRead(0x0001);
+		printf("%d", a);
+		DELAY_MS(1000);
+	}
 
 	//程序循环
 	while (1)

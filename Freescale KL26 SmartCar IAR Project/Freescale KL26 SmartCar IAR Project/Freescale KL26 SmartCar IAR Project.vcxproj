@@ -135,6 +135,8 @@
     <ClInclude Include="Chip\Inc\MKL_wdog.h" />
     <ClInclude Include="FLLib\Inc\fl_ADC.h" />
     <ClInclude Include="FLLib\Inc\fl_cfg.h" />
+    <ClInclude Include="FLLib\Inc\fl_config.h" />
+    <ClInclude Include="FLLib\Inc\fl_eeprom.h" />
     <ClInclude Include="FLLib\Inc\fl_error.h" />
     <ClInclude Include="FLLib\Inc\fl_HCSR04.h" />
     <ClInclude Include="FLLib\Inc\fl_include.h" />
@@ -202,6 +204,8 @@
     <ClCompile Include="Chip\Src\MKL_uart.c" />
     <ClCompile Include="Chip\Src\MKL_wdog.c" />
     <ClCompile Include="FLLib\Src\fl_adc.c" />
+    <ClCompile Include="FLLib\Src\fl_config.c" />
+    <ClCompile Include="FLLib\Src\fl_eeprom.c" />
     <ClCompile Include="FLLib\Src\fl_error.c" />
     <ClCompile Include="FLLib\Src\fl_filter.c" />
     <ClCompile Include="FLLib\Src\fl_HCSR04.c" />
