@@ -17,7 +17,7 @@
 #define SteerCheck 0x45
 #define AdcCheck 0x46
 
-#define ConfigLong 100
+#define ConfigLong 255
 
 #define ConfigEndDefault 0x00
 #define ConfigEnd 0xff

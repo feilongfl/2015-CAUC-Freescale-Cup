@@ -4,13 +4,11 @@ ConfigErrorType_s ConfigWrite(EepromConfig_s * eepromConfig)
 {
 	uint16 eepRomAddress = 0x0000;
 	assert(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	while (eepromConfig->EepromConfigEnd != ConfigEnd)
+	//while (eepromConfig->EepromConfigEnd != ConfigEnd)
+	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		EepromWrite(eepRomAddress++,*(((uint8*)eepromConfig) + eepRomAddress));
-		if (eepRomAddress >= ConfigLong)
-		{
-			break;
-		}
+		assert(eepRomAddress >= ConfigLong);
 	}
 	return AllGreen;
 }
@@ -19,7 +17,8 @@ ConfigErrorType_s ConfigRead(EepromConfig_s * eepromConfig)
 {
 	uint16 eepRomAddress = 0x0000;
 	eepromConfig->EepromConfigEnd = 0x0000;
-	while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
+	//while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
+	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		*((uint8*)eepromConfig + eepRomAddress) = EepromRead(eepRomAddress++);
 		if (eepRomAddress >= ConfigLong)
@@ -39,7 +38,8 @@ ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e ba
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
 	assert(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	while (eepromConfig->EepromConfigEnd != ConfigEnd)
+	//while (eepromConfig->EepromConfigEnd != ConfigEnd)
+	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		EepromWrite(eepRomAddress++, *(((uint8*)eepromConfig) + eepRomAddress));
 		if (eepRomAddress >= ConfigLong)
@@ -54,13 +54,11 @@ ConfigErrorType_s ConfigRecovery(EepromConfig_s * eepromConfig, ConfigBackNum_e 
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
 	eepromConfig->EepromConfigEnd = 0x0000;
-	while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
+	//while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
+	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		*((uint8*)eepromConfig + eepRomAddress) = EepromRead(eepRomAddress++);
-		if (eepRomAddress >= ConfigLong)
-		{
-			return LostEnd;
-		}
+		assert(eepRomAddress >= ConfigLong);
 	}
 	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
 	{
