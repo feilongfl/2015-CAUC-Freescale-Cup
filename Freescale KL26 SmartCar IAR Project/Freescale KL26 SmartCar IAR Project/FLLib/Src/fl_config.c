@@ -42,10 +42,7 @@ ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e ba
 	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		EepromWrite(eepRomAddress++, *(((uint8*)eepromConfig) + eepRomAddress));
-		if (eepRomAddress >= ConfigLong)
-		{
-			break;
-		}
+		assert(eepRomAddress >= ConfigLong);
 	}
 	return AllGreen;
 }
@@ -58,7 +55,10 @@ ConfigErrorType_s ConfigRecovery(EepromConfig_s * eepromConfig, ConfigBackNum_e 
 	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
 	{
 		*((uint8*)eepromConfig + eepRomAddress) = EepromRead(eepRomAddress++);
-		assert(eepRomAddress >= ConfigLong);
+		if (eepRomAddress >= ConfigLong)
+		{
+			return LostEnd;
+		}
 	}
 	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
 	{
