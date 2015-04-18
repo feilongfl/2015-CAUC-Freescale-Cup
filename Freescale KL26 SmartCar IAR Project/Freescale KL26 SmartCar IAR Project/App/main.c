@@ -48,7 +48,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-	//AdcNormalizingInit();//初始化归一化变量
+	AdcNormalizingInit();//初始化归一化变量
 
 	/*EepromInit();
 	EepromWrite(0x0001, 0x01);
