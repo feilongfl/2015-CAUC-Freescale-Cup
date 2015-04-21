@@ -162,7 +162,7 @@ void AdcNormalizingInit()
 			break;
 
 		case FLKeySwitch://«–ªªœ‘ æ
-			maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
+			//maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
 			break;
 
 		case FLNoKeyDown:
