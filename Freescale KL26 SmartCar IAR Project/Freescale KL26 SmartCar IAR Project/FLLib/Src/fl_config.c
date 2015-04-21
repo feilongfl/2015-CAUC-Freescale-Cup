@@ -1,66 +1,66 @@
 #include "fl_config.h"
 
-ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * eepromConfig)
+ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 {
 	uint16 eepRomAddress = 0x0000;
-	assert(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	//while (eepromConfig->EepromConfigEnd != ConfigEnd)
-	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
+	assert(config->WhoAmI != CONFIG_WHO_AM_I);
+	//while (config->EepromConfigEnd != ConfigEnd)
+	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
-		EepromWrite(eepRomAddress++,*(((uint8*)eepromConfig) + eepRomAddress));
+		EepromWrite(eepRomAddress++,*(((uint8*)config) + eepRomAddress));
 		assert(eepRomAddress >= ConfigLong);
 	}
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * eepromConfig)
+ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
 {
 	uint16 eepRomAddress = 0x0000;
-	eepromConfig->EepromConfigEnd = 0x0000;
-	//while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
-	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
+	config->EepromConfigEnd = 0x0000;
+	//while ((config->EepromConfigEnd) != ConfigEnd)
+	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
-		*((uint8*)eepromConfig + eepRomAddress) = EepromRead(eepRomAddress++);
+		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
 		if (eepRomAddress >= ConfigLong)
 		{
 			return LostEnd;
 		}
 	}
-	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
+	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
 		return WhoAmIError;
 	}
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
+ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
 {
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
-	assert(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	//while (eepromConfig->EepromConfigEnd != ConfigEnd)
-	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
+	assert(config->WhoAmI != CONFIG_WHO_AM_I);
+	//while (config->EepromConfigEnd != ConfigEnd)
+	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
-		EepromWrite(eepRomAddress++, *(((uint8*)eepromConfig) + eepRomAddress));
+		EepromWrite(eepRomAddress++, *(((uint8*)config) + eepRomAddress));
 		assert(eepRomAddress >= ConfigLong);
 	}
 	return AllGreen;
 }
-ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
+ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
 {
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
-	eepromConfig->EepromConfigEnd = 0x0000;
-	//while ((eepromConfig->EepromConfigEnd) != ConfigEnd)
-	while (((uint8*)eepromConfig + eepRomAddress) != ((uint8*)(eepromConfig->EepromConfigEnd)))
+	config->EepromConfigEnd = 0x0000;
+	//while ((config->EepromConfigEnd) != ConfigEnd)
+	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
-		*((uint8*)eepromConfig + eepRomAddress) = EepromRead(eepRomAddress++);
+		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
 		if (eepRomAddress >= ConfigLong)
 		{
 			return LostEnd;
 		}
 	}
-	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
+	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
 		return WhoAmIError;
 	}
@@ -95,70 +95,70 @@ adc0,1,2,3
 期望车速
 舵机pid
 */
-ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * eepromConfig,char * str)
+ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 {
-	ASSERT(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
+	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
+	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
 		return WhoAmIError;
 	}
-	ASSERT(eepromConfig->EepromConfigEnd != ConfigEnd);
-	if (eepromConfig->EepromConfigEnd != ConfigEnd)
+	ASSERT(config->EepromConfigEnd != ConfigEnd);
+	if (config->EepromConfigEnd != ConfigEnd)
 	{
 		return LostEnd;
 	}
 
 	sprintf(str,
 		"$%d,%d,%d,%d|%d,%d,%d|%d|%d,%d,%d#",
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc0,
-		eepromConfig->Config.AdcNormalMax.Adc.FlAdc1,
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc2,
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc3,
-		eepromConfig->Config.Motor.Pid.Pid.P,
-		eepromConfig->Config.Motor.Pid.Pid.I,
-		eepromConfig->Config.Motor.Pid.Pid.D,
-		eepromConfig->Config.Motor.Speed,
-		eepromConfig->Config.Steer.Pid.Pid.P,
-		eepromConfig->Config.Steer.Pid.Pid.I,
-		eepromConfig->Config.Steer.Pid.Pid.D
+		config->Config.AdcNormalMax.Adc.FLAdc0,
+		config->Config.AdcNormalMax.Adc.FlAdc1,
+		config->Config.AdcNormalMax.Adc.FLAdc2,
+		config->Config.AdcNormalMax.Adc.FLAdc3,
+		config->Config.Motor.Pid.Pid.P,
+		config->Config.Motor.Pid.Pid.I,
+		config->Config.Motor.Pid.Pid.D,
+		config->Config.Motor.Speed,
+		config->Config.Steer.Pid.Pid.P,
+		config->Config.Steer.Pid.Pid.I,
+		config->Config.Steer.Pid.Pid.D
 		);
 
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s eepromConfig)
+ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s config)
 {
 	//TODO:
 	ASSERT(true);
 	return Others;
 }
 
-ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * eepromConfig)
+ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 {
-	ASSERT(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
-	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
+	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
+	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
 		return WhoAmIError;
 	}
-	ASSERT(eepromConfig->EepromConfigEnd != ConfigEnd);
-	if (eepromConfig->EepromConfigEnd != ConfigEnd)
+	ASSERT(config->EepromConfigEnd != ConfigEnd);
+	if (config->EepromConfigEnd != ConfigEnd)
 	{
 		return LostEnd;
 	}
 
 	printf(
 		"$%d,%d,%d,%d|%d,%d,%d|%d|%d,%d,%d#",
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc0,
-		eepromConfig->Config.AdcNormalMax.Adc.FlAdc1,
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc2,
-		eepromConfig->Config.AdcNormalMax.Adc.FLAdc3,
-		eepromConfig->Config.Motor.Pid.Pid.P,
-		eepromConfig->Config.Motor.Pid.Pid.I,
-		eepromConfig->Config.Motor.Pid.Pid.D,
-		eepromConfig->Config.Motor.Speed,
-		eepromConfig->Config.Steer.Pid.Pid.P,
-		eepromConfig->Config.Steer.Pid.Pid.I,
-		eepromConfig->Config.Steer.Pid.Pid.D
+		config->Config.AdcNormalMax.Adc.FLAdc0,
+		config->Config.AdcNormalMax.Adc.FlAdc1,
+		config->Config.AdcNormalMax.Adc.FLAdc2,
+		config->Config.AdcNormalMax.Adc.FLAdc3,
+		config->Config.Motor.Pid.Pid.P,
+		config->Config.Motor.Pid.Pid.I,
+		config->Config.Motor.Pid.Pid.D,
+		config->Config.Motor.Speed,
+		config->Config.Steer.Pid.Pid.P,
+		config->Config.Steer.Pid.Pid.I,
+		config->Config.Steer.Pid.Pid.D
 		);
 
 	return AllGreen;

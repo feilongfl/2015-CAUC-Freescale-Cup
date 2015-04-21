@@ -108,15 +108,15 @@ typedef enum
 	Others
 }ConfigErrorType_s;
 
-ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * eepromConfig);
-ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * eepromConfig);
+ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config);
+ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config);
 
-ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
-ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
+ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum);
+ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum);
 ConfigErrorType_s ConfigBackUpClear(ConfigBackNum_e backUpNum);
 
 ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * eeppromConfig);
-ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * eepromConfig, char * str);
-ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s eepromConfig);
+ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config, char * str);
+ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s config);
 
 #endif//_FL_config_
