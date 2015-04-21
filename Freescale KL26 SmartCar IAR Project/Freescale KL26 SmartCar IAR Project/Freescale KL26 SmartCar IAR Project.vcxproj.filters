@@ -338,9 +338,6 @@
     <ClCompile Include="FLLib\Src\fl_adc.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
-    <ClCompile Include="FLLib\Src\fl_filter.c">
-      <Filter>FLLib\Src</Filter>
-    </ClCompile>
     <ClCompile Include="FLLib\Src\fl_HCSR04.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
