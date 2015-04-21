@@ -1,6 +1,6 @@
 #include "fl_config.h"
 
-ConfigErrorType_s ConfigWrite(EepromConfig_s * eepromConfig)
+ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * eepromConfig)
 {
 	uint16 eepRomAddress = 0x0000;
 	assert(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
@@ -13,7 +13,7 @@ ConfigErrorType_s ConfigWrite(EepromConfig_s * eepromConfig)
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigRead(EepromConfig_s * eepromConfig)
+ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * eepromConfig)
 {
 	uint16 eepRomAddress = 0x0000;
 	eepromConfig->EepromConfigEnd = 0x0000;
@@ -33,7 +33,7 @@ ConfigErrorType_s ConfigRead(EepromConfig_s * eepromConfig)
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
+ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
 {
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
@@ -46,7 +46,7 @@ ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e ba
 	}
 	return AllGreen;
 }
-ConfigErrorType_s ConfigRecovery(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
+ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum)
 {
 	assert(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
@@ -95,7 +95,7 @@ adc0,1,2,3
 期望车速
 舵机pid
 */
-ConfigErrorType_s ConfigFormat(EepromConfig_s * eepromConfig,char * str)
+ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * eepromConfig,char * str)
 {
 	ASSERT(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
 	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)
@@ -126,14 +126,14 @@ ConfigErrorType_s ConfigFormat(EepromConfig_s * eepromConfig,char * str)
 	return AllGreen;
 }
 
-ConfigErrorType_s ConfigShowOnLcd(EepromConfig_s eepromConfig)
+ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s eepromConfig)
 {
 	//TODO:
 	ASSERT(true);
 	return Others;
 }
 
-ConfigErrorType_s ConfigSendOverUart(EepromConfig_s * eepromConfig)
+ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * eepromConfig)
 {
 	ASSERT(eepromConfig->WhoAmI != CONFIG_WHO_AM_I);
 	if (eepromConfig->WhoAmI != CONFIG_WHO_AM_I)

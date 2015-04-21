@@ -10,6 +10,11 @@
 #ifndef _FL_State_
 #define _FL_State_
 
-
+struct FreescaleCarState
+{
+	FLAdc_s Adc;
+	MotorSpeed_s Motor;
+	
+};
 
 #endif//_FL_State_

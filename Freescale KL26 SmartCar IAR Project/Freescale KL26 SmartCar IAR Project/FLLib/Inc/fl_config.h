@@ -86,7 +86,7 @@ typedef struct
 	uint8 WhoAmI;
 	struct Config_s Config;
 	uint8 EepromConfigEnd;//default == 0
-}EepromConfig_s;
+}FreeScaleCarConfig_s;
 
 typedef enum 
 {
@@ -108,15 +108,15 @@ typedef enum
 	Others
 }ConfigErrorType_s;
 
-ConfigErrorType_s ConfigWrite(EepromConfig_s * eepromConfig);
-ConfigErrorType_s ConfigRead(EepromConfig_s * eepromConfig);
+ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * eepromConfig);
+ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * eepromConfig);
 
-ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
-ConfigErrorType_s ConfigRecovery(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
+ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
+ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
 ConfigErrorType_s ConfigBackUpClear(ConfigBackNum_e backUpNum);
 
-ConfigErrorType_s ConfigSendOverUart(EepromConfig_s * eeppromConfig);
-ConfigErrorType_s ConfigFormat(EepromConfig_s * eepromConfig, char * str);
-ConfigErrorType_s ConfigShowOnLcd(EepromConfig_s eepromConfig);
+ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * eeppromConfig);
+ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * eepromConfig, char * str);
+ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s eepromConfig);
 
 #endif//_FL_config_
