@@ -3,6 +3,7 @@
 #include "fl_eeprom.h"
 #include "fl_ADC.h"
 #include "fl_pid.h"
+#include "fl_Motor.h"
 
 #ifndef _FL_config_
 #define _FL_config_
@@ -39,7 +40,7 @@ struct ConfigMotor_s
 	uint8 MotorStart;
 #endif // UseCheck
 	struct ConfigPid_s Pid;
-	uint16 Speed;
+	MotorSpeed_s Speed;
 #if UseCheck
 	uint8 MotorEnd;
 #endif // UseCheck
@@ -113,5 +114,9 @@ ConfigErrorType_s ConfigRead(EepromConfig_s * eepromConfig);
 ConfigErrorType_s ConfigBackUp(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
 ConfigErrorType_s ConfigRecovery(EepromConfig_s * eepromConfig, ConfigBackNum_e backUpNum);
 ConfigErrorType_s ConfigBackUpClear(ConfigBackNum_e backUpNum);
+
+ConfigErrorType_s ConfigSendOverUart(EepromConfig_s * eeppromConfig);
+ConfigErrorType_s ConfigFormat(EepromConfig_s * eepromConfig, char * str);
+ConfigErrorType_s ConfigShowOnLcd(EepromConfig_s eepromConfig);
 
 #endif//_FL_config_

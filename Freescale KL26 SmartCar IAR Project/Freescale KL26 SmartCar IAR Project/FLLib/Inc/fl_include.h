@@ -19,6 +19,7 @@
 #include "fl_state.h"
 #include "fl_steer.h"
 #include "fl_eeprom.h"
+#include "fl_config.h"
 
 
 #endif //_FL_INCLUDE_

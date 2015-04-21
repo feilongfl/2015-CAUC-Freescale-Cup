@@ -109,8 +109,9 @@ typedef struct
 } Size_t;
 
 #define TRUE    1
+#define true TRUE
 #define FALSE   0
-
+#define false FALSE
 
 /*
  * 中断号类型声明
@@ -365,4 +366,7 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 #include "fl_Init.h"
 
 #define Nop() asm("nop")
+#define StrStart '$'
+#define StrSplit '|'
+#define StrEnd '#'
 #endif /* _COMMON_H_ */
