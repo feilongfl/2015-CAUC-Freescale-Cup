@@ -64,6 +64,73 @@ namespace 飞思卡尔___控制台
         {
             InitializeComponent();
         }
+        delegate void SetTextCallback(string text);
+        private void Revadd(string text)
+        {
+            if (this.richTextBoxRev.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(Revadd);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.richTextBoxRev.AppendText(text);
+            }
+        }
+        delegate void RichTextBoxClearCallBack();
+        private void RevClear()
+        {
+            if (this.richTextBoxRev.InvokeRequired)
+            {
+                RichTextBoxClearCallBack d = new RichTextBoxClearCallBack(RevClear);
+                this.Invoke(d);
+            }
+            else
+            {
+                this.richTextBoxRev.Text = "";
+            }
+        }
+
+        delegate void ScrollRichBoxRev();
+        private void scrollRichBoxRev ()
+        {
+            if (this.richTextBoxRev.InvokeRequired)
+            {
+                ScrollRichBoxRev d = new ScrollRichBoxRev(scrollRichBoxRev);
+                this.Invoke(d);
+            }
+            else
+            {
+                this.richTextBoxRev.ScrollToCaret();
+            }
+        }
+        delegate int comboBoxOscResCallBack();
+        private int comboBoxOscResRead()
+        {
+            if (this.comboBoxOscRes.InvokeRequired)
+            {
+                comboBoxOscResCallBack d = new comboBoxOscResCallBack(comboBoxOscResRead);
+                return Convert.ToInt32(this.Invoke(d));
+            }
+            else
+            {
+                return Convert.ToInt32(this.comboBoxOscRes.Text);
+            }
+        }
+
+        delegate string SendBoxStrGetCallBack();
+        private string SendBoxStrGet ()
+        {
+            if (this.richTextBoxSend.InvokeRequired)
+            {
+                SendBoxStrGetCallBack d = new SendBoxStrGetCallBack(SendBoxStrGet);
+                return (string)this.Invoke(d);
+            }
+            else
+            {
+                return this.richTextBoxSend.Text;
+            }
+        }
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
@@ -71,16 +138,16 @@ namespace 飞思卡尔___控制台
             {
                 if (checkBoxRevHex.Checked)//hex显示
                 {
-                    richTextBoxRev.AppendText(string.Format("{0:X}", Convert.ToInt32(letter)) + "\t");
+                    Revadd(string.Format("{0:X}", Convert.ToInt32(letter)) + "\t");
                 }
                 else//文本显示
                 {
-                    richTextBoxRev.AppendText(letter.ToString());
+                    Revadd(letter.ToString());
                 }
 
                 if (checkBoxClear.Checked && (Convert.ToInt32(letter) == Convert.ToInt32(textBoxClearBits.Text, 16)))//清屏
                 {
-                    richTextBoxRev.Text = "";
+                    RevClear();
                 }
 
                 if (checkBoxRevToSend.Checked)//接收回发
@@ -93,16 +160,21 @@ namespace 飞思卡尔___控制台
                         }
                         else
                         {
-                            serialPort1.Write(richTextBoxSend.Text);
+                            //serialPort1.Write(SendBoxStrGet());
+                            serialPort1.Write(letter.ToString());
                         }
                     }
                     catch (SystemException se)
                     {
-                        MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+                        Action showMsg = () =>
+                            {
+                                MessageBox.Show(this, se.Message, "飞龙", MessageBoxButtons.OK);
+                            };
+                        this.Invoke(showMsg);
                     }
                 }
 
-                if (checkBoxOscEnable.Checked)
+                if (checkBoxOscEnable.Checked || checkBoxPidOsc.Checked)
                 {
                     //TODO
                     if (SaveData)
@@ -115,7 +187,7 @@ namespace 飞思卡尔___控制台
                             LineDataRevArr = LineDataRev.Split(',');
                             if (LineDataRevArr.Length == 8)
                             {
-                                for (int loopTemp = 0; loopTemp + 1 < Convert.ToInt32(comboBoxOscRes.Text); loopTemp++)
+                                for (int loopTemp = 0; loopTemp + 1 < comboBoxOscResRead(); loopTemp++)
                                 {
                                     for (int i = 0; i < 8; i++)
                                     {
@@ -124,7 +196,7 @@ namespace 飞思卡尔___控制台
                                 }
                                 for (int i = 0; i < 8; i++)
                                 {
-                                    LineDataRevArrs[Convert.ToInt32(comboBoxOscRes.Text) - 1, i] = LineDataRevArr[i];
+                                    LineDataRevArrs[comboBoxOscResRead() - 1, i] = LineDataRevArr[i];
                                 }
                             }
                             LineDataRev = "";
@@ -151,18 +223,19 @@ namespace 飞思卡尔___控制台
                     saveWritter.Write(letter);
                 }
             }
-            if(richTextBoxRev.Text.Length > 10000)
-            {
-                richTextBoxRev.Text = "";
-            }
+//             if(richTextBoxRev.Text.Length > 10000)
+//             {
+//                 richTextBoxRev.Text = "";
+//             }
             //richTextBoxRev.Select(richTextBoxRev.Text.Length, 0);
-            richTextBoxRev.ScrollToCaret();
+            scrollRichBoxRev();
         }
 
         private void timerStatusStripTimeShow_Tick(object sender, EventArgs e)
         {
             toolStripStatusLabelTime.Text = DateTime.Now.ToString();
             pictureBoxOsc.Refresh();
+            pictureBox1.Refresh();
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -189,8 +262,9 @@ namespace 飞思卡尔___控制台
 
             }
             catch { }
-
-            CheckForIllegalCrossThreadCalls = false;
+            ////////////////////////////////////////////////
+            //CheckForIllegalCrossThreadCalls = false;
+            
         }
 
         private void timerFindSerialPort_Tick(object sender, EventArgs e)
@@ -547,15 +621,15 @@ namespace 飞思卡尔___控制台
                           "飞龙", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
                         serialPort1.Write("AT");
-                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
+                        Thread.Sleep(comboBoxOscResRead());
                         serialPort1.Write("AT+VERSION");
-                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
+                        Thread.Sleep(comboBoxOscResRead());
                         serialPort1.Write("AT+BAUD8");//115200
-                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
+                        Thread.Sleep(comboBoxOscResRead());
                         serialPort1.Write("AT+NAMEFLSmartCar");
-                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
+                        Thread.Sleep(comboBoxOscResRead());
                         serialPort1.Write("AT+PIN0000");
-                        Thread.Sleep(Convert.ToInt32(comboBoxOscRes.Text));
+                        Thread.Sleep(comboBoxOscResRead());
                         serialPort1.Write("AT+PN");
                     }
                 }
@@ -720,11 +794,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData1.Checked)
                 {
-                    Line1[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line1[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line1[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 0]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line1[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line1[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line1[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 0]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen1, Line1[lineLoopTemp], Line1[lineLoopTemp - 1]);
                     }
@@ -732,11 +806,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData2.Checked)
                 {
-                    Line2[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line2[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line2[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 1]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line2[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line2[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line2[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 1]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen2, Line2[lineLoopTemp], Line2[lineLoopTemp - 1]);
                     }
@@ -744,11 +818,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData3.Checked)
                 {
-                    Line3[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line3[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line3[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 2]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line3[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line3[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line3[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 2]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen3, Line3[lineLoopTemp], Line3[lineLoopTemp - 1]);
                     }
@@ -756,11 +830,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData4.Checked)
                 {
-                    Line4[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line4[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line4[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 3]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line4[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line4[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line4[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 3]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen4, Line4[lineLoopTemp], Line4[lineLoopTemp - 1]);
                     }
@@ -768,11 +842,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData5.Checked)
                 {
-                    Line5[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line5[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line5[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 4]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line5[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line5[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line5[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 4]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen5, Line5[lineLoopTemp], Line5[lineLoopTemp - 1]);
                     }
@@ -780,11 +854,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData6.Checked)
                 {
-                    Line6[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line6[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line6[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 5]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line6[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line6[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line6[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 5]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen6, Line6[lineLoopTemp], Line6[lineLoopTemp - 1]);
                     }
@@ -792,11 +866,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData7.Checked)
                 {
-                    Line7[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line7[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line7[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 6]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line7[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line7[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line7[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 6]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen7, Line7[lineLoopTemp], Line7[lineLoopTemp - 1]);
                     }
@@ -804,11 +878,11 @@ namespace 飞思卡尔___控制台
 
                 if (checkBoxData8.Checked)
                 {
-                    Line8[0].X = pictureBoxOsc.Width * 0 / Convert.ToInt32(comboBoxOscRes.Text);
+                    Line8[0].X = pictureBoxOsc.Width * 0 / comboBoxOscResRead();
                     Line8[0].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[0, 7]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
-                    for (int lineLoopTemp = 1; lineLoopTemp < Convert.ToInt32(comboBoxOscRes.Text); lineLoopTemp++)
+                    for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
                     {
-                        Line8[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / Convert.ToInt32(comboBoxOscRes.Text);
+                        Line8[lineLoopTemp].X = pictureBoxOsc.Width * lineLoopTemp / comboBoxOscResRead();
                         Line8[lineLoopTemp].Y = pictureBoxOsc.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 7]) * (pictureBoxOsc.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                         e.Graphics.DrawLine(pen8, Line8[lineLoopTemp], Line8[lineLoopTemp - 1]);
                     }
@@ -825,6 +899,18 @@ namespace 飞思卡尔___控制台
             else
             {
                 textBoxClearBits.Enabled = true;
+            }
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Line1[0].X = pictureBox1.Width * 0 / comboBoxOscResRead();
+            Line1[0].Y = pictureBox1.Height - (Convert.ToInt32(LineDataRevArrs[0, 0]) * (pictureBox1.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
+            for (int lineLoopTemp = 1; lineLoopTemp < comboBoxOscResRead(); lineLoopTemp++)
+            {
+                Line1[lineLoopTemp].X = pictureBox1.Width * lineLoopTemp / comboBoxOscResRead();
+                Line1[lineLoopTemp].Y = pictureBox1.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 0]) * (pictureBox1.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
+                e.Graphics.DrawLine(pen1, Line1[lineLoopTemp], Line1[lineLoopTemp - 1]);
             }
         }
     }

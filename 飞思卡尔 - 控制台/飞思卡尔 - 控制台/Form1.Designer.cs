@@ -190,6 +190,26 @@
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
+            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.button3 = new System.Windows.Forms.Button();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBoxPidOsc = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -238,6 +258,22 @@
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOsc)).BeginInit();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
+            this.splitContainer7.Panel1.SuspendLayout();
+            this.splitContainer7.Panel2.SuspendLayout();
+            this.splitContainer7.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
+            this.splitContainer8.Panel1.SuspendLayout();
+            this.splitContainer8.Panel2.SuspendLayout();
+            this.splitContainer8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // saveFileDialog1
@@ -283,6 +319,7 @@
             // 
             this.tabControlMainForm.Controls.Add(this.tabPageSerialPort);
             this.tabControlMainForm.Controls.Add(this.tabPageSmartCar);
+            this.tabControlMainForm.Controls.Add(this.tabPage8);
             this.tabControlMainForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMainForm.Location = new System.Drawing.Point(0, 0);
             this.tabControlMainForm.Name = "tabControlMainForm";
@@ -2447,6 +2484,7 @@
             // 
             this.小车轨迹.Controls.Add(this.tabPage5);
             this.小车轨迹.Controls.Add(this.tabPage6);
+            this.小车轨迹.Controls.Add(this.tabPage7);
             this.小车轨迹.Dock = System.Windows.Forms.DockStyle.Fill;
             this.小车轨迹.Location = new System.Drawing.Point(0, 0);
             this.小车轨迹.Name = "小车轨迹";
@@ -2663,12 +2701,13 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.splitContainer7);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(931, 343);
             this.tabPage6.TabIndex = 1;
-            this.tabPage6.Text = "tabPage6";
+            this.tabPage6.Text = "PID调试";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // timerStatusStripTimeShow
@@ -2690,6 +2729,250 @@
             // backgroundWorkerSetBlueTooth
             // 
             this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
+            // 
+            // splitContainer7
+            // 
+            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer7.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer7.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer7.Name = "splitContainer7";
+            // 
+            // splitContainer7.Panel1
+            // 
+            this.splitContainer7.Panel1.Controls.Add(this.groupBox13);
+            // 
+            // splitContainer7.Panel2
+            // 
+            this.splitContainer7.Panel2.Controls.Add(this.splitContainer8);
+            this.splitContainer7.Size = new System.Drawing.Size(925, 337);
+            this.splitContainer7.SplitterDistance = 137;
+            this.splitContainer7.TabIndex = 0;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.checkBoxPidOsc);
+            this.groupBox13.Controls.Add(this.button2);
+            this.groupBox13.Controls.Add(this.button3);
+            this.groupBox13.Controls.Add(this.button1);
+            this.groupBox13.Controls.Add(this.numericUpDown4);
+            this.groupBox13.Controls.Add(this.numericUpDown3);
+            this.groupBox13.Controls.Add(this.numericUpDown2);
+            this.groupBox13.Controls.Add(this.label19);
+            this.groupBox13.Controls.Add(this.numericUpDown1);
+            this.groupBox13.Controls.Add(this.label18);
+            this.groupBox13.Controls.Add(this.label17);
+            this.groupBox13.Controls.Add(this.label16);
+            this.groupBox13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox13.Location = new System.Drawing.Point(0, 0);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(137, 337);
+            this.groupBox13.TabIndex = 1;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "电机";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(28, 27);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(11, 12);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "P";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(28, 59);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(11, 12);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "I";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(28, 91);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(11, 12);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "D";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown1.Location = new System.Drawing.Point(62, 25);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown1.TabIndex = 1;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(931, 343);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "赛道分析";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DecimalPlaces = 2;
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown2.Location = new System.Drawing.Point(62, 57);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown2.TabIndex = 1;
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.DecimalPlaces = 2;
+            this.numericUpDown3.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown3.Location = new System.Drawing.Point(62, 89);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown3.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(30, 277);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(79, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "默认";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(30, 306);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(79, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "确定";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(28, 118);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(29, 12);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "车速";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(62, 116);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown4.TabIndex = 1;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(30, 248);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(79, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "停车";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.richTextBox1);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(939, 369);
+            this.tabPage8.TabIndex = 2;
+            this.tabPage8.Text = "tabPageHelp";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(939, 369);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
+            // splitContainer8
+            // 
+            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Name = "splitContainer8";
+            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer8.Panel1
+            // 
+            this.splitContainer8.Panel1.Controls.Add(this.pictureBox1);
+            // 
+            // splitContainer8.Panel2
+            // 
+            this.splitContainer8.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer8.Size = new System.Drawing.Size(784, 337);
+            this.splitContainer8.SplitterDistance = 261;
+            this.splitContainer8.TabIndex = 0;
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(784, 72);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(784, 261);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            // 
+            // checkBoxPidOsc
+            // 
+            this.checkBoxPidOsc.AutoSize = true;
+            this.checkBoxPidOsc.Location = new System.Drawing.Point(30, 226);
+            this.checkBoxPidOsc.Name = "checkBoxPidOsc";
+            this.checkBoxPidOsc.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxPidOsc.TabIndex = 3;
+            this.checkBoxPidOsc.Text = "启用";
+            this.checkBoxPidOsc.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2765,6 +3048,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
             this.splitContainer6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOsc)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            this.splitContainer7.Panel1.ResumeLayout(false);
+            this.splitContainer7.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).EndInit();
+            this.splitContainer7.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.splitContainer8.Panel1.ResumeLayout(false);
+            this.splitContainer8.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
+            this.splitContainer8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2932,6 +3232,26 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox comboBoxOscMax;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.SplitContainer splitContainer7;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.SplitContainer splitContainer8;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.CheckBox checkBoxPidOsc;
     }
 }
 
