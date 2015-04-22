@@ -912,6 +912,10 @@ namespace 飞思卡尔___控制台
                 Line1[lineLoopTemp].Y = pictureBox1.Height - (Convert.ToInt32(LineDataRevArrs[lineLoopTemp, 0]) * (pictureBox1.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25);
                 e.Graphics.DrawLine(pen1, Line1[lineLoopTemp], Line1[lineLoopTemp - 1]);
             }
+            e.Graphics.DrawLine(pen2,
+                new Point(0, pictureBox1.Height - (Convert.ToInt32(LineDataRevArrs[comboBoxOscResRead() - 1, 1]) * (pictureBox1.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25)),
+                new Point(pictureBox1.Width, pictureBox1.Height - (Convert.ToInt32(LineDataRevArrs[comboBoxOscResRead() - 1, 1]) * (pictureBox1.Height - 50) / Convert.ToInt32(comboBoxOscMax.Text) + 25))
+                );
         }
     }
 }
