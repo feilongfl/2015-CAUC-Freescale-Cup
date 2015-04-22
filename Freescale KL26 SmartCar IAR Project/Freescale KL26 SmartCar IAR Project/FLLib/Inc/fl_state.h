@@ -1,20 +1,30 @@
 #include "common.h"
 #include "fl_cfg.h"
+#include "fl_ADC.h"
+#include "fl_Motor.h"
+#include "Fl_steer.h"
 
 #ifndef _FL_STATE_
 #define _FL_STATE_
-#endif//_FL_STATE_
-#include "common.h"
-#include "fl_cfg.h"
-
-#ifndef _FL_State_
-#define _FL_State_
 
 struct FreescaleCarState
 {
-	FLAdc_s Adc;
-	MotorSpeed_s Motor;
-	
+	struct FLAdc_s Adc;
+	struct MotorSpeed_s Speed;
+	/*Pid_e Motor;
+	Pid_e Steer;*/
 };
+
+typedef enum
+{
+	AllGreen,
+
+
+	Others
+}CarStateError_e;
+
+//CarStateError_e CarStateGet();
+CarStateError_e CarStateShowOnLcd();
+CarStateError_e CarStateSendByUart();
 
 #endif//_FL_State_
