@@ -37,6 +37,7 @@ const char ASSERT_FAILED_STR[] = "Assertion failed in %s at line %d\n";
 void assert_failed(char *file, int line)
 {
     led_init (LED0);
+	tpm_pwm_init(TpmMotor, TpmMotorCh0, TpmMotorFreq, 0);
     while (1)
     {
         //死循环等待程序员检测为何断言失败

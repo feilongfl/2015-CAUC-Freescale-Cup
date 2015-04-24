@@ -1,7 +1,7 @@
 #include "fl_motor.h"
 
 struct Pid_s * MotorPid;
-struct MotorSpeed_s *Speed = ;
+struct MotorSpeed_s *Speed ;
 
 //void MotorPidSet(struct Pid_s * pid)
 //{
@@ -37,6 +37,7 @@ void MotorInit()
 	MotorPid->I = MotorPIDDefaultI;
 	ASSERT(MotorPid->D > MotorPidMinD && MotorPid->D < MotorPidMaxD);
 	MotorPid->D = MotorPIDDefaultD;
+	tpm_pwm_init(TpmMotor, TpmMotorCh0, TpmMotorFreq, 0);
 }
 
 void MotorDutySet(int16 duty)

@@ -10,7 +10,7 @@ ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 		EepromWrite(eepRomAddress++,*(((uint8*)config) + eepRomAddress));
 		assert(eepRomAddress >= ConfigLong);
 	}
-	return AllGreen;
+	return ConfigAllGreen;
 }
 
 ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
@@ -23,14 +23,14 @@ ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
 		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
 		if (eepRomAddress >= ConfigLong)
 		{
-			return LostEnd;
+			return ConfigLostEnd;
 		}
 	}
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
-		return WhoAmIError;
+		return ConfigWhoAmIError;
 	}
-	return AllGreen;
+	return ConfigAllGreen;
 }
 
 ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
@@ -44,7 +44,7 @@ ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * config, ConfigBackNum_e ba
 		EepromWrite(eepRomAddress++, *(((uint8*)config) + eepRomAddress));
 		assert(eepRomAddress >= ConfigLong);
 	}
-	return AllGreen;
+	return ConfigAllGreen;
 }
 ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
 {
@@ -57,14 +57,14 @@ ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * config, ConfigBackNum_e 
 		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
 		if (eepRomAddress >= ConfigLong)
 		{
-			return LostEnd;
+			return ConfigLostEnd;
 		}
 	}
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
-		return WhoAmIError;
+		return ConfigWhoAmIError;
 	}
-	return AllGreen;
+	return ConfigAllGreen;
 }
 
 ConfigErrorType_s ConfigBackUpClear(ConfigBackNum_e backUpNum)
@@ -84,7 +84,7 @@ ConfigErrorType_s ConfigBackUpClear(ConfigBackNum_e backUpNum)
 			EepromWrite(eepRomAddress++, 0x00);
 		}
 	}
-	return AllGreen;
+	return ConfigAllGreen;
 }
 
 /*参数格式化
@@ -100,12 +100,12 @@ ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
-		return WhoAmIError;
+		return ConfigWhoAmIError;
 	}
 	ASSERT(config->EepromConfigEnd != ConfigEnd);
 	if (config->EepromConfigEnd != ConfigEnd)
 	{
-		return LostEnd;
+		return ConfigLostEnd;
 	}
 
 	sprintf(str,
@@ -123,14 +123,14 @@ ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 		config->Config.Steer.Pid.Pid.D
 		);
 
-	return AllGreen;
+	return ConfigAllGreen;
 }
 
 ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s config)
 {
 	//TODO:
 	ASSERT(true);
-	return Others;
+	return ConfigOthers;
 }
 
 ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
@@ -138,12 +138,12 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
-		return WhoAmIError;
+		return ConfigWhoAmIError;
 	}
 	ASSERT(config->EepromConfigEnd != ConfigEnd);
 	if (config->EepromConfigEnd != ConfigEnd)
 	{
-		return LostEnd;
+		return ConfigLostEnd;
 	}
 
 	printf(
@@ -161,6 +161,6 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 		config->Config.Steer.Pid.Pid.D
 		);
 
-	return AllGreen;
+	return ConfigAllGreen;
 }
 

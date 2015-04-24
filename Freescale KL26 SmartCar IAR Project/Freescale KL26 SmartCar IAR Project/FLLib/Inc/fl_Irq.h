@@ -16,4 +16,6 @@ void BlueToothHandler();
 /************************************************************************/
 void PIT_IRQHandler(void);
 
+void FLIrqHandle();
+
 #endif //_FL_IRQ_

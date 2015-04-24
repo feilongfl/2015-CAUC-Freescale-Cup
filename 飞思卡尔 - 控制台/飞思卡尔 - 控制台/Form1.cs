@@ -257,6 +257,7 @@ namespace 飞思卡尔___控制台
                 serialPort1.Parity = Parity.None;
                 serialPort1.StopBits = StopBits.One;
 
+                serialPort1.Encoding = Encoding.Default;
                 serialPort1.Open();
                 buttonOpenSerialPort.Text = "关闭串口";
 
@@ -326,7 +327,7 @@ namespace 飞思卡尔___控制台
                             serialPort1.StopBits = StopBits.None;
                             break;
                     }
-
+                    serialPort1.Encoding = Encoding.Default;
                     serialPort1.Open();
                     buttonOpenSerialPort.Text = "关闭串口";
 
@@ -393,7 +394,7 @@ namespace 飞思卡尔___控制台
                             serialPort1.StopBits = StopBits.None;
                             break;
                     }
-
+                    serialPort1.Encoding = Encoding.Default;
                     serialPort1.Open();
                     buttonOpenSerialPort.Text = "关闭串口";
                 }

@@ -40,7 +40,7 @@ struct ConfigMotor_s
 	uint8 MotorStart;
 #endif // UseCheck
 	struct ConfigPid_s Pid;
-	MotorSpeed_s Speed;
+	struct MotorSpeed_s Speed;
 #if UseCheck
 	uint8 MotorEnd;
 #endif // UseCheck
@@ -101,11 +101,11 @@ typedef enum
 
 typedef enum 
 {
-	AllGreen,
-	WhoAmIError,
-	LostEnd,
+	ConfigAllGreen,
+	ConfigWhoAmIError,
+	ConfigLostEnd,
 
-	Others
+	ConfigOthers
 }ConfigErrorType_s;
 
 ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config);

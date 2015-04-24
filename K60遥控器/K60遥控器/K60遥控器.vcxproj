@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{74DFBE52-7E87-452C-8FDF-BA4F54BE51B5}</ProjectGuid>
+    <RootNamespace>K60遥控器</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProjectDirectory)\Lib\CMSIS;$(MSBuildProjectDirectory)\Chip\Inc\kinetis;$(MSBuildProjectDirectory)\Chip\Inc\IAR;$(MSBuildProjectDirectory)\Chip\Inc;$(MSBuildProjectDirectory)\Board\Inc;$(MSBuildProjectDirectory)\App\Inc</IncludePath>
+    <SourcePath>$(MSBuildProjectDirectory)\Chip\Src\IAR;$(MSBuildProjectDirectory)\Chip\Src;$(MSBuildProjectDirectory)\Board\Src;$(MSBuildProjectDirectory)\App;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <UndefinePreprocessorDefinitions>DEBUG;ARM_MATH_CM4;MK60F15</UndefinePreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\App\Inc\include.h" />
+    <ClInclude Include="..\App\Inc\MK60_conf.h" />
+    <ClInclude Include="..\App\Inc\MK60_it.h" />
+    <ClInclude Include="..\App\Inc\PORT_cfg.h" />
+    <ClInclude Include="..\Board\inc\VCAN_ASCII.h" />
+    <ClInclude Include="..\Board\inc\VCAN_BMP.h" />
+    <ClInclude Include="..\Board\inc\VCAN_camera.h" />
+    <ClInclude Include="..\Board\inc\vcan_img2sd.h" />
+    <ClInclude Include="..\Board\inc\VCAN_key.h" />
+    <ClInclude Include="..\Board\inc\VCAN_key_event.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LCD.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LCD_CH.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LCD_ILI9341.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LCD_ST7735R.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LCD_ST7735S.h" />
+    <ClInclude Include="..\Board\inc\VCAN_LED.H" />
+    <ClInclude Include="..\Board\inc\VCAN_MMA7455.h" />
+    <ClInclude Include="..\Board\inc\VCAN_NRF24L0.h" />
+    <ClInclude Include="..\Board\inc\VCAN_NRF24L0_MSG.h" />
+    <ClInclude Include="..\Board\inc\VCAN_OV7725_Eagle.h" />
+    <ClInclude Include="..\Board\inc\VCAN_OV7725_REG.h" />
+    <ClInclude Include="..\Board\inc\VCAN_OV7725_Wolf.h" />
+    <ClInclude Include="..\Board\inc\VCAN_RTC_count.h" />
+    <ClInclude Include="..\Board\inc\VCAN_SCCB.h" />
+    <ClInclude Include="..\Board\inc\vcan_sd_app.h" />
+    <ClInclude Include="..\Board\inc\VCAN_TSL1401.h" />
+    <ClInclude Include="..\Board\inc\VCAN_UI_VAR.h" />
+    <ClInclude Include="..\Chip\inc\common.h" />
+    <ClInclude Include="..\Chip\inc\IAR\iar.h" />
+    <ClInclude Include="..\Chip\inc\IAR\system_MK60DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK10DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK20DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK30DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK40DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK50DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK51DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK52DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK53DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK60DZ10.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK60F12.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK60F15.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK61F12.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK61F15.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK70F12.h" />
+    <ClInclude Include="..\Chip\inc\kinetis\MK70F15.h" />
+    <ClInclude Include="..\Chip\inc\misc.h" />
+    <ClInclude Include="..\Chip\inc\MK60_DWT.h" />
+    <ClInclude Include="..\Chip\inc\MK60_flash.h" />
+    <ClInclude Include="..\Chip\inc\MK60_gpio.h" />
+    <ClInclude Include="..\Chip\inc\MK60_gpio_cfg.h" />
+    <ClInclude Include="..\Chip\inc\MK60_i2c.h" />
+    <ClInclude Include="..\Chip\inc\MK60_lptmr.h" />
+    <ClInclude Include="..\Chip\inc\MK60_mcg.h" />
+    <ClInclude Include="..\Chip\inc\MK60_PIT.h" />
+    <ClInclude Include="..\Chip\inc\MK60_port.h" />
+    <ClInclude Include="..\Chip\inc\MK60_spi.h" />
+    <ClInclude Include="..\Chip\inc\MK60_SysTick.h" />
+    <ClInclude Include="..\Chip\inc\MK60_uart.h" />
+    <ClInclude Include="..\Chip\inc\MK60_wdog.h" />
+    <ClInclude Include="..\Chip\inc\vectors.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\arm_common_tables.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\arm_math.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cm0.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cm3.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cm4.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cm4_simd.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cmFunc.h" />
+    <ClInclude Include="..\Lib\CMSIS\Inc\core_cmInstr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\App\main.c" />
+    <ClCompile Include="..\App\MK60_conf.c" />
+    <ClCompile Include="..\App\MK60_it.c" />
+    <ClCompile Include="..\Board\src\VCAN_ASCII.c" />
+    <ClCompile Include="..\Board\src\VCAN_BMP.c" />
+    <ClCompile Include="..\Board\src\VCAN_camera.c" />
+    <ClCompile Include="..\Board\src\vcan_img2sd.c" />
+    <ClCompile Include="..\Board\src\VCAN_key.c" />
+    <ClCompile Include="..\Board\src\VCAN_key_event.c" />
+    <ClCompile Include="..\Board\src\VCAN_LCD.c" />
+    <ClCompile Include="..\Board\src\VCAN_LCD_CH.c" />
+    <ClCompile Include="..\Board\src\VCAN_LCD_ILI9341.c" />
+    <ClCompile Include="..\Board\src\VCAN_LCD_ST7735R.c" />
+    <ClCompile Include="..\Board\src\VCAN_LCD_ST7735S.c" />
+    <ClCompile Include="..\Board\src\VCAN_LED.C" />
+    <ClCompile Include="..\Board\src\VCAN_MMA7455.c" />
+    <ClCompile Include="..\Board\src\VCAN_NRF24L0.c" />
+    <ClCompile Include="..\Board\src\VCAN_NRF24L0_MSG.c" />
+    <ClCompile Include="..\Board\src\VCAN_OV7725_Eagle.c" />
+    <ClCompile Include="..\Board\src\VCAN_OV7725_Wolf.c" />
+    <ClCompile Include="..\Board\src\VCAN_RTC_count.C" />
+    <ClCompile Include="..\Board\src\VCAN_SCCB.c" />
+    <ClCompile Include="..\Board\src\vcan_sd_app.c" />
+    <ClCompile Include="..\Board\src\VCAN_TSL1401.c" />
+    <ClCompile Include="..\Board\src\VCAN_UI_VAR.c" />
+    <ClCompile Include="..\Chip\src\IAR\system_MK60DZ10.c" />
+    <ClCompile Include="..\Chip\src\misc.c" />
+    <ClCompile Include="..\Chip\src\MK60_DWT.c" />
+    <ClCompile Include="..\Chip\src\MK60_flash.c" />
+    <ClCompile Include="..\Chip\src\MK60_gpio.c" />
+    <ClCompile Include="..\Chip\src\MK60_i2c.c" />
+    <ClCompile Include="..\Chip\src\MK60_lptmr.c" />
+    <ClCompile Include="..\Chip\src\MK60_mcg.c" />
+    <ClCompile Include="..\Chip\src\MK60_PIT.c" />
+    <ClCompile Include="..\Chip\src\MK60_port.c" />
+    <ClCompile Include="..\Chip\src\MK60_spi.c" />
+    <ClCompile Include="..\Chip\src\MK60_SysTick.c" />
+    <ClCompile Include="..\Chip\src\MK60_uart.c" />
+    <ClCompile Include="..\Chip\src\MK60_wdog.c" />
+    <ClCompile Include="..\Chip\src\vectors.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Chip\src\IAR\startup_MK60DZ10.s" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

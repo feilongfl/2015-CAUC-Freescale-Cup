@@ -130,6 +130,7 @@ void FLKeyIrqDisable()
 
 void FLIrqHandle()
 {
+	extern void nrf_handler();//麻烦了，这里竟然和nrf用了一个中断
 #if IrqKeyPort == PortC//检测引脚配置
 	//事实证明下面这么些是不行的
 	//PORT_FUNC(IrqKeyPort, IrqKeyPortNum, FLIrqKeyDown);//执行设置中断
@@ -166,6 +167,18 @@ void FLIrqHandle()
 #else//报错
 #error The Reset Key Port is wrong!!
 #endif
+
+	//PTC18，nrf
+	n = 18;
+	if (PORTC_ISFR & (1 << n))           //PTC18触发中断
+	{
+		PORTC_ISFR = (1 << n);        //写1清中断标志位
+		
+		/*  以下为用户任务  */
+		nrf_handler();
+
+		/*  以上为用户任务  */
+	}
 }
 
 /************************************************************************/
