@@ -19,14 +19,13 @@
 #include "VCAN_camera.h"
 #include "VCAN_NRF24L0.h"
 #include "VCAN_NRF24L0_MSG.h"
-#include "VCAN_TSL1401.h"
-
-/**************************** 变量接收与发送 **********************************/
+//#include "VCAN_TSL1401.h"
 
 
-
-
-/**************************** 变量接收与发送 **********************************/
+struct FLAdc_s Nrf_Adc;
+struct Pid_s Nrf_MPid;
+struct Pid_s Nrf_SPid;
+struct MotorSpeed_s NrfSpeed;
 
 uint32 rxbuflen = 0;           //用于接收方返回接收到多少数据。（包含第一次传递进去的那个包大小）
 
@@ -35,8 +34,10 @@ const uint32 nrf_com_size[COM_MAX] = { Nrf_AdcLenth,//adc
 										Nrf_MpidLenth,//mpid
 										Nrf_SpidLenth,//spid
 										Nrf_SpeedLenth,//speed
-										Nrf_VarLenth,//变量
-										Nrf_RetranLenth };//清空缓存
+										//Nrf_VarLenth,//变量
+										Nrf_RetranLenth ,//清空缓存
+										Nrf_TestLenth //测试
+};
 
 uint32 nrf_com_totalsize[COM_MAX];                                                                  // 所占用 包 的 总 占用空间
 
@@ -135,33 +136,30 @@ RE_LOOP:
             //对 命令 数据进行 处理
             switch(*com)
             {
-            case COM_VAR:
-#if 0
-                last_tab = *((uint32 *)&rebuf[COM_LEN]);                                    //读取变量编号
-#else
-                last_tab =       rebuf[COM_LEN]
-                            +   (rebuf[COM_LEN+1]<<8)
-                            +   (rebuf[COM_LEN+2]<<16)
-                            +   (rebuf[COM_LEN+3]<<24);                                                  //读取变量编号
-#endif
-                if(last_tab < VAR_MAX)
-                {
-#if 0
-                    save_var((var_tab_e)last_tab, *((uint32 *)&rebuf[COM_LEN + sizeof(uint32)]));          //存储 变量
-#else
-                    tmp = rebuf[COM_LEN + 4]
-                        +(rebuf[COM_LEN + 5]<<8)
-                        +(rebuf[COM_LEN + 6]<<16)
-                        +(rebuf[COM_LEN + 7]<<24) ;
-                    save_var((var_tab_e)last_tab, tmp);          //存储 变量
-#endif
-                    var_display(last_tab);                                                  //显示 变量
-                }
-                else
-                {
-                    return NRF_RESULT_RX_NOVALID;
-                }
-                break;
+			case COM_ADC:
+				struct FLAdc_s * adc = &Nrf_Adc;
+				for (uint8 i = 0; i<sizeof(struct FLAdc_s); i++)
+				{
+					*((uint8 *)adc + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_Mpid:
+				struct Pid_s * mpid = &Nrf_MPid;
+				for (uint8 i = 0; i < sizeof(struct Pid_s); i++)
+				{
+					*((uint8 *)mpid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_Spid:
+				struct Pid_s * spid = &Nrf_SPid;
+				for (uint8 i = 0; i < sizeof(struct Pid_s); i++)
+				{
+					*((uint8 *)spid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
             default:
                 break;
             }

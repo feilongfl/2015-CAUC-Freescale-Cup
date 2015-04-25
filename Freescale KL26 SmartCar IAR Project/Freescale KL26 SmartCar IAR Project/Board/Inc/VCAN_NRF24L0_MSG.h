@@ -76,16 +76,29 @@ typedef enum
 #define Nrf_SpeedLenth sizeof(struct MotorSpeed_s)
 
     //变量传输控制
-    COM_VAR,
-#define Nrf_VarLenth 8
+//     COM_VAR,
+// #define Nrf_VarLenth 8
 
     COM_RETRAN,//复位传输，丢弃之前接收到的数据
 #define Nrf_RetranLenth 0	
+
+	COM_TEST,
+#define Nrf_TestLenth 0
 
 
     COM_MAX     ,       //最大控制命令数目                                                  ********************************
 
 } com_e;
+
+typedef enum
+{
+	Nrf_AT_Car_1,
+	Nrf_AT_Car_2,
+
+	Nrf_AT_RC
+}NrfLocal_e;//枚举无线模块位置
+
+#define Nrf_This Nrf_AT_Car_1//定义当前模块位置
 
 extern void             nrf_msg_init();                                //初始化消息处理(并没有初始化 nrf 模块)
 extern nrf_result_e     nrf_msg_tx(com_e   com, uint8 *sendbuf);       //发送数据，发送长度由com决定
