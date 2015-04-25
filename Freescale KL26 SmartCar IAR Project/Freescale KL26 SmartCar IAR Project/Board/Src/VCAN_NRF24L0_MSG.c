@@ -31,7 +31,12 @@
 uint32 rxbuflen = 0;           //用于接收方返回接收到多少数据。（包含第一次传递进去的那个包大小）
 
 
-const uint32 nrf_com_size[COM_MAX] = {CAMERA_SIZE , TSL1401_MAX *TSL1401_SIZE , 8, 0};
+const uint32 nrf_com_size[COM_MAX] = { Nrf_AdcLenth,//adc
+										Nrf_MpidLenth,//mpid
+										Nrf_SpidLenth,//spid
+										Nrf_SpeedLenth,//speed
+										Nrf_VarLenth,//变量
+										Nrf_RetranLenth };//清空缓存
 
 uint32 nrf_com_totalsize[COM_MAX];                                                                  // 所占用 包 的 总 占用空间
 

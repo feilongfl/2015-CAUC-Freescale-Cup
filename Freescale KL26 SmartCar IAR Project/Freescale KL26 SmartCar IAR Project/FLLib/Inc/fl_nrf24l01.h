@@ -1,7 +1,7 @@
 #include "common.h"
 #include "fl_cfg.h"
 #include "VCAN_NRF24L0.h"
-//#include "VCAN_NRF24L0_MSG.h"
+#include "VCAN_NRF24L0_MSG.h"
 #include "fl_state.h"
 
 #ifndef _FL_nrf24l01_
@@ -19,16 +19,7 @@ typedef enum
 #define Nrf_DataLen 128
 #define Nrf_CommandLen 2
 
-typedef enum 
-{
-	Nrf_AllGreen,
-	Nrf_NotOnLine,
-	Nrf_SendFail,
-	Nrf_ResultRxValid,
-	Nrf_ResultRxNo,
 
-	Nrf_Others
-}NrfErrorType_e;
 
 typedef enum 
 {
@@ -44,6 +35,6 @@ typedef enum
 
 
 NrfErrorType_e NrfInit();//³õÊ¼»¯
-NrfErrorType_e NrfSendStr(char * str, uint32 len);//·¢ËÍ×Ö·û´®
+NrfErrorType_e NrfSendStr(uint8 * str, uint32 len);//·¢ËÍ×Ö·û´®
 
 #endif//_FL_nrf24l01+_

@@ -35,6 +35,16 @@
 
 //配置到这里结束
 
+typedef enum
+{
+	Nrf_AllGreen,
+	Nrf_NotOnLine,
+	Nrf_SendFail,
+	Nrf_ResultRxValid,
+	Nrf_ResultRxNo,
+
+	Nrf_Others
+}NrfErrorType_e;
 
 /**
  *  @brief NRF模块发送状态

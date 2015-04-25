@@ -21,6 +21,8 @@
 #include "vcan_ui_var.h"
 #include "VCAN_NRF24L0.h"
 
+#include "fl_ADC.h"
+#include "fl_Motor.h"
 
 
 #define COM_LEN     2   //com命令占用的字节
@@ -58,18 +60,27 @@ typedef enum
     //需要校验接收的命令是否正确
     //发送的数据： XXX_COM ，~XXX_COM    后面继续发送需要发送的信息，由对应的执行函数进行处理
 
-    //图像传输
-    COM_IMG,
+    //adc
+    COM_ADC,
+#define Nrf_AdcLenth sizeof(struct FLAdc_s)
 
-    //线性CCD
-    COM_CCD,
+    //motor pid
+    COM_Mpid,
+#define Nrf_MpidLenth sizeof(struct Pid_s)
+
+	//steer pid
+	COM_Spid,
+#define Nrf_SpidLenth sizeof(struct Pid_s)
+
+	COM_Speed,
+#define Nrf_SpeedLenth sizeof(struct MotorSpeed_s)
 
     //变量传输控制
     COM_VAR,
+#define Nrf_VarLenth 8
 
     COM_RETRAN,//复位传输，丢弃之前接收到的数据
-
-    /*  需要添加功能，请放入此位置  */
+#define Nrf_RetranLenth 0	
 
 
     COM_MAX     ,       //最大控制命令数目                                                  ********************************
