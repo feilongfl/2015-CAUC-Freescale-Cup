@@ -1,4 +1,4 @@
-#include "MPU6050.h"
+#include "fl_MPU6050.h"
 
 static void Mpu6050WriteHmc5883(uint8 reg, uint8 data);
 static uint8 Mpu6050ReadHmc5883(uint8 reg);
@@ -18,7 +18,7 @@ void Mpu6050Init()
 	Mpu6050WriteReg(I2C_MST_CTRL, 0x0d);
 
 
-	Mpu6050WriteHmc5883(Mode_Register, 0x00);
+	//Mpu6050WriteHmc5883(Mode_Register, 0x00);
 }
 
 static int16 Mpu6050Read16bitsReg(uint8 reg_h)
@@ -57,25 +57,29 @@ struct Mpu6050Data Mpu6050Read()
 
 	return mpudata;
 }
+// 
+// static void Mpu6050WriteHmc5883(uint8 reg, uint8 data)
+// {
+// 	Mpu6050WriteReg(I2C_SLV0_ADDR, Mpu6050I2cMasterWrite/*|Mpu6050I2cMasterRead*/ | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
+// 	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
+// 	Mpu6050WriteReg(I2C_SLV0_DO, data);//传送数据
+// 	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
+// 	DELAY_MS(10);
+// }
 
-static void Mpu6050WriteHmc5883(uint8 reg, uint8 data)
-{
-	Mpu6050WriteReg(I2C_SLV0_ADDR, Mpu6050I2cMasterWrite/*|Mpu6050I2cMasterRead*/ | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
-	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
-	Mpu6050WriteReg(I2C_SLV0_DO, data);//传送数据
-	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
-	DELAY_MS(10);
-}
 
-static uint8 Mpu6050ReadHmc5883(uint8 reg)
-{
-	Mpu6050WriteReg(I2C_SLV0_ADDR, /*Mpu6050I2cMasterWrite|*/Mpu6050I2cMasterRead | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
-	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
-	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
-	DELAY_MS(10); 
-	return Mpu6050ReadReg(EXT_SENS_DATA_00);
-}
 
+// static uint8 Mpu6050ReadHmc5883(uint8 reg)
+// {
+// 	Mpu6050WriteReg(I2C_SLV0_ADDR, /*Mpu6050I2cMasterWrite|*/Mpu6050I2cMasterRead | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
+// 	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
+// 	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
+// 	DELAY_MS(10); 
+// 	return Mpu6050ReadReg(EXT_SENS_DATA_00);
+// }
+
+
+/*
 static int16 Mpu6050ReadHmc16bitsReg(uint8 reg_h)
 {
 	uint8 h, l;
@@ -85,7 +89,9 @@ static int16 Mpu6050ReadHmc16bitsReg(uint8 reg_h)
 
 	return (int16)((h << 8) | l);
 }
+*/
 
+/*
 struct Hmc5883LData MpuReadHcmData()
 {
 	struct Hmc5883LData data;
@@ -96,3 +102,4 @@ struct Hmc5883LData MpuReadHcmData()
 	}
 	return data;
 }
+*/
