@@ -23,7 +23,7 @@
 
 #include "fl_ADC.h"
 #include "fl_Motor.h"
-
+#include "fl_ctrl.h"
 
 #define COM_LEN     2   //com命令占用的字节
 
@@ -85,10 +85,16 @@ typedef enum
 	COM_TEST,
 #define Nrf_TestLenth 0
 
+#ifdef DEBUG
+	COM_Ctrl,
+#define Nrf_CtrlLength 1
+#endif // DEBUG
 
     COM_MAX     ,       //最大控制命令数目                                                  ********************************
 
 } com_e;
+
+
 
 typedef enum
 {

@@ -36,7 +36,10 @@ const uint32 nrf_com_size[COM_MAX] = { Nrf_AdcLenth,//adc
 										Nrf_SpeedLenth,//speed
 										//Nrf_VarLenth,//变量
 										Nrf_RetranLenth ,//清空缓存
-										Nrf_TestLenth //测试
+										Nrf_TestLenth, //测试
+#ifdef DEBUG
+										Nrf_TestLenth//遥控
+#endif // DEBUG
 };
 
 uint32 nrf_com_totalsize[COM_MAX];                                                                  // 所占用 包 的 总 占用空间
@@ -174,7 +177,12 @@ RE_LOOP:
 #endif // DEBUG
 				break;
 
+			case COM_Ctrl:
+				CarCtrl((Ctrl_e)rebuf[COM_LEN]);
+				break;
+
             default:
+				ASSERT(true);
                 break;
             }
 

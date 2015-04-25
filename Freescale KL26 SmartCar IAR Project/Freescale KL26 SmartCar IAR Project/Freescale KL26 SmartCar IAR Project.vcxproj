@@ -136,6 +136,7 @@
     <ClInclude Include="FLLib\Inc\fl_ADC.h" />
     <ClInclude Include="FLLib\Inc\fl_cfg.h" />
     <ClInclude Include="FLLib\Inc\fl_config.h" />
+    <ClInclude Include="FLLib\Inc\fl_ctrl.h" />
     <ClInclude Include="FLLib\Inc\fl_eeprom.h" />
     <ClInclude Include="FLLib\Inc\fl_endline.h" />
     <ClInclude Include="FLLib\Inc\fl_error.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="Chip\Src\MKL_wdog.c" />
     <ClCompile Include="FLLib\Src\fl_adc.c" />
     <ClCompile Include="FLLib\Src\fl_config.c" />
+    <ClCompile Include="FLLib\Src\fl_ctrl.c" />
     <ClCompile Include="FLLib\Src\fl_eeprom.c" />
     <ClCompile Include="FLLib\Src\fl_endline.c" />
     <ClCompile Include="FLLib\Src\fl_error.c" />
