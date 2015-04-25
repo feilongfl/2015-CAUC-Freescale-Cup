@@ -20,6 +20,7 @@
 #include "fl_steer.h"
 #include "fl_eeprom.h"
 #include "fl_config.h"
+#include "fl_nrf24l01.h"
 
 
 #endif //_FL_INCLUDE_

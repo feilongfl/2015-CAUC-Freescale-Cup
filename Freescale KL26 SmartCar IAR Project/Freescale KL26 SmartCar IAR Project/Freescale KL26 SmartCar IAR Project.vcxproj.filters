@@ -339,6 +339,9 @@
     <ClInclude Include="FLLib\Inc\fl_MPU6050.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_endline.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -507,6 +510,9 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_MPU6050.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_endline.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

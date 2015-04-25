@@ -25,7 +25,7 @@
 struct FLAdc_s Nrf_Adc;
 struct Pid_s Nrf_MPid;
 struct Pid_s Nrf_SPid;
-struct MotorSpeed_s NrfSpeed;
+struct MotorSpeed_s Nrf_Speed;
 
 uint32 rxbuflen = 0;           //用于接收方返回接收到多少数据。（包含第一次传递进去的那个包大小）
 
@@ -158,6 +158,20 @@ RE_LOOP:
 				{
 					*((uint8 *)spid + i) = *(rebuf + COM_LEN + i);
 				}
+				break;
+
+			case COM_Speed:
+				struct MotorSpeed_s * speed = &Nrf_Speed;
+				for (uint8 i = 0; i < sizeof(struct MotorSpeed_s); i++)
+				{
+					*((uint8 *)spid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_TEST:
+#ifdef DEBUG
+				printf("I got Test Command!\n");
+#endif // DEBUG
 				break;
 
             default:

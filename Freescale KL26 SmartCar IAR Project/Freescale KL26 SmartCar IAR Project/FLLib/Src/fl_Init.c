@@ -19,6 +19,7 @@ InitRepot_e Init()
 	PitInit();//初始化pit模块
 	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏
+	NrfInit();//nrf24l01+
 	FLKeyInit();//小键盘
 	return InitAllGreen;
 }

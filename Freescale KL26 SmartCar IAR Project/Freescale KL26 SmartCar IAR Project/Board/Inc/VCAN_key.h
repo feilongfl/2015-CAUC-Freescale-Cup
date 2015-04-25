@@ -41,6 +41,8 @@ typedef enum
     KEY_START,  //开始
     KEY_STOP,   //停止
 
+	Key_EndLine,//终点线
+
     KEY_MAX,
 } KEY_e;
 
