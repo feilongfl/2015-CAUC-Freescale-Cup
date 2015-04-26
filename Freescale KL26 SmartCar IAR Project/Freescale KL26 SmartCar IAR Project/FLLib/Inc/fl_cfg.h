@@ -24,7 +24,8 @@
 #define TpmMotorCh0			TPM_CH0
 #define TpmMotorCh1			TPM_CH1
 #define TpmSteer			TPM1
-#define TpmSteerCh			TPM_CH0			
+#define TpmSteerCh			TPM_CLKIN0
+#define TpmSteerPs			TPM_PS_1
 #define TpmSteerPrecison	TPM1_PRECISON	//占空比精度
 
 /************************************************************************/
@@ -38,7 +39,7 @@
 /* PIT定时                                               20150107       */
 /************************************************************************/
 #define CoderPit			PIT0		//编码器pit模块
-#define CoderTimeCircle		1000		//定时器0周期单位ms
+#define CoderTimeCircle		100		//定时器0周期单位ms
 /************************************************************************/
 /* 超声波                                               20150107        */
 /************************************************************************/

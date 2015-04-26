@@ -54,10 +54,10 @@ void main()
 	while (1)
 	{
 
-		lptmr_time_start_ms();                  //开始计时
+		lptmr_time_start_us();                  //开始计时
 		adcn = AdcNormalizing();
 
-		uint32 t = lptmr_time_get_ms();          //停止计时，获取计时时间
+		uint32 t = lptmr_time_get_us();          //停止计时，获取计时时间
 		DELAY_MS(100);
 		printf("\n%d\n", t);
 
