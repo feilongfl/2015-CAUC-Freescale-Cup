@@ -22,7 +22,7 @@ InitRepot_e Init()
 	OlcdInit();//初始化0.96OLED液晶屏
 	NrfInit();//nrf24l01+
 	FLKeyInit();//小键盘
-	ConfigInit();//设置初始化
+	//ConfigInit();//设置初始化
 	return InitAllGreen;
 }
 

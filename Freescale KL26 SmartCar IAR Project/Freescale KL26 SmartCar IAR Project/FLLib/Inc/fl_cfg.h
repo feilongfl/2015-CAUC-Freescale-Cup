@@ -119,7 +119,9 @@ The pins from D3 to D7, E and R/W# (WR#)# can be connected to an external ground
 /************************************************************************/
 /* °´¼ü                                                                 */
 /************************************************************************/
-#if 0
+#define Key_f 1
+
+#if Key_f == 0
 #define KeyLine1 PTC0
 #define KeyLine2 PTC1
 #define KeyLine3 PTC2

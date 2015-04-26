@@ -48,24 +48,24 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-	AdcNormalizingInit();//初始化归一化变量
+	//AdcNormalizingInit();//初始化归一化变量
 	
 	//程序循环
 	while (1)
 	{
 
-		lptmr_time_start_us();                  //开始计时
+		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
-		adcn = AdcNormalizingWithFitter();
-		uint32 t = lptmr_time_get_us();          //停止计时，获取计时时间
-		DELAY_MS(100);
-		printf("\n%d\n", t);
+		//adcn = AdcNormalizingWithFitter();
+		//uint32 t = lptmr_time_get_us();          //停止计时，获取计时时间
+		//DELAY_MS(100);
+		//printf("\n%d\n", t);
 
-		printf("$%d,%d,%d,%d,0,0,0,0#",
-			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
+// 		printf("$%d,%d,%d,%d,0,0,0,0#",
+// 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
 		//Hcsr04Read();
 		//CoderRead ();
-		led_turn(LED3);
+		//led_turn(LED3);
 		
 // 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);
  		//DELAY_MS(1000);

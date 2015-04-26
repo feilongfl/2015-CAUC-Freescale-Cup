@@ -56,8 +56,11 @@ typedef enum
 } FL_KEY_e;//这里面数值需要调整一下
 
 #define IrqKeyPort PortC//定义中断按钮端口号，可选PortC或PortD
+#if Key_f == 0
 #define IrqKeyPortNum 7//定义中断引脚号
-
+#else
+#define IrqKeyPortNum 0//定义中断引脚号
+#endif
 
 //extern struct MenuChoice_s MenuChoice;
 
