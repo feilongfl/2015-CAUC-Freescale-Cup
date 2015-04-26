@@ -55,8 +55,8 @@ void main()
 	{
 
 		lptmr_time_start_us();                  //开始计时
-		adcn = AdcNormalizing();
-
+		//adcn = AdcNormalizing();
+		adcn = AdcNormalizingWithFitter();
 		uint32 t = lptmr_time_get_us();          //停止计时，获取计时时间
 		DELAY_MS(100);
 		printf("\n%d\n", t);

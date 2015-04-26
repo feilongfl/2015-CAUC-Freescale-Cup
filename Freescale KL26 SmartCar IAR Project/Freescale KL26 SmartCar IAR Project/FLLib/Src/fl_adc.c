@@ -73,7 +73,29 @@ struct FLAdc_s AdcNormalizing()//归一化
 	return adcNormalizing;
 }
 
-static void AdcNormalizingOnce()//归一化最值设定，调用之前先清空最值
+struct FLAdc_s AdcNormalizingWithFitter()
+{
+	struct FLAdc_s adcNormalizing = *AdcReadAll();
+	uint16 * adcNormalizingAddress = (uint16*)&adcNormalizing;
+
+	for (uint8 LoopTimes = AdcFitterTimes - 1; LoopTimes > 0; LoopTimes--)//求和
+	{
+		uint16 * adcNormalizingAddresstemp = AdcReadAll();
+		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+		{
+			*(adcNormalizingAddress + (uint8)loopTemp) += *(adcNormalizingAddresstemp + (uint8)loopTemp);
+		}
+	}
+
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)//平均
+	{
+		*(adcNormalizingAddress + (uint8)loopTemp) /= AdcFitterTimes;
+	}
+
+	return adcNormalizing;
+}
+
+static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
@@ -194,7 +216,7 @@ void AdcNormalizingInit()
 			break;
 		}
 
-		AdcNormalizingOnce();//归一化
+		AdcNormalizingOne();//归一化
 
 		LCDAdcShowMaxOrMin(maxOrMin);//输出数据
 

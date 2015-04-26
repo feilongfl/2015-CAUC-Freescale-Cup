@@ -45,6 +45,8 @@ struct FLAdc_s//adc存储结构
 
 #define AdcMin	0
 
+#define AdcFitterTimes 3
+
 void LcdAdcShow(struct FLAdc_s * flAdcn);
 
 #define LcdAdcTitleNorMax (unsigned char *)"归一化--最大值"
@@ -58,6 +60,7 @@ struct FLAdc_s AdcNormalizing();//归一化
 //void AdcNormalizingExtremumClear();//清空归一化最值
 void AdcNormalizingInit();//归一化初始化
 void AdcSendNowByUart();
+struct FLAdc_s AdcNormalizingWithFitter();
 #endif//_FL_ADC_
 
 
