@@ -2,6 +2,7 @@
 #include "fl_Olcd.h"
 #include "FL_Key.h"
 #include "fl_error.h"
+#include "fl_config.h"
 
 #ifndef _FL_SETTINGMENU_
 #define _FL_SETTINGMENU_
@@ -33,6 +34,7 @@ typedef enum
 	MenuMainSteer,
 	MenuMainSpeed,
 	MenuMainAdcNor,
+	MenuMainWrite,
 	MenuMainReset,
 	MenuMainItemNum,
 

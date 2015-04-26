@@ -119,4 +119,5 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * eeppromConfig);
 ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config, char * str);
 ConfigErrorType_s ConfigShowOnLcd(FreeScaleCarConfig_s config);
 
+ConfigErrorType_s ConfigSetDefaultInEeprom();
 #endif//_FL_config_

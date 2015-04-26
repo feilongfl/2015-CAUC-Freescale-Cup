@@ -9,6 +9,8 @@ const char *LcdErrMsg[LcdErrNumbers] =
 
 	"按键错误!",
 
+	"操作失败"
+
 	"未知错误!",
 
 };//错误提示文字

@@ -11,6 +11,7 @@ const unsigned char * MainMenuItems[MenuMainItemNum] =
 	"舵机设置",
 	"车速设置",
 	"归一化",
+	"写入默认配置",
 	"重置系统",
 };
 
@@ -669,6 +670,13 @@ static void MenuMainOperate()
 			case MenuMainAdcNor:
 				AdcNormalizingInit();
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
+			case MenuMainWrite:
+				if (ConfigSetDefaultInEeprom() != ConfigAllGreen)
+				{
+					LcdErrShow(SettingErrFail);
+				}
 				break;
 
 			default:

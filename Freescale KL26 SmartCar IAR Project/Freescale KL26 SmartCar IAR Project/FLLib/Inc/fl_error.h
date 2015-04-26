@@ -27,6 +27,8 @@ typedef enum
 
 	LcdErrKeyWrong,//当前界面不支持该按键
 
+	SettingErrFail,//操作失败
+
 	LcdErrOther,//未定义错误
 
 	LcdErrNumbers,//错误总数

@@ -80,7 +80,7 @@ struct FLAdc_s AdcNormalizingWithFitter()
 
 	for (uint8 LoopTimes = AdcFitterTimes - 1; LoopTimes > 0; LoopTimes--)//ÇóºÍ
 	{
-		uint16 * adcNormalizingAddresstemp = AdcReadAll();
+		uint16 * adcNormalizingAddresstemp = (uint16 *)AdcReadAll();
 		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 		{
 			*(adcNormalizingAddress + (uint8)loopTemp) += *(adcNormalizingAddresstemp + (uint8)loopTemp);

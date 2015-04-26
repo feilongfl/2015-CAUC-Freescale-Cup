@@ -3,12 +3,12 @@
 ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 {
 	uint16 eepRomAddress = 0x0000;
-	assert(config->WhoAmI != CONFIG_WHO_AM_I);
+	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
 	//while (config->EepromConfigEnd != ConfigEnd)
 	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
 		EepromWrite(eepRomAddress++,*(((uint8*)config) + eepRomAddress));
-		assert(eepRomAddress >= ConfigLong);
+		ASSERT(eepRomAddress >= ConfigLong);
 	}
 	return ConfigAllGreen;
 }
@@ -35,20 +35,20 @@ ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
 
 ConfigErrorType_s ConfigBackUp(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
 {
-	assert(backUpNum == BackUp_All);
+	ASSERT(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
-	assert(config->WhoAmI != CONFIG_WHO_AM_I);
+	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
 	//while (config->EepromConfigEnd != ConfigEnd)
 	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
 	{
 		EepromWrite(eepRomAddress++, *(((uint8*)config) + eepRomAddress));
-		assert(eepRomAddress >= ConfigLong);
+		ASSERT(eepRomAddress >= ConfigLong);
 	}
 	return ConfigAllGreen;
 }
 ConfigErrorType_s ConfigRecovery(FreeScaleCarConfig_s * config, ConfigBackNum_e backUpNum)
 {
-	assert(backUpNum == BackUp_All);
+	ASSERT(backUpNum == BackUp_All);
 	uint16 eepRomAddress = 0x0000 + ConfigLong * (uint8)backUpNum;
 	config->EepromConfigEnd = 0x0000;
 	//while ((config->EepromConfigEnd) != ConfigEnd)
@@ -109,7 +109,7 @@ ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 	}
 
 	sprintf(str,
-		"$%d,%d,%d,%d|%d,%d,%d|%d|%d,%d,%d#",
+		"$%d,%d,%d,%d|%d,%d,%d|%d,%d|%d,%d,%d#",
 		config->Config.AdcNormalMax.Adc.FLAdc0,
 		config->Config.AdcNormalMax.Adc.FlAdc1,
 		config->Config.AdcNormalMax.Adc.FLAdc2,
@@ -117,7 +117,8 @@ ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 		config->Config.Motor.Pid.Pid.P,
 		config->Config.Motor.Pid.Pid.I,
 		config->Config.Motor.Pid.Pid.D,
-		config->Config.Motor.Speed,
+		config->Config.Motor.Speed.Acturally,
+		config->Config.Motor.Speed.Expect,
 		config->Config.Steer.Pid.Pid.P,
 		config->Config.Steer.Pid.Pid.I,
 		config->Config.Steer.Pid.Pid.D
@@ -147,7 +148,7 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 	}
 
 	printf(
-		"$%d,%d,%d,%d|%d,%d,%d|%d|%d,%d,%d#",
+		"$%d,%d,%d,%d|%d,%d,%d|%d,%d|%d,%d,%d#",
 		config->Config.AdcNormalMax.Adc.FLAdc0,
 		config->Config.AdcNormalMax.Adc.FlAdc1,
 		config->Config.AdcNormalMax.Adc.FLAdc2,
@@ -155,7 +156,8 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 		config->Config.Motor.Pid.Pid.P,
 		config->Config.Motor.Pid.Pid.I,
 		config->Config.Motor.Pid.Pid.D,
-		config->Config.Motor.Speed,
+		config->Config.Motor.Speed.Acturally,
+		config->Config.Motor.Speed.Expect,
 		config->Config.Steer.Pid.Pid.P,
 		config->Config.Steer.Pid.Pid.I,
 		config->Config.Steer.Pid.Pid.D
@@ -164,3 +166,29 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 	return ConfigAllGreen;
 }
 
+ConfigErrorType_s ConfigSetDefaultInEeprom()
+{
+	FreeScaleCarConfig_s config;
+
+	config.WhoAmI = CONFIG_WHO_AM_I;
+
+	config.Config.AdcNormalMax.Adc.FLAdc0 = 150u;
+	config.Config.AdcNormalMax.Adc.FlAdc1 = 150u;
+	config.Config.AdcNormalMax.Adc.FLAdc2 = 150u;
+	config.Config.AdcNormalMax.Adc.FLAdc3 = 150u;
+
+	config.Config.Motor.Speed.Acturally = 0;
+	config.Config.Motor.Speed.Expect = 10;
+
+	config.Config.Motor.Pid.Pid.P = 0;
+	config.Config.Motor.Pid.Pid.I = 0;
+	config.Config.Motor.Pid.Pid.D = 0;
+
+	config.Config.Steer.Pid.Pid.P = 0;
+	config.Config.Steer.Pid.Pid.I = 0;
+	config.Config.Steer.Pid.Pid.D = 0;
+
+	config.EepromConfigEnd = ConfigEnd;
+
+	return ConfigWrite(&config);
+}
