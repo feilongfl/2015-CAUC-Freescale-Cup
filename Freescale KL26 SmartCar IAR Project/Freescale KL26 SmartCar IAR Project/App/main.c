@@ -27,6 +27,7 @@ void main()
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
 
+	struct FLAdc_s adcn;
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
 	//////////////////////////////////////////////////////////////////////////
@@ -53,13 +54,21 @@ void main()
 	while (1)
 	{
 
+		lptmr_time_start_ms();                  //开始计时
+		adcn = AdcNormalizing();
 
+		uint32 t = lptmr_time_get_ms();          //停止计时，获取计时时间
+		DELAY_MS(100);
+		printf("\n%d\n", t);
+
+		printf("$%d,%d,%d,%d,0,0,0,0#",
+			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
 		//Hcsr04Read();
 		//CoderRead ();
 		led_turn(LED3);
 		
 // 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);
- 		DELAY_MS(1000);
+ 		//DELAY_MS(1000);
 // 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1300);
 // 		DELAY_MS(1000);
 // 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);

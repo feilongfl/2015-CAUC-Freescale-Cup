@@ -24,7 +24,7 @@ FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 
 uint8 FLAdc_Ptxn[FLAdcMax] = {
 	ADC0_DM0,
-	ADC0_DP1,
+	ADC0_DM2,
 	ADC0_DP2,
 	ADC0_DP3,
 	//ADC0_DP0,
@@ -47,7 +47,7 @@ static struct FLAdc_s * AdcReadAll()
 	{
 		*FLAdcLastAddress++ = adc_once((ADCn_Ch_e)FLAdc_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
 	}
-	DELAY();
+	//DELAY();//吓死我了，我还以为读一次ad怎么要半秒呢
 	return &FLAdcLast;//返回保存结构体地址
 }
 
@@ -80,21 +80,29 @@ static void AdcNormalizingOnce()//归一化最值设定，调用之前先清空最值
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
-#ifdef DEBUG
+#ifdef DEBUG_ADC
 	printf("$");
 	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
 	{
 		printf("%d,", (uint16)*((uint16*)adcReadTemp + ShowTemp));
 	}
-	uint8 i = 8 - FLAdcMax;
-	while (i--)
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
 	{
-		printf("0");
-		if (i != 0)
+		printf("%d", (uint16)*((uint16*)adcMaxAddress + ShowTemp));
+		if (ShowTemp != FLAdcMax - 1)
 		{
 			printf(",");
 		}
 	}
+// 	uint8 i = 8 - FLAdcMax;
+// 	while (i--)
+// 	{
+// 		printf("0");
+// 		if (i != 0)
+// 		{
+// 			printf(",");
+// 		}
+// 	}
 	printf("#");
 #endif
 

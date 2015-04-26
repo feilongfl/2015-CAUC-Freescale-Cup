@@ -199,4 +199,3 @@ void adc_stop(ADCn_e adcn)
                                   | ADC_SC1_ADCH(Module0_Dis)               //输入通道选择,此处选择禁止通道
                                  );
 }
-
