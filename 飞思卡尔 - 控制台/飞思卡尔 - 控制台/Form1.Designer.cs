@@ -186,30 +186,30 @@
             this.checkBoxData1 = new System.Windows.Forms.CheckBox();
             this.pictureBoxOsc = new System.Windows.Forms.PictureBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.checkBoxPidOsc = new System.Windows.Forms.CheckBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.timerStatusStripTimeShow = new System.Windows.Forms.Timer(this.components);
             this.timerFindSerialPort = new System.Windows.Forms.Timer(this.components);
             this.timerSendSingle = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorkerSetBlueTooth = new System.ComponentModel.BackgroundWorker();
-            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.checkBoxPidOsc = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.tabControlMainForm.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -264,16 +264,16 @@
             this.splitContainer7.Panel2.SuspendLayout();
             this.splitContainer7.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).BeginInit();
             this.splitContainer8.Panel1.SuspendLayout();
             this.splitContainer8.Panel2.SuspendLayout();
             this.splitContainer8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage8.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveFileDialog1
@@ -2690,7 +2690,6 @@
             // pictureBoxOsc
             // 
             this.pictureBoxOsc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxOsc.Image = global::飞思卡尔___控制台.Properties.Resources._104111s1s8gcojcsssgyjo;
             this.pictureBoxOsc.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxOsc.Name = "pictureBoxOsc";
             this.pictureBoxOsc.Size = new System.Drawing.Size(925, 308);
@@ -2709,26 +2708,6 @@
             this.tabPage6.TabIndex = 1;
             this.tabPage6.Text = "PID调试";
             this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // timerStatusStripTimeShow
-            // 
-            this.timerStatusStripTimeShow.Enabled = true;
-            this.timerStatusStripTimeShow.Interval = 200;
-            this.timerStatusStripTimeShow.Tick += new System.EventHandler(this.timerStatusStripTimeShow_Tick);
-            // 
-            // timerFindSerialPort
-            // 
-            this.timerFindSerialPort.Enabled = true;
-            this.timerFindSerialPort.Interval = 2000;
-            this.timerFindSerialPort.Tick += new System.EventHandler(this.timerFindSerialPort_Tick);
-            // 
-            // timerSendSingle
-            // 
-            this.timerSendSingle.Tick += new System.EventHandler(this.timerSendSingle_Tick);
-            // 
-            // backgroundWorkerSetBlueTooth
-            // 
-            this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
             // 
             // splitContainer7
             // 
@@ -2770,77 +2749,54 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "电机";
             // 
-            // label16
+            // checkBoxPidOsc
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(28, 27);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(11, 12);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "P";
+            this.checkBoxPidOsc.AutoSize = true;
+            this.checkBoxPidOsc.Location = new System.Drawing.Point(30, 226);
+            this.checkBoxPidOsc.Name = "checkBoxPidOsc";
+            this.checkBoxPidOsc.Size = new System.Drawing.Size(48, 16);
+            this.checkBoxPidOsc.TabIndex = 3;
+            this.checkBoxPidOsc.Text = "启用";
+            this.checkBoxPidOsc.UseVisualStyleBackColor = true;
             // 
-            // label17
+            // button2
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(28, 59);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(11, 12);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "I";
+            this.button2.Location = new System.Drawing.Point(30, 306);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(79, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "确定";
+            this.button2.UseVisualStyleBackColor = true;
             // 
-            // label18
+            // button3
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(28, 91);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(11, 12);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "D";
+            this.button3.Location = new System.Drawing.Point(30, 248);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(79, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "停车";
+            this.button3.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown1
+            // button1
             // 
-            this.numericUpDown1.DecimalPlaces = 2;
-            this.numericUpDown1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown1.Location = new System.Drawing.Point(62, 25);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(47, 21);
-            this.numericUpDown1.TabIndex = 1;
+            this.button1.Location = new System.Drawing.Point(30, 277);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(79, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "默认";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // tabPage7
+            // numericUpDown4
             // 
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(931, 343);
-            this.tabPage7.TabIndex = 2;
-            this.tabPage7.Text = "赛道分析";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.DecimalPlaces = 2;
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDown2.Location = new System.Drawing.Point(62, 57);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            1,
+            this.numericUpDown4.Location = new System.Drawing.Point(62, 116);
+            this.numericUpDown4.Maximum = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(47, 21);
-            this.numericUpDown2.TabIndex = 1;
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown4.TabIndex = 1;
             // 
             // numericUpDown3
             // 
@@ -2860,23 +2816,23 @@
             this.numericUpDown3.Size = new System.Drawing.Size(47, 21);
             this.numericUpDown3.TabIndex = 1;
             // 
-            // button1
+            // numericUpDown2
             // 
-            this.button1.Location = new System.Drawing.Point(30, 277);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "默认";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(30, 306);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(79, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "确定";
-            this.button2.UseVisualStyleBackColor = true;
+            this.numericUpDown2.DecimalPlaces = 2;
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown2.Location = new System.Drawing.Point(62, 57);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown2.TabIndex = 1;
             // 
             // label19
             // 
@@ -2887,26 +2843,96 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "车速";
             // 
-            // numericUpDown4
+            // numericUpDown1
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(62, 116);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            1000,
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown1.Location = new System.Drawing.Point(62, 25);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(47, 21);
-            this.numericUpDown4.TabIndex = 1;
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(47, 21);
+            this.numericUpDown1.TabIndex = 1;
             // 
-            // button3
+            // label18
             // 
-            this.button3.Location = new System.Drawing.Point(30, 248);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(79, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "停车";
-            this.button3.UseVisualStyleBackColor = true;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(28, 91);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(11, 12);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "D";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(28, 59);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(11, 12);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "I";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(28, 27);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(11, 12);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "P";
+            // 
+            // splitContainer8
+            // 
+            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Name = "splitContainer8";
+            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer8.Panel1
+            // 
+            this.splitContainer8.Panel1.Controls.Add(this.pictureBox1);
+            // 
+            // splitContainer8.Panel2
+            // 
+            this.splitContainer8.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer8.Size = new System.Drawing.Size(784, 337);
+            this.splitContainer8.SplitterDistance = 261;
+            this.splitContainer8.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(784, 261);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(784, 72);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(931, 343);
+            this.tabPage7.TabIndex = 2;
+            this.tabPage7.Text = "赛道分析";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // tabPage8
             // 
@@ -2927,52 +2953,25 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // splitContainer8
+            // timerStatusStripTimeShow
             // 
-            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer8.Name = "splitContainer8";
-            this.splitContainer8.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.timerStatusStripTimeShow.Enabled = true;
+            this.timerStatusStripTimeShow.Interval = 200;
+            this.timerStatusStripTimeShow.Tick += new System.EventHandler(this.timerStatusStripTimeShow_Tick);
             // 
-            // splitContainer8.Panel1
+            // timerFindSerialPort
             // 
-            this.splitContainer8.Panel1.Controls.Add(this.pictureBox1);
+            this.timerFindSerialPort.Enabled = true;
+            this.timerFindSerialPort.Interval = 2000;
+            this.timerFindSerialPort.Tick += new System.EventHandler(this.timerFindSerialPort_Tick);
             // 
-            // splitContainer8.Panel2
+            // timerSendSingle
             // 
-            this.splitContainer8.Panel2.Controls.Add(this.richTextBox2);
-            this.splitContainer8.Size = new System.Drawing.Size(784, 337);
-            this.splitContainer8.SplitterDistance = 261;
-            this.splitContainer8.TabIndex = 0;
+            this.timerSendSingle.Tick += new System.EventHandler(this.timerSendSingle_Tick);
             // 
-            // richTextBox2
+            // backgroundWorkerSetBlueTooth
             // 
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(784, 72);
-            this.richTextBox2.TabIndex = 0;
-            this.richTextBox2.Text = "";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(784, 261);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
-            // 
-            // checkBoxPidOsc
-            // 
-            this.checkBoxPidOsc.AutoSize = true;
-            this.checkBoxPidOsc.Location = new System.Drawing.Point(30, 226);
-            this.checkBoxPidOsc.Name = "checkBoxPidOsc";
-            this.checkBoxPidOsc.Size = new System.Drawing.Size(48, 16);
-            this.checkBoxPidOsc.TabIndex = 3;
-            this.checkBoxPidOsc.Text = "启用";
-            this.checkBoxPidOsc.UseVisualStyleBackColor = true;
+            this.backgroundWorkerSetBlueTooth.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerSetBlueTooth_DoWork);
             // 
             // Form1
             // 
@@ -3055,16 +3054,16 @@
             this.splitContainer7.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            this.tabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.splitContainer8.Panel1.ResumeLayout(false);
             this.splitContainer8.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer8)).EndInit();
             this.splitContainer8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -57,7 +57,7 @@ struct FLAdc_s AdcNormalizing();//归一化
 //void AdcNormalizingOnce();//归一化最值设定
 //void AdcNormalizingExtremumClear();//清空归一化最值
 void AdcNormalizingInit();//归一化初始化
-
+void AdcSendNowByUart();
 #endif//_FL_ADC_
 
 

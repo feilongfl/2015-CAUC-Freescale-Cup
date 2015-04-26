@@ -47,11 +47,13 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-	//AdcNormalizingInit();//初始化归一化变量
+	AdcNormalizingInit();//初始化归一化变量
 	
 	//程序循环
 	while (1)
 	{
+
+
 		//Hcsr04Read();
 		//CoderRead ();
 		led_turn(LED3);

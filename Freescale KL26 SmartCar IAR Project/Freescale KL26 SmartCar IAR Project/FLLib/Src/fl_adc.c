@@ -24,9 +24,9 @@ FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 
 uint8 FLAdc_Ptxn[FLAdcMax] = {
 	ADC0_DM0,
-	ADC0_DM1,
-	ADC0_DM2,
-	ADC0_DM3,
+	ADC0_DP1,
+	ADC0_DP2,
+	ADC0_DP3,
 	//ADC0_DP0,
 };//adc通道数组
 
@@ -80,11 +80,31 @@ static void AdcNormalizingOnce()//归一化最值设定，调用之前先清空最值
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
+#ifdef DEBUG
+	printf("$");
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
+	{
+		printf("%d,", (uint16)*((uint16*)adcReadTemp + ShowTemp));
+	}
+	uint8 i = 8 - FLAdcMax;
+	while (i--)
+	{
+		printf("0");
+		if (i != 0)
+		{
+			printf(",");
+		}
+	}
+	printf("#");
+#endif
+
+
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax;loopTemp++)
 	{
 		*(adcMaxAddress + loopTemp) = MAX(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
 		//*(adcMinAddress + loopTemp) = MIN(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
 	}
+
 }
 
 static void AdcNormalizingExtremumClear()//清空归一化最值
@@ -109,6 +129,25 @@ void LcdAdcShow(struct FLAdc_s * flAdcn)
 	}
 }
 
+void AdcSendNowByUart()
+{
+	struct FLAdc_s * flAdcn = AdcReadAll();
+	printf("$");
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
+	{
+		printf("%d,", (uint16)*((uint16*)flAdcn + ShowTemp));
+	}
+	uint8 i = 8 - FLAdcMax;
+	while (i--)
+	{
+		printf("0");
+		if (i!=0)
+		{
+			printf(",");
+		}
+	}
+	printf("#");
+}
 
 static void LCDAdcShowMaxOrMin(LcdAdcShowMaxOrMin_e lcdAdcType)
 {
