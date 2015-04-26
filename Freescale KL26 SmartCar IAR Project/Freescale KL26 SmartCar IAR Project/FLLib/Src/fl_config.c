@@ -1,4 +1,24 @@
 #include "fl_config.h"
+FreeScaleCarConfig_s FreecaleConfig;
+
+ConfigErrorType_s ConfigInit()
+{
+	EepromInit();
+	while (true)
+	{
+		if (ConfigRead(&FreecaleConfig) != ConfigAllGreen)
+		{
+			printf("config error!");
+			ASSERT(ConfigSetDefaultInEeprom() != ConfigAllGreen);//eeprom ß∞‹
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	return ConfigAllGreen;
+}
 
 ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 {
