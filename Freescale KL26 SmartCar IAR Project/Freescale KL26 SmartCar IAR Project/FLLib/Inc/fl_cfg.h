@@ -19,13 +19,14 @@
 #define TmpPwmDutyDefault	 0				//初始化tpm模块为pwm功能时的默认值
 #define TpmCoder			TPM2			//脉冲计数
 #define TpmCodePrecison		TPM2_PRECISON	//占空比精度
+#define TpmCoderPs			TPM_PS_1
+#define TpmCoderClkIn		TPM_CLKIN0
 #define TpmMotor			TPM0
 #define TpmMotorPrecison	TPM0_PRECISON	//占空比精度
 #define TpmMotorCh0			TPM_CH0
 #define TpmMotorCh1			TPM_CH1
 #define TpmSteer			TPM1
-#define TpmSteerCh			TPM_CLKIN0
-#define TpmSteerPs			TPM_PS_1
+#define TpmSteerCh			TPM_CH0
 #define TpmSteerPrecison	TPM1_PRECISON	//占空比精度
 
 /************************************************************************/

@@ -16,7 +16,7 @@ InitRepot_e Init()
 {
 	led_init (LED_MAX);
 	SteerInit();
-	tpm_pulse_init(TpmSteer, TpmSteerCh, TpmSteerPs);
+	tpm_pulse_init(TpmCoder, TpmCoderClkIn, TpmCoderPs);
 	PitInit();//初始化pit模块
 	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏
