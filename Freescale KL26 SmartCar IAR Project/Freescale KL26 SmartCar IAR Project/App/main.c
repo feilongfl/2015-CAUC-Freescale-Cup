@@ -36,7 +36,7 @@ void main()
 	/************************************************************************/
 	/* 开中断                                                               */
 	/************************************************************************/
-	//enable_irq(PIT_IRQn);								  //使能PIT0中断
+	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	set_vector_handler(UART0_VECTORn, UartHandler);   // 设置中断服务函数到中断向量表里
 	uart_rx_irq_en(UART0);//串口中断
 	//uart_rx_irq_en(BlueToothUartPort);//蓝牙串口中断
