@@ -5,7 +5,7 @@ struct Pid_s SteerPid = {
 	SteerPIDDefaultI, 
 	SteerPIDDefaultD 
 };//舵机当前pid参数
-SteerTurnDirection_e CarDirection = SteerDirectionCenter;
+//SteerTurnDirection_e CarDirection = SteerDirectionCenter;
 
 uint16 SteerDuty[SteerDegreeNum] = {
 #ifdef _FL_VISUAL_STUDIO_
