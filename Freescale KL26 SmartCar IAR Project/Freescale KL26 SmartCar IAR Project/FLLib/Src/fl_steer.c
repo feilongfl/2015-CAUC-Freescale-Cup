@@ -5,7 +5,8 @@ struct Pid_s SteerPid = {
 	SteerPIDDefaultI, 
 	SteerPIDDefaultD 
 };//舵机当前pid参数
-//SteerTurnDirection_e CarDirection = SteerDirectionCenter;
+
+SteerTurnDirection_e CarDirection = SteerDirectionCenter;//历史方向，丢线准备
 
 uint16 SteerDuty[SteerDegreeNum] = {
 #ifdef _FL_VISUAL_STUDIO_
@@ -128,6 +129,9 @@ static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 	}
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+//根据adc计算车辆方向
 SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 {
 	uint16 * adc_addr = (uint16*)adc_s;
@@ -149,9 +153,12 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 		break;
 
 	case true:
+		return CarDirection;
 		break;
 
 	default:
+		ASSERT(true);
+		return CarDirection;//抑制编译时警告
 		break;
 	}
 	

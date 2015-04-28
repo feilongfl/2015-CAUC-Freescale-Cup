@@ -38,104 +38,7 @@
 /************************************************************************/
 /*           Êý¾ÝÀàÐÍ¶¨Òå                                                  */
 /************************************************************************/
-typedef enum
-{
-	SteerDegree0,//0¶È,¾ÓÖÐÖ±ÐÐ
-	SteerDegree1,//1¶È
-	SteerDegree2,//2¶È
-	SteerDegree3,//3¶È
-	SteerDegree4,//4¶È
-	SteerDegree5,//5¶È
-	SteerDegree6,//6¶È
-	SteerDegree7,//7¶È
-	SteerDegree8,//8¶È
-	SteerDegree9,//9¶È
-	SteerDegree10,//10¶È
-	SteerDegree11,//11¶È
-	SteerDegree12,//12¶È
-	SteerDegree13,//13¶È
-	SteerDegree14,//14¶È
-	SteerDegree15,//15¶È
-	SteerDegree16,//16¶È
-	SteerDegree17,//17¶È
-	SteerDegree18,//18¶È
-	SteerDegree19,//19¶È
-	SteerDegree20,//20¶È
-	SteerDegree21,//21¶È
-	SteerDegree22,//22¶È
-	SteerDegree23,//23¶È
-	SteerDegree24,//24¶È
-	SteerDegree25,//25¶È
-	SteerDegree26,//26¶È
-	SteerDegree27,//27¶È
-	SteerDegree28,//28¶È
-	SteerDegree29,//29¶È
-	SteerDegree30,//30¶È
-	SteerDegree31,//31¶È
-	SteerDegree32,//32¶È
-	SteerDegree33,//33¶È
-	SteerDegree34,//34¶È
-	SteerDegree35,//35¶È
-	SteerDegree36,//36¶È
-	SteerDegree37,//37¶È
-	SteerDegree38,//38¶È
-	SteerDegree39,//39¶È
-	SteerDegree40,//40¶È
-	/*
-	SteerDegree41,//41¶È
-	SteerDegree42,//42¶È
-	SteerDegree43,//43¶È
-	SteerDegree44,//44¶È
-	SteerDegree45,//45¶È
-	SteerDegree46,//46¶È
-	SteerDegree47,//47¶È
-	SteerDegree48,//48¶È
-	SteerDegree49,//49¶È
-	SteerDegree50,//50¶È
-	SteerDegree51,//51¶È
-	SteerDegree52,//52¶È
-	SteerDegree53,//53¶È
-	SteerDegree54,//54¶È
-	SteerDegree55,//55¶È
-	SteerDegree56,//56¶È
-	SteerDegree57,//57¶È
-	SteerDegree58,//58¶È
-	SteerDegree59,//59¶È
-	SteerDegree60,//60¶È
-	SteerDegree61,//61¶È
-	SteerDegree62,//62¶È
-	SteerDegree63,//63¶È
-	SteerDegree64,//64¶È
-	SteerDegree65,//65¶È
-	SteerDegree66,//66¶È
-	SteerDegree67,//67¶È
-	SteerDegree68,//68¶È
-	SteerDegree69,//69¶È
-	SteerDegree70,//70¶È
-	SteerDegree71,//71¶È
-	SteerDegree72,//72¶È
-	SteerDegree73,//73¶È
-	SteerDegree74,//74¶È
-	SteerDegree75,//75¶È
-	SteerDegree76,//76¶È
-	SteerDegree77,//77¶È
-	SteerDegree78,//78¶È
-	SteerDegree79,//79¶È
-	SteerDegree80,//80¶È
-	SteerDegree81,//81¶È
-	SteerDegree82,//82¶È
-	SteerDegree83,//83¶È
-	SteerDegree84,//84¶È
-	SteerDegree85,//85¶È
-	SteerDegree86,//86¶È
-	SteerDegree87,//87¶È
-	SteerDegree88,//88¶È
-	SteerDegree89,//89¶È
-	SteerDegree90,//90¶È
-	ÅÅ³ý¹ý´ó½Ç¶È
-	*/
-	SteerDegreeNum,//³ÉÔ±Êý
-}SteerTurnDegree_e;//×ªÏò½Ç¶È
+typedef uint8 SteerTurnDegree_e;//×ªÏò½Ç¶È
 
 typedef enum
 {
@@ -146,7 +49,7 @@ typedef enum
 
 
 
-//extern SteerTurnDirection_e CarDirection;
+extern SteerTurnDirection_e CarDirection;
 
 /************************************************************************/
 /*         Íâ²¿º¯ÊýÉùÃ÷                                               */
