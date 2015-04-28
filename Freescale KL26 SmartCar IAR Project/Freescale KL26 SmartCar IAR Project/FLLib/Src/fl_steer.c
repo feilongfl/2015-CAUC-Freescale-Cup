@@ -111,6 +111,22 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 	}
 }
 
+static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
+{
 
+}
+
+SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
+{
+	uint16 * adc_addr = (uint16*)adc_s;
+	int32 sum;
+
+	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2;adcTemp--)//¼ÆËãad×ó-adÓÒ
+	{
+		sum += *(adc_addr + ADC_MAX - adcTemp);
+		sum -= *(adc_addr + adcTemp - 1);
+	}
+	
+}
 
 
