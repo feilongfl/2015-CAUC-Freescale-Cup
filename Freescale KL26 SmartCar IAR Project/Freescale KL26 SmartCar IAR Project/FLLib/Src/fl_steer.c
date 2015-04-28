@@ -5,29 +5,33 @@ struct Pid_s SteerPid = {
 	SteerPIDDefaultI, 
 	SteerPIDDefaultD 
 };//舵机当前pid参数
+SteerTurnDirection_e CarDirection = SteerDirectionCenter;
 
 uint16 SteerDuty[SteerDegreeNum] = {
-#warning 请设置舵机打角值数组
-	0  ,
-	5  ,
-	10 ,
-	15 ,
-	20 ,
-	25 ,
-	30 ,
-	35 ,
-	40 ,
-	45 ,
-	50 ,
-	55 ,
-	60 ,
-	65 ,
-	70 ,
-	75 ,
-	80 ,
-	85 ,
-	90 ,
-	95 ,
+#ifdef _FL_VISUAL_STUDIO_
+#pragma region 舵机打角数组
+#endif
+	#warning 请设置舵机打角值数组
+	0,
+	5,
+	10,
+	15,
+	20,
+	25,
+	30,
+	35,
+	40,
+	45,
+	50,
+	55,
+	60,
+	65,
+	70,
+	75,
+	80,
+	85,
+	90,
+	95,
 	100,
 	105,
 	110,
@@ -49,6 +53,9 @@ uint16 SteerDuty[SteerDegreeNum] = {
 	190,
 	195,
 	200,
+#ifdef _FL_VISUAL_STUDIO_
+#pragma endregion 舵机打角数组
+#endif 
 };//舵机打角值数组
 
 InitRepot_e SteerInit()
@@ -103,3 +110,7 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 		break;
 	}
 }
+
+
+
+

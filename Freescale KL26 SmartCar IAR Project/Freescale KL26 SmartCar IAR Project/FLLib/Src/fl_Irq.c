@@ -2,6 +2,7 @@
 #include "common.h"
 #include "fl_irq.h"
 #include "fl_Motor.h"
+#include "fl_steer.h"
 
 #ifdef MKL26Z4
 #include "MKL_uart.h"
@@ -51,15 +52,16 @@ void BlueToothHandler()
 /************************************************************************/
 extern struct MotorSpeed_s Speed;
 
+
 #define CordLineInOneCircle 500
 #define WheelGirth 10
 void PIT_IRQHandler(void)
 {
-	
 	//TpmCountRead();
 	Speed.Acturally = tpm_pulse_get(TPM2);
 	//Speed.Acturally = (tpm_pulse_get(TPM2) * WheelGirth) / (CordLineInOneCircle * CoderTimeCircle);                         //保存脉冲计数器计算值
-	printf("%d\n", Speed.Acturally);
+	//printf("%d\n", Speed.Acturally);
+
 	tpm_pulse_clean(TPM2);                                  //清空脉冲计数器计算值（开始新的计数）
 	led_turn(LED3);
 	PIT_Flag_Clear(PIT0);

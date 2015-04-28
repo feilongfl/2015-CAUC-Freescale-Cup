@@ -142,7 +142,7 @@ typedef enum
 
 
 
-
+extern SteerTurnDirection_e CarDirection;
 
 /************************************************************************/
 /*         外部函数声明                                               */
