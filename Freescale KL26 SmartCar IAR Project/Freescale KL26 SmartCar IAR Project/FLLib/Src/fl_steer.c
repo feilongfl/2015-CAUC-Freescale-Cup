@@ -113,18 +113,46 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 
 static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 {
-
+	sum /= 5;//这个也算是滤波吧
+	if (sum < -SteerAngleProtectRange / 5)
+	{
+		return SteerDirectionLeft;
+	}
+	else if (sum > SteerAngleProtectRange / 5)
+	{
+		return SteerDirectionRight;
+	}
+	else
+	{
+		return SteerDirectionCenter;
+	}
 }
 
 SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 {
 	uint16 * adc_addr = (uint16*)adc_s;
-	int32 sum;
+	int32 sum = 0;
+	uint8 lostLine = false;
 
-	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2;adcTemp--)//计算ad左-ad右
+	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2;adcTemp--)
 	{
-		sum += *(adc_addr + ADC_MAX - adcTemp);
+		sum += *(adc_addr + ADC_MAX - adcTemp);//计算ad左-ad右
 		sum -= *(adc_addr + adcTemp - 1);
+		lostLine = (*(adc_addr + ADC_MAX - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
+		lostLine = (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
+	}
+
+	switch (lostLine)
+	{
+	case false:
+		return steerDirectionSetBySum(sum);
+		break;
+
+	case true:
+		break;
+
+	default:
+		break;
 	}
 	
 }
