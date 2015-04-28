@@ -176,6 +176,8 @@ SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
 		deviation -= *(adc_addr + adcTemp - 1);
 	}
 
+	deviation = ABS(deviation);
+
 	for (uint8 adcTemp = 0; adcTemp < ADC_MAX; adcTemp++)
 	{
 		sum += *(adc_addr + adcTemp);//计算ad左+ad右
@@ -187,5 +189,5 @@ SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
 
 	//网上找的公式，据说是官方的解决方案
 	//（ad左-ad右） / （ad左 + ad右） * 100
-	return (uint32)((deviation / sum) * 100);
+	return (SteerTurnDegree_e)((deviation / sum) * 100);
 }
