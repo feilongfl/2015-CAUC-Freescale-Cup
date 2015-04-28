@@ -164,4 +164,28 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 	
 }
 
+SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
+{
+	uint16 * adc_addr = (uint16*)adc_s;
+	int32 deviation = 0;
+	int32 sum = 0;
 
+	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2; adcTemp--)
+	{
+		deviation += *(adc_addr + ADC_MAX - adcTemp);//计算ad左-ad右
+		deviation -= *(adc_addr + adcTemp - 1);
+	}
+
+	for (uint8 adcTemp = 0; adcTemp < ADC_MAX; adcTemp++)
+	{
+		sum += *(adc_addr + adcTemp);//计算ad左+ad右
+	}
+
+#if ((ADC_MAX % 2) == 1)
+	sum -= *(adc_addr + (uint8)(ADC_MAX / 2) );//奇数个电感时减去中间
+#endif
+
+	//网上找的公式，据说是官方的解决方案
+	//（ad左-ad右） / （ad左 + ad右） * 100
+	return (uint32)((deviation / sum) * 100);
+}
