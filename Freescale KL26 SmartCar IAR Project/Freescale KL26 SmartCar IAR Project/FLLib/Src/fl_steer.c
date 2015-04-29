@@ -7,7 +7,7 @@ struct Pid_s SteerPid = {
 };//舵机当前pid参数
 
 SteerTurnDirection_e CarDirection = SteerDirectionCenter;//历史方向，丢线准备
-#define SteerDegreeNum 50
+#define SteerDegreeNum 50//定义角度范围
 
 uint16 SteerDuty[SteerDegreeNum] = {
 #ifdef _FL_VISUAL_STUDIO_
