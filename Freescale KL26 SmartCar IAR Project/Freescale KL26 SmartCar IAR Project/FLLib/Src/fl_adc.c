@@ -23,10 +23,10 @@ FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 //给个默认值防止出现问题
 
 ADCn_Ch_e FLAdc_Ptxn[FLAdcMax] = {
-	ADC0_DM0,
-	ADC0_DM2,
-	ADC0_DP2,
-	ADC0_DP3,
+	ADC0_DM0,//pte21
+	ADC0_DM2,//pte19
+	ADC0_DP2,//pte18
+	ADC0_DP3,//pte22
 	//ADC0_DP0,
 };//adc通道数组
 
@@ -101,7 +101,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
-
+#define DEBUG_ADC
 #ifdef DEBUG_ADC
 	printf("$");
 	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
@@ -126,6 +126,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 // 		}
 // 	}
 	printf("#");
+	DELAY_MS(100);
 #endif//DEBUG_ADC
 
 

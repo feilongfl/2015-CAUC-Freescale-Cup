@@ -32,7 +32,7 @@
 #define SteerPidMinI  0//舵机最小I
 #define SteerPidMinD  0//舵机最小D
 
-#define SteerAngleProtectRange 100//左右电感偏差值在此范围内认定为直行
+#define SteerAngleProtectRange 500//左右电感偏差值在此范围内认定为直行
 #define LostLineAdcMin 200//所有电感归一化后数值少于此值认定为丢线
 
 /************************************************************************/

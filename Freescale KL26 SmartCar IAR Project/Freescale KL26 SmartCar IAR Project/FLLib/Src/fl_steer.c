@@ -118,11 +118,11 @@ static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 	sum /= 5;//这个也算是滤波吧
 	if (sum < -SteerAngleProtectRange / 5)
 	{
-		return SteerDirectionLeft;
+		return SteerDirectionRight;
 	}
 	else if (sum > SteerAngleProtectRange / 5)
 	{
-		return SteerDirectionRight;
+		return SteerDirectionLeft;
 	}
 	else
 	{
@@ -137,14 +137,14 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 {
 	uint16 * adc_addr = (uint16*)adc_s;
 	int32 sum = 0;
-	uint8 lostLine = false;
+	uint8 lostLine = TRUE;
 
 	for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2;adcTemp--)
 	{
 		sum += *(adc_addr + FLAdcMax - adcTemp);//计算ad左-ad右
 		sum -= *(adc_addr + adcTemp - 1);
-		lostLine |= (*(adc_addr + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
-		lostLine |= (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
+		lostLine &= (*(adc_addr + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
+		lostLine &= (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
 	}
 
 	switch (lostLine)
@@ -190,5 +190,5 @@ SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
 
 	//网上找的公式，据说是官方的解决方案
 	//（ad左-ad右） / （ad左 + ad右） * 100
-	return (SteerTurnDegree_e)((deviation / sum) * 100);
+	return (SteerTurnDegree_e)((deviation * 100 / sum));
 }

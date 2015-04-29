@@ -48,7 +48,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-#if 0
+#if 1
 	AdcNormalizingInit();//初始化归一化变量
 #else
 	AdcInit();
