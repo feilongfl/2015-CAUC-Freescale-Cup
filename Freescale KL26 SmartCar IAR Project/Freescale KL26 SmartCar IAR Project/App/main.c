@@ -48,12 +48,25 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
+#if 0
 	AdcNormalizingInit();//初始化归一化变量
-	
+#else
+	AdcInit();
+	extern struct FLAdc_s AdcMax;
+	uint16 * adcMaxAddress = (uint16*)&AdcMax;
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+	{
+		*(adcMaxAddress + loopTemp) = 150;
+	}
+#endif
 	//程序循环
 	while (1)
 	{
-
+		adcn = AdcNormalizing();
+		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn);
+		SteerTurnDegree_e de = SteerTurnDegreeSetByAdc(&adcn);
+		printf("$%d,%d,%d,%d,%d,%d,0,0#",(uint8)turn,(uint8)de,
+			adcn.FLAdc0,adcn.FlAdc1,adcn.FLAdc2,adcn.FLAdc3);
 		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
 		//adcn = AdcNormalizingWithFitter();
@@ -79,7 +92,7 @@ void main()
 
 		//LcdShowAllData(); 
 		//wdog_feed ();
-		//DELAY_MS(1000);
+		DELAY_MS(1000);
 	}
 
 

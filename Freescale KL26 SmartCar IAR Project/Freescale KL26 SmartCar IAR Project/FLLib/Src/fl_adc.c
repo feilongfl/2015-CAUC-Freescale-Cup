@@ -22,7 +22,7 @@ uint8 LcdAdcNumLocation[FLAdcMax][2] = {
 FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 //给个默认值防止出现问题
 
-uint8 FLAdc_Ptxn[FLAdcMax] = {
+ADCn_Ch_e FLAdc_Ptxn[FLAdcMax] = {
 	ADC0_DM0,
 	ADC0_DM2,
 	ADC0_DP2,
@@ -35,7 +35,7 @@ void AdcInit()
 {
 	for (uint8 adcLoopTemp = 0; adcLoopTemp < FLAdcMax;adcLoopTemp++)
 	{
-		adc_init((ADCn_Ch_e)FLAdc_Ptxn[adcLoopTemp]);
+		adc_init(FLAdc_Ptxn[adcLoopTemp]);
 	}
 }
 
@@ -45,7 +45,7 @@ static struct FLAdc_s * AdcReadAll()
 	uint16 * FLAdcLastAddress = (uint16 *)&FLAdcLast;
 	for (uint8 adcLoopTemp = 0; adcLoopTemp < FLAdcMax; adcLoopTemp++)
 	{
-		*FLAdcLastAddress++ = adc_once((ADCn_Ch_e)FLAdc_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
+		*FLAdcLastAddress++ = adc_once(FLAdc_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
 	}
 	//DELAY();//吓死我了，我还以为读一次ad怎么要半秒呢
 	return &FLAdcLast;//返回保存结构体地址
@@ -126,15 +126,19 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 // 		}
 // 	}
 	printf("#");
-#endif
+#endif//DEBUG_ADC
 
 
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax;loopTemp++)
 	{
+#if 1
 		*(adcMaxAddress + loopTemp) = MAX(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
 		//*(adcMinAddress + loopTemp) = MIN(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
+#else
+#warning debuging adc
+		*(adcMaxAddress + loopTemp) = 150;
+#endif//0
 	}
-
 }
 
 static void AdcNormalizingExtremumClear()//清空归一化最值

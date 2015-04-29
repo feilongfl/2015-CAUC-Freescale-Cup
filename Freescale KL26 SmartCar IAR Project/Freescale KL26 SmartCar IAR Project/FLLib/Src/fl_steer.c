@@ -139,12 +139,12 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 	int32 sum = 0;
 	uint8 lostLine = false;
 
-	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2;adcTemp--)
+	for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2;adcTemp--)
 	{
-		sum += *(adc_addr + ADC_MAX - adcTemp);//计算ad左-ad右
+		sum += *(adc_addr + FLAdcMax - adcTemp);//计算ad左-ad右
 		sum -= *(adc_addr + adcTemp - 1);
-		lostLine = (*(adc_addr + ADC_MAX - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
-		lostLine = (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
+		lostLine |= (*(adc_addr + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
+		lostLine |= (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
 	}
 
 	switch (lostLine)
@@ -171,21 +171,21 @@ SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
 	int32 deviation = 0;
 	int32 sum = 0;
 
-	for (uint8 adcTemp = ADC_MAX; adcTemp > ADC_MAX / 2; adcTemp--)
+	for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2; adcTemp--)
 	{
-		deviation += *(adc_addr + ADC_MAX - adcTemp);//计算ad左-ad右
+		deviation += *(adc_addr + FLAdcMax - adcTemp);//计算ad左-ad右
 		deviation -= *(adc_addr + adcTemp - 1);
 	}
 
 	deviation = ABS(deviation);
 
-	for (uint8 adcTemp = 0; adcTemp < ADC_MAX; adcTemp++)
+	for (uint8 adcTemp = 0; adcTemp < FLAdcMax; adcTemp++)
 	{
 		sum += *(adc_addr + adcTemp);//计算ad左+ad右
 	}
 
-#if ((ADC_MAX % 2) == 1)
-	sum -= *(adc_addr + (uint8)(ADC_MAX / 2) );//奇数个电感时减去中间
+#if ((FLAdcMax % 2) == 1)
+	sum -= *(adc_addr + (uint8)(FLAdcMax / 2) );//奇数个电感时减去中间
 #endif
 
 	//网上找的公式，据说是官方的解决方案

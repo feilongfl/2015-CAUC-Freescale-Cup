@@ -61,6 +61,7 @@ struct FLAdc_s AdcNormalizing();//归一化
 void AdcNormalizingInit();//归一化初始化
 void AdcSendNowByUart();
 struct FLAdc_s AdcNormalizingWithFitter();
+
 #endif//_FL_ADC_
 
 
