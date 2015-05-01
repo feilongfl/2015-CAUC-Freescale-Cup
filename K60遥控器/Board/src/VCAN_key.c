@@ -77,7 +77,6 @@ KEY_STATUS_e key_get(KEY_e key)
     return KEY_UP;
 }
 
-
 /*!
  *  @brief      ¼ì²âkey×´Ì¬£¨´øÑÓÊ±Ïû¶¶£©
  *  @param      KEY_e           KEY±àºÅ
@@ -100,6 +99,18 @@ KEY_STATUS_e key_check(KEY_e key)
         }
     }
     return KEY_UP;
+}
+
+KEY_e key_scan()
+{
+	for (int key = 0; key < KEY_MAX; key++)
+	{
+		if (key_check((KEY_e)key) == KEY_DOWN)
+		{
+			return (KEY_e)key;
+		}
+	}
+	return KEY_MAX;
 }
 
 

@@ -35,22 +35,12 @@ void main(void)
 	set_vector_handler(PORTE_VECTORn, PORTE_IRQHandler);    			//设置 PORTE 的中断复位函数为 PORTE_VECTORn
 	enable_irq(PORTE_IRQn);
 	nrf_msg_init();                                                     //无线模块消息初始化
+	key_init(KEY_MAX);
 
 	while (TRUE)
 	{
-		nrf_result = nrf_msg_rx(&com, nrf_rx_buff);
-		if (nrf_result == NRF_RESULT_RX_VALID)
-		{
-			switch (com)
-			{
-			case COM_Ctrl:
+		
 
-				break;
-
-			default:
-				break;
-			}
-		}
 	}
 }
 

@@ -20,7 +20,7 @@
 #include  "VCAN_KEY.H"          //KEY
 #include  "VCAN_MMA7455.h"      //三轴加速度MMA7455
 #include  "VCAN_NRF24L0.h"      //无线模块NRF24L01+
-
+#include  "VCAN_NRF24L0_MSG.h"      //无线模块NRF24L01+
 
 
 

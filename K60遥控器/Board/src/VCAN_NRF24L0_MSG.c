@@ -177,9 +177,11 @@ RE_LOOP:
 #endif // DEBUG
 				break;
 
+#ifdef DEBUG
 			case COM_Ctrl:
 				CarCtrl((Ctrl_e)rebuf[COM_LEN]);
 				break;
+#endif // DEBUG
 
             default:
 				ASSERT(true);
