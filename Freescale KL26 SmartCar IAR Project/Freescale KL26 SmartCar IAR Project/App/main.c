@@ -64,7 +64,7 @@ void main()
 	{
 		adcn = AdcNormalizing();
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn);
-		SteerTurnDegree_e de = SteerTurnDegreeSetByAdc(&adcn);
+		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		printf("$%d,%d,%d,%d,%d,%d,0,0#",(uint8)turn,(uint8)de,
 			adcn.FLAdc0,adcn.FlAdc1,adcn.FLAdc2,adcn.FLAdc3);
 		//lptmr_time_start_us();                  //开始计时

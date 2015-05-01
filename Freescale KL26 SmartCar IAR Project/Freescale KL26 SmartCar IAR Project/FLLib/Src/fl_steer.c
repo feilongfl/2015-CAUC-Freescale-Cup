@@ -66,7 +66,7 @@ InitRepot_e SteerInit()
 	return InitAllGreen;
 }
 
-void SteerTurn(SteerTurnDirection_e direction, SteerTurnDegree_e degree)
+void SteerTurn(SteerTurnDirection_e direction, SteerDeviationDegree_e degree)
 {
 	ASSERT(SteerDuty[degree] <= SteerTurnMax);//检测舵机打角数据是否合法
 
@@ -165,7 +165,7 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
 	
 }
 
-SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
+SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 {
 	uint16 * adc_addr = (uint16*)adc_s;
 	int32 deviation = 0;
@@ -190,5 +190,5 @@ SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s)
 
 	//网上找的公式，据说是官方的解决方案
 	//（ad左-ad右） / （ad左 + ad右） * 100
-	return (SteerTurnDegree_e)((deviation * 100 / sum));
+	return (SteerDeviationDegree_e)((deviation * 100 / sum));
 }

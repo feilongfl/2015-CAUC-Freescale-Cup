@@ -38,7 +38,7 @@
 /************************************************************************/
 /*           数据类型定义                                                  */
 /************************************************************************/
-typedef uint8 SteerTurnDegree_e;//转向角度
+typedef uint8 SteerDeviationDegree_e;//转向角度
 
 typedef enum
 {
@@ -58,11 +58,11 @@ extern SteerTurnDirection_e CarDirection;
 InitRepot_e SteerInit();//舵机初始化，发送默认pwm
 
 //////////////////////////////////////////////////////////////////////////
-void SteerTurn(SteerTurnDirection_e direction, SteerTurnDegree_e degree);//转向
+void SteerTurn(SteerTurnDirection_e direction, SteerDeviationDegree_e degree);//转向
 
 //////////////////////////////////////////////////////////////////////////
 void StreePidSet(Pid_e steerPid, uint8 steerPidChange);//设定舵机pid参数
 
 SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s);
-SteerTurnDegree_e SteerTurnDegreeSetByAdc(struct FLAdc_s * adc_s);
+SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s);
 #endif//_FL_STEER_

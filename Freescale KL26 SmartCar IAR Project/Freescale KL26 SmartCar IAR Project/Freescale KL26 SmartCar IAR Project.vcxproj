@@ -156,6 +156,7 @@
     <ClInclude Include="FLLib\Inc\fl_Motor.h" />
     <ClInclude Include="FLLib\Inc\fl_state.h" />
     <ClInclude Include="FLLib\Inc\Fl_steer.h" />
+    <ClInclude Include="FLLib\Inc\fl_steer_pid.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_const_structs.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_math.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="FLLib\Src\fl_Motor.c" />
     <ClCompile Include="FLLib\Src\fl_state.c" />
     <ClCompile Include="FLLib\Src\fl_steer.c" />
+    <ClCompile Include="FLLib\Src\fl_steer_pid.c" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="design\架构\无标题.png" />
