@@ -1,23 +1,46 @@
+/*!
+ *     COPYRIGHT NOTICE
+ *     Copyright (c) 2013,山外科技
+ *     All rights reserved.
+ *     技术讨论：山外论坛 http://www.vcan123.com
+ *
+ *     除注明出处外，以下所有内容版权均属山外科技所有，未经允许，不得用于商业用途，
+ *     修改内容时必须保留山外科技的版权声明。
+ *
+ * @file       VCAN_NRF24L0_MSG.c
+ * @brief      无线调试 消息机制 函数
+ * @author     山外科技
+ * @version    v5.0
+ * @date       2014-01-04
+ */
+
 #include "common.h"
-#include "MK60_gpio.h"
-#include "MK60_port.h"
-#include "MK60_spi.h"
+
 #include "VCAN_camera.h"
 #include "VCAN_NRF24L0.h"
 #include "VCAN_NRF24L0_MSG.h"
-#include "VCAN_TSL1401.h"
-
-/**************************** 变量接收与发送 **********************************/
+//#include "VCAN_TSL1401.h"
 
 
-
-
-/**************************** 变量接收与发送 **********************************/
+struct FLAdc_s Nrf_Adc;
+struct Pid_s Nrf_MPid;
+struct Pid_s Nrf_SPid;
+struct MotorSpeed_s Nrf_Speed;
 
 uint32 rxbuflen = 0;           //用于接收方返回接收到多少数据。（包含第一次传递进去的那个包大小）
 
 
-const uint32 nrf_com_size[COM_MAX] = {CAMERA_SIZE , TSL1401_MAX *TSL1401_SIZE , 8, 0};
+const uint32 nrf_com_size[COM_MAX] = { Nrf_AdcLenth,//adc
+										Nrf_MpidLenth,//mpid
+										Nrf_SpidLenth,//spid
+										Nrf_SpeedLenth,//speed
+										//Nrf_VarLenth,//变量
+										Nrf_RetranLenth ,//清空缓存
+										Nrf_TestLenth, //测试
+#ifdef DEBUG
+										Nrf_TestLenth//遥控
+#endif // DEBUG
+};
 
 uint32 nrf_com_totalsize[COM_MAX];                                                                  // 所占用 包 的 总 占用空间
 
@@ -59,7 +82,7 @@ nrf_result_e nrf_msg_rx(com_e  *com, uint8 *rebuf)
     uint32  tmplen;
     uint32  relen;                              //接收到的数据长度
     uint8   *buftemp;
-
+    uint32  tmp;
     uint32  totallen ;                          //总需要接收包的数目(包的整数倍)
     uint16  tmpcheck;
 
@@ -116,19 +139,50 @@ RE_LOOP:
             //对 命令 数据进行 处理
             switch(*com)
             {
-            case COM_VAR:
-                last_tab = *((uint32 *)&rebuf[COM_LEN]);                                    //读取变量编号
-                if(last_tab < VAR_MAX)
-                {
-                    save_var((var_tab_e)last_tab, *((uint32 *)&rebuf[COM_LEN + sizeof(uint32)]));          //存储 变量
-                    var_display(last_tab);                                                  //显示 变量
-                }
-                else
-                {
-                    return NRF_RESULT_RX_NOVALID;
-                }
-                break;
+			case COM_ADC:
+				struct FLAdc_s * adc = &Nrf_Adc;
+				for (uint8 i = 0; i<sizeof(struct FLAdc_s); i++)
+				{
+					*((uint8 *)adc + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_Mpid:
+				struct Pid_s * mpid = &Nrf_MPid;
+				for (uint8 i = 0; i < sizeof(struct Pid_s); i++)
+				{
+					*((uint8 *)mpid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_Spid:
+				struct Pid_s * spid = &Nrf_SPid;
+				for (uint8 i = 0; i < sizeof(struct Pid_s); i++)
+				{
+					*((uint8 *)spid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_Speed:
+				struct MotorSpeed_s * speed = &Nrf_Speed;
+				for (uint8 i = 0; i < sizeof(struct MotorSpeed_s); i++)
+				{
+					*((uint8 *)spid + i) = *(rebuf + COM_LEN + i);
+				}
+				break;
+
+			case COM_TEST:
+#ifdef DEBUG
+				printf("I got Test Command!\n");
+#endif // DEBUG
+				break;
+
+			case COM_Ctrl:
+				CarCtrl((Ctrl_e)rebuf[COM_LEN]);
+				break;
+
             default:
+				ASSERT(true);
                 break;
             }
 

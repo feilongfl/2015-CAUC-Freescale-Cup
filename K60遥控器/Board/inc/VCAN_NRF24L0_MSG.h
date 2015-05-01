@@ -1,10 +1,29 @@
-#ifndef _NRF24L0_MSG_H_
-#define _NRF24L0_MSG_H_
+/*!
+ *     COPYRIGHT NOTICE
+ *     Copyright (c) 2013,É½Íâ¿Æ¼¼
+ *     All rights reserved.
+ *     ¼¼ÊõÌÖÂÛ£ºÉ½ÍâÂÛÌ³ http://www.vcan123.com
+ *
+ *     ³ı×¢Ã÷³ö´¦Íâ£¬ÒÔÏÂËùÓĞÄÚÈİ°æÈ¨¾ùÊôÉ½Íâ¿Æ¼¼ËùÓĞ£¬Î´¾­ÔÊĞí£¬²»µÃÓÃÓÚÉÌÒµÓÃÍ¾£¬
+ *     ĞŞ¸ÄÄÚÈİÊ±±ØĞë±£ÁôÉ½Íâ¿Æ¼¼µÄ°æÈ¨ÉùÃ÷¡£
+ *
+ * @file       VCAN_NRF24L0_MSG.h
+ * @brief      ÎŞÏßµ÷ÊÔ ÏûÏ¢»úÖÆ º¯Êı
+ * @author     É½Íâ¿Æ¼¼
+ * @version    v5.0
+ * @date       2014-01-04
+ */
+
+
+#ifndef _VCAN_NRF24L0_MSG_H_
+#define _VCAN_NRF24L0_MSG_H_
 
 #include "vcan_ui_var.h"
 #include "VCAN_NRF24L0.h"
 
-
+#include "fl_ADC.h"
+#include "fl_Motor.h"
+#include "fl_ctrl.h"
 
 #define COM_LEN     2   //comÃüÁîÕ¼ÓÃµÄ×Ö½Ú
 
@@ -41,23 +60,51 @@ typedef enum
     //ĞèÒªĞ£Ñé½ÓÊÕµÄÃüÁîÊÇ·ñÕıÈ·
     //·¢ËÍµÄÊı¾İ£º XXX_COM £¬~XXX_COM    ºóÃæ¼ÌĞø·¢ËÍĞèÒª·¢ËÍµÄĞÅÏ¢£¬ÓÉ¶ÔÓ¦µÄÖ´ĞĞº¯Êı½øĞĞ´¦Àí
 
-    //Í¼Ïñ´«Êä
-    COM_IMG,
+    //adc
+    COM_ADC,
+#define Nrf_AdcLenth sizeof(struct FLAdc_s)
 
-    //ÏßĞÔCCD
-    COM_CCD,
+    //motor pid
+    COM_Mpid,
+#define Nrf_MpidLenth sizeof(struct Pid_s)
+
+	//steer pid
+	COM_Spid,
+#define Nrf_SpidLenth sizeof(struct Pid_s)
+
+	COM_Speed,
+#define Nrf_SpeedLenth sizeof(struct MotorSpeed_s)
 
     //±äÁ¿´«Êä¿ØÖÆ
-    COM_VAR,
+//     COM_VAR,
+// #define Nrf_VarLenth 8
 
     COM_RETRAN,//¸´Î»´«Êä£¬¶ªÆúÖ®Ç°½ÓÊÕµ½µÄÊı¾İ
+#define Nrf_RetranLenth 0	
 
-    /*  ĞèÒªÌí¼Ó¹¦ÄÜ£¬Çë·ÅÈë´ËÎ»ÖÃ  */
+	COM_TEST,
+#define Nrf_TestLenth 0
 
+#ifdef DEBUG
+	COM_Ctrl,
+#define Nrf_CtrlLength 1
+#endif // DEBUG
 
     COM_MAX     ,       //×î´ó¿ØÖÆÃüÁîÊıÄ¿                                                  ********************************
 
 } com_e;
+
+
+
+typedef enum
+{
+	Nrf_AT_Car_1,
+	Nrf_AT_Car_2,
+
+	Nrf_AT_RC
+}NrfLocal_e;//Ã¶¾ÙÎŞÏßÄ£¿éÎ»ÖÃ
+
+#define Nrf_This Nrf_AT_Car_1//¶¨Òåµ±Ç°Ä£¿éÎ»ÖÃ
 
 extern void             nrf_msg_init();                                //³õÊ¼»¯ÏûÏ¢´¦Àí(²¢Ã»ÓĞ³õÊ¼»¯ nrf Ä£¿é)
 extern nrf_result_e     nrf_msg_tx(com_e   com, uint8 *sendbuf);       //·¢ËÍÊı¾İ£¬·¢ËÍ³¤¶ÈÓÉcom¾ö¶¨
@@ -70,4 +117,4 @@ extern nrf_result_e     nrf_msg_rx(com_e  *com, uint8 *rebuf);         //½ÓÊÕÊı¾
 
 
 
-#endif  //_NRF24L0_MSG_H_
+#endif  //_VCAN_NRF24L0_MSG_H_
