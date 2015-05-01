@@ -1,29 +1,25 @@
 #include "fl_steer_pid.h"
 
-struct Pid_s SteerPid = {
-	SteerPIDDefaultP,
-	SteerPIDDefaultI,
-	SteerPIDDefaultD
-};//舵机当前pid参数
+struct Pid_s SteerPid;
 
-#define SteerDeviation_ArrayLength 3
-uint16 SteerDeviation[SteerDeviation_ArrayLength] = { 0, 0, 0 };
-
-static void SteerDeviation_Add(uint16 num)
+void SteerPidInit()
 {
-	for (uint8 i = 0; i < SteerDeviation_ArrayLength - 1;i++)
-	{
-		SteerDeviation[i] = SteerDeviation[i + 1];
-	}
-	SteerDeviation[SteerDeviation_ArrayLength - 1] = num;
+	SteerPid.Target = 0;
+
+	SteerPid.g = 0;
+	SteerPid.Imax = 0;
+	SteerPid.Integral = 0;
+	SteerPid.last_error = 0;
+	SteerPid.Now = 0;
+
+	SteerPid.kp = SteerPIDDefaultP;
+	SteerPid.ki = SteerPIDDefaultI;
+	SteerPid.kd = SteerPIDDefaultD;
 }
 
-int32 SteerCtrlUsePid(SteerTurnDirection_e direction, SteerDeviationDegree_e deviation)
+int32 SteerCtrlUsePid(SteerDeviationDegree_e deviation)
 {
-	SteerDeviation_Add(deviation);
-	int8 dir = (uint8)direction - 1;
-	return dir *
-		SteerPid.P / PidPrecision * SteerDeviation[2] +
-		SteerPid.I / PidPrecision * (SteerDeviation[2] - SteerDeviation[0]) +
-		SteerPid.D / PidPrecision * (SteerDeviation[2] - SteerDeviation[1]);
+	SteerPid.Now = deviation;
+	return PID(&SteerPid);
 }
+

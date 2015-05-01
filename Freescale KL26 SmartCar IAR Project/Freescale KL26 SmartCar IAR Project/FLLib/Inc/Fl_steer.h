@@ -30,7 +30,12 @@
 /************************************************************************/
 /*           数据类型定义                                                  */
 /************************************************************************/
+//#define SteerDegAbs
+#ifdef SteerDegAbs
 typedef uint8 SteerDeviationDegree_e;//转向角度
+#else
+typedef int16 SteerDeviationDegree_e;//转向角度
+#endif
 
 typedef enum
 {

@@ -36,23 +36,32 @@ uint32 PidError[3] = { 0, 0 ,0};
 
 
 
-float PID(struct pid * maxwell) {
+int32 PID(struct Pid_s * maxwell) 
+{
 	float Nyquist = 0;
 	float error = 0;
 
 	error = maxwell->Target - maxwell->Now;
 	maxwell->g = maxwell->last_error - error;
 
-	Nyquist = error * maxwell->kp + maxwell->Integral * maxwell->ki - maxwell->g * maxwell->kd;
+	Nyquist = error * maxwell->kp / PidPrecision 
+		+ maxwell->Integral * maxwell->ki / PidPrecision 
+		- maxwell->g * maxwell->kd / PidPrecision;
 
 
 	maxwell->Integral += error / 20;      //在这里控制积分时间
 
-	if (maxwell->Integral > maxwell->Imax) maxwell->Integral = maxwell->Imax;
-	if (maxwell->Integral < -maxwell->Imax) maxwell->Integral = -maxwell->Imax;
+	if (maxwell->Integral > maxwell->Imax)
+	{
+		maxwell->Integral = maxwell->Imax;
+	}
+	if (maxwell->Integral < -maxwell->Imax)
+	{
+		maxwell->Integral = -maxwell->Imax;
+	}
 
 	maxwell->last_error = error;
 
-	return(Nyquist);
+	return (int32)(Nyquist * PidPrecision);
 }
 

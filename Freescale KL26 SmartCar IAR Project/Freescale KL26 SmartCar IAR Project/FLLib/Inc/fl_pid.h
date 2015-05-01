@@ -16,49 +16,57 @@ typedef enum
 #define PidPrecision 100//Pid精度
 
 #if PidPrecision < 0xff//根据精度选择数据类型
-
-
-struct Pid_s//pid结构体
+struct Pid_s
 {
-	uint8 P;
-	uint8 I;
-	uint8 D;
+	int32 Integral;//积分累加值
+	int32 Now;//
+
+	uint8 kp;
+	uint8 ki;
+	uint8 kd;
+
+	int32 g;//后项差分
+
+	int32 Imax;//i的积分限幅
+	int32 Target;
+	int32 last_error;//上次误差
 };
 #elif PidPrecision < 0xffff
-struct Pid_s//pid结构体
+struct Pid_s
 {
-	uint16 P;
-	uint16 I;
-	uint16 D;
+	int32 Integral;//积分累加值
+	int32 Now;//
+
+	uint16 kp;
+	uint16 ki;
+	uint16 kd;
+
+	int32 g;//后项差分
+
+	int32 Imax;//i的积分限幅
+	int32 Target;
+	int32 last_error;//上次误差
 };
 #else
-struct Pid_s//pid结构体
+struct Pid_s
 {
-	uint32 P;
-	uint32 I;
-	uint32 D;
+	int32 Integral;//积分累加值
+	int32 Now;//
+
+	uint32 kp;
+	uint32 ki;
+	uint32 kd;
+
+	int32 g;//后项差分
+
+	int32 Imax;//i的积分限幅
+	int32 Target;
+	int32 last_error;//上次误差
 };
 #endif
 
 
-struct pid{
-
-	float Integral;//积分累加值
-	float Now;//
-
-	float kp;
-	float ki;
-	float kd;
-
-	float g;//后项差分
-
-	float Imax;//i的积分限幅
-	float Target;
-	float last_error;//上次误差
-};
-
-
-
+uint16 PID(struct Pid_s * maxwell);
 //uint32 Pid(uint32 Rin, uint32 Yout, float Kp, float Ki, float Kd, uint32 PidThreshold);
 
 #endif//_FL_PID_

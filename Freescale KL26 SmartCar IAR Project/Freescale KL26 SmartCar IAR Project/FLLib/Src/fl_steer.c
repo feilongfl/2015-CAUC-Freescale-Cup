@@ -173,7 +173,9 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 		deviation -= *(adc_addr + adcTemp - 1);
 	}
 
+#ifdef SteerDegAbs
 	deviation = ABS(deviation);
+#endif
 
 	for (uint8 adcTemp = 0; adcTemp < FLAdcMax; adcTemp++)
 	{
