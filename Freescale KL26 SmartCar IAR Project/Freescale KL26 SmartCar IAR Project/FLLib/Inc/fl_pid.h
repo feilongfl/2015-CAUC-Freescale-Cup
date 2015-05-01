@@ -41,7 +41,21 @@ struct Pid_s//pid结构体
 #endif
 
 
+struct pid{
 
+	float Integral;//积分累加值
+	float Now;//
+
+	float kp;
+	float ki;
+	float kd;
+
+	float g;//后项差分
+
+	float Imax;//i的积分限幅
+	float Target;
+	float last_error;//上次误差
+};
 
 
 
