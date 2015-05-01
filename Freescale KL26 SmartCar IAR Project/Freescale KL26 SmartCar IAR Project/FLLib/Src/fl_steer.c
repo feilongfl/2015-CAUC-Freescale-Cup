@@ -1,10 +1,6 @@
 #include "Fl_steer.h"
 
-struct Pid_s SteerPid = {
-	SteerPIDDefaultP,
-	SteerPIDDefaultI, 
-	SteerPIDDefaultD 
-};//舵机当前pid参数
+
 
 SteerTurnDirection_e CarDirection = SteerDirectionCenter;//历史方向，丢线准备
 #define SteerDegreeNum 50//定义角度范围
@@ -66,29 +62,29 @@ InitRepot_e SteerInit()
 	return InitAllGreen;
 }
 
-void SteerTurn(SteerTurnDirection_e direction, SteerDeviationDegree_e degree)
-{
-	ASSERT(SteerDuty[degree] <= SteerTurnMax);//检测舵机打角数据是否合法
-
-	switch (direction)
-	{
-	case SteerDirectionLeft:
-		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerDuty[degree]);
-		break;
-
-	case SteerDirectionCenter:
-		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty);
-		break;
-
-	case SteerDirectionRight:
-		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerDuty[degree]);
-		break;
-
-	default:
-		ASSERT(TRUE);
-		break;
-	}
-}
+// void SteerTurn(SteerTurnDirection_e direction, SteerDeviationDegree_e degree)
+// {
+// 	ASSERT(SteerDuty[degree] <= SteerTurnMax);//检测舵机打角数据是否合法
+// 
+// 	switch (direction)
+// 	{
+// 	case SteerDirectionLeft:
+// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerDuty[degree]);
+// 		break;
+// 
+// 	case SteerDirectionCenter:
+// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty);
+// 		break;
+// 
+// 	case SteerDirectionRight:
+// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerDuty[degree]);
+// 		break;
+// 
+// 	default:
+// 		ASSERT(TRUE);
+// 		break;
+// 	}
+// }
 
 void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 {
