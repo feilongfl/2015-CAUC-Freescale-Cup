@@ -19,6 +19,27 @@
 
 void PORTE_IRQHandler();
 
+void turn()
+{
+	switch (key_scan())
+	{
+	case KEY_L:
+		nrf_msg_tx(COM_Ctrl, "+l");
+		while (key_check(KEY_L) == KEY_DOWN);
+		nrf_msg_tx(COM_Ctrl, "-l");
+		break;
+
+	case KEY_R:
+		nrf_msg_tx(COM_Ctrl, "+r");
+		while (key_check(KEY_R) == KEY_DOWN);
+		nrf_msg_tx(COM_Ctrl, "-r");
+		break;
+
+	default:
+		break;
+	}
+}
+
 /*! 
  *  @brief      mainº¯Êý
  *  @since      v5.0
@@ -39,7 +60,35 @@ void main(void)
 
 	while (TRUE)
 	{
-		
+		switch (key_scan())
+		{
+		case KEY_U:
+			nrf_msg_tx(COM_Ctrl, "+u");
+			while (key_check(KEY_U) == KEY_DOWN)
+			{
+				turn();
+			}
+			nrf_msg_tx(COM_Ctrl, "-u");
+			break;
+
+		case KEY_D:
+			nrf_msg_tx(COM_Ctrl, "+b");
+			while (key_check(KEY_D) == KEY_DOWN)
+			{
+				turn();
+			}
+			nrf_msg_tx(COM_Ctrl, "-b");
+			break;
+
+		case KEY_A:
+			nrf_msg_tx(COM_Ctrl, "+a");
+			while (key_check(KEY_A) == KEY_DOWN);
+			nrf_msg_tx(COM_Ctrl, "-a");
+			break;
+
+		default:
+			break;
+		}
 
 	}
 }

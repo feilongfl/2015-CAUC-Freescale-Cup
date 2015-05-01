@@ -87,7 +87,7 @@ typedef enum
 
 #ifdef DEBUG
 	COM_Ctrl,
-#define Nrf_CtrlLength 1
+#define Nrf_CtrlLength 2
 #endif // DEBUG
 
     COM_MAX     ,       //最大控制命令数目                                                  ********************************

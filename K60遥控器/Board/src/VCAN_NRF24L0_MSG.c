@@ -38,7 +38,7 @@ const uint32 nrf_com_size[COM_MAX] = { Nrf_AdcLenth,//adc
 										Nrf_RetranLenth ,//Çå¿Õ»º´æ
 										Nrf_TestLenth, //²âÊÔ
 #ifdef DEBUG
-										Nrf_TestLenth//Ò£¿Ø
+										Nrf_CtrlLength//Ò£¿Ø
 #endif // DEBUG
 };
 
