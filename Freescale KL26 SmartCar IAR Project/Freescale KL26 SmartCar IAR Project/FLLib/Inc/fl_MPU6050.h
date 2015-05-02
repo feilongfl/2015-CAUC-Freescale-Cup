@@ -295,4 +295,6 @@ typedef struct
 	volatile float q3;
 }Quaternion;
 
+Quaternion MpuToQuaternion(struct Mpu6050Data * mpu6050data);
+
 #endif//_MPU6050_H_
