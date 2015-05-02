@@ -57,49 +57,4 @@ struct Mpu6050Data Mpu6050Read()
 
 	return mpudata;
 }
-// 
-// static void Mpu6050WriteHmc5883(uint8 reg, uint8 data)
-// {
-// 	Mpu6050WriteReg(I2C_SLV0_ADDR, Mpu6050I2cMasterWrite/*|Mpu6050I2cMasterRead*/ | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
-// 	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
-// 	Mpu6050WriteReg(I2C_SLV0_DO, data);//传送数据
-// 	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
-// 	DELAY_MS(10);
-// }
 
-
-
-// static uint8 Mpu6050ReadHmc5883(uint8 reg)
-// {
-// 	Mpu6050WriteReg(I2C_SLV0_ADDR, /*Mpu6050I2cMasterWrite|*/Mpu6050I2cMasterRead | Hmc5883L_Add);//传送hmc5883l器件地址,写入模式
-// 	Mpu6050WriteReg(I2C_SLV0_REG, reg);//传送寄存器地址
-// 	Mpu6050WriteReg(I2C_SLV0_CTRL, 0x81);//开始
-// 	DELAY_MS(10); 
-// 	return Mpu6050ReadReg(EXT_SENS_DATA_00);
-// }
-
-
-/*
-static int16 Mpu6050ReadHmc16bitsReg(uint8 reg_h)
-{
-	uint8 h, l;
-
-	h = Mpu6050ReadHmc5883(reg_h);
-	l = Mpu6050ReadHmc5883(reg_h + 1);
-
-	return (int16)((h << 8) | l);
-}
-*/
-
-/*
-struct Hmc5883LData MpuReadHcmData()
-{
-	struct Hmc5883LData data;
-	int16 * p = (int16 *)&data;
-	for (int8 i = 0; i < 3; i++)
-	{
-		*p++ = Mpu6050ReadHmc16bitsReg(Data_Output_X_MSB + 2 * i);
-	}
-	return data;
-}
-*/
