@@ -109,13 +109,13 @@ void main()
 		}
 		
 
-		if (spwm - pidatsteer < 1100 || spwm - pidatsteer > 1900)
+		if (pidatsteer < 1100 || pidatsteer > 1900)
 		{
 			led(LED2, LED_ON);
 		}
 		else
 		{
-			spwm -= pidatsteer;
+			spwm = pidatsteer;
 			led(LED2, LED_OFF);
 			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 		}
