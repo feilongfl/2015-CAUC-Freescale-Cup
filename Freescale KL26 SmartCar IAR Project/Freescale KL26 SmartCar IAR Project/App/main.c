@@ -48,7 +48,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-#if 1
+#if 0
 	AdcNormalizingInit();//初始化归一化变量
 #else
 	AdcInit();
@@ -62,11 +62,17 @@ void main()
 	//程序循环
 	while (1)
 	{
+		/*lptmr_time_start_us();
 		adcn = AdcNormalizing();
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+		uint32 t = lptmr_time_get_us();
+		printf("\n%d\n", t);
+		lptmr_time_start_us();
 		printf("$%d,%d,%d,%d,%d,%d,0,0#",(uint8)turn,(uint8)de,
 			adcn.FLAdc0,adcn.FlAdc1,adcn.FLAdc2,adcn.FLAdc3);
+		t = lptmr_time_get_us();
+		printf("\n%d\n", t);*/
 		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
 		//adcn = AdcNormalizingWithFitter();

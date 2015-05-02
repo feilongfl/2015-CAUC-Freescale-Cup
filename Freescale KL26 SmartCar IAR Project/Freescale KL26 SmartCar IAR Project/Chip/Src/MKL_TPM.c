@@ -520,12 +520,12 @@ void tpm_pulse_init(TPMn_e tpmn,TPM_CLKIN_e clkin,TPM_PS_e ps)
     if(clkin == TPM_CLKIN0)
     {
         SIM_SOPT4 &= ~( SIM_SOPT4_TPM0CLKSEL_MASK << tpmn );
-        port_init(TPM_CLKIN0_PIN,ALT4);
+        port_init(TPM_CLKIN0_PIN,ALT4 | PULLUP);
     }
     else if(clkin == TPM_CLKIN1)
     {
         SIM_SOPT4 |= ( SIM_SOPT4_TPM0CLKSEL_MASK << tpmn );
-        port_init(TPM_CLKIN1_PIN,ALT4);
+        port_init(TPM_CLKIN1_PIN,ALT4 | PULLUP);
     }
     else
     {
