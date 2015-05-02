@@ -51,14 +51,7 @@ int32 PID(struct Pid_s * maxwell)
 
 	maxwell->Integral += error / 20;      //在这里控制积分时间
 
-	if (maxwell->Integral > maxwell->Imax)
-	{
-		maxwell->Integral = maxwell->Imax;
-	}
-	if (maxwell->Integral < -maxwell->Imax)
-	{
-		maxwell->Integral = -maxwell->Imax;
-	}
+	maxwell->Integral = RANGE(maxwell->Integral, maxwell->Imax, -maxwell->Integral);
 
 	maxwell->last_error = error;
 

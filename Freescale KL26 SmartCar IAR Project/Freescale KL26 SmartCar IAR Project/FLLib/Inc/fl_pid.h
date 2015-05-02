@@ -27,7 +27,7 @@ struct Pid_s
 
 	int32 g;//后项差分
 
-	int32 Imax;//i的积分限幅
+	uint16 Imax;//i的积分限幅
 	int32 Target;
 	int32 last_error;//上次误差
 };

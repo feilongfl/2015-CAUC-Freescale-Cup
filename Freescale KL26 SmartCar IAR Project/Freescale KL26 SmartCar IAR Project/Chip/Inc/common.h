@@ -337,7 +337,7 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 /*
  * 确保x的范围为 min~max
  */
-#define RANGE(x,max,min)        ((uint8)((x)<(min) ? (min) : ( (x)>(max) ? (max):(x) )))
+#define RANGE(x,max,min)        ((int32)((x)<(min) ? (min) : ( (x)>(max) ? (max):(x) )))
 
 /*
  * 交换32位数据的4字节顺序
