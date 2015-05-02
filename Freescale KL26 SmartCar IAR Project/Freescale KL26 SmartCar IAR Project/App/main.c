@@ -98,23 +98,25 @@ void main()
 
 		if (lostLine)
 		{
+			led(LED0, LED_ON);
 			disable_irq(PIT_IRQn);
 			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 		}
 		else
 		{
+			led(LED0, LED_OFF);
 			enable_irq(PIT_IRQn);
 		}
 		
 
 		if (spwm - pidatsteer < 1100 || spwm - pidatsteer > 1900)
 		{
-			led(LED3, LED_ON);
+			led(LED2, LED_ON);
 		}
 		else
 		{
 			spwm -= pidatsteer;
-			led(LED3, LED_OFF);
+			led(LED2, LED_OFF);
 			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 		}
 		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, de,
@@ -122,7 +124,7 @@ void main()
 			, pidatsteer, spwm); 
 */
 
-		DELAY_MS(20);
+		DELAY_MS(100);
 
 
 
