@@ -283,4 +283,16 @@ struct Mpu6050Data
 	struct Gyro gyro;
 };
 
+
+#define sampleFreq    512.0f        // sample frequency in Hz
+#define betaDef        0.1f        // 2 * proportional gain
+
+typedef struct
+{
+	volatile float q0;
+	volatile float q1;
+	volatile float q2;
+	volatile float q3;
+}Quaternion;
+
 #endif//_MPU6050_H_
