@@ -26,7 +26,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
-
+	uint8 lostLine = TRUE;
 	struct FLAdc_s adcn;
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
@@ -48,31 +48,75 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-#if 1
+#if 0
 	AdcNormalizingInit();//初始化归一化变量
 #else
+	LCDPrint(0, 0, "start!");
 	AdcInit();
 	extern struct FLAdc_s AdcMax;
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
+	uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 	{
-		*(adcMaxAddress + loopTemp) = 150;
+		*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
 	}
+	uint8 exitfunc = false;
+	
+	while (!exitfunc)
+	{
+		switch (KeyScanWithoutIrq())//按键检测
+		{
+		case FLKeyAdcNorExit:
+			exitfunc = TRUE;//退出
+			break;
+
+		default:
+			break;
+		}
+	}
+	
 #endif
+	uint16 spwm = 1500;
+	tpm_pwm_duty(TpmMotor, TpmMotorCh0, 3000);
 	//程序循环
 	while (1)
 	{
 		adcn = AdcNormalizing();
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-		int32 pidatsteer = 	SteerCtrlUsePid(de);
+		int32 pidatsteer = SteerCtrlUsePid(de);
+		NumShow(ABS(de), 0, 0);
 
-		/*printf("$%d,%d,%d,%d,%d,%d,%d,0#", (uint8)turn, de,
-			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
-			, pidatsteer);*/
 		
-		tpm_pwm_duty(TpmMotor, TpmMotorCh0, 500);
-		DELAY_MS(1000);
+
+		for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2; adcTemp--)
+		{
+			lostLine &= (*((uint16*)&adcn + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
+			lostLine &= (*((uint16*)&adcn + adcTemp - 1) > LostLineAdcMin) ? false : true;
+		}
+
+		if (lostLine)
+		{
+			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+		}
+		
+
+		if (spwm - pidatsteer < 1100 || spwm - pidatsteer > 1900)
+		{
+			led(LED3, LED_ON);
+		}
+		else
+		{
+			spwm -= pidatsteer;
+			led(LED3, LED_OFF);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
+		}
+		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, de,
+			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
+			, pidatsteer, spwm); 
+
+
+		DELAY_MS(20);
 		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
@@ -81,15 +125,15 @@ void main()
 		//DELAY_MS(100);
 		//printf("\n%d\n", t);
 
-// 		printf("$%d,%d,%d,%d,0,0,0,0#",
-// 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
+		// 		printf("$%d,%d,%d,%d,0,0,0,0#",
+		// 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
 		//Hcsr04Read();
 		//CoderRead ();
 		//led_turn(LED3);
 
 		//LcdShowAllData(); 
 		//wdog_feed ();
-		DELAY_MS(5000);
+		//DELAY_MS(5000);
 	}
 
 
