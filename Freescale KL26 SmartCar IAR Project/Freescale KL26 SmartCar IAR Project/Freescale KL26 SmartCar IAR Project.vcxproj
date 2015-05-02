@@ -146,6 +146,7 @@
     <ClInclude Include="FLLib\Inc\fl_Irq.h" />
     <ClInclude Include="FLLib\Inc\FL_Key.h" />
     <ClInclude Include="FLLib\Inc\fl_math.h" />
+    <ClInclude Include="FLLib\Inc\fl_MOTOR_PID.h" />
     <ClInclude Include="FLLib\Inc\fl_MPU6050.h" />
     <ClInclude Include="FLLib\Inc\fl_nrf24l01.h" />
     <ClInclude Include="FLLib\Inc\fl_Olcd.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="FLLib\Src\fl_Irq.c" />
     <ClCompile Include="FLLib\Src\FL_KEY.c" />
     <ClCompile Include="FLLib\Src\fl_math.c" />
+    <ClCompile Include="FLLib\Src\fl_MOTOR_PID.c" />
     <ClCompile Include="FLLib\Src\fl_MPU6050.c" />
     <ClCompile Include="FLLib\Src\fl_nrf24l01.c" />
     <ClCompile Include="FLLib\Src\fl_Olcd.c" />

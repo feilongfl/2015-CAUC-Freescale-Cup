@@ -348,6 +348,9 @@
     <ClInclude Include="FLLib\Inc\fl_steer_pid.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_MOTOR_PID.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -525,6 +528,9 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_steer_pid.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_MOTOR_PID.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

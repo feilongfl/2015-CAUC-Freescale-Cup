@@ -36,7 +36,7 @@ void main()
 	/************************************************************************/
 	/* 开中断                                                               */
 	/************************************************************************/
-	enable_irq(PIT_IRQn);								  //使能PIT0中断
+	
 	set_vector_handler(UART0_VECTORn, UartHandler);   // 设置中断服务函数到中断向量表里
 	uart_rx_irq_en(UART0);//串口中断
 	//uart_rx_irq_en(BlueToothUartPort);//蓝牙串口中断
@@ -77,7 +77,8 @@ void main()
 	
 #endif
 	uint16 spwm = 1500;
-	tpm_pwm_duty(TpmMotor, TpmMotorCh0, 3000);
+	//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 3000);
+	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
 	{
@@ -97,7 +98,12 @@ void main()
 
 		if (lostLine)
 		{
+			disable_irq(PIT_IRQn);
 			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+		}
+		else
+		{
+			enable_irq(PIT_IRQn);
 		}
 		
 
@@ -111,12 +117,18 @@ void main()
 			led(LED3, LED_OFF);
 			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 		}
-		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, de,
+		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, de,
 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
 			, pidatsteer, spwm); 
-
+*/
 
 		DELAY_MS(20);
+
+
+
+		
+
+
 		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
