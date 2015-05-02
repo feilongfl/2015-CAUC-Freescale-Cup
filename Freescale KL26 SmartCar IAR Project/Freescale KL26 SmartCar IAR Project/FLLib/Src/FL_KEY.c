@@ -143,6 +143,8 @@ void FLIrqHandle()
 		FLKeyIrqDisable();
 		if (FLKeyCheck(FLKeyIrq) == KEY_DOWN)//不加上这个手一碰就中断，我去了
 		{
+			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+			tpm_pwm_duty(TpmMotor, TpmMotorCh1, 0);
 			while (FLKeyCheck(FLKeyIrq) == KEY_DOWN);
 			FLIrqKeyDown();
 		}

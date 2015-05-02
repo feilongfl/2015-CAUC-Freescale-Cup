@@ -67,10 +67,13 @@ void main()
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		int32 pidatsteer = 	SteerCtrlUsePid(de);
 
-		printf("$%d,%d,%d,%d,%d,%d,%d,0#", (uint8)turn, de,
+		/*printf("$%d,%d,%d,%d,%d,%d,%d,0#", (uint8)turn, de,
 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
-			, pidatsteer);
+			, pidatsteer);*/
 		
+		tpm_pwm_duty(TpmMotor, TpmMotorCh0, 500);
+		DELAY_MS(1000);
+		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 		//lptmr_time_start_us();                  //开始计时
 		//adcn = AdcNormalizing();
 		//adcn = AdcNormalizingWithFitter();
@@ -86,7 +89,7 @@ void main()
 
 		//LcdShowAllData(); 
 		//wdog_feed ();
-		DELAY_MS(1000);
+		DELAY_MS(5000);
 	}
 
 

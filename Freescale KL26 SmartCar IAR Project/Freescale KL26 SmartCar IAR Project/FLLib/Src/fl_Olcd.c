@@ -701,8 +701,9 @@ InitRepot_e OlcdInit(void)
 	gpio_init(LCD_SDA, GPO, HIGH);//SDA
 	gpio_init(LCD_SCL, GPO, HIGH);//SCL
 	DELAY_MS(500);
-	gpio_set(LCD_RST, HIGH);
+	gpio_set(LCD_RST, LOW);
 	DELAY_MS(500);
+	gpio_set(LCD_RST, HIGH);
 	//从上电到下面开始初始化要有足够的时间，即等待RC复位完毕
 	Set_Display_On_Off(0x00);		  // Display Off (0x00/0x01)
 	Set_Display_Clock(0x80);		  // Set Clock as 100 Frames/Sec
