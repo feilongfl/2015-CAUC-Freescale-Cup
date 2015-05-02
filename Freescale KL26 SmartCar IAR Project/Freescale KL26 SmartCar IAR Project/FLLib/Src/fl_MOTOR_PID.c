@@ -1,14 +1,14 @@
 #include "fl_MOTOR_PID.h"
 
-struct Pid_s Motorpid;
+struct Pid_s MotorPid;
 extern struct MotorSpeed_s Speed;
 
 int32 MotorCtrlUsePid()
 {
-	Motorpid.Now = Speed.Acturally;
-	Motorpid.Target = Speed.Expect;
+	MotorPid.Now = Speed.Acturally;
+	MotorPid.Target = Speed.Expect;
 
-	return PID(&Motorpid);
+	return PID(&MotorPid);
 }
 
 uint32 mpwm = 0;
@@ -26,15 +26,36 @@ void MotorCtrl()
 
 void MotorPidInit()
 {
-	Motorpid.Target = 0;
+	MotorInit();
+	MotorPid.Target = 0;
 
-	Motorpid.g = 0;
-	Motorpid.Imax = 0;
-	Motorpid.Integral = 0;
-	Motorpid.last_error = 0;
-	Motorpid.Now = 0;
+	MotorPid.g = 0;
+	MotorPid.Imax = 0;
+	MotorPid.Integral = 0;
+	MotorPid.last_error = 0;
+	MotorPid.Now = 0;
 
-	Motorpid.P = MotorPIDDefaultP;
-	Motorpid.I = MotorPIDDefaultI;
-	Motorpid.D = MotorPIDDefaultD;
+	MotorPid.P = MotorPIDDefaultP;
+	MotorPid.I = MotorPIDDefaultI;
+	MotorPid.D = MotorPIDDefaultD;
 }
+
+
+void MotorPidSetP(int16 p)
+{
+	ASSERT(p > MotorPidMinP && p < MotorPidMaxP);
+	MotorPid.P = p;
+}
+
+void MotorPidSetI(int16 i)
+{
+	ASSERT(i > MotorPidMinI && i < MotorPidMaxI);
+	MotorPid.I = i;
+}
+
+void MotorPidSetD(int16 d)
+{
+	ASSERT(d > MotorPidMinD && d < MotorPidMaxD);
+	MotorPid.D = d;
+}
+

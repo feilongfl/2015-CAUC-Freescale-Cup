@@ -47,17 +47,16 @@ SettingErr_e SteerPidAdd(Pid_e pidType, int32 addNum)//修改舵机pid参数
 {
 	switch (pidType)
 	{
-#warning todo
 	case Kp:
-		//return DataAddWithLimit((int32 *)&(SteerPidAddress->P), addNum, SteerPidMaxP, SteerPidMinP);
+		return DataAddWithLimit((int32 *)&(SteerPidAddress->P), addNum, SteerPidMaxP, SteerPidMinP);
 		break;
 
 	case Ki:
-		//return DataAddWithLimit((int32 *)&(SteerPidAddress->I), addNum, SteerPidMaxI, SteerPidMinI);
+		return DataAddWithLimit((int32 *)&(SteerPidAddress->I), addNum, SteerPidMaxI, SteerPidMinI);
 		break;
 
 	case Kd:
-		//return DataAddWithLimit((int32 *)&(SteerPidAddress->D), addNum, SteerPidMaxD, SteerPidMinD);
+		return DataAddWithLimit((int32 *)&(SteerPidAddress->D), addNum, SteerPidMaxD, SteerPidMinD);
 		break;
 
 	default:
@@ -116,17 +115,16 @@ SettingErr_e SteerPidSet(Pid_e pidType, int32 expectNum)//修改电机pid参数
 {
 	switch (pidType)
 	{
-#warning todo
 	case Kp:
-		//return DataCheckAndSet((int32 *)&(SteerPidAddress->P), expectNum, SteerPidMaxP, SteerPidMinP);
+		return DataCheckAndSet((int32 *)&(SteerPidAddress->P), expectNum, SteerPidMaxP, SteerPidMinP);
 		break;
 
 	case Ki:
-		//return DataCheckAndSet((int32 *)&(SteerPidAddress->I), expectNum, SteerPidMaxI, SteerPidMinI);
+		return DataCheckAndSet((int32 *)&(SteerPidAddress->I), expectNum, SteerPidMaxI, SteerPidMinI);
 		break;
 
 	case Kd:
-		//return DataCheckAndSet((int32 *)&(SteerPidAddress->D), expectNum, SteerPidMaxD, SteerPidMinD);
+		return DataCheckAndSet((int32 *)&(SteerPidAddress->D), expectNum, SteerPidMaxD, SteerPidMinD);
 		break;
 
 	default:

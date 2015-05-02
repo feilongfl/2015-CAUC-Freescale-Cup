@@ -14,13 +14,10 @@
 /************************************************************************/
 InitRepot_e Init()
 {
-	led_init (LED_MAX);
-	SteerInit();
-	tpm_pulse_init(TpmCoder, TpmCoderClkIn, TpmCoderPs);
-	tpm_pwm_init(TpmMotor, TpmMotorCh0, TpmMotorFreq, 0);
-	tpm_pwm_init(TpmMotor, TpmMotorCh1, TpmMotorFreq, 0);
-	MotorPidInit();
-	SteerPidInit();
+	led_init (LED_MAX);//灯	
+	tpm_pulse_init(TpmCoder, TpmCoderClkIn, TpmCoderPs);//编码器
+	MotorPidInit();//电机
+	SteerPidInit();//舵机
 	PitInit();//初始化pit模块
 	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏
