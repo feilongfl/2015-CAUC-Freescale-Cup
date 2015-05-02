@@ -21,6 +21,7 @@
 #include "fl_eeprom.h"
 #include "fl_config.h"
 #include "fl_nrf24l01.h"
+#include "fl_steer_pid.h"
 
 
 #endif //_FL_INCLUDE_

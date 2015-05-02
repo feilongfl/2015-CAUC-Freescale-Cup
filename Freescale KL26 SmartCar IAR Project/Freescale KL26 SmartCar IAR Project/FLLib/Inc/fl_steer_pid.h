@@ -16,6 +16,6 @@
 #define SteerPidMinI  0//舵机最小I
 #define SteerPidMinD  0//舵机最小D
 
-int32 SteerCtrlUsePid(SteerTurnDirection_e direction, SteerDeviationDegree_e deviation);
+int32 SteerCtrlUsePid(SteerDeviationDegree_e deviation);
 
 #endif//_FL_steer_pid_
