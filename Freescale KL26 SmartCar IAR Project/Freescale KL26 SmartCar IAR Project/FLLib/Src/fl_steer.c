@@ -91,16 +91,17 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 	ASSERT(steerPidChange <= PidPrecision);//数值应小于pid精度
 	switch (steerPid)
 	{
+#warning todo
 	case Kp:
-		SteerPid.P = steerPidChange;
+		//SteerPid.P = steerPidChange;
 		break;
 
 	case Ki:
-		SteerPid.I = steerPidChange;
+		//SteerPid.I = steerPidChange;
 		break;
 
 	case Kd:
-		SteerPid.D = steerPidChange;
+		//SteerPid.D = steerPidChange;
 		break;
 
 	default:

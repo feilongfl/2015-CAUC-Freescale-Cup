@@ -12,9 +12,9 @@ void SteerPidInit()
 	SteerPid.last_error = 0;
 	SteerPid.Now = 0;
 
-	SteerPid.kp = SteerPIDDefaultP;
-	SteerPid.ki = SteerPIDDefaultI;
-	SteerPid.kd = SteerPIDDefaultD;
+	SteerPid.P = SteerPIDDefaultP;
+	SteerPid.I = SteerPIDDefaultI;
+	SteerPid.D = SteerPIDDefaultD;
 }
 
 int32 SteerCtrlUsePid(SteerDeviationDegree_e deviation)

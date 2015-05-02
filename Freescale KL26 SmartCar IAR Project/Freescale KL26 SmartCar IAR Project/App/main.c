@@ -79,16 +79,6 @@ void main()
 		//Hcsr04Read();
 		//CoderRead ();
 		//led_turn(LED3);
-		
-// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);
- 		//DELAY_MS(1000);
-// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1300);
-// 		DELAY_MS(1000);
-// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);
-// 		DELAY_MS(1000);
-// 		tpm_pwm_duty(TpmSteer, TpmSteerCh, 1700);
-// 		DELAY_MS(1000);
-
 
 		//LcdShowAllData(); 
 		//wdog_feed ();

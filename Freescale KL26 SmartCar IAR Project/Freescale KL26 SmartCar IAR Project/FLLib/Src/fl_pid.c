@@ -44,9 +44,9 @@ int32 PID(struct Pid_s * maxwell)
 	error = maxwell->Target - maxwell->Now;
 	maxwell->g = maxwell->last_error - error;
 
-	Nyquist = error * maxwell->kp / PidPrecision 
-		+ maxwell->Integral * maxwell->ki / PidPrecision 
-		- maxwell->g * maxwell->kd / PidPrecision;
+	Nyquist = error * maxwell->P / PidPrecision 
+		+ maxwell->Integral * maxwell->I / PidPrecision 
+		- maxwell->g * maxwell->D / PidPrecision;
 
 
 	maxwell->Integral += error / 20;      //在这里控制积分时间

@@ -21,9 +21,9 @@ struct Pid_s
 	int32 Integral;//积分累加值
 	int32 Now;//
 
-	uint8 kp;
-	uint8 ki;
-	uint8 kd;
+	uint8 P;
+	uint8 I;
+	uint8 D;
 
 	int32 g;//后项差分
 
@@ -37,9 +37,9 @@ struct Pid_s
 	int32 Integral;//积分累加值
 	int32 Now;//
 
-	uint16 kp;
-	uint16 ki;
-	uint16 kd;
+	uint16 P;
+	uint16 I;
+	uint16 D;
 
 	int32 g;//后项差分
 
@@ -53,9 +53,9 @@ struct Pid_s
 	int32 Integral;//积分累加值
 	int32 Now;//
 
-	uint32 kp;
-	uint32 ki;
-	uint32 kd;
+	uint32 P;
+	uint32 I;
+	uint32 D;
 
 	int32 g;//后项差分
 
@@ -66,7 +66,7 @@ struct Pid_s
 #endif
 
 
-uint16 PID(struct Pid_s * maxwell);
+int32 PID(struct Pid_s * maxwell);
 //uint32 Pid(uint32 Rin, uint32 Yout, float Kp, float Ki, float Kd, uint32 PidThreshold);
 
 #endif//_FL_PID_
