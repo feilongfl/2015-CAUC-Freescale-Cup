@@ -21,14 +21,44 @@
 void UartHandler()
 {
 	////////////////串口//////////////////////////////////////////////////////////
-	char ch;
-
-	if (uart_query(UART0) == 1)   //接收数据寄存器满
+	char str[100];
+	uint32 num;
+	num = uart_querystr(UART0, &str, 100);
+	
+	if (num == 0)
 	{
-		//用户需要处理接收数据
-		uart_getchar(UART0, &ch);                    //无限等待接受1个字节
-		uart_putchar(UART0, ch);                    //发送字符串
 	}
+	else if (num == 1)
+	{
+		switch (str[0])
+		{
+		case "S"://启动
+			break;
+
+		case "U"://前进
+			break;
+
+		case "D"://后退
+			break;
+
+		default:
+			break;
+		}
+	}
+	else
+	{
+		switch (str[0])
+		{
+		case "M"://电机
+			break;
+
+		case "S"://舵机
+			break;
+		default:
+			break;
+		}
+	}
+
 }
 
 /************************************************************************/
