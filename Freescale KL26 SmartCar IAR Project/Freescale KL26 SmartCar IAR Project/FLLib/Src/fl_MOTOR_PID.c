@@ -15,7 +15,7 @@ uint32 mpwm = 0;
 
 void MotorCtrl()
 {
-	mpwm = MotorCtrlUsePid() / 100;
+	mpwm += MotorCtrlUsePid() / 100;
 	if (mpwm > 4000)
 	{
 		mpwm = 4000;

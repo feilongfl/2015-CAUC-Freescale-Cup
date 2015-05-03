@@ -115,7 +115,7 @@ void main()
 		}
 		else
 		{
-			spwm = pidatsteer;
+			spwm += pidatsteer;
 			led(LED2, LED_OFF);
 			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 		}
