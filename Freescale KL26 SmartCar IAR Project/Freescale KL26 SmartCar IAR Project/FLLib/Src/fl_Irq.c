@@ -1,19 +1,7 @@
 
 #include "common.h"
 #include "fl_irq.h"
-#include "fl_Motor.h"
-#include "fl_steer.h"
 
-#ifdef MKL26Z4
-#include "MKL_uart.h"
-#include "MKL_pit.h"
-#elif MK60F15
-#include "MK60_uart.h"
-#include "MK60_pit.h"
-#elif MK60DZ10
-#include "MK60_uart.h"
-#include "MK60_pit.h"
-#endif
 
 /************************************************************************/
 /*       串口中断处理函数                                               */
@@ -23,7 +11,8 @@ void UartHandler()
 	////////////////串口//////////////////////////////////////////////////////////
 	char str[100];
 	uint32 num;
-	num = uart_querystr(UART0, &str, 100);
+	uint16 pidtemp;
+	num = uart_querystr(UART0, str, 100);
 	
 	if (num == 0)
 	{
@@ -32,28 +21,79 @@ void UartHandler()
 	{
 		switch (str[0])
 		{
-		case "S"://启动
+		case 'S'://启动
 			break;
 
-		case "U"://前进
+		case 'U'://前进
 			break;
 
-		case "D"://后退
+		case 'D'://后退
 			break;
 
 		default:
 			break;
 		}
 	}
-	else
+	else if (num == 2)
 	{
+	}
+	else if (num == 3 || num == 4)
+	{
+		if (num == 3)
+		{
+			pidtemp = str[2] - 48;
+		}
+		else
+		{
+			pidtemp = (str[2] - 48) * 10 + (str[3] - 48);
+		}
 		switch (str[0])
 		{
-		case "M"://电机
+		case 'M'://电机
+			switch (str[1])
+			{
+			case 'P':
+				MotorPidSetP(pidtemp);
+				break;
+
+			case 'I':
+				MotorPidSetP(pidtemp);
+				break;
+
+			case 'D':
+				MotorPidSetP(pidtemp);
+				break;
+
+			case 'S':
+				MotorSpeedSet(pidtemp);
+				break;
+
+			default:
+				break;
+			}
+			break;
+			
+		case 'S'://舵机
+			switch (str[1])
+			{
+			case 'P':
+				SteerPidSet(Kp, pidtemp);
+				break;
+
+			case 'I':
+				SteerPidSet(Ki, pidtemp);
+				break;
+
+			case 'D':
+				SteerPidSet(Kd, pidtemp);
+				break;
+
+			default:
+				break;
+			}
+			break;
 			break;
 
-		case "S"://舵机
-			break;
 		default:
 			break;
 		}

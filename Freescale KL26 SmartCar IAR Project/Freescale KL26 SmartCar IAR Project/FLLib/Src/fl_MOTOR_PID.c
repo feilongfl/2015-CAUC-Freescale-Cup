@@ -1,7 +1,7 @@
 #include "fl_MOTOR_PID.h"
 
 struct Pid_s MotorPid;
-extern struct MotorSpeed_s Speed;
+
 
 int32 MotorCtrlUsePid()
 {

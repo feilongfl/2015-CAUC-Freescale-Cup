@@ -6,7 +6,7 @@
 #ifndef _FL_MOTOR_
 #define _FL_MOTOR_
 
-
+extern struct MotorSpeed_s Speed;
 
 
 #if 0//结构体方式实现

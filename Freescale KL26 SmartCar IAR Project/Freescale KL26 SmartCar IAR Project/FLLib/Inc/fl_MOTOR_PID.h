@@ -19,6 +19,8 @@
 #define MotorPidMaxI  1//电机最大I
 #define MotorPidMaxD  1//电机最大D
 
+extern struct Pid_s MotorPid;
+
 void MotorPidSetP(int16 p);
 void MotorPidSetI(int16 i);
 void MotorPidSetD(int16 d);

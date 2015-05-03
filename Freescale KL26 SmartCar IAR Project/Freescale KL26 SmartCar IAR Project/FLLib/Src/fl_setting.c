@@ -1,5 +1,8 @@
 #include "fl_setting.h"
 
+struct Pid_s  *MotorPidAddress = &MotorPid;
+struct Pid_s  *SteerPidAddress = &SteerPid;
+struct MotorSpeed_s * MotorSpeedAddress = &Speed;
 
 
 static SettingErr_e DataAddWithLimit(int32 * formerNumAdd, int32 addNum, int32 limitUpper, int32 limitLower)//计算数值返回状态
