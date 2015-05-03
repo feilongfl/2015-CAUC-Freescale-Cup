@@ -130,12 +130,14 @@ void PIT_IRQHandler(void)
 	//TpmCountRead();
 	Speed.Acturally = tpm_pulse_get(TPM2);
 	//Speed.Acturally = (tpm_pulse_get(TPM2) * WheelGirth) / (CordLineInOneCircle * CoderTimeCircle);                         //保存脉冲计数器计算值
-	printf("$%d,1000,0,0,0,0,0,0#", Speed.Acturally);
-
+	
+    MotorCtrl();
+	extern uint32 mpwm;
+	printf("$%d,1000,%d,0,0,0,0,0#", Speed.Acturally, mpwm);
 	tpm_pulse_clean(TPM2);                                  //清空脉冲计数器计算值（开始新的计数）
 	led_turn(LED3);
 
-	MotorCtrl();
+	
 
 	PIT_Flag_Clear(PIT0);
 }
