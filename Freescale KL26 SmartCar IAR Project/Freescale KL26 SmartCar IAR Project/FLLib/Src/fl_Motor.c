@@ -1,7 +1,7 @@
 #include "fl_motor.h"
 
 //struct Pid_s  MotorPid;
-struct MotorSpeed_s Speed = { 0, 1000 };
+struct MotorSpeed_s Speed = { 0, 0 };
 
 //void MotorPidSet(struct Pid_s * pid)
 //{

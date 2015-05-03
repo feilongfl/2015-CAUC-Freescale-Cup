@@ -37,15 +37,27 @@ void UartHandler()
 	else if (num == 2)
 	{
 	}
-	else if (num == 3 || num == 4)
+	else
 	{
 		if (num == 3)
 		{
 			pidtemp = str[2] - 48;
 		}
-		else
+		else if (num == 4)
 		{
 			pidtemp = (str[2] - 48) * 10 + (str[3] - 48);
+		}
+		else if (num == 5)
+		{
+			pidtemp = (str[2] - 48) * 100 + (str[3] - 48) * 10 + (str[4] - 48);
+		}
+		else if (num == 6)
+		{
+			pidtemp = (str[2] - 48) * 1000 + (str[3] - 48) * 100 + (str[4] - 48) * 10 + (str[5] - 48);
+		}
+		else
+		{
+			return;
 		}
 		switch (str[0])
 		{
@@ -91,7 +103,6 @@ void UartHandler()
 			default:
 				break;
 			}
-			break;
 			break;
 
 		default:

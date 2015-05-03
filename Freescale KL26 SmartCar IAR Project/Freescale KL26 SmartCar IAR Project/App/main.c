@@ -123,7 +123,7 @@ void main()
 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
 			, pidatsteer, spwm); 
 */
-
+		printf("$%d,%d,%d,0,0,0,0,0#", spwm, ABS(de), pidatsteer);
 		DELAY_MS(100);
 
 
