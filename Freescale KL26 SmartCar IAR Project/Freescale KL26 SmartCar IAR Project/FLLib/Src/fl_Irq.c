@@ -144,7 +144,7 @@ void PIT_IRQHandler(void)
 	
     MotorCtrl();
 	extern uint32 mpwm;
-	printf("$%d,1000,%d,0,0,0,0,0#", Speed.Acturally, mpwm);
+	//printf("$%d,1000,%d,0,0,0,0,0#", Speed.Acturally, mpwm);
 	tpm_pulse_clean(TPM2);                                  //清空脉冲计数器计算值（开始新的计数）
 	led_turn(LED3);
 

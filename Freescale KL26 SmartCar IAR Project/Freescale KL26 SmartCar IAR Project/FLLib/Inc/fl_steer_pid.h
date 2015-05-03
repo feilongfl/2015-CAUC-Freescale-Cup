@@ -5,9 +5,9 @@
 #ifndef _FL_steer_pid_
 #define _FL_steer_pid_
 
-#define SteerPIDDefaultP 10//舵机默认P
+#define SteerPIDDefaultP 20//舵机默认P
 #define SteerPIDDefaultI 0//舵机默认I
-#define SteerPIDDefaultD 10//舵机默认D
+#define SteerPIDDefaultD 17//舵机默认D
 
 #define SteerPidMaxP  500//舵机最大P
 #define SteerPidMaxI  0//舵机最大I
