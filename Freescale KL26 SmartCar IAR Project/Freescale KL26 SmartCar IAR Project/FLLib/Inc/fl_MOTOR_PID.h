@@ -15,9 +15,11 @@
 #define MotorPidMinP  0//电机最小P
 #define MotorPidMinI  0//电机最小I
 #define MotorPidMinD  0//电机最小D
-#define MotorPidMaxP  1//电机最大P
-#define MotorPidMaxI  1//电机最大I
-#define MotorPidMaxD  1//电机最大D
+#define MotorPidMaxP  100//电机最大P
+#define MotorPidMaxI  100//电机最大I
+#define MotorPidMaxD  100//电机最大D
+
+extern struct Pid_s MotorPid;
 
 void MotorPidSetP(int16 p);
 void MotorPidSetI(int16 i);

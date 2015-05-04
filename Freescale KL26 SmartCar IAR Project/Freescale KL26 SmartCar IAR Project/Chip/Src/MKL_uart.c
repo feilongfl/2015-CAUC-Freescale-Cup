@@ -325,7 +325,7 @@ uint32 uart_querystr (UARTn_e uratn, char *str, uint32 max_len)
 {
     uint32 i = 0,j;
 
-    for(j=0;j<10000;j++)                 // 10000 的作用是延时，可自行根据情况修改
+    for(j=0;j<100000;j++)                 // 10000 的作用是延时，可自行根据情况修改
     {
         while(uart_querychar(uratn, str + i)  )
         {

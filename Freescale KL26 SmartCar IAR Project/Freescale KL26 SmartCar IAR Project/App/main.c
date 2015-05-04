@@ -48,7 +48,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-#if 0
+#if 1
 	AdcNormalizingInit();//初始化归一化变量
 #else
 	LCDPrint(0, 0, "start!");
@@ -78,7 +78,7 @@ void main()
 #endif
 	uint16 spwm = 1500;
 	//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 3000);
-	enable_irq(PIT_IRQn);								  //使能PIT0中断
+	//enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
 	{
@@ -88,7 +88,9 @@ void main()
 		int32 pidatsteer = SteerCtrlUsePid(de);
 		NumShow(ABS(de), 0, 0);
 
-		
+		NumShow(SteerPid.P, LcdLocal1, LcdLine3);
+		NumShow(SteerPid.I, LcdLocal2, LcdLine3);
+		NumShow(SteerPid.D, LcdLocal3, LcdLine3);
 
 		for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2; adcTemp--)
 		{
@@ -105,30 +107,39 @@ void main()
 		else
 		{
 			led(LED0, LED_OFF);
-			enable_irq(PIT_IRQn);
+			//enable_irq(PIT_IRQn);
 		}
 		
 
-		if (pidatsteer < 1100 || pidatsteer > 1900)
+		if (pidatsteer < -500)
 		{
 			led(LED2, LED_ON);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+		}
+		else if (pidatsteer > 500)
+		{
+			led(LED2, LED_ON);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
 		}
 		else
 		{
-			spwm = pidatsteer;
+			spwm = SteerCenterDuty - pidatsteer;
 			led(LED2, LED_OFF);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
+			if (turn == SteerDirectionLeft || turn == SteerDirectionRight)
+			{
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
+			}
 		}
-		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, de,
-			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3
-			, pidatsteer, spwm); 
-*/
+		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
+			SteerPid.P, SteerPid.I, SteerPid.D, 0
+			, pidatsteer, spwm);
 
+		//printf("$%d,%d,%d,0,0,0,0,0#", spwm, ABS(de), pidatsteer);
 		DELAY_MS(100);
-
-
-
-		
+//
+//
+//
+//		
 
 
 		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);

@@ -13,7 +13,7 @@ typedef enum
 	Kd,
 }Pid_e;
 
-#define PidPrecision 1000//Pid精度
+#define PidPrecision 100//Pid精度
 
 #if PidPrecision < 0xff//根据精度选择数据类型
 struct Pid_s

@@ -25,7 +25,7 @@
 #define SteerTurnMin (SteerCenterDuty - SteerSafeTurnDuty)//舵机pwm最小值限制
 
 #define SteerAngleProtectRange 400//左右电感偏差值在此范围内认定为直行
-#define LostLineAdcMin 400//所有电感归一化后数值少于此值认定为丢线
+#define LostLineAdcMin 300//所有电感归一化后数值少于此值认定为丢线
 
 /************************************************************************/
 /*           数据类型定义                                                  */

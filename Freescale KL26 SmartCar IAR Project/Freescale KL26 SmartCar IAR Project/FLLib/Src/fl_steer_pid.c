@@ -22,6 +22,7 @@ void SteerPidInit()
 int32 SteerCtrlUsePid(SteerDeviationDegree_e deviation)
 {
 	SteerPid.Now = deviation;
+
 	return PID(&SteerPid);
 }
 

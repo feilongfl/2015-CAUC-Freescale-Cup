@@ -1,13 +1,13 @@
 #include "fl_MOTOR_PID.h"
 
 struct Pid_s MotorPid;
-extern struct MotorSpeed_s Speed;
+
 
 int32 MotorCtrlUsePid()
 {
 	MotorPid.Now = Speed.Acturally;
 	MotorPid.Target = Speed.Expect;
-
+	
 	return PID(&MotorPid);
 }
 
@@ -15,10 +15,10 @@ uint32 mpwm = 0;
 
 void MotorCtrl()
 {
-	mpwm = MotorCtrlUsePid() / 100;
-	if (mpwm > 4000)
+	mpwm += MotorCtrlUsePid() / 100;
+	if (mpwm > 6000)
 	{
-		mpwm = 4000;
+		mpwm = 6000;
 	}
 	tpm_pwm_duty(TpmMotor, TpmMotorCh0, mpwm);
 	

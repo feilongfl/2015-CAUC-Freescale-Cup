@@ -24,11 +24,11 @@ extern  struct MotorSpeed_s * MotorSpeedAddress;
 /************************************************************************/
 /* 操作                                                                 */
 /************************************************************************/
-SettingErr_e MotorPidAdd(Pid_e pidType, int32 addNum);//修改电机pid参数
-SettingErr_e SteerPidAdd(Pid_e pidType, int32 addNum);//修改舵机pid参数
-SettingErr_e MotorSpeedAdd(int32 addNum);//电机转速
+SettingErr_e MotorPidAdd(Pid_e pidType, uint16 addNum);//修改电机pid参数
+SettingErr_e SteerPidAdd(Pid_e pidType, uint16 addNum);//修改舵机pid参数
+SettingErr_e MotorSpeedAdd(uint16 addNum);//电机转速
 
-SettingErr_e MotorPidSet(Pid_e pidType, int32 expectNum);//设定电机pid参数
-SettingErr_e SteerPidSet(Pid_e pidType, int32 expectNum);//设定舵机pid参数
-SettingErr_e MotorSpeedSet(int32 expectNum);//电机转速
+SettingErr_e MotorPidSet(Pid_e pidType, uint16 expectNum);//设定电机pid参数
+SettingErr_e SteerPidSet(Pid_e pidType, uint16 expectNum);//设定舵机pid参数
+SettingErr_e MotorSpeedSet(uint16 expectNum);//电机转速
 #endif//_FL_SETTING_

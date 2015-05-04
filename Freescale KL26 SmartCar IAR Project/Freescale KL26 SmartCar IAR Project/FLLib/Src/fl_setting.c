@@ -1,8 +1,11 @@
 #include "fl_setting.h"
 
+struct Pid_s  *MotorPidAddress = &MotorPid;
+struct Pid_s  *SteerPidAddress = &SteerPid;
+struct MotorSpeed_s * MotorSpeedAddress = &Speed;
 
 
-static SettingErr_e DataAddWithLimit(int32 * formerNumAdd, int32 addNum, int32 limitUpper, int32 limitLower)//计算数值返回状态
+static SettingErr_e DataAddWithLimit(uint16 * formerNumAdd, uint16 addNum, uint16 limitUpper, uint16 limitLower)//计算数值返回状态
 {
 	int64 changeTemp;
 	changeTemp = *formerNumAdd + addNum;
@@ -22,20 +25,20 @@ static SettingErr_e DataAddWithLimit(int32 * formerNumAdd, int32 addNum, int32 l
 }
 
 
-SettingErr_e MotorPidAdd(Pid_e pidType, int32 addNum)//修改电机pid参数
+SettingErr_e MotorPidAdd(Pid_e pidType, uint16 addNum)//修改电机pid参数
 {
 	switch (pidType)
 	{
 	case Kp:
-		return DataAddWithLimit((int32 *)&(MotorPidAddress->P), addNum, MotorPidMaxP, MotorPidMinP);
+		return DataAddWithLimit((uint16 *)&(MotorPidAddress->P), addNum, MotorPidMaxP, MotorPidMinP);
 		break;
 
 	case Ki:
-		return DataAddWithLimit((int32 *)&(MotorPidAddress->I), addNum, MotorPidMaxI, MotorPidMinI);
+		return DataAddWithLimit((uint16 *)&(MotorPidAddress->I), addNum, MotorPidMaxI, MotorPidMinI);
 		break;
 
 	case Kd:
-		return DataAddWithLimit((int32 *)&(MotorPidAddress->D), addNum, MotorPidMaxD, MotorPidMinD);
+		return DataAddWithLimit((uint16 *)&(MotorPidAddress->D), addNum, MotorPidMaxD, MotorPidMinD);
 		break;
 
 	default:
@@ -43,20 +46,20 @@ SettingErr_e MotorPidAdd(Pid_e pidType, int32 addNum)//修改电机pid参数
 		break;
 	}
 }
-SettingErr_e SteerPidAdd(Pid_e pidType, int32 addNum)//修改舵机pid参数
+SettingErr_e SteerPidAdd(Pid_e pidType, uint16 addNum)//修改舵机pid参数
 {
 	switch (pidType)
 	{
 	case Kp:
-		return DataAddWithLimit((int32 *)&(SteerPidAddress->P), addNum, SteerPidMaxP, SteerPidMinP);
+		return DataAddWithLimit((uint16 *)&(SteerPidAddress->P), addNum, SteerPidMaxP, SteerPidMinP);
 		break;
 
 	case Ki:
-		return DataAddWithLimit((int32 *)&(SteerPidAddress->I), addNum, SteerPidMaxI, SteerPidMinI);
+		return DataAddWithLimit((uint16 *)&(SteerPidAddress->I), addNum, SteerPidMaxI, SteerPidMinI);
 		break;
 
 	case Kd:
-		return DataAddWithLimit((int32 *)&(SteerPidAddress->D), addNum, SteerPidMaxD, SteerPidMinD);
+		return DataAddWithLimit((uint16 *)&(SteerPidAddress->D), addNum, SteerPidMaxD, SteerPidMinD);
 		break;
 
 	default:
@@ -65,13 +68,13 @@ SettingErr_e SteerPidAdd(Pid_e pidType, int32 addNum)//修改舵机pid参数
 	}
 }
 
-SettingErr_e MotorSpeedAdd(int32 addNum)//电机转速
+SettingErr_e MotorSpeedAdd(uint16 addNum)//电机转速
 {
-	return DataAddWithLimit((int32 *)&(MotorSpeedAddress->Expect), addNum, MotorSpeedMax, MotorSpeedMin);
+	return DataAddWithLimit((uint16 *)&(MotorSpeedAddress->Expect), addNum, MotorSpeedMax, MotorSpeedMin);
 }
 
 
-static SettingErr_e DataCheckAndSet(int32 * formerNumAdd, int32 expectNum, int32 limitUpper, int32 limitLower)
+static SettingErr_e DataCheckAndSet(uint16 * formerNumAdd, uint16 expectNum, uint16 limitUpper, uint16 limitLower)
 {
 	if (expectNum >= limitLower && expectNum <= limitUpper)//判断修改后是否合法
 	{
@@ -89,20 +92,20 @@ static SettingErr_e DataCheckAndSet(int32 * formerNumAdd, int32 expectNum, int32
 }
 
 
-SettingErr_e MotorPidSet(Pid_e pidType, int32 expectNum)//修改电机pid参数
+SettingErr_e MotorPidSet(Pid_e pidType, uint16 expectNum)//修改电机pid参数
 {
 	switch (pidType)
 	{
 	case Kp:
-		return DataCheckAndSet((int32 *)&(MotorPidAddress->P), expectNum, MotorPidMaxP, MotorPidMinP);
+		return DataCheckAndSet((uint16 *)&(MotorPidAddress->P), expectNum, MotorPidMaxP, MotorPidMinP);
 		break;
 
 	case Ki:
-		return DataCheckAndSet((int32 *)&(MotorPidAddress->I), expectNum, MotorPidMaxI, MotorPidMinI);
+		return DataCheckAndSet((uint16 *)&(MotorPidAddress->I), expectNum, MotorPidMaxI, MotorPidMinI);
 		break;
 
 	case Kd:
-		return DataCheckAndSet((int32 *)&(MotorPidAddress->D), expectNum, MotorPidMaxD, MotorPidMinD);
+		return DataCheckAndSet((uint16 *)&(MotorPidAddress->D), expectNum, MotorPidMaxD, MotorPidMinD);
 		break;
 
 	default:
@@ -111,20 +114,20 @@ SettingErr_e MotorPidSet(Pid_e pidType, int32 expectNum)//修改电机pid参数
 	}
 }
 
-SettingErr_e SteerPidSet(Pid_e pidType, int32 expectNum)//修改电机pid参数
+SettingErr_e SteerPidSet(Pid_e pidType, uint16 expectNum)//修改电机pid参数
 {
 	switch (pidType)
 	{
 	case Kp:
-		return DataCheckAndSet((int32 *)&(SteerPidAddress->P), expectNum, SteerPidMaxP, SteerPidMinP);
+		return DataCheckAndSet((uint16 *)&(SteerPidAddress->P), expectNum, SteerPidMaxP, SteerPidMinP);
 		break;
 
 	case Ki:
-		return DataCheckAndSet((int32 *)&(SteerPidAddress->I), expectNum, SteerPidMaxI, SteerPidMinI);
+		return DataCheckAndSet((uint16 *)&(SteerPidAddress->I), expectNum, SteerPidMaxI, SteerPidMinI);
 		break;
 
 	case Kd:
-		return DataCheckAndSet((int32 *)&(SteerPidAddress->D), expectNum, SteerPidMaxD, SteerPidMinD);
+		return DataCheckAndSet((uint16 *)&(SteerPidAddress->D), expectNum, SteerPidMaxD, SteerPidMinD);
 		break;
 
 	default:
@@ -133,7 +136,7 @@ SettingErr_e SteerPidSet(Pid_e pidType, int32 expectNum)//修改电机pid参数
 	}
 }
 
-SettingErr_e MotorSpeedSet(int32 expectNum)//电机转速
+SettingErr_e MotorSpeedSet(uint16 expectNum)//电机转速
 {
-	return DataCheckAndSet((int32 *)&(MotorSpeedAddress->Expect), expectNum, MotorSpeedMax, MotorSpeedMin);
+	return DataCheckAndSet((uint16 *)&(MotorSpeedAddress->Expect), expectNum, MotorSpeedMax, MotorSpeedMin);
 }
