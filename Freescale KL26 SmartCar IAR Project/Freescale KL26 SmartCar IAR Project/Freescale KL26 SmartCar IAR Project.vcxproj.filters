@@ -541,5 +541,8 @@
     <Image Include="design\架构\无标题.png">
       <Filter>说明文档\架构</Filter>
     </Image>
+    <Image Include="design\架构\无标题2.png">
+      <Filter>说明文档\架构</Filter>
+    </Image>
   </ItemGroup>
 </Project>

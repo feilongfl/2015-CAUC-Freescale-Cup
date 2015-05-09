@@ -13,7 +13,7 @@
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
-
+uint8 powerOn = 0;
 /************************************************************************/
 /*  外部引用函数                                                     */
 /************************************************************************/
@@ -31,8 +31,6 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
 	//////////////////////////////////////////////////////////////////////////
-
-
 	/************************************************************************/
 	/* 开中断                                                               */
 	/************************************************************************/
@@ -48,6 +46,9 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
+        if(!powerOn)
+        {
+          powerOn = true;
 #if 1
 	AdcNormalizingInit();//初始化归一化变量
 #else
@@ -76,9 +77,14 @@ void main()
 	}
 	
 #endif
+        }
+        else
+        {
+			ASSERT(TRUE);
+        }
 	uint16 spwm = 1500;
 	//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 3000);
-	//enable_irq(PIT_IRQn);								  //使能PIT0中断
+	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
 	{
@@ -102,12 +108,13 @@ void main()
 		{
 			led(LED0, LED_ON);
 			disable_irq(PIT_IRQn);
-			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+			//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+			Speed.Expect = 0;
 		}
 		else
 		{
 			led(LED0, LED_OFF);
-			//enable_irq(PIT_IRQn);
+			enable_irq(PIT_IRQn);
 		}
 		
 
@@ -125,10 +132,7 @@ void main()
 		{
 			spwm = SteerCenterDuty - pidatsteer;
 			led(LED2, LED_OFF);
-			if (turn == SteerDirectionLeft || turn == SteerDirectionRight)
-			{
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
-			}
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 		}
 		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
 			SteerPid.P, SteerPid.I, SteerPid.D, 0

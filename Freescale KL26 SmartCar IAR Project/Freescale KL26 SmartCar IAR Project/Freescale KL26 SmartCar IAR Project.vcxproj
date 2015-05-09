@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="design\架构\无标题.png" />
+    <Image Include="design\架构\无标题2.png" />
     <Image Include="design\键盘\键盘布局.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
