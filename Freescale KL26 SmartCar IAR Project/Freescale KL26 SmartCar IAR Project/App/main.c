@@ -95,6 +95,8 @@ void main()
 		}
 		else//OnLine
 		{
+			Speed.Expect = 1000;
+
 			led(LED0, LED_OFF);
 
 			if (pidatsteer < -500)
