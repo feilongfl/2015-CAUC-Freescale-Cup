@@ -130,27 +130,29 @@ static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 
 //////////////////////////////////////////////////////////////////////////
 //根据adc计算车辆方向
-SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s)
+SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s, FLAdcLostLine_e * lostLine)
 {
 	uint16 * adc_addr = (uint16*)adc_s;
 	int32 sum = 0;
-	uint8 lostLine = TRUE;
+	FLAdcLostLine_e lostLineTemp = TRUE;
 
 	for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2;adcTemp--)
 	{
 		sum += *(adc_addr + FLAdcMax - adcTemp);//计算ad左-ad右
 		sum -= *(adc_addr + adcTemp - 1);
-		lostLine &= (*(adc_addr + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
-		lostLine &= (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
+		lostLineTemp &= (*(adc_addr + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
+		lostLineTemp &= (*(adc_addr + adcTemp - 1) > LostLineAdcMin) ? false : true;
 	}
 
-	switch (lostLine)
+	*lostLine = lostLineTemp;
+
+	switch (lostLineTemp)
 	{
-	case false:
+	case OnLine:
 		return steerDirectionSetBySum(sum);
 		break;
 
-	case true:
+	case LostLine:
 		return CarDirection;
 		break;
 

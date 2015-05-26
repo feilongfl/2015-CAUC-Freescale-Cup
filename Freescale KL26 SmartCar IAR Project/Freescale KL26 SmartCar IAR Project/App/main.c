@@ -13,7 +13,7 @@
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
-
+FLAdcLostLine_e IsLostLine = LostLine;
 /************************************************************************/
 /*  外部引用函数                                                     */
 /************************************************************************/
@@ -26,7 +26,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
-	uint8 lostLine = TRUE;
+	
 	struct FLAdc_s adcn;
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
@@ -37,7 +37,6 @@ void main()
 	
 	set_vector_handler(UART0_VECTORn, UartHandler);   // 设置中断服务函数到中断向量表里
 	uart_rx_irq_en(UART0);//串口中断
-	//uart_rx_irq_en(BlueToothUartPort);//蓝牙串口中断
 	FLKeyIrqEnable();
         //wdog_init (1000);//初始化看门狗
         //wdog_enable ();
@@ -80,7 +79,7 @@ void main()
 	while (1)
 	{
 		adcn = AdcNormalizing();
-		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn);
+		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn,&IsLostLine);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		int32 pidatsteer = SteerCtrlUsePid(de);
 		NumShow(ABS(de), 0, 0);
@@ -88,53 +87,43 @@ void main()
 		NumShow(SteerPid.P, LcdLocal1, LcdLine3);
 		NumShow(SteerPid.I, LcdLocal2, LcdLine3);
 		NumShow(SteerPid.D, LcdLocal3, LcdLine3);
-
-		for (uint8 adcTemp = FLAdcMax; adcTemp > FLAdcMax / 2; adcTemp--)
-		{
-			lostLine &= (*((uint16*)&adcn + FLAdcMax - adcTemp) > LostLineAdcMin) ? false : true;//判断丢线
-			lostLine &= (*((uint16*)&adcn + adcTemp - 1) > LostLineAdcMin) ? false : true;
-		}
-
-		if (lostLine)
+		
+		if (IsLostLine == LostLine)
 		{
 			led(LED0, LED_ON);
-			disable_irq(PIT_IRQn);
-			//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 			Speed.Expect = 0;
 		}
-		else
+		else//OnLine
 		{
 			led(LED0, LED_OFF);
-			enable_irq(PIT_IRQn);
+
+			if (pidatsteer < -500)
+			{
+				led(LED2, LED_ON);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+			}
+			else if (pidatsteer > 500)
+			{
+				led(LED2, LED_ON);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+			}
+			else
+			{
+				spwm = SteerCenterDuty - pidatsteer;
+				led(LED2, LED_OFF);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
+			}
 		}
 		
 
-		if (pidatsteer < -500)
-		{
-			led(LED2, LED_ON);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
-		}
-		else if (pidatsteer > 500)
-		{
-			led(LED2, LED_ON);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
-		}
-		else
-		{
-			spwm = SteerCenterDuty - pidatsteer;
-			led(LED2, LED_OFF);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
-		}
+		
 		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
 			SteerPid.P, SteerPid.I, SteerPid.D, 0
 			, pidatsteer, spwm);
 
 		//printf("$%d,%d,%d,0,0,0,0,0#", spwm, ABS(de), pidatsteer);
 		DELAY_MS(100);
-//
-//
-//
-//		
+
 
 
 		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);

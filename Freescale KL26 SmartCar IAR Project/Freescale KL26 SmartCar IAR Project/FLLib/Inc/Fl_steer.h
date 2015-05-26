@@ -60,6 +60,6 @@ InitRepot_e SteerInit();//舵机初始化，发送默认pwm
 //////////////////////////////////////////////////////////////////////////
 void StreePidSet(Pid_e steerPid, uint8 steerPidChange);//设定舵机pid参数
 
-SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s);
+SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s,FLAdcLostLine_e * lostLine);
 SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s);
 #endif//_FL_STEER_
