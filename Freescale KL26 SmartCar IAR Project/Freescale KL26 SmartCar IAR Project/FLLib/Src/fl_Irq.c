@@ -37,6 +37,7 @@ void UartHandler()
 
 			if (uartCmdAvailable == Available)
 			{
+				// TODO: √¸¡Ó¥¶¿Ì
 
 				//////////////////////////////////////////////////////////////////////////
 				uartCmdLocal = 0;
