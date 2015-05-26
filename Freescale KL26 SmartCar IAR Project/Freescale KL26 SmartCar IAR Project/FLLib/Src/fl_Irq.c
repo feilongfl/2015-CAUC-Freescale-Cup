@@ -2,7 +2,7 @@
 #include "common.h"
 #include "fl_irq.h"
 
-
+static char[100];
 /************************************************************************/
 /*       串口中断处理函数                                               */
 /************************************************************************/
@@ -14,101 +14,6 @@ void UartHandler()
 	uint16 pidtemp;
 	num = uart_querystr(UART0, str, 100);
 	
-	if (num == 0)
-	{
-	}
-	else if (num == 1)
-	{
-		switch (str[0])
-		{
-		case 'S'://启动
-			break;
-
-		case 'U'://前进
-			break;
-
-		case 'D'://后退
-			break;
-
-		default:
-			break;
-		}
-	}
-	else if (num == 2)
-	{
-	}
-	else
-	{
-		if (num == 3)
-		{
-			pidtemp = str[2] - 48;
-		}
-		else if (num == 4)
-		{
-			pidtemp = (str[2] - 48) * 10 + (str[3] - 48);
-		}
-		else if (num == 5)
-		{
-			pidtemp = (str[2] - 48) * 100 + (str[3] - 48) * 10 + (str[4] - 48);
-		}
-		else if (num == 6)
-		{
-			pidtemp = (str[2] - 48) * 1000 + (str[3] - 48) * 100 + (str[4] - 48) * 10 + (str[5] - 48);
-		}
-		else
-		{
-			return;
-		}
-		switch (str[0])
-		{
-		case 'M'://电机
-			switch (str[1])
-			{
-			case 'P':
-				MotorPidSetP(pidtemp);
-				break;
-
-			case 'I':
-				MotorPidSetP(pidtemp);
-				break;
-
-			case 'D':
-				MotorPidSetP(pidtemp);
-				break;
-
-			case 'S':
-				MotorSpeedSet(pidtemp);
-				break;
-
-			default:
-				break;
-			}
-			break;
-			
-		case 'S'://舵机
-			switch (str[1])
-			{
-			case 'P':
-				SteerPidSet(Kp, pidtemp);
-				break;
-
-			case 'I':
-				SteerPidSet(Ki, pidtemp);
-				break;
-
-			case 'D':
-				SteerPidSet(Kd, pidtemp);
-				break;
-
-			default:
-				break;
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
 
 }
 

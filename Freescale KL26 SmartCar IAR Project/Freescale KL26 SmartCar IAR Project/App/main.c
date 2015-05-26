@@ -119,9 +119,9 @@ void main()
 		
 
 		
-		printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
+		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
 			SteerPid.P, SteerPid.I, SteerPid.D, 0
-			, pidatsteer, spwm);
+			, pidatsteer, spwm);*/
 
 		//printf("$%d,%d,%d,0,0,0,0,0#", spwm, ABS(de), pidatsteer);
 		DELAY_MS(100);

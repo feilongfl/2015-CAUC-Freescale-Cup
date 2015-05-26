@@ -11,17 +11,22 @@ int32 MotorCtrlUsePid()
 	return PID(&MotorPid);
 }
 
-uint32 mpwm = 0;
+int32 mpwm = 0;
 
 void MotorCtrl()
 {
 	mpwm += MotorCtrlUsePid() / 100;
-	if (mpwm > 6000)
+	if (mpwm > 10000)
 	{
-		mpwm = 6000;
+		mpwm = 10000;
 	}
-	tpm_pwm_duty(TpmMotor, TpmMotorCh0, mpwm);
-	
+	else if (mpwm < 0)
+	{
+		mpwm = 0;
+	}
+	printf("$%d,%d,%d,0,0,0,0,0#",Speed.Acturally,Speed.Expect,mpwm);
+	tpm_pwm_duty(TpmMotor, TpmMotorCh0, (uint32)mpwm);
+
 }
 
 void MotorPidInit()
