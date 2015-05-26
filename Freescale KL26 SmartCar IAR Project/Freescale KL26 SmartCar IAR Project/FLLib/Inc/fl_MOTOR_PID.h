@@ -8,7 +8,7 @@
 
 //电机默认参数
 #define MotorDefaultDuty 0//开机
-#define MotorPIDDefaultP 10//电机默认P
+#define MotorPIDDefaultP 15//电机默认P
 #define MotorPIDDefaultI 1//电机默认I
 #define MotorPIDDefaultD 1//电机默认D
 //电机限制参数
