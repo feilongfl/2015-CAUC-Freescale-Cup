@@ -18,6 +18,7 @@ InitRepot_e Init()
 	tpm_pulse_init(TpmCoder, TpmCoderClkIn, TpmCoderPs);//编码器
 	MotorPidInit();//电机
 	SteerPidInit();//舵机
+	UartInit();
 	PitInit();//初始化pit模块
 	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏

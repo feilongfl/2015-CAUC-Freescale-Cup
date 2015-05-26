@@ -2,7 +2,10 @@
 #include "common.h"
 #include "fl_irq.h"
 
-static char[100];
+static uint8 uartCmdLocal = 0;
+static char uartCmdBuff[100];
+UartCmdAvailable uartCmdAvailable = NotAvailable;
+
 /************************************************************************/
 /*       串口中断处理函数                                               */
 /************************************************************************/
@@ -14,7 +17,48 @@ void UartHandler()
 	uint16 pidtemp;
 	num = uart_querystr(UART0, str, 100);
 	
+	if (num)
+	{
+		for (uint8 local = 0; local < num;local++)
+		{
+			if (str[local] == '$')
+			{
+				uartCmdAvailable = Receiving;
+			}
+			else if (str[local] == '#')
+			{
+				uartCmdAvailable = Available;
+			}
+			
+			if (uartCmdLocal > UartCmdLostEndLen)
+			{
+				uartCmdAvailable = NotAvailable;
+			}
 
+			if (uartCmdAvailable == Available)
+			{
+
+				//////////////////////////////////////////////////////////////////////////
+				uartCmdLocal = 0;
+				uartCmdAvailable = NotAvailable;
+				break;
+			}
+
+			if (uartCmdAvailable = Receiving)
+			{
+				uartCmdBuff[uartCmdLocal++] = str[local];
+			}
+		}
+	}
+
+}
+
+void UartInit()
+{
+	for (uint8 i = 0; i < 100;i++)
+	{
+		uartCmdBuff[i] = '\0';
+	}
 }
 
 /************************************************************************/
