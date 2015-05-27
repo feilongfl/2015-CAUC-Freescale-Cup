@@ -6,6 +6,60 @@ static uint8 uartCmdLocal = 0;
 static char uartCmdBuff[100];
 UartCmdAvailable uartCmdAvailable = NotAvailable;
 
+static void pidCmdAnalyze(char * cmd, uint8 cmdLen,void (*func)(Pid_e pidType,uint16 exData))
+{
+	uint16 cData = 0;
+	for (uint8 i = 1; i < cmdLen;i++)
+	{
+		cData += (cmd[i] - 48) * (cmdLen - i);
+	}
+	switch (cmd[0])
+	{
+	case 'P':
+		func(Kp, cData);
+		break;
+
+	case 'I':
+		func(Ki, cData);
+		break;
+
+	case 'D':
+		func(Kd, cData);
+		break;
+		
+	default:
+		printf("error\n");
+		break;
+	}
+}
+
+static void uartCmdAnalyze(char * cmd, int8 cmdLen)
+{
+	//局部变量，存储命令位置
+	uint8 cmdReadLocal = 1;
+	//断言：命令前缀
+	ASSERT(cmd[0] != '$');
+
+	//判断
+	switch (cmd[1])
+	{
+	case 'S':
+		pidCmdAnalyze(cmd + 2, cmdLen - 2, SteerPidSet);
+		break;
+
+	case 'M':
+		pidCmdAnalyze(cmd + 2, cmdLen - 2, MotorPidSet);
+		break;
+
+	case 'C':
+		break;
+
+	default:
+		printf("error!\n");
+		break;
+	}
+}
+
 /************************************************************************/
 /*       串口中断处理函数                                               */
 /************************************************************************/
@@ -23,6 +77,7 @@ void UartHandler()
 		{
 			if (str[local] == '$')
 			{
+				uartCmdLocal = 0;
 				uartCmdAvailable = Receiving;
 			}
 			else if (str[local] == '#')
@@ -38,7 +93,7 @@ void UartHandler()
 			if (uartCmdAvailable == Available)
 			{
 				// TODO: 命令处理
-
+				uartCmdAnalyze(str, uartCmdLocal);
 				//////////////////////////////////////////////////////////////////////////
 				uartCmdLocal = 0;
 				uartCmdAvailable = NotAvailable;
