@@ -53,7 +53,7 @@ void main()
 	extern struct FLAdc_s AdcMax;
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
 	//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
-	uint16 adcmaxarr[FLAdcMax] = { 5, 5, 5, 5 };
+	uint16 adcmaxarr[FLAdcMax] = { 71,89,83,88 };
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 	{
 		*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
@@ -80,7 +80,7 @@ void main()
 	//³ÌÐòÑ­»·
 	while (1)
 	{
-#if 0
+#if 1
 		adcn = AdcNormalizing();
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn,&IsLostLine);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
@@ -91,35 +91,35 @@ void main()
 		NumShow(SteerPid.I, LcdLocal2, LcdLine3);
 		NumShow(SteerPid.D, LcdLocal3, LcdLine3);
 		
-		if (IsLostLine == LostLine)
-		{
-			led(LED0, LED_ON);
-			Speed.Expect = 0;
-		}
-		else//OnLine
-		{
-			Speed.Expect = 1000;
+		//if (IsLostLine == LostLine)
+		//{
+		//	led(LED0, LED_ON);
+		//	Speed.Expect = 0;
+		//}
+		//else//OnLine
+		//{
+		//	Speed.Expect = 1000;
 
-			led(LED0, LED_OFF);
+		//	led(LED0, LED_OFF);
 
-			if (pidatsteer < -500)
-			{
-				led(LED2, LED_ON);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
-			}
-			else if (pidatsteer > 500)
-			{
-				led(LED2, LED_ON);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
-			}
-			else
-			{
-				spwm = SteerCenterDuty - pidatsteer;
-				led(LED2, LED_OFF);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
-			}
+		if (pidatsteer < -500)
+		{
+			led(LED2, LED_ON);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
 		}
-#endif
+		else if (pidatsteer > 500)
+		{
+			led(LED2, LED_ON);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+		}
+		else
+		{
+			spwm = SteerCenterDuty - pidatsteer;
+			led(LED2, LED_OFF);
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
+		}
+		//}
+#else
 
 		
 		NumShow16(Speed.Expect, LcdLocal1, LcdLine1);
@@ -129,7 +129,7 @@ void main()
 		NumShow(MotorPid.I, LcdLocal2, LcdLine3);
 		NumShow(MotorPid.D, LcdLocal3, LcdLine3);
 		
-
+#endif
 		
 		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
 			SteerPid.P, SteerPid.I, SteerPid.D, 0
