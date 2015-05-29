@@ -6,13 +6,28 @@ static uint8 uartCmdLocal = 0;
 static char uartCmdBuff[100];
 UartCmdAvailable uartCmdAvailable = NotAvailable;
 
-static void pidCmdAnalyze(char * cmd, uint8 cmdLen,void (*func)(Pid_e pidType,uint16 exData))
+static uint16 e10(int16 x)
+{
+  uint32 renum = 1;
+  while(x--)
+  {
+    renum *= 10;
+  }
+  return renum;
+}
+
+static uint16 getNumFromCharArr(char * str, uint8 len)
 {
 	uint16 cData = 0;
-	for (uint8 i = 1; i < cmdLen;i++)
+	for (uint8 i = 1; i < len; i++)
 	{
-		cData += (cmd[i] - 48) * (cmdLen - i);
+		cData += (str[i] - 48) * e10((len - i) - 1);
 	}
+}
+
+static void pidCmdAnalyze(char * cmd, uint8 cmdLen,SettingErr_e (*func)(Pid_e pidType,uint16 exData))
+{
+	uint16 cData = getNumFromCharArr(cmd, cmdLen);
 	switch (cmd[0])
 	{
 	case 'P':
@@ -38,7 +53,7 @@ static void uartCmdAnalyze(char * cmd, int8 cmdLen)
 	//局部变量，存储命令位置
 	uint8 cmdReadLocal = 1;
 	//断言：命令前缀
-	ASSERT(cmd[0] != '$');
+	ASSERT(cmd[0] == '$');
 
 	//判断
 	switch (cmd[1])
@@ -51,7 +66,12 @@ static void uartCmdAnalyze(char * cmd, int8 cmdLen)
 		pidCmdAnalyze(cmd + 2, cmdLen - 2, MotorPidSet);
 		break;
 
-	case 'C':
+	case 'C'://车速
+		Speed.Expect = RANGE(getNumFromCharArr(cmd + 1, cmdLen - 1), MotorSpeedMax,0);
+		break;
+
+	case 'T'://停
+		Speed.Expect = 0;
 		break;
 
 	default:
@@ -93,7 +113,7 @@ void UartHandler()
 			if (uartCmdAvailable == Available)
 			{
 				// TODO: 命令处理
-				uartCmdAnalyze(str, uartCmdLocal);
+				uartCmdAnalyze(uartCmdBuff, uartCmdLocal);
 				//////////////////////////////////////////////////////////////////////////
 				uartCmdLocal = 0;
 				uartCmdAvailable = NotAvailable;

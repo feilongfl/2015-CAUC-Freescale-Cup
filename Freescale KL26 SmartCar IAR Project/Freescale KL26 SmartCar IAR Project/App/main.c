@@ -45,14 +45,15 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	
 	printf("start");
-#if 1
+#if 0
 	AdcNormalizingInit();//初始化归一化变量
 #else
 	LCDPrint(0, 0, "start!");
 	AdcInit();
 	extern struct FLAdc_s AdcMax;
 	uint16 * adcMaxAddress = (uint16*)&AdcMax;
-	uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
+	//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
+	uint16 adcmaxarr[FLAdcMax] = { 5, 5, 5, 5 };
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 	{
 		*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
@@ -74,10 +75,12 @@ void main()
 	
 #endif
 	uint16 spwm = 1500;
+	Speed.Expect = 1000;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
 	{
+#if 0
 		adcn = AdcNormalizing();
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn,&IsLostLine);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
@@ -116,6 +119,15 @@ void main()
 				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 			}
 		}
+#endif
+
+		
+		NumShow16(Speed.Expect, LcdLocal1, LcdLine1);
+		NumShow16(Speed.Acturally, LcdLocal1, LcdLine2);
+		
+		NumShow(MotorPid.P, LcdLocal1, LcdLine3);
+		NumShow(MotorPid.I, LcdLocal2, LcdLine3);
+		NumShow(MotorPid.D, LcdLocal3, LcdLine3);
 		
 
 		

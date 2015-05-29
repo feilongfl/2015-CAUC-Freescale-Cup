@@ -78,7 +78,7 @@ static SettingErr_e DataCheckAndSet(uint16 * formerNumAdd, uint16 expectNum, uin
 {
 	if (expectNum >= limitLower && expectNum <= limitUpper)//判断修改后是否合法
 	{
-		*formerNumAdd = expectNum;
+		*formerNumAdd = expectNum;//bug
 		return SettingAllGreen;
 	}
 	else if (expectNum < limitLower)

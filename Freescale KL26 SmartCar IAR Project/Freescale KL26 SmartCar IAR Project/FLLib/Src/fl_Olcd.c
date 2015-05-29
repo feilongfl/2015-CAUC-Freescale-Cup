@@ -1102,6 +1102,34 @@ void NumShow(uint16 num, uint8 x, uint8 y)
 	LCDPrint(x, y, ShowTempStr);
 }
 
+void NumShow16(uint16 num, uint8 x, uint8 y)
+{
+	ASSERT(num < 0xffff);//断言
+	static unsigned char ShowTempStr[] = "\0\0\0\0\0";
+	if (num > 9999)
+	{
+		sprintf((char*)ShowTempStr, "%d", num);
+	}
+	else if (num > 999)
+	{
+		sprintf((char*)ShowTempStr, "0%d", num);
+	}
+	else if (num > 99)
+	{
+		sprintf((char*)ShowTempStr, "00%d", num);
+	}
+	else if (num > 9)
+	{
+		sprintf((char*)ShowTempStr, "000%d", num);
+	}
+	else
+	{
+		sprintf((char*)ShowTempStr, "0000%d", num);
+	}
+
+	LCDPrint(x, y, ShowTempStr);
+}
+
 
 /************************************************************************/
 /* 错误界面                     要不要加个灯呢？                        */

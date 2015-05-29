@@ -146,6 +146,7 @@ void FLIrqHandle()
 			tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
 			tpm_pwm_duty(TpmMotor, TpmMotorCh1, 0);
 			while (FLKeyCheck(FLKeyIrq) == KEY_DOWN);
+			LCD_init();
 			FLIrqKeyDown();
 		}
 		FLKeyIrqEnable();
