@@ -143,7 +143,8 @@ ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 		config->Config.Motor.Speed.Expect,
 		config->Config.Steer.Pid.Pid.P,
 		config->Config.Steer.Pid.Pid.I,
-		config->Config.Steer.Pid.Pid.D
+		config->Config.Steer.Pid.Pid.D,
+		config->Config.CarState
 		);
 
 	return ConfigAllGreen;
@@ -182,7 +183,8 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 		config->Config.Motor.Speed.Expect,
 		config->Config.Steer.Pid.Pid.P,
 		config->Config.Steer.Pid.Pid.I,
-		config->Config.Steer.Pid.Pid.D
+		config->Config.Steer.Pid.Pid.D,
+		config->Config.CarState
 		);
 
 	return ConfigAllGreen;
@@ -212,6 +214,8 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Steer.Pid.Pid.P = SteerPIDDefaultP;
 	config.Config.Steer.Pid.Pid.I = SteerPIDDefaultI;
 	config.Config.Steer.Pid.Pid.D = SteerPIDDefaultD;
+
+	config.Config.CarState = CarStandby;
 
 	config.EepromConfigEnd = ConfigEnd;
 

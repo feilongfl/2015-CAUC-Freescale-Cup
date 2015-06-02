@@ -68,6 +68,13 @@ struct ConfigAdcNom_s
 #endif // UseCheck
 };
 
+typedef enum 
+{
+	CarStandby,
+	CarRunning,
+	CarFinish,
+}CarState_e;
+
 struct Config_s 
 {
 #if UseCheck
@@ -76,6 +83,7 @@ struct Config_s
 	struct ConfigAdcNom_s AdcNormalMax;
 	struct ConfigSteer Steer;
 	struct ConfigMotor_s Motor;
+	CarState_e CarState;
 #if UseCheck
 	uint8 ConfigEnd;
 #endif // UseCheck
