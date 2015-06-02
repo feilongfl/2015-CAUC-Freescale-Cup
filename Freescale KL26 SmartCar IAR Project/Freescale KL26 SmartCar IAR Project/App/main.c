@@ -10,6 +10,13 @@
 /* 文件包含                                                             */
 /************************************************************************/
 #include "main.h"
+
+/************************************************************************/
+/*                                 功能开关                             */
+/************************************************************************/
+#define UseAdcNormalizingInit		UseIt
+#define UseEndLine					DoNotUseIt
+
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
@@ -43,37 +50,58 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       用户操作                                       //
 	//////////////////////////////////////////////////////////////////////////
-	
-	printf("start");
-#if 1
-	AdcNormalizingInit();//初始化归一化变量
-#else
-	LCDPrint(0, 0, "start!");
-	AdcInit();
-	extern struct FLAdc_s AdcMax;
-	uint16 * adcMaxAddress = (uint16*)&AdcMax;
-	//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
-	uint16 adcmaxarr[FLAdcMax] = { 71,89,83,88 };
-	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+#if UseEndLine
+	switch (FreecaleConfig.Config.CarState)
 	{
-		*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
-	}
-	uint8 exitfunc = false;
-	
-	while (!exitfunc)
-	{
-		switch (KeyScanWithoutIrq())//按键检测
+	case CarStandby:
+#endif//UseEndLine
+		printf("start");
+#if UseAdcNormalizingInit
+		AdcNormalizingInit();//初始化归一化变量
+#else//UseAdcNormalizingInit
+		LCDPrint(0, 0, "start!");
+		AdcInit();
+		extern struct FLAdc_s AdcMax;
+		uint16 * adcMaxAddress = (uint16*)&AdcMax;
+		//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
+		uint16 adcmaxarr[FLAdcMax] = { 71, 89, 83, 88 };
+		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
 		{
-		case FLKeyAdcNorExit:
-			exitfunc = TRUE;//退出
-			break;
-
-		default:
-			break;
+			*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
 		}
+		uint8 exitfunc = false;
+
+		while (!exitfunc)
+		{
+			switch (KeyScanWithoutIrq())//按键检测
+			{
+			case FLKeyAdcNorExit:
+				exitfunc = TRUE;//退出
+				break;
+
+			default:
+				break;
+			}
+		}
+#endif//UseAdcNormalizingInit
+#if UseEndLine
+		break;
+
+	case CarRunning:
+		break;
+
+	case CarFinish:
+		LCDPrint(0, 0, "Finish!");
+		break;
+
+	default:
+		break;
 	}
+#endif//UseEndLine
+
 	
-#endif
+	
+
 	uint16 spwm = SteerCenterDuty;
 	Speed.Expect = 0;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断

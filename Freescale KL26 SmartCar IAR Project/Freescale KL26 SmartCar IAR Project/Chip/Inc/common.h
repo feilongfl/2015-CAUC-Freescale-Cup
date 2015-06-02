@@ -113,6 +113,9 @@ typedef struct
 #define FALSE   0
 #define false FALSE
 
+#define UseIt							1
+#define DoNotUseIt						0
+
 /*
  * 中断号类型声明
  */
