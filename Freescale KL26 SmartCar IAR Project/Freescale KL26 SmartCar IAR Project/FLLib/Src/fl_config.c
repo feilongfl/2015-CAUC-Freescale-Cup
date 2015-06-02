@@ -9,7 +9,7 @@ ConfigErrorType_s ConfigInit()
 		if (ConfigRead(&FreecaleConfig) != ConfigAllGreen)
 		{
 			printf("config error!\n");
-			ASSERT(ConfigSetDefaultInEeprom() != ConfigAllGreen);//eepromÊ§°Ü
+			ASSERT(ConfigSetDefaultInEeprom() == ConfigAllGreen);//eepromÊ§°Ü
 			printf("config set default!\n\nplease restart!\n");
 			while (1);
 		}
@@ -31,13 +31,13 @@ ConfigErrorType_s ConfigInit()
 ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 {
 	uint16 eepRomAddress = 0x0000;
-	ASSERT(config->WhoAmI != CONFIG_WHO_AM_I);
+	ASSERT(config->WhoAmI == CONFIG_WHO_AM_I);
 	//while (config->EepromConfigEnd != ConfigEnd)
-	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
+	while (eepRomAddress <= ConfigLong)
 	{
 		EepromWrite(eepRomAddress++,*(((uint8*)config) + eepRomAddress));
-		ASSERT(eepRomAddress >= ConfigLong);
 	}
+	
 	return ConfigAllGreen;
 }
 
@@ -46,13 +46,9 @@ ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
 	uint16 eepRomAddress = 0x0000;
 	config->EepromConfigEnd = 0x0000;
 	//while ((config->EepromConfigEnd) != ConfigEnd)
-	while (((uint8*)config + eepRomAddress) != ((uint8*)(config->EepromConfigEnd)))
+	while (eepRomAddress <= ConfigLong)
 	{
 		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
-		if (eepRomAddress >= ConfigLong)
-		{
-			return ConfigLostEnd;
-		}
 	}
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{

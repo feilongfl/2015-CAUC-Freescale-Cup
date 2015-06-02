@@ -18,7 +18,7 @@
 #define SteerCheck 0x45
 #define AdcCheck 0x46
 
-#define ConfigLong 255
+#define ConfigLong (sizeof(FreeScaleCarConfig_s) / sizeof(uint8))
 
 #define ConfigEndDefault 0x00
 #define ConfigEnd 0xff
