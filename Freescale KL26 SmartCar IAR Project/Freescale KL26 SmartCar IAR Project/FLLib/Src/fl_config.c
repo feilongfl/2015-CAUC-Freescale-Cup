@@ -8,8 +8,10 @@ ConfigErrorType_s ConfigInit()
 	{
 		if (ConfigRead(&FreecaleConfig) != ConfigAllGreen)
 		{
-			printf("config error!");
+			printf("config error!\n");
 			ASSERT(ConfigSetDefaultInEeprom() != ConfigAllGreen);//eeprom ß∞‹
+			printf("config set default!\n\nplease restart!\n");
+			while (1);
 		}
 		else
 		{
@@ -200,13 +202,16 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Motor.Speed.Acturally = 0;
 	config.Config.Motor.Speed.Expect = 10;
 
-	config.Config.Motor.Pid.Pid.P = 0;
-	config.Config.Motor.Pid.Pid.I = 0;
-	config.Config.Motor.Pid.Pid.D = 0;
+#include "fl_MOTOR_PID.h"
 
-	config.Config.Steer.Pid.Pid.P = 0;
-	config.Config.Steer.Pid.Pid.I = 0;
-	config.Config.Steer.Pid.Pid.D = 0;
+	config.Config.Motor.Pid.Pid.P = MotorPIDDefaultP;
+	config.Config.Motor.Pid.Pid.I = MotorPIDDefaultI;
+	config.Config.Motor.Pid.Pid.D = MotorPIDDefaultD;
+
+#include "fl_steer_pid.h"
+	config.Config.Steer.Pid.Pid.P = SteerPIDDefaultP;
+	config.Config.Steer.Pid.Pid.I = SteerPIDDefaultI;
+	config.Config.Steer.Pid.Pid.D = SteerPIDDefaultD;
 
 	config.EepromConfigEnd = ConfigEnd;
 
