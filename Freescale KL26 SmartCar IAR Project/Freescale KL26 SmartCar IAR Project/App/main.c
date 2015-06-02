@@ -16,6 +16,7 @@
 /************************************************************************/
 #define UseAdcNormalizingInit		UseIt
 #define UseEndLine					DoNotUseIt
+#define UsePowerOnDelay				DoNotUseIt
 
 /************************************************************************/
 /* 全局变量或结构体                                                     */
@@ -84,6 +85,10 @@ void main()
 			}
 		}
 #endif//UseAdcNormalizingInit
+#if UsePowerOnDelay
+		DELAY_MS(2000);
+#endif//UsePowerOnDelay
+
 #if UseEndLine
 		break;
 
