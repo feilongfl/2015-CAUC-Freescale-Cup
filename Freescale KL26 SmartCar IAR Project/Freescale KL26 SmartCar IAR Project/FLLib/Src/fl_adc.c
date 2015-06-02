@@ -234,6 +234,7 @@ void AdcNormalizingInit()
 			break;
 
 		case FLKeyAdcNorExit:
+			ConfigWrite(&FreecaleConfig);
 			exitFunc = TRUE;//ÍË³ö
 			break;
 

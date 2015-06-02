@@ -1,14 +1,15 @@
 #include "fl_MOTOR_PID.h"
+#include "fl_config.h"
 
-struct Pid_s MotorPid;
+//struct Pid_s FreecaleConfig.Config.Motor.Pid.Pid;
 
 
 int32 MotorCtrlUsePid()
 {
-	MotorPid.Now = Speed.Acturally;
-	MotorPid.Target = Speed.Expect;
+	FreecaleConfig.Config.Motor.Pid.Pid.Now = Speed.Acturally;
+	FreecaleConfig.Config.Motor.Pid.Pid.Target = Speed.Expect;
 	
-	return PID(&MotorPid);
+	return PID(&FreecaleConfig.Config.Motor.Pid.Pid);
 }
 
 int32 mpwm = 0;
@@ -32,35 +33,35 @@ void MotorCtrl()
 void MotorPidInit()
 {
 	MotorInit();
-	MotorPid.Target = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.Target = 0;
 
-	MotorPid.g = 0;
-	MotorPid.Imax = 0;
-	MotorPid.Integral = 0;
-	MotorPid.last_error = 0;
-	MotorPid.Now = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.g = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.Imax = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.Integral = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.last_error = 0;
+	FreecaleConfig.Config.Motor.Pid.Pid.Now = 0;
 
-	MotorPid.P = MotorPIDDefaultP;
-	MotorPid.I = MotorPIDDefaultI;
-	MotorPid.D = MotorPIDDefaultD;
+	FreecaleConfig.Config.Motor.Pid.Pid.P = MotorPIDDefaultP;
+	FreecaleConfig.Config.Motor.Pid.Pid.I = MotorPIDDefaultI;
+	FreecaleConfig.Config.Motor.Pid.Pid.D = MotorPIDDefaultD;
 }
 
 
 void MotorPidSetP(int16 p)
 {
 	ASSERT(p > MotorPidMinP && p < MotorPidMaxP);
-	MotorPid.P = p;
+	FreecaleConfig.Config.Motor.Pid.Pid.P = p;
 }
 
 void MotorPidSetI(int16 i)
 {
 	ASSERT(i > MotorPidMinI && i < MotorPidMaxI);
-	MotorPid.I = i;
+	FreecaleConfig.Config.Motor.Pid.Pid.I = i;
 }
 
 void MotorPidSetD(int16 d)
 {
 	ASSERT(d > MotorPidMinD && d < MotorPidMaxD);
-	MotorPid.D = d;
+	FreecaleConfig.Config.Motor.Pid.Pid.D = d;
 }
 

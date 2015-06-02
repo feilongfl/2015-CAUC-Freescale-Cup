@@ -1,7 +1,8 @@
 #include "fl_setting.h"
+#include "fl_config.h"
 
-struct Pid_s  *MotorPidAddress = &MotorPid;
-struct Pid_s  *SteerPidAddress = &SteerPid;
+struct Pid_s  *MotorPidAddress = (struct Pid_s *)&FreecaleConfig.Config.Motor.Pid.Pid.P;
+struct Pid_s  *SteerPidAddress = (struct Pid_s *)&FreecaleConfig.Config.Steer.Pid.Pid.P;
 struct MotorSpeed_s * MotorSpeedAddress = &Speed;
 
 
