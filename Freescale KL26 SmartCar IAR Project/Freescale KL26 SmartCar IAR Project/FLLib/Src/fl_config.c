@@ -19,6 +19,12 @@ ConfigErrorType_s ConfigInit()
 		}
 	}
 
+	if (FreecaleConfig.Config.CarState == CarFinish)
+	{
+		FreecaleConfig.Config.CarState = CarStandby;
+		ConfigWrite(&FreecaleConfig);
+	}
+
 	return ConfigAllGreen;
 }
 
@@ -116,6 +122,7 @@ adc0,1,2,3
 电机pid
 期望车速
 舵机pid
+车状态
 */
 ConfigErrorType_s ConfigFormat(FreeScaleCarConfig_s * config,char * str)
 {
