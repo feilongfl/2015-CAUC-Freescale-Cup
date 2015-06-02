@@ -15,7 +15,7 @@
 /*              宏定义                                               */
 /************************************************************************/
 //舵机常规属性
-#define SteerCenterDuty 1500//中间值
+#define SteerCenterDuty 1480//中间值
 #define SteerSafeTurnDuty 200//边缘值
 //舵机默认参数
 #define SteerDefaultDuty SteerCenterDuty//开机打角

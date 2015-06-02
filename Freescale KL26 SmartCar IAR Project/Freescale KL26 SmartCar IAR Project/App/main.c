@@ -74,8 +74,8 @@ void main()
 	}
 	
 #endif
-	uint16 spwm = 1500;
-	Speed.Expect = 1000;
+	uint16 spwm = SteerCenterDuty;
+	Speed.Expect = 0;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
