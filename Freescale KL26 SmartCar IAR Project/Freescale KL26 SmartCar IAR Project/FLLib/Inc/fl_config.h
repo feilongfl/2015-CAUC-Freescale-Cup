@@ -88,6 +88,8 @@ typedef struct
 	uint8 EepromConfigEnd;//default == 0
 }FreeScaleCarConfig_s;
 
+extern FreeScaleCarConfig_s FreecaleConfig;
+
 typedef enum 
 {
 	BackUp0,

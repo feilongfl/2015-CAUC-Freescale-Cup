@@ -1,4 +1,5 @@
 #include "fl_ADC.h"
+#include "fl_config.h"
 
 struct FLAdc_s FLAdcReadArr[FLAdcSaveBuffLength];//adc读取数据存储空间
 struct FLAdc_s FLAdcLast = {
@@ -62,7 +63,7 @@ struct FLAdc_s AdcNormalizing()//归一化
 {
 	struct FLAdc_s adcNormalizing = *AdcReadAll();
 	uint16 * adcNormalizingAddress = (uint16*)&adcNormalizing;
-	uint16 * adcMax = (uint16 *)&AdcMax;
+	uint16 * adcMax = (uint16 *)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	//uint16 * adcMin = (uint16 *)&AdcMin;
 	
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
@@ -99,7 +100,7 @@ struct FLAdc_s AdcNormalizingWithFitter()
 static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
-	uint16 * adcMaxAddress = (uint16*)&AdcMax;
+	uint16 * adcMaxAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 #define DEBUG_ADC
@@ -146,7 +147,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 static void AdcNormalizingExtremumClear()//清空归一化最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
-	uint16 * adcMaxAddress = (uint16*)&AdcMax;
+	uint16 * adcMaxAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
@@ -192,7 +193,7 @@ static void LCDAdcShowMaxOrMin(LcdAdcShowMaxOrMin_e lcdAdcType)
 	{
 	case LcdShowMax:
 		LCDPrint(LcdTitleLocal, LcdTitleLine, LcdAdcTitleNorMax);
-		LcdAdcShow(&AdcMax);
+		LcdAdcShow(&FreecaleConfig.Config.AdcNormalMax.Adc);
 		break;
 
 	/*case LcdShowMin:
