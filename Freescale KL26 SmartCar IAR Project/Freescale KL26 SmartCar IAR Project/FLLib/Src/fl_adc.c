@@ -14,8 +14,8 @@ struct FLAdc_s FLAdcLast = {
 uint8 LcdAdcNumLocation[FLAdcMax][2] = {
 	{ LcdLine2, LcdLocal1 },
 	{ LcdLine2, LcdLocal2 },
-	{ LcdLine2, LcdLocal3 },
-	{ LcdLine2, LcdLocal4 },
+	//{ LcdLine2, LcdLocal3 },
+	//{ LcdLine2, LcdLocal4 },
 	//{ LcdLine3, LcdLocal1 },
 };//Êý¾Ý×ø±ê
 
