@@ -25,6 +25,11 @@
  */
 TPM_MemMapPtr TPMN[3] = {TPM0_BASE_PTR, TPM1_BASE_PTR, TPM2_BASE_PTR}; //定义三个指针数组保存 TPMn_e 的地址
 
+#define PwmHigh			0//高电平有效
+#define PwmLow			1//低电平有效
+
+#define OurMotorPwmMode PwmLow
+
 
 void tpm_port_mux(TPMn_e tpmn, TPM_CHn_e ch)
 {
@@ -249,6 +254,9 @@ void tpm_pwm_init(TPMn_e tpmn, TPM_CHn_e ch, uint32 freq, uint32 duty)
         // EPWM的周期 ： MOD - CNTIN + 0x0001 == MOD - 0 + 1
         // 则 CnV = (MOD - 0 + 1) * 占空比 = (MOD - 0 + 1) * duty/ TPM_PRECISON
     case TPM0:
+#if (OurMotorPwmMode == PwmLow)
+		duty = TPM0_PRECISON - duty;
+#endif//(OurMotorPwmMode == PwmLow)
         cv = (duty * (mod - 0 + 1)) / TPM0_PRECISON;
         break;
 
@@ -332,6 +340,9 @@ void tpm_pwm_duty(TPMn_e tpmn, TPM_CHn_e ch, uint32 duty)
     switch(tpmn)
     {
     case TPM0:
+#if (OurMotorPwmMode == PwmLow)
+		duty = TPM0_PRECISON - duty;
+#endif//(OurMotorPwmMode == PwmLow)
         cv = (duty * (mod - 0 + 1)) / TPM0_PRECISON;
         break;
 
