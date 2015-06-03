@@ -35,7 +35,7 @@ ConfigErrorType_s ConfigWrite(FreeScaleCarConfig_s * config)
 	//while (config->EepromConfigEnd != ConfigEnd)
 	while (eepRomAddress <= ConfigLong)
 	{
-		EepromWrite(eepRomAddress++,*(((uint8*)config) + eepRomAddress));
+		EepromWrite(eepRomAddress++,(uint8)*(((uint8*)config) + eepRomAddress));
 	}
 	
 	return ConfigAllGreen;
@@ -48,7 +48,7 @@ ConfigErrorType_s ConfigRead(FreeScaleCarConfig_s * config)
 	//while ((config->EepromConfigEnd) != ConfigEnd)
 	while (eepRomAddress <= ConfigLong)
 	{
-		*((uint8*)config + eepRomAddress) = EepromRead(eepRomAddress++);
+		*((uint8*)config + eepRomAddress ++ ) = EepromRead(eepRomAddress);
 	}
 	if (config->WhoAmI != CONFIG_WHO_AM_I)
 	{
@@ -196,6 +196,12 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 ConfigErrorType_s ConfigSetDefaultInEeprom()
 {
 	FreeScaleCarConfig_s config;
+        uint8 * configAdd = (uint8 *)&config;
+        uint16 eepRomAddress = 0x0000;
+        while (eepRomAddress < ConfigLong)
+	{
+		*(configAdd +eepRomAddress++) = 0x00;
+	}
 
 	config.WhoAmI = CONFIG_WHO_AM_I;
 

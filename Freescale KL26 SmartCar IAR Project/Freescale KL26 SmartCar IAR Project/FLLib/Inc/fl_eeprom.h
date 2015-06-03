@@ -23,7 +23,7 @@
 #error eeprom type error!
 #endif
 
-#define DelayTime 3
+#define DelayTime 5
 
 #if 0
 #define Eeprom_init()			i2c_init(EEPROMI2C, EEPROMBaud)

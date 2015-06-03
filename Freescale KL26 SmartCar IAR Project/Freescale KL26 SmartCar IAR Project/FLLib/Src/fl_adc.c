@@ -234,9 +234,9 @@ void AdcNormalizingInit()
 			break;
 
 		case FLKeyAdcNorExit:
-#if UseEeprom
+//#if UseEeprom
 			ConfigWrite(&FreecaleConfig);
-#endif
+//#endif
 			exitFunc = TRUE;//ÍË³ö
 			break;
 

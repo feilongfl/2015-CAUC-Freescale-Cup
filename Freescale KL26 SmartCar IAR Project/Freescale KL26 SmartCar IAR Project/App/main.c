@@ -14,9 +14,9 @@
 /************************************************************************/
 /*                                 功能开关                             */
 /************************************************************************/
-#define UseAdcNormalizingInit		UseIt
+#define UseAdcNormalizingInit		DoNotUseIt
 #define UseEndLine					DoNotUseIt
-#define UsePowerOnDelay				DoNotUseIt
+#define UsePowerOnDelay				UseIt
 #define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
 
@@ -40,7 +40,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
-	//ConfigInit();
+	ConfigInit();
 	struct FLAdc_s adcn;
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
@@ -68,14 +68,14 @@ void main()
 #else//UseAdcNormalizingInit
 		LCDPrint(0, 0, "start!");
 		AdcInit();
-		extern struct FLAdc_s AdcMax;
-		uint16 * adcMaxAddress = (uint16*)&AdcMax;
-		//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
-		uint16 adcmaxarr[FLAdcMax] = { 71, 89, 83, 88 };
-		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
-		{
-			*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
-		}
+// 		extern struct FLAdc_s AdcMax;
+// 		uint16 * adcMaxAddress = (uint16*)&AdcMax;
+// 		//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
+// 		uint16 adcmaxarr[FLAdcMax] = { 71, 89, 83, 88 };
+// 		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+// 		{
+// 			*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
+// 		}
 		uint8 exitfunc = false;
 
 		while (!exitfunc)
@@ -193,40 +193,8 @@ void main()
 		NumShow(MotorPid.D, LcdLocal3, LcdLine3);
 		
 #endif
-		
-		/*printf("$%d,%d,%d,%d,%d,%d,%d,%d#", (uint8)turn, ABS(de),
-			SteerPid.P, SteerPid.I, SteerPid.D, 0
-			, pidatsteer, spwm);*/
-
-		//printf("$%d,%d,%d,0,0,0,0,0#", spwm, ABS(de), pidatsteer);
 		DELAY_MS(100);
-
-
-
-		//tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
-		//lptmr_time_start_us();                  //开始计时
-		//adcn = AdcNormalizing();
-		//adcn = AdcNormalizingWithFitter();
-		//uint32 t = lptmr_time_get_us();          //停止计时，获取计时时间
-		//DELAY_MS(100);
-		//printf("\n%d\n", t);
-
-		// 		printf("$%d,%d,%d,%d,0,0,0,0#",
-		// 			adcn.FLAdc0, adcn.FlAdc1, adcn.FLAdc2, adcn.FLAdc3);
-		//Hcsr04Read();
-		//CoderRead ();
-		//led_turn(LED3);
-
-		//LcdShowAllData(); 
-		//wdog_feed ();
-		//DELAY_MS(5000);
 	}
-
-
-
-
-
-
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
 	//Don't leave main////////////////////////////////////////////////////////
