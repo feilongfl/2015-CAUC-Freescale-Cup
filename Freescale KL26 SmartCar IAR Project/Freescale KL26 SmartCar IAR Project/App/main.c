@@ -14,7 +14,7 @@
 /************************************************************************/
 /*                                 功能开关                             */
 /************************************************************************/
-#define UseAdcNormalizingInit		DoNotUseIt
+#define UseAdcNormalizingInit		DoNotUseIt//开机归一化使能
 #define UseEndLine					DoNotUseIt
 #define UsePowerOnDelay				UseIt
 #define UseEeprom					DoNotUseIt
@@ -68,14 +68,6 @@ void main()
 #else//UseAdcNormalizingInit
 		LCDPrint(0, 0, "start!");
 		AdcInit();
-// 		extern struct FLAdc_s AdcMax;
-// 		uint16 * adcMaxAddress = (uint16*)&AdcMax;
-// 		//uint16 adcmaxarr[FLAdcMax] = { 116, 141, 137, 143 };
-// 		uint16 adcmaxarr[FLAdcMax] = { 71, 89, 83, 88 };
-// 		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
-// 		{
-// 			*(adcMaxAddress + loopTemp) = adcmaxarr[loopTemp];
-// 		}
 		uint8 exitfunc = false;
 
 		while (!exitfunc)
