@@ -113,6 +113,7 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange)
 static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 {
 	sum /= 5;//这个也算是滤波吧
+#if 0
 	if (sum < -SteerAngleProtectRange / 5)
 	{
 		return SteerDirectionRight;
@@ -125,6 +126,9 @@ static SteerTurnDirection_e steerDirectionSetBySum(int32 sum)
 	{
 		return SteerDirectionCenter;
 	}
+#else
+	return (sum > 0) ? SteerDirectionLeft : SteerDirectionRight;
+#endif
 }
 
 
@@ -149,7 +153,7 @@ SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s, FLAdcLost
 	switch (lostLineTemp)
 	{
 	case OnLine:
-		return steerDirectionSetBySum(sum);
+		return CarDirection = steerDirectionSetBySum(sum);
 		break;
 
 	case LostLine:

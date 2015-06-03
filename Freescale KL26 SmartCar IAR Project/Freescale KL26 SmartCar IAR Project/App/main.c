@@ -17,15 +17,21 @@
 #define UseAdcNormalizingInit		UseIt
 #define UseEndLine					DoNotUseIt
 #define UsePowerOnDelay				DoNotUseIt
+#define UseEeprom					DoNotUseIt
+#define UseLostRoadStop				UseIt
+
+#define SpeedForTest				500
 
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
 FLAdcLostLine_e IsLostLine = LostLine;
+uint8 lostRoad = 0;
 /************************************************************************/
 /*  外部引用函数                                                     */
 /************************************************************************/
 extern void UartHandler();
+
 /************************************************************************/
 /*                       主函数                                         */
 /************************************************************************/
@@ -108,7 +114,7 @@ void main()
 	
 
 	uint16 spwm = SteerCenterDuty;
-	Speed.Expect = 0;
+	Speed.Expect = SpeedForTest;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
@@ -124,34 +130,58 @@ void main()
 		NumShow(SteerPid.I, LcdLocal2, LcdLine3);
 		NumShow(SteerPid.D, LcdLocal3, LcdLine3);
 		
-		//if (IsLostLine == LostLine)
-		//{
-		//	led(LED0, LED_ON);
-		//	Speed.Expect = 0;
-		//}
-		//else//OnLine
-		//{
-		//	Speed.Expect = 1000;
+		if (IsLostLine == LostLine)
+		{
+			led(LED0, LED_ON);
+#if UseLostRoadStop
+			Speed.Expect = (lostRoad > 200) ? 0 : SpeedForTest;
+			lostRoad = (lostRoad > 200) ? 255 : lostRoad++;
+#endif//UseLostRoadStop
+			switch (turn)
+			{
+			case SteerDirectionLeft:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+				break;
 
-		//	led(LED0, LED_OFF);
+			case SteerDirectionRight:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+				break;
 
-		if (pidatsteer < -500)
-		{
-			led(LED2, LED_ON);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+			case SteerDirectionCenter:
+                led(LED2, LED_ON);
+				//直角
+				break;
+
+			default:
+				break;
+			}
 		}
-		else if (pidatsteer > 500)
+		else//OnLine
 		{
-			led(LED2, LED_ON);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+#if UseLostRoadStop
+			lostRoad = 0;
+			Speed.Expect = SpeedForTest;
+#endif//UseLostRoadStop
+
+			led(LED0, LED_OFF);
+
+			if (pidatsteer < -500)
+			{
+				led(LED2, LED_ON);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+			}
+			else if (pidatsteer > 500)
+			{
+				led(LED2, LED_ON);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+			}
+			else
+			{
+				spwm = SteerCenterDuty - pidatsteer;
+				led(LED2, LED_OFF);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
+			}
 		}
-		else
-		{
-			spwm = SteerCenterDuty - pidatsteer;
-			led(LED2, LED_OFF);
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
-		}
-		//}
 #else
 
 		
