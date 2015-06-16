@@ -12,8 +12,8 @@ typedef enum
 {
 	FLAdc0,
 	FlAdc1,
-	//FLAdc2,
-	//FLAdc3,
+	FLAdc2,
+	FLAdc3,
 	//FLAdc4,
 
 	FLAdcMax,
