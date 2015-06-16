@@ -15,9 +15,9 @@
 #define MotorPidMinP  0//电机最小P
 #define MotorPidMinI  0//电机最小I
 #define MotorPidMinD  0//电机最小D
-#define MotorPidMaxP  1000//电机最大P
-#define MotorPidMaxI  1000//电机最大I
-#define MotorPidMaxD  1000//电机最大D
+#define MotorPidMaxP  65535//电机最大P
+#define MotorPidMaxI  65535//电机最大I
+#define MotorPidMaxD  65535//电机最大D
 
 extern struct Pid_s MotorPid;
 

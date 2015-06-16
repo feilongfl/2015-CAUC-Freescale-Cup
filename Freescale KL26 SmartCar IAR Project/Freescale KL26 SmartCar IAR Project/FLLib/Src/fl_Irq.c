@@ -46,6 +46,7 @@ static void pidCmdAnalyze(char * cmd, uint8 cmdLen,SettingErr_e (*func)(Pid_e pi
 		printf("error\n");
 		break;
 	}
+	printf("%c:%d\n", cmd[0], cData);
 }
 
 static void uartCmdAnalyze(char * cmd, int8 cmdLen)
@@ -68,6 +69,7 @@ static void uartCmdAnalyze(char * cmd, int8 cmdLen)
 
 	case 'C'://³µËÙ
 		Speed.Expect = RANGE(getNumFromCharArr(cmd + 1, cmdLen - 1), MotorSpeedMax,0);
+		printf("Speed=%d\n", Speed.Expect);
 		break;
 
 	case 'T'://Í£
