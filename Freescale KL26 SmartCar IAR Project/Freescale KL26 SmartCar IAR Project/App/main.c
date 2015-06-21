@@ -17,7 +17,7 @@
 #define UseAdcNormalizingInit		DoNotUseIt//开机归一化使能
 #define UseEndLine					DoNotUseIt
 #define UsePowerOnDelay				UseIt
-#define UseEeprom					UseIt
+#define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
 
 #define SpeedForTest				500

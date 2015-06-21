@@ -25,7 +25,7 @@ void MotorCtrl()
 	{
 		mpwm = 0;
 	}
-	//printf("$%d,%d,%d,0,0,0,0,0#",Speed.Acturally,Speed.Expect,mpwm);
+	printf("$%d,%d,%d,0,0,0,0,0#",Speed.Acturally,Speed.Expect,mpwm);
 	tpm_pwm_duty(TpmMotor, TpmMotorCh0, (uint32)mpwm);
 
 }
