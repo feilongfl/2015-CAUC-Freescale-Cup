@@ -82,6 +82,7 @@ static void SettingMenuQuit();
 void SettingMenuInit()
 {
 	//LCD_init();//已经初始化过了
+	tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);//舵机归中
 	LcdShowMenu(MenuMain, (MenuChoice_e)0);//选中第一个
 	MenuMainOperate();
 }
