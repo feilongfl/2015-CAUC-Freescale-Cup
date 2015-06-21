@@ -24,10 +24,12 @@ FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 //给个默认值防止出现问题
 
 ADCn_Ch_e FLAdc_Ptxn[FLAdcMax] = {
+	ADC0_DM1,//pte17
 	ADC0_DP2,//pte18
 	ADC0_DM2,//pte19
-	ADC0_DM0,//pte21
-	ADC0_DP3,//pte22
+	ADC0_DP0,//pte20
+	//ADC0_DM0,//pte21
+	//ADC0_DP3,//pte22
 
 	//ADC0_DP0,
 };//adc通道数组
