@@ -171,8 +171,8 @@ void main()
 			{
 				spwm = SteerCenterDuty - pidatsteer;
 				led(LED2, LED_OFF);
-				//tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
+				//tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
 			}
 		}
 #else
