@@ -20,7 +20,7 @@
 #define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
 
-#define SpeedForTest				500
+#define SpeedForTest				1000
 
 /************************************************************************/
 /* 全局变量或结构体                                                     */
@@ -171,7 +171,31 @@ void main()
 			{
 				spwm = SteerCenterDuty - pidatsteer;
 				led(LED2, LED_OFF);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
+				//tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 300) * 300 + 100);
+
+
+				if (spwm < SteerCenterDuty - 400)
+				{
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, 1100);
+				}
+				else if (spwm >SteerCenterDuty + 400)
+				{
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, 1900);
+				}
+				else if (spwm <SteerCenterDuty - 200)
+				{
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, 1400);
+				}
+				else if (spwm < SteerCenterDuty + 200)
+				{
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, 1600);
+				}
+				else
+				{
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, 1500);
+				}
+
+
 			}
 		}
 #else

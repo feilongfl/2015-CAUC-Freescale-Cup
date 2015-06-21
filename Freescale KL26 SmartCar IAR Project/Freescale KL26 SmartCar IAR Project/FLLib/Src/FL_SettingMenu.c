@@ -673,9 +673,14 @@ static void MenuMainOperate()
 				break;
 
 			case MenuMainWrite:
+				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"RUNNING...     ");
 				if (ConfigSetDefaultInEeprom() != ConfigAllGreen)
 				{
 					LcdErrShow(SettingErrFail);
+				}
+				else
+				{
+					LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"DONE.      ");
 				}
 				break;
 

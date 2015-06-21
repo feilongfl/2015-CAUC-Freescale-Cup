@@ -106,7 +106,6 @@ void LcdCls(void);
 /* 显示数字，宽度不得超过三个字符                                       */
 /************************************************************************/
 void NumShow(uint16 num, uint8 x, uint8 y);
-void NumShow16(uint16 num, uint8 x, uint8 y);
 /****输出汉字和字符混合字符串******/
 void LCDPrint(byte x, byte y, byte ch[]);
 void LCDPrintInverse(byte x, byte y, byte ch[]);//反色
