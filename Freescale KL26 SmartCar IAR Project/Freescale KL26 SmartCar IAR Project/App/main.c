@@ -25,7 +25,6 @@
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
-FLAdcLostLine_e IsLostLine = LostLine;
 uint8 lostRoad = 0;
 /************************************************************************/
 /*  外部引用函数                                                     */
@@ -33,10 +32,118 @@ uint8 lostRoad = 0;
 extern void UartHandler();
 
 
+//////////////////////////////////////////////////////////////////////////
+//舵机模糊控制算法
+//////////////////////////////////////////////////////////////////////////
+/************************************************************************/
+/*语言变量指表*/
+//电感偏差变化范围max = 63
+//丢线前偏差最大值max=44
+//
+//模糊化控制偏差范围-6~6
+#define SteerOffSetSum 13
+//参考其他方案和以前分档思想，暂定7档
+#define SteerGears 7
+//偏差语言变量值表
+//整型化所有数据所有数字乘8
+char SteerCRI[SteerGears][SteerOffSetSum] = {
+	8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
+};
+//舵机pwm数组
+int16 SteerPwmArr[SteerGears] = {
+#if 1
+	1000, 1200, 1400, 1500, 1600, 1800, 2000
+#elif 0
+	- 550, -300, -100, 0, 100, 300, 500
+#else
+	1000, 1167, 1333, 1500, 1667, 1833, 2000
+#endif
+};
+/************************************************************************/
+//offset:偏差
+void VagueCtrl(int16 offset)
+{
+	offset = RANGE(offset, 59, -59) + 60;//限幅+提升原点
+	
+	offset /= 10;//偏差模糊化
+	uint16 sum = 0;
+	uint16 pwm = 0;
+
+	if (!RANGEQurr(offset, 8, 5))//不直
+	{
+		for (uint8 i = 0; i < SteerGears;i++)//求分母
+		{
+			sum += SteerCRI[i][offset];
+			sum += SteerCRI[i][offset + 1];
+		}
+
+		for (uint8 i = 0; i < SteerGears; i++)//求pwm
+		{
+			pwm += SteerPwmArr[i] * (SteerCRI[i][offset] + SteerCRI[i][offset + 1]) / sum;
+		}
+	}
+	else//差不多挺直的
+	{
+		pwm = SteerCenterDuty;
+	}
+	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
+}
+//////////////////////////////////////////////////////////////////////////
 
 void SteerCtrl()
 {
+	struct FLAdc_s adcn;
+	FLAdcLostLine_e IsLostLine = LostLine;
 
+	adcn = AdcNormalizing();//获取归一化电感值
+	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
+	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+	//int32 pidatsteer = SteerCtrlUsePid(de);
+	NumShow(ABS(de), 0, 0);
+
+	if (IsLostLine == LostLine)//丢线
+	{
+		led(LED0, LED_ON);
+#if UseLostRoadStop
+		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
+		lostRoad = (lostRoad > 10) ? 255 : lostRoad++;
+#endif//UseLostRoadStop
+		switch (turn)
+		{
+		case SteerDirectionLeft:
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+			break;
+
+		case SteerDirectionRight:
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+			break;
+
+		case SteerDirectionCenter:
+			led(LED2, LED_ON);
+			//直角
+			break;
+
+		default:
+			break;
+		}
+	}
+	else//OnLine
+	{
+#if UseLostRoadStop
+		lostRoad = 0;
+		Speed.Expect = SpeedForTest;
+#endif//UseLostRoadStop
+		VagueCtrl(de);
+		led(LED0, LED_OFF);
+
+		
+	}
 }
 
 
@@ -50,7 +157,7 @@ void main()
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
 	ConfigInit();
-	struct FLAdc_s adcn;
+	
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
 	//////////////////////////////////////////////////////////////////////////
@@ -120,70 +227,10 @@ void main()
 	//程序循环
 	while (1)
 	{
+		SteerCtrl();
+
 #if 1
-		adcn = AdcNormalizing();
-		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn,&IsLostLine);
-		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-		int32 pidatsteer = SteerCtrlUsePid(de);
-		NumShow(ABS(de), 0, 0);
-
-		NumShow(SteerPid.P, LcdLocal1, LcdLine3);
-		NumShow(SteerPid.I, LcdLocal2, LcdLine3);
-		NumShow(SteerPid.D, LcdLocal3, LcdLine3);
 		
-		if (IsLostLine == LostLine)
-		{
-			led(LED0, LED_ON);
-#if UseLostRoadStop
-			Speed.Expect = (lostRoad > 200) ? 0 : SpeedForTest;
-			lostRoad = (lostRoad > 200) ? 255 : lostRoad++;
-#endif//UseLostRoadStop
-			switch (turn)
-			{
-			case SteerDirectionLeft:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
-				break;
-
-			case SteerDirectionRight:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
-				break;
-
-			case SteerDirectionCenter:
-                led(LED2, LED_ON);
-				//直角
-				break;
-
-			default:
-				break;
-			}
-		}
-		else//OnLine
-		{
-#if UseLostRoadStop
-			lostRoad = 0;
-			Speed.Expect = SpeedForTest;
-#endif//UseLostRoadStop
-
-			led(LED0, LED_OFF);
-
-			if (pidatsteer < -500)
-			{
-				led(LED2, LED_ON);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
-			}
-			else if (pidatsteer > 500)
-			{
-				led(LED2, LED_ON);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
-			}
-			else
-			{
-				spwm = SteerCenterDuty - pidatsteer;
-				led(LED2, LED_OFF);
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, (int16)(spwm / 200) * 200 + 100);
-				//tpm_pwm_duty(TpmSteer, TpmSteerCh, spwm);
-			}
-		}
 #else
 
 		
