@@ -8,12 +8,12 @@ UartCmdAvailable uartCmdAvailable = NotAvailable;
 
 static uint16 e10(int16 x)
 {
-  uint32 renum = 1;
-  while(x--)
-  {
-    renum *= 10;
-  }
-  return renum;
+	uint32 renum = 1;
+	while (x--)
+	{
+		renum *= 10;
+	}
+	return renum;
 }
 
 static uint16 getNumFromCharArr(char * str, uint8 len)
@@ -25,7 +25,7 @@ static uint16 getNumFromCharArr(char * str, uint8 len)
 	}
 }
 
-static void pidCmdAnalyze(char * cmd, uint8 cmdLen,SettingErr_e (*func)(Pid_e pidType,uint16 exData))
+static void pidCmdAnalyze(char * cmd, uint8 cmdLen, SettingErr_e(*func)(Pid_e pidType, uint16 exData))
 {
 	uint16 cData = getNumFromCharArr(cmd, cmdLen);
 	switch (cmd[0])
@@ -41,11 +41,12 @@ static void pidCmdAnalyze(char * cmd, uint8 cmdLen,SettingErr_e (*func)(Pid_e pi
 	case 'D':
 		func(Kd, cData);
 		break;
-		
+
 	default:
 		printf("error\n");
 		break;
 	}
+	printf("%c:%d\n", cmd[0], cData);
 }
 
 static void uartCmdAnalyze(char * cmd, int8 cmdLen)
@@ -67,7 +68,8 @@ static void uartCmdAnalyze(char * cmd, int8 cmdLen)
 		break;
 
 	case 'C'://车速
-		Speed.Expect = RANGE(getNumFromCharArr(cmd + 1, cmdLen - 1), MotorSpeedMax,0);
+		Speed.Expect = RANGE(getNumFromCharArr(cmd + 1, cmdLen - 1), MotorSpeedMax, 0);
+		printf("Speed=%d\n", Speed.Expect);
 		break;
 
 	case 'T'://停
@@ -90,10 +92,10 @@ void UartHandler()
 	uint32 num;
 	uint16 pidtemp;
 	num = uart_querystr(UART0, str, 100);
-	
+
 	if (num)
 	{
-		for (uint8 local = 0; local < num;local++)
+		for (uint8 local = 0; local < num; local++)
 		{
 			if (str[local] == '$')
 			{
@@ -104,7 +106,7 @@ void UartHandler()
 			{
 				uartCmdAvailable = Available;
 			}
-			
+
 			if (uartCmdLocal > UartCmdLostEndLen)
 			{
 				uartCmdAvailable = NotAvailable;
@@ -131,7 +133,7 @@ void UartHandler()
 
 void UartInit()
 {
-	for (uint8 i = 0; i < 100;i++)
+	for (uint8 i = 0; i < 100; i++)
 	{
 		uartCmdBuff[i] = '\0';
 	}
@@ -166,14 +168,14 @@ void PIT_IRQHandler(void)
 	//TpmCountRead();
 	Speed.Acturally = tpm_pulse_get(TPM2);
 	//Speed.Acturally = (tpm_pulse_get(TPM2) * WheelGirth) / (CordLineInOneCircle * CoderTimeCircle);                         //保存脉冲计数器计算值
-	
-    MotorCtrl();
+
+	MotorCtrl();
 	extern uint32 mpwm;
 	//printf("$%d,1000,%d,0,0,0,0,0#", Speed.Acturally, mpwm);
 	tpm_pulse_clean(TPM2);                                  //清空脉冲计数器计算值（开始新的计数）
 	led_turn(LED3);
 
-	
+
 
 	PIT_Flag_Clear(PIT0);
 }
