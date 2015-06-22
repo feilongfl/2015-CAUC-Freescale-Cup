@@ -32,69 +32,6 @@ uint8 lostRoad = 0;
 extern void UartHandler();
 
 
-//////////////////////////////////////////////////////////////////////////
-//舵机模糊控制算法
-//////////////////////////////////////////////////////////////////////////
-/************************************************************************/
-/*语言变量指表*/
-//电感偏差变化范围max = 63
-//丢线前偏差最大值max=44
-//
-//模糊化控制偏差范围-6~6
-#define SteerOffSetSum 13
-//参考其他方案和以前分档思想，暂定7档
-#define SteerGears 7
-//偏差语言变量值表
-//整型化所有数据所有数字乘8
-char SteerCRI[SteerGears][SteerOffSetSum] = {
-	8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
-};
-//舵机pwm数组
-int16 SteerPwmArr[SteerGears] = {
-#if 1
-	1000, 1200, 1400, 1500, 1600, 1800, 2000
-#elif 0
-	- 550, -300, -100, 0, 100, 300, 500
-#else
-	1000, 1167, 1333, 1500, 1667, 1833, 2000
-#endif
-};
-/************************************************************************/
-//offset:偏差
-void VagueCtrl(int16 offset)
-{
-	offset = RANGE(offset, 59, -59) + 60;//限幅+提升原点
-	
-	offset /= 10;//偏差模糊化
-	uint16 sum = 0;
-	uint16 pwm = 0;
-
-	if (!RANGEQurr(offset, 8, 5))//不直
-	{
-		for (uint8 i = 0; i < SteerGears;i++)//求分母
-		{
-			sum += SteerCRI[i][offset];
-			sum += SteerCRI[i][offset + 1];
-		}
-
-		for (uint8 i = 0; i < SteerGears; i++)//求pwm
-		{
-			pwm += SteerPwmArr[i] * (SteerCRI[i][offset] + SteerCRI[i][offset + 1]) / sum;
-		}
-	}
-	else//差不多挺直的
-	{
-		pwm = SteerCenterDuty;
-	}
-	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
-}
-//////////////////////////////////////////////////////////////////////////
 
 void SteerCtrl()
 {
@@ -112,7 +49,7 @@ void SteerCtrl()
 		led(LED0, LED_ON);
 #if UseLostRoadStop
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
-		lostRoad = (lostRoad > 10) ? 255 : lostRoad++;
+		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 #endif//UseLostRoadStop
 		switch (turn)
 		{
@@ -139,7 +76,7 @@ void SteerCtrl()
 		lostRoad = 0;
 		Speed.Expect = SpeedForTest;
 #endif//UseLostRoadStop
-		VagueCtrl(de);
+		SteerVagueCtrl(de);
 		led(LED0, LED_OFF);
 
 		

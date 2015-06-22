@@ -16,6 +16,7 @@ int32 mpwm = 0;
 
 void MotorCtrl()
 {
+  uint8 a = MotorCtrlUsePid();
 	mpwm += MotorCtrlUsePid() / 100;
 	if (mpwm > 10000)
 	{
