@@ -26,7 +26,11 @@ void MotorCtrl()
 	{
 		mpwm = 0;
 	}
-	printf("$%d,%d,%d,0,0,0,0,0#",Speed.Acturally,Speed.Expect,mpwm);
+	printf("$%d,%d,%d,%d,%d,%d,0,0#",Speed.Acturally,Speed.Expect,mpwm,
+		FreecaleConfig.Config.Motor.Pid.Pid.P,
+		FreecaleConfig.Config.Motor.Pid.Pid.I,
+		FreecaleConfig.Config.Motor.Pid.Pid.D
+		);
 	tpm_pwm_duty(TpmMotor, TpmMotorCh0, (uint32)mpwm);
 
 }

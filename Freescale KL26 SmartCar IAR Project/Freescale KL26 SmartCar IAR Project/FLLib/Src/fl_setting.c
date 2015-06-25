@@ -98,15 +98,15 @@ SettingErr_e MotorPidSet(Pid_e pidType, uint16 expectNum)//修改电机pid参数
 	switch (pidType)
 	{
 	case Kp:
-		return DataCheckAndSet((uint16 *)&(MotorPidAddress->P), expectNum, MotorPidMaxP, MotorPidMinP);
+		return DataCheckAndSet((uint16 *)&(FreecaleConfig.Config.Motor.Pid.Pid.P), expectNum, MotorPidMaxP, MotorPidMinP);
 		break;
 
 	case Ki:
-		return DataCheckAndSet((uint16 *)&(MotorPidAddress->I), expectNum, MotorPidMaxI, MotorPidMinI);
+		return DataCheckAndSet((uint16 *)&(FreecaleConfig.Config.Motor.Pid.Pid.I), expectNum, MotorPidMaxI, MotorPidMinI);
 		break;
 
 	case Kd:
-		return DataCheckAndSet((uint16 *)&(MotorPidAddress->D), expectNum, MotorPidMaxD, MotorPidMinD);
+		return DataCheckAndSet((uint16 *)&(FreecaleConfig.Config.Motor.Pid.Pid.D), expectNum, MotorPidMaxD, MotorPidMinD);
 		break;
 
 	default:

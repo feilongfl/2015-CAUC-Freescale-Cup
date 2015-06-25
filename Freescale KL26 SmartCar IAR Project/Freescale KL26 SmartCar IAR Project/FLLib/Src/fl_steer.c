@@ -213,6 +213,16 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 #define SteerOffSetSum 13
 //参考其他方案和以前分档思想，暂定7档
 #define SteerGears 7
+#warning 论域在不同环境下是不同的，开机时需要扫描，进行类似归一化处理
+//偏差论域
+#define OffSetMax	59
+//原点提升值
+#define ZeroPointUp (OffSetMax + 1)
+//偏差变化率论域
+#define ErrorChangeSpeedMax	3
+
+//偏差变化率
+int8 LastError = 0;
 //偏差语言变量值表
 //整型化所有数据所有数字乘8
 char SteerCRI[SteerGears][SteerOffSetSum] = {
@@ -223,6 +233,16 @@ char SteerCRI[SteerGears][SteerOffSetSum] = {
 	0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
+};
+//方向模糊控制表
+char SteerDirection[7][ErrorChangeSpeedMax * 2 + 1] = {
+	-3, -3, -3, -2, -2, 0, 0,
+	-3, -3, -3, -2, -2, 0, 0,
+	-3, -2, -2, -1, 0, 1, 2,
+	-2, -2, -1, 0, 1, 2, 2,
+	-1, -1, 0, 2, 2, 2, 3,
+	0, 0, 0, 2, 3, 3, 3,
+	0, 1, 3, 3, 3, 3, 3
 };
 //舵机pwm数组
 int16 SteerPwmArr[SteerGears] = {
@@ -238,14 +258,22 @@ int16 SteerPwmArr[SteerGears] = {
 //offset:偏差
 void SteerVagueCtrl(int16 offset)
 {
-	offset = RANGE(offset, 59, -59) + 60;//限幅+提升原点
-
-	offset /= 10;//偏差模糊化
 	uint16 sum = 0;
 	uint16 pwm = 0;
+	int8 errorChanngeSpeed = 0;
+
+	offset = RANGE(offset, OffSetMax, -OffSetMax) + ZeroPointUp;//限幅+提升原点
+
+	offset /= 10;//偏差模糊化
+	errorChanngeSpeed = RANGE(offset - LastError, ErrorChangeSpeedMax, -ErrorChangeSpeedMax) + ErrorChangeSpeedMax;//偏差变化率，限幅在论域内，提升原点
+	LastError = offset;//保存偏差
+	//offset = SteerDirection[offset][errorChanngeSpeed];
+
+	printf("offset:%d\n", offset);
 
 	if (!RANGEQurr(offset, 8, 5))//不直
 	{
+		//重心法解模糊
 		for (uint8 i = 0; i < SteerGears; i++)//求分母
 		{
 			sum += SteerCRI[i][offset];
@@ -256,11 +284,14 @@ void SteerVagueCtrl(int16 offset)
 		{
 			pwm += SteerPwmArr[i] * (SteerCRI[i][offset] + SteerCRI[i][offset + 1]) / sum;
 		}
+		//Speed.Expect = 500;//悠着点
 	}
-	else//差不多挺直的
+	else//差不多挺直的，冲啊！！！！！
 	{
 		pwm = SteerCenterDuty;
+		//Speed.Expect = 1000;//飞吧
 	}
+	//pwm = RANGE(pwm, SteerPwmArr[SteerGears - 1], SteerPwmArr[0]);//限制一下
 	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
 }
 //////////////////////////////////////////////////////////////////////////
