@@ -51,7 +51,10 @@ void SteerCtrl()
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 
-		turn = (adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight;
+		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
+		{
+			turn = (adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight;
+		}
 #endif//UseLostRoadStop
 		switch (turn)
 		{
