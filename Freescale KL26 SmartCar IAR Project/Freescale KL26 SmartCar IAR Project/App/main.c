@@ -20,7 +20,7 @@
 #define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
 
-#define SpeedForTest				500
+#define SpeedForTest				700
 
 /************************************************************************/
 /* 全局变量或结构体                                                     */
@@ -50,6 +50,8 @@ void SteerCtrl()
 #if UseLostRoadStop
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
+
+		turn = (adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight;
 #endif//UseLostRoadStop
 		switch (turn)
 		{
