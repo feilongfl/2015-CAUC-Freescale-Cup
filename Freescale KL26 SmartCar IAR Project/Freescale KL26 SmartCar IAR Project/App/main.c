@@ -235,27 +235,28 @@ void main()
 
 		//////////////////////////////////////////////////////////////////////////
 /*  ¾àÀë¿ØËÙ                                      */
+		Speed.Expect = SpeedForTest;
 #if UseDistanceChangeSpeed
 		#warning please change these num
 		if (CarDistance < 100)//only for test,don't forget change this num
 		{
 #if Car == Car1
-			Speed.Expect = SpeedForTest + 100;//num is for test,car1
+			Speed.Expect += 100;//num is for test,car1
 #elif Car == Car2
-			Speed.Expect = SpeedForTest - 100;//num is for test,car2
+			Speed.Expect -= 100;//num is for test,car2
 #endif
 		}
 		else if (CarDistance > 200)//num is for test
 		{
 #if Car == Car1
-			Speed.Expect = SpeedForTest - 100;//num is for test,car1
+			Speed.Expect -= 100;//num is for test,car1
 #elif Car == Car2
-			Speed.Expect = SpeedForTest + 100;//num is for test,car2
+			Speed.Expect += 100;//num is for test,car2
 #endif
 		}
 		else
 		{
-			Speed.Expect = SpeedForTest;
+			//Speed.Expect = SpeedForTest;
 		}
 
 #endif UseDistanceChangeSpeed
