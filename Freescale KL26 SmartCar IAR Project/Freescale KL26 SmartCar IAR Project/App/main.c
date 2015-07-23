@@ -22,6 +22,8 @@
 
 #define SpeedForTest				700
 
+#define UseDistanceChangeSpeed		UseIt
+
 #define Car1						1
 #define Car2						2
 #define Car							Car2
@@ -241,6 +243,31 @@ void main()
 #else
 #error your car select error
 #endif//Car Switch 
+
+#if UseDistanceChangeSpeed
+#warning please change these num
+		if (CarDistance < 100)//only for test,don't forget change this num
+		{
+#if Car == Car1
+			Speed.Expect = SpeedForTest + 100;//num is for test,car1
+#elif Car == Car2
+			Speed.Expect = SpeedForTest - 100;//num is for test,car2
+#endif
+		}
+		else if (CarDistance > 200)//num is for test
+		{
+#if Car == Car1
+			Speed.Expect = SpeedForTest - 100;//num is for test,car1
+#elif Car == Car2
+			Speed.Expect = SpeedForTest + 100;//num is for test,car2
+#endif
+		}
+		else
+		{
+			Speed.Expect = SpeedForTest;
+		}
+
+#endif UseDistanceChangeSpeed
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
