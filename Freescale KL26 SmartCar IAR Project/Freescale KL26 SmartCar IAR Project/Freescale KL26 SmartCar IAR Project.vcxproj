@@ -75,6 +75,7 @@
     <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V2.docx" />
     <None Include="Lib\CMSIS\iar_cortexM0plusl_math.a" />
     <None Include="VCAN_KL.eww" />
+    <None Include="模糊算法在智能车控制中的应用.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\Inc\include.h" />

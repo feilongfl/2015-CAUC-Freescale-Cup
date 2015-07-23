@@ -219,10 +219,29 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 //原点提升值
 #define ZeroPointUp (OffSetMax + 1)
 //偏差变化率论域
-#define ErrorChangeSpeedMax	3
+#define ErrorChangeSpeedMax	6
 
 //偏差变化率
 int8 LastError = 0;
+
+//偏差变化量计算表
+uint8 SteerCtrlQurr[SteerOffSetSum][2 * ErrorChangeSpeedMax + 1] =
+{
+	6, 5, 6, 5, 6, 6, 4, 4, 3, 2, 1, 1, 0,
+	6, 5, 5, 5, 5, 5, 5, 4, 3, 3, 2, 1, 0,
+	6, 5, 6, 5, 6, 5, 5, 4, 4, 2, 1, 0, 0,
+	5, 5, 5, 5, 5, 5, 4, 4, 3, 3, 1, 0, -1,
+	5, 4, 4, 3, 3, 3, 2, 0, 0, -2, -2, -3, -3,
+	4, 4, 4, 4, 3, 3, 0, 0, -2, -3, -3, -4, -4,
+	4, 4, 3, 3, 3, 0, 0, 0, -1, -3, -3, -3, -5,
+	3, 3, 3, 1, 0, 0, 0, -3, -3, -4, -4, -5, -5,
+	3, 2, 2, 2, 0, 0, -2, -3, -3, -3, -4, -5, -5,
+	2, 1, 0, 0, -1, -3, -3, -4, -4, -4, -5, -5, -5,
+	0, 0, 0, -2, -3, -3, -4, -4, -5, -5, -5, -6, -6,
+	0, 0, -1, -3, -3, -3, -5, -5, -5, -5, -5, -6, -6,
+	0, 0, -2, -3, -3, -4, -4, -5, -5, -6, -6, -6, -6
+};
+
 //偏差语言变量值表
 //整型化所有数据所有数字乘8
 char SteerCRI[SteerGears][SteerOffSetSum] = {
@@ -233,16 +252,6 @@ char SteerCRI[SteerGears][SteerOffSetSum] = {
 	0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
-};
-//方向模糊控制表
-char SteerDirection[7][ErrorChangeSpeedMax * 2 + 1] = {
-	-3, -3, -3, -2, -2, 0, 0,
-	-3, -3, -3, -2, -2, 0, 0,
-	-3, -2, -2, -1, 0, 1, 2,
-	-2, -2, -1, 0, 1, 2, 2,
-	-1, -1, 0, 2, 2, 2, 3,
-	0, 0, 0, 2, 3, 3, 3,
-	0, 1, 3, 3, 3, 3, 3
 };
 //舵机pwm数组
 int16 SteerPwmArr[SteerGears] = {
@@ -261,6 +270,7 @@ void SteerVagueCtrl(int16 offset)
 	uint16 sum = 0;
 	uint16 pwm = 0;
 	int8 errorChanngeSpeed = 0;
+	uint8 errQurr = 0;
 
 	offset = RANGE(offset, OffSetMax, -OffSetMax) + ZeroPointUp;//限幅+提升原点
 
@@ -273,6 +283,8 @@ void SteerVagueCtrl(int16 offset)
 
 	if (!RANGEQurr(offset, 8, 5))//不直
 	{
+		//利用error and errorchange计算控制量
+		errQurr = SteerCtrlQurr[offset][errorChanngeSpeed] + 6;//查表，提升原点
 		//重心法解模糊
 		for (uint8 i = 0; i < SteerGears; i++)//求分母
 		{

@@ -70,6 +70,9 @@
     <None Include="design\键盘\我们的飞思卡尔小车键盘使用说明书V2.docx">
       <Filter>说明文档\键盘</Filter>
     </None>
+    <None Include="模糊算法在智能车控制中的应用.pdf">
+      <Filter>说明文档</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board\Inc\VCAN_ASCII.h">
