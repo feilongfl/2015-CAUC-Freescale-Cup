@@ -130,6 +130,57 @@ void SteerCtrl()
 	}
 }
 
+/************************************************************************/
+/* 控速                                                               */
+/************************************************************************/
+void SpeedCtrl()
+{
+//////////////////////////////////////////////////////////////////////////
+/*  距离控速                                      */
+	Speed.Expect = SpeedForTest;
+#if UseDistanceChangeSpeed
+	#warning please change these num
+	if (CarDistance < 100)//only for test,don't forget change this num
+	{
+#if Car == Car1
+		Speed.Expect += 100;//num is for test,car1
+#elif Car == Car2
+		Speed.Expect -= 100;//num is for test,car2
+#endif
+	}
+	else if (CarDistance > 200)//num is for test
+	{
+#if Car == Car1
+		Speed.Expect -= 100;//num is for test,car1
+#elif Car == Car2
+		Speed.Expect += 100;//num is for test,car2
+#endif
+	}
+	else
+	{
+		//Speed.Expect = SpeedForTest;
+	}
+
+#endif //UseDistanceChangeSpeed
+
+/*mpu6050 坡道控速*/
+#if UseMpu6050ChangeSpeed
+	mpu6050Data = Mpu6050Read();
+	#warning please test these line
+	if (mpu6050Data.accel.z > 10)
+	{
+		Speed.Expect += 100;
+	}
+	else if (mpu6050Data.accel.z < 10)
+	{
+		Speed.Expect -= 100;
+	}
+	else
+	{
+
+	}
+#endif //UseMpu6050ChangeSpeed
+}
 
 
 /************************************************************************/
@@ -237,51 +288,7 @@ void main()
 #endif
 
 
-		//////////////////////////////////////////////////////////////////////////
-/*  距离控速                                      */
-		Speed.Expect = SpeedForTest;
-#if UseDistanceChangeSpeed
-		#warning please change these num
-		if (CarDistance < 100)//only for test,don't forget change this num
-		{
-#if Car == Car1
-			Speed.Expect += 100;//num is for test,car1
-#elif Car == Car2
-			Speed.Expect -= 100;//num is for test,car2
-#endif
-		}
-		else if (CarDistance > 200)//num is for test
-		{
-#if Car == Car1
-			Speed.Expect -= 100;//num is for test,car1
-#elif Car == Car2
-			Speed.Expect += 100;//num is for test,car2
-#endif
-		}
-		else
-		{
-			//Speed.Expect = SpeedForTest;
-		}
-
-#endif //UseDistanceChangeSpeed
-
-/*mpu6050 坡道控速*/
-#if UseMpu6050ChangeSpeed
-		mpu6050Data = Mpu6050Read();
-#warning please test these line
-		if (mpu6050Data.accel.z > 10)
-		{
-			Speed.Expect += 100;
-		}
-		else if (mpu6050Data.accel.z < 10)
-		{
-			Speed.Expect -= 100;
-		}
-		else
-		{
-
-		}
-#endif //UseMpu6050ChangeSpeed
+		SpeedCtrl();
 
 
 		//////////////////////////////////////////////////////////////////////////
