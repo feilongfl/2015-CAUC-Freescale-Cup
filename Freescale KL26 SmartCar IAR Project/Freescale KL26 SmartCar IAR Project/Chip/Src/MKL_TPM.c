@@ -28,7 +28,7 @@ TPM_MemMapPtr TPMN[3] = {TPM0_BASE_PTR, TPM1_BASE_PTR, TPM2_BASE_PTR}; //∂®“Â»˝∏
 #define PwmHigh			0//∏ﬂµÁ∆Ω”––ß
 #define PwmLow			1//µÕµÁ∆Ω”––ß
 
-#define OurMotorPwmMode PwmLow
+#define OurMotorPwmMode PwmHigh
 
 
 void tpm_port_mux(TPMn_e tpmn, TPM_CHn_e ch)

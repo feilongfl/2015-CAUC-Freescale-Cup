@@ -19,15 +19,15 @@
 #define UsePowerOnDelay				UseIt
 #define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
-#define UseMpu6050ChangeSpeed		UseIt
+#define UseMpu6050ChangeSpeed		DoNotUseIt
 
 #define SpeedForTest				700
 
-#define UseDistanceChangeSpeed		UseIt
+#define UseDistanceChangeSpeed		DoNotUseIt
 
 #define Car1						1
 #define Car2						2
-#define Car							Car2
+#define Car							Car1
 
 #if Car == Car1
 #elif Car == Car2
