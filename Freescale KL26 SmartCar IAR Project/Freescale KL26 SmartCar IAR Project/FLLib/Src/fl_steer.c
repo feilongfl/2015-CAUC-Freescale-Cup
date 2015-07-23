@@ -285,16 +285,25 @@ void SteerVagueCtrl(int16 offset)
 	{
 		//利用error and errorchange计算控制量
 		errQurr = SteerCtrlQurr[offset][errorChanngeSpeed] + 6;//查表，提升原点
+		
 		//重心法解模糊
 		for (uint8 i = 0; i < SteerGears; i++)//求分母
 		{
-			sum += SteerCRI[i][offset];
-			sum += SteerCRI[i][offset + 1];
+			if (errQurr < ErrorChangeSpeedMax)
+			{
+				sum += SteerCRI[i][errQurr];
+				sum += SteerCRI[i][errQurr + 1];
+			}
+			else
+			{
+				sum += SteerCRI[i][errQurr];
+				sum += SteerCRI[i][errQurr - 1];
+			}
 		}
 
 		for (uint8 i = 0; i < SteerGears; i++)//求pwm
 		{
-			pwm += SteerPwmArr[i] * (SteerCRI[i][offset] + SteerCRI[i][offset + 1]) / sum;
+			pwm += SteerPwmArr[i] * (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
 		}
 		//Speed.Expect = 500;//悠着点
 	}
