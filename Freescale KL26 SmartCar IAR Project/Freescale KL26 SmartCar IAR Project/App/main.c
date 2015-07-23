@@ -41,6 +41,9 @@ void SteerCtrl()
 	adcn = AdcNormalizing();//获取归一化电感值
 	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+
+	uint8 time = 0;
+	uint8 turnTemp = 0;
 	//int32 pidatsteer = SteerCtrlUsePid(de);
 	NumShow(ABS(de), 0, 0);
 
@@ -51,9 +54,30 @@ void SteerCtrl()
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 
+#define SteerLostLinetimeMax 10
 		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
 		{
-			turn = (adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight;
+			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;
+			if (time++ > SteerLostLinetimeMax)
+			{
+				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3,  -SteerLostLinetimeMax / 3))//中间
+				{
+					turn = SteerDirectionCenter;
+				}
+				else if (turnTemp > 0)
+				{
+					turn = SteerDirectionRight;
+				}
+				else
+				{
+					turn = SteerDirectionLeft;
+				}
+				time = 0;
+			}
+			else
+			{
+				time = 0;
+			}
 		}
 #endif//UseLostRoadStop
 		switch (turn)
