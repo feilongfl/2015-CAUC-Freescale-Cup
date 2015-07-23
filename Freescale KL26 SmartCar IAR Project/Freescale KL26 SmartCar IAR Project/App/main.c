@@ -226,27 +226,8 @@ void main()
 		
 #endif
 
-#define mainDelayTime 2//2 * 20ms
-#if Car == Car1
-		DELAY_MS(mainDelayTime * 20);
-#elif Car == Car2
-		static uint8 carDelayFlag = 0;//static values
-		if (carDelayFlag++ < mainDelayTime - 1)
-		{
-			Hcsr04Wait();
-			carDelayFlag = 0;
-		}
-		else
-		{
-			CarDistance = Hcsr04Read();
-			NrfSendStr("$%d#", CarDistance);
-		}
-#else
-#error your car select error
-#endif//Car Switch 
-
 #if UseDistanceChangeSpeed
-#warning please change these num
+		#warning please change these num
 		if (CarDistance < 100)//only for test,don't forget change this num
 		{
 #if Car == Car1
@@ -269,6 +250,25 @@ void main()
 		}
 
 #endif UseDistanceChangeSpeed
+
+#define mainDelayTime 2//2 * 20ms
+#if Car == Car1
+		DELAY_MS(mainDelayTime * 20);
+#elif Car == Car2
+		static uint8 carDelayFlag = 0;//static values
+		if (carDelayFlag++ < mainDelayTime - 1)
+		{
+			Hcsr04Wait();
+			carDelayFlag = 0;
+		}
+		else
+		{
+			CarDistance = Hcsr04Read();
+			NrfSendStr("$%d#", CarDistance);
+		}
+#else
+#error your car select error
+#endif//Car Switch 
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
