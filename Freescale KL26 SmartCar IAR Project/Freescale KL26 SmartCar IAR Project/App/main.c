@@ -239,6 +239,7 @@ void main()
 		else
 		{
 			CarDistance = Hcsr04Read();
+			NrfSendStr("$%d#", CarDistance);
 		}
 #else
 #error your car select error
