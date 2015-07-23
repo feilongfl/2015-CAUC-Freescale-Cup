@@ -22,6 +22,17 @@
 
 #define SpeedForTest				700
 
+#define Car1						1
+#define Car2						2
+#define Car							Car2
+
+#if Car == Car1
+#elif Car == Car2
+uint32 CarDistance = 0;
+#else
+#error your car select error
+#endif 
+
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
@@ -54,11 +65,11 @@ void SteerCtrl()
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 
-#define SteerLostLinetimeMax 10
-		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
+#define SteerLostLinetimeMax 10//直角弯道判断次数
+		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)//直角弯道判断最小差值
 		{
-			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;
-			if (time++ > SteerLostLinetimeMax)
+			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
+			if (time++ > SteerLostLinetimeMax)//计数，判断
 			{
 				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3,  -SteerLostLinetimeMax / 3))//中间
 				{
@@ -74,7 +85,7 @@ void SteerCtrl()
 				}
 				time = 0;
 			}
-			else
+			else//没丢线，清楚标志
 			{
 				time = 0;
 			}
@@ -123,6 +134,10 @@ void main()
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
 	ConfigInit();
+
+#if Car == Car2
+	Hcsr04Init();
+#endif //car
 	
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
@@ -208,7 +223,24 @@ void main()
 		NumShow(MotorPid.D, LcdLocal3, LcdLine3);
 		
 #endif
-		DELAY_MS(50);
+
+#define mainDelayTime 2//2 * 20ms
+#if Car == Car1
+		DELAY_MS(mainDelayTime * 20);
+#elif Car == Car2
+		static uint8 carDelayFlag = 0;//static values
+		if (carDelayFlag++ < mainDelayTime - 1)
+		{
+			Hcsr04Wait();
+			carDelayFlag = 0;
+		}
+		else
+		{
+			CarDistance = Hcsr04Read();
+		}
+#else
+#error your car select error
+#endif//Car Switch 
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////

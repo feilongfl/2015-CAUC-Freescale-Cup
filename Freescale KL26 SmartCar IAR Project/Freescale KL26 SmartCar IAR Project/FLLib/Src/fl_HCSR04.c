@@ -24,9 +24,11 @@ uint32 flag;//指示数据是否有效
 uint32 Hcsr04Read()
 {
 	flag = 0;
-	gpio_set(Hcsr04Trig, 1);               //产生触发脉冲
-	DELAY_US(15);
-	gpio_set(Hcsr04Trig, 0);
+// 	gpio_set(Hcsr04Trig, 1);               //产生触发脉冲
+// 	DELAY_US(15);
+// 	gpio_set(Hcsr04Trig, 0);
+
+	while (gpio_get(Hcsr04Trig));//wait for trig
 
 	while (gpio_get(Hcsr04Echo) == 0);             //等待电平变高，低电平一直等待
 	//pit_time_start(PIT0);                 //开始计时
@@ -57,7 +59,7 @@ uint32 Hcsr04Read()
 /************************************************************************/
 InitRepot_e Hcsr04Init()
 {
-	gpio_init(Hcsr04Trig, GPO, 0);
+	gpio_init(Hcsr04Trig, GPI, 0);//use gpi mode 
 	gpio_init(Hcsr04Echo, GPI, 0);
 	return InitAllGreen;
 }
