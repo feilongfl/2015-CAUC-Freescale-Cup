@@ -36,6 +36,10 @@ uint32 CarDistance = 0;
 #error your car select error
 #endif 
 
+#if UseMpu6050ChangeSpeed
+Mpu6050Data mpu6050Data;
+#endif
+
 /************************************************************************/
 /* 全局变量或结构体                                                     */
 /************************************************************************/
@@ -259,8 +263,25 @@ void main()
 			//Speed.Expect = SpeedForTest;
 		}
 
-#endif UseDistanceChangeSpeed
+#endif //UseDistanceChangeSpeed
 
+/*mpu6050 坡道控速*/
+#if UseMpu6050ChangeSpeed
+		mpu6050Data = Mpu6050Read();
+#warning please test these line
+		if (mpu6050Data.accel.z > 10)
+		{
+			Speed.Expect += 100;
+		}
+		else if (mpu6050Data.accel.z < 10)
+		{
+			Speed.Expect -= 100;
+		}
+		else
+		{
+
+		}
+#endif //UseMpu6050ChangeSpeed
 
 
 		//////////////////////////////////////////////////////////////////////////

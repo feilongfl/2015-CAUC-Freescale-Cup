@@ -31,9 +31,9 @@ static int16 Mpu6050Read16bitsReg(uint8 reg_h)
 	return (int16)((h << 8) | l);
 }
 
-struct Mpu6050Data Mpu6050Read()
+Mpu6050Data Mpu6050Read()
 {
-	struct Mpu6050Data mpudata;
+	Mpu6050Data mpudata;
 	int16 *mpudata_p = (int16*)&mpudata;
 
 	//mpudata.accel.x = Mpu6050Read16bitsReg(ACCEL_XOUT_H);
@@ -69,7 +69,7 @@ float invSqrt(float x) {
 	y = y * (1.5f - (halfx * y * y));
 	return y;
 }
-Quaternion MpuToQuaternion(struct Mpu6050Data * mpu6050data)
+Quaternion MpuToQuaternion(Mpu6050Data * mpu6050data)
 {
 	float gx = mpu6050data->gyro.x / FS_SEL;
 	float gy = mpu6050data->gyro.y / FS_SEL;

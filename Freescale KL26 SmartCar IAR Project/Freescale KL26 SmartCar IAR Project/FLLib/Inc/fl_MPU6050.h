@@ -276,12 +276,12 @@ struct Gyro
 	int16 x, y, z;
 };
 
-struct Mpu6050Data 
+typedef struct  
 {
 	struct Accel accel;
 	int16 Temp;
 	struct Gyro gyro;
-};
+}Mpu6050Data;
 
 
 #define sampleFreq    512.0f        // sample frequency in Hz
@@ -295,6 +295,7 @@ typedef struct
 	volatile float q3;
 }Quaternion;
 
-Quaternion MpuToQuaternion(struct Mpu6050Data * mpu6050data);
+Mpu6050Data Mpu6050Read();
+Quaternion MpuToQuaternion(Mpu6050Data * mpu6050data);
 
 #endif//_MPU6050_H_
