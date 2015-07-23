@@ -19,6 +19,7 @@
 #define UsePowerOnDelay				UseIt
 #define UseEeprom					DoNotUseIt
 #define UseLostRoadStop				UseIt
+#define UseMpu6050ChangeSpeed		UseIt
 
 #define SpeedForTest				700
 
@@ -186,6 +187,9 @@ void main()
 		DELAY_MS(2000);
 #endif//UsePowerOnDelay
 
+
+		//////////////////////////////////////////////////////////////////////////
+		//终点线
 #if UseEndLine
 		break;
 
@@ -210,12 +214,14 @@ void main()
 	//程序循环
 	while (1)
 	{
+		//////////////////////////////////////////////////////////////////////////
+		//舵机控制
 		SteerCtrl();
 
 #if 1
 		
 #else
-
+		///lcd show
 		
 		NumShow16(Speed.Expect, LcdLocal1, LcdLine1);
 		NumShow16(Speed.Acturally, LcdLocal1, LcdLine2);
@@ -226,6 +232,9 @@ void main()
 		
 #endif
 
+
+		//////////////////////////////////////////////////////////////////////////
+/*  距离控速                                      */
 #if UseDistanceChangeSpeed
 		#warning please change these num
 		if (CarDistance < 100)//only for test,don't forget change this num
@@ -251,6 +260,10 @@ void main()
 
 #endif UseDistanceChangeSpeed
 
+
+
+		//////////////////////////////////////////////////////////////////////////
+		//延迟，控制周期
 #define mainDelayTime 2//2 * 20ms
 #if Car == Car1
 		DELAY_MS(mainDelayTime * 20);
