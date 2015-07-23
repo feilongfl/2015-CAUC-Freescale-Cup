@@ -1,0 +1,67 @@
+[System]
+Name='201507231858'
+Type='mamdani'
+Version=2.0
+NumInputs=2
+NumOutputs=1
+NumRules=21
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='centroid'
+
+[Input1]
+Name='error'
+Range=[-3 3]
+NumMFs=7
+MF1='mf1':'trimf',[-4 -3 -2]
+MF2='mf2':'trimf',[-3 -2 -1]
+MF3='mf3':'trimf',[-2 -1 0]
+MF4='mf4':'trimf',[-1 0 1]
+MF5='mf5':'trimf',[0 1 2]
+MF6='mf6':'trimf',[1 2 3]
+MF7='mf7':'trimf',[2 3 4]
+
+[Input2]
+Name='error_change'
+Range=[-1 1]
+NumMFs=3
+MF1='mf1':'trimf',[-2 -1 0]
+MF2='mf2':'trimf',[-1 0 1]
+MF3='mf3':'trimf',[0 1 2]
+
+[Output1]
+Name='output1'
+Range=[1000 2000]
+NumMFs=7
+MF1='mf1':'trimf',[833.3 1000 1167]
+MF2='mf2':'trimf',[1000 1167 1333]
+MF3='mf3':'trimf',[1167 1333 1500]
+MF4='mf4':'trimf',[1333 1500 1667]
+MF5='mf5':'trimf',[1500 1667 1833]
+MF6='mf6':'trimf',[1667 1833 2000]
+MF7='mf7':'trimf',[1833 2000 2167]
+
+[Rules]
+1 1, 1 (1) : 1
+1 2, 1 (1) : 1
+1 3, 2 (1) : 1
+2 1, 1 (1) : 1
+2 2, 2 (1) : 1
+2 3, 3 (1) : 1
+3 1, 2 (1) : 1
+3 2, 3 (1) : 1
+3 3, 4 (1) : 1
+4 1, 3 (1) : 1
+4 2, 4 (1) : 1
+4 3, 5 (1) : 1
+5 1, 4 (1) : 1
+5 2, 5 (1) : 1
+5 3, 6 (1) : 1
+6 1, 5 (1) : 1
+6 2, 6 (1) : 1
+6 3, 7 (1) : 1
+7 1, 6 (1) : 1
+7 2, 7 (1) : 1
+7 3, 7 (1) : 1
