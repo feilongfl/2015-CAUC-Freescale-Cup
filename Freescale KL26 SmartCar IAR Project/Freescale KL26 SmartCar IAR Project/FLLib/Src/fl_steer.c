@@ -225,7 +225,7 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 int8 LastError = 0;
 
 //偏差变化量计算表
-uint8 SteerCtrlQurr[SteerOffSetSum][2 * ErrorChangeSpeedMax + 1] =
+int8 SteerCtrlQurr[SteerOffSetSum][2 * ErrorChangeSpeedMax + 1] =
 {
 	6, 5, 6, 5, 6, 6, 4, 4, 3, 2, 1, 1, 0,
 	6, 5, 5, 5, 5, 5, 5, 4, 3, 3, 2, 1, 0,
