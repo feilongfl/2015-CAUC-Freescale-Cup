@@ -209,8 +209,6 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.AdcNormalMax.Adc.FlAdc1 = 150u;
 	config.Config.AdcNormalMax.Adc.FLAdc2 = 150u;
 	config.Config.AdcNormalMax.Adc.FLAdc3 = 150u;
-	config.Config.AdcNormalMax.Adc.AdcVertical.Adc0 = 150u;
-	config.Config.AdcNormalMax.Adc.AdcVertical.Adc1 = 150u;
 
 
 	config.Config.Motor.Speed.Acturally = 0;
