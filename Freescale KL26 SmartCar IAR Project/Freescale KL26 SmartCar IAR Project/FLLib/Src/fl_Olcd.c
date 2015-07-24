@@ -416,7 +416,7 @@ void LCD_WrDat(byte data)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		Nop();
+		Nop(); Nop(); Nop(); Nop(); Nop();
 		//Nop;            
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
@@ -452,7 +452,7 @@ void LCD_WrCmd(byte cmd)
 		}
 		//LCD_SCL = 1;
 		gpio_set(LCD_SCL, HIGH);
-		Nop();
+		Nop(); Nop(); Nop(); Nop(); Nop();
 		//Nop;             
 		//LCD_SCL = 0;
 		gpio_set(LCD_SCL, LOW);
@@ -723,9 +723,9 @@ InitRepot_e OlcdInit(void)
 	Set_Display_On_Off(0x01);		  // Display On (0x00/0x01)
 	LCD_Fill(0x00);  //初始清屏
 	LCD_Set_Pos(0, 0);
-	//LCDPrint(0, 0, "飞龙");
+	LCDPrint(0, 0, "飞龙");
 	EnableInterrupts();
-	return InitAllGreen;
+	 return InitAllGreen;
 }
 //==============================================================
 //函数名： void LCD_PutPixel(byte x,byte y)
