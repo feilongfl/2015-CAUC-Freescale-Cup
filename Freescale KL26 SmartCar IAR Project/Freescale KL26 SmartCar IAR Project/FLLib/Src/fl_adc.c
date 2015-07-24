@@ -11,11 +11,13 @@ struct FLAdc_s FLAdcLast = {
 };//最后一次adc读取数值
 
 
-uint8 LcdAdcNumLocation[FLAdcMax][2] = {
+uint8 LcdAdcNumLocation[FLAdcMax + AdcVerticalMax][2] = {
 	{ LcdLine2, LcdLocal1 },
 	{ LcdLine2, LcdLocal2 },
 	{ LcdLine2, LcdLocal3 },
 	{ LcdLine2, LcdLocal4 },
+	{ LcdLine3, LcdLocal1 },
+	{ LcdLine3, LcdLocal2 }
 	//{ LcdLine3, LcdLocal1 },
 };//数据坐标
 
@@ -33,6 +35,18 @@ ADCn_Ch_e FLAdc_Ptxn[FLAdcMax] = {
 
 	//ADC0_DP0,
 };//adc通道数组
+ADCn_Ch_e FLAdcVertical_Ptxn[AdcVerticalMax] = {
+	ADC0_DM0,//pte21
+	ADC0_DP3,//pte22
+};//adc通道数组
+
+void AdcVerticalInit()
+{
+	for (uint8 adcLoopTemp = 0; adcLoopTemp < AdcVerticalMax; adcLoopTemp++)
+	{
+		adc_init(FLAdcVertical_Ptxn[adcLoopTemp]);
+	}
+}
 
 //初始化
 void AdcInit()
@@ -41,6 +55,7 @@ void AdcInit()
 	{
 		adc_init(FLAdc_Ptxn[adcLoopTemp]);
 	}
+	AdcVerticalInit();
 }
 
 //读取所有adc的值
@@ -50,6 +65,10 @@ static struct FLAdc_s * AdcReadAll()
 	for (uint8 adcLoopTemp = 0; adcLoopTemp < FLAdcMax; adcLoopTemp++)
 	{
 		*FLAdcLastAddress++ = adc_once(FLAdc_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
+	}
+	for (uint8 adcLoopTemp = 0; adcLoopTemp < AdcVerticalMax; adcLoopTemp++)
+	{
+		*FLAdcLastAddress++ = adc_once(FLAdcVertical_Ptxn[adcLoopTemp], FlAdcBit);//读取并保存
 	}
 	//DELAY();//吓死我了，我还以为读一次ad怎么要半秒呢
 	return &FLAdcLast;//返回保存结构体地址
@@ -68,7 +87,7 @@ struct FLAdc_s AdcNormalizing()//归一化
 	uint16 * adcMax = (uint16 *)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	//uint16 * adcMin = (uint16 *)&AdcMin;
 	
-	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 		*(adcNormalizingAddress + (uint8)loopTemp) = (uint16)
 					((*(adcNormalizingAddress + (uint8)loopTemp) - AdcMin) * AdcNormalizingPrecision //（输入值-最小值）*精度
@@ -85,13 +104,13 @@ struct FLAdc_s AdcNormalizingWithFitter()
 	for (uint8 LoopTimes = AdcFitterTimes - 1; LoopTimes > 0; LoopTimes--)//求和
 	{
 		uint16 * adcNormalizingAddresstemp = (uint16 *)AdcReadAll();
-		for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+		for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 		{
 			*(adcNormalizingAddress + (uint8)loopTemp) += *(adcNormalizingAddresstemp + (uint8)loopTemp);
 		}
 	}
 
-	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)//平均
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)//平均
 	{
 		*(adcNormalizingAddress + (uint8)loopTemp) /= AdcFitterTimes;
 	}
@@ -108,11 +127,11 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 #define DEBUG_ADC
 #ifdef DEBUG_ADC
 	printf("$");
-	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax + AdcVerticalMax; ShowTemp++)
 	{
 		printf("%d,", (uint16)*((uint16*)adcReadTemp + ShowTemp));
 	}
-	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax + AdcVerticalMax; ShowTemp++)
 	{
 		printf("%d", (uint16)*((uint16*)adcMaxAddress + ShowTemp));
 		if (ShowTemp != FLAdcMax - 1)
@@ -134,7 +153,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 #endif//DEBUG_ADC
 
 
-	for (uint8 loopTemp = 0; loopTemp < FLAdcMax;loopTemp++)
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 #if 1
 		*(adcMaxAddress + loopTemp) = MAX(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
@@ -153,7 +172,7 @@ static void AdcNormalizingExtremumClear()//清空归一化最值
 	//uint16 * adcMinAddress = (uint16*)&AdcMin;
 	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
-	for (uint8 loopTemp = 0; loopTemp < FLAdcMax; loopTemp++)
+	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 		*(adcMaxAddress + loopTemp) = *(adcReadTemp + loopTemp);
 		//*(adcMinAddress + loopTemp) = *(adcReadTemp + loopTemp);
@@ -162,7 +181,7 @@ static void AdcNormalizingExtremumClear()//清空归一化最值
 
 void LcdAdcShow(struct FLAdc_s * flAdcn)
 {
-	for (uint8 lcdShowTemp = 0; lcdShowTemp < FLAdcMax; lcdShowTemp++)
+	for (uint8 lcdShowTemp = 0; lcdShowTemp < FLAdcMax + AdcVerticalMax; lcdShowTemp++)
 	{
 		NumShow((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocation[lcdShowTemp][LcdLocal], LcdAdcNumLocation[lcdShowTemp][LcdLine]);
 	}
@@ -172,7 +191,7 @@ void AdcSendNowByUart()
 {
 	struct FLAdc_s * flAdcn = AdcReadAll();
 	printf("$");
-	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax; ShowTemp++)
+	for (uint8 ShowTemp = 0; ShowTemp < FLAdcMax + AdcVerticalMax; ShowTemp++)
 	{
 		printf("%d,", (uint16)*((uint16*)flAdcn + ShowTemp));
 	}

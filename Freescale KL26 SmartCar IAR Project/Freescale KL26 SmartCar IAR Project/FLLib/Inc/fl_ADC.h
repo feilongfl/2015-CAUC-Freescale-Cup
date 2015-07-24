@@ -19,6 +19,14 @@ typedef enum
 	FLAdcMax,
 }FLAdcn_e;//adc通道枚举
 
+typedef enum 
+{
+	AdcVertical0,
+	AdcVertical1,
+
+	AdcVerticalMax
+}FLAdcVertical_e;
+
 typedef enum
 {
 	FLLevelAdc0,
@@ -54,6 +62,11 @@ typedef enum
 	LostLine,
 }FLAdcLostLine_e;//丢线状态枚举
 
+struct FLAdcVertical_s
+{
+	uint16 Adc0;
+	uint16 Adc1;
+};
 
 struct FLAdc_s//adc存储结构
 {
@@ -62,6 +75,7 @@ struct FLAdc_s//adc存储结构
 	uint16 FLAdc2;
 	uint16 FLAdc3;
 	//uint16 FLAdc4;
+	struct FLAdcVertical_s AdcVertical;
 };
 
 
