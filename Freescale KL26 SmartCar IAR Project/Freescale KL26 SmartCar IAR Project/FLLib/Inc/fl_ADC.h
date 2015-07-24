@@ -19,41 +19,11 @@ typedef enum
 	FLAdcMax,
 }FLAdcn_e;//adc通道枚举
 
-typedef enum
-{
-	FLLevelAdc0,
-	FlLevelAdc1,
-	FLLevelAdc2,
-	FLLevelAdc3,
-
-	FLLevelAdcMax,
-}FLLevelAdcn_e;//adc通道枚举
-
-typedef enum
-{
-	FLVerticalAdc0,
-	FlVerticalAdc1,
-	FLVerticalAdc2,
-	//LVerticalAdc3,
-
-	FLVerticalAdcMax,
-}FLVerticalAdcn_e;//adc通道枚举
-
-typedef enum
-{
-	FLTiltAdc0,
-	FlTiltAdc1,
-	//LVerticalAdc3,
-
-	FLTiltAdcMax,
-}FLTiltAdcn_e;//adc通道枚举
-
 typedef enum 
 {
 	OnLine,
 	LostLine,
 }FLAdcLostLine_e;//丢线状态枚举
-
 
 struct FLAdc_s//adc存储结构
 {
