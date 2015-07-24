@@ -7,6 +7,8 @@ struct FLAdc_s FLAdcLast = {
 	0,
 	0,
 	0,
+	0,
+	0,
 	//0,
 };//最后一次adc读取数值
 
@@ -16,6 +18,8 @@ uint8 LcdAdcNumLocation[FLAdcMax][2] = {
 	{ LcdLine2, LcdLocal2 },
 	{ LcdLine2, LcdLocal3 },
 	{ LcdLine2, LcdLocal4 },
+	{ LcdLine3, LcdLocal1 },
+	{ LcdLine3, LcdLocal2 },
 	//{ LcdLine3, LcdLocal1 },
 };//数据坐标
 
@@ -24,12 +28,13 @@ FLAdcLostLine_e AdcLostLine = OnLine;//丢线状态
 //给个默认值防止出现问题
 
 ADCn_Ch_e FLAdc_Ptxn[FLAdcMax] = {
-	ADC0_DM1,//pte17
 	ADC0_DP2,//pte18
+	ADC0_DM0,//pte21
 	ADC0_DM2,//pte19
+	ADC0_DM3,//PTE23
 	ADC0_DP0,//pte20
-	//ADC0_DM0,//pte21
-	//ADC0_DP3,//pte22
+	ADC0_DP3,//pte22
+	//ADC0_DM1,//pte17
 
 	//ADC0_DP0,
 };//adc通道数组

@@ -14,6 +14,8 @@ typedef enum
 	FlAdc1,
 	FLAdc2,
 	FLAdc3,
+	FLAdc4,
+	FLAdc5,
 	//FLAdc4,
 
 	FLAdcMax,
@@ -31,6 +33,8 @@ struct FLAdc_s//adc´æ´¢½á¹¹
 	uint16 FlAdc1;
 	uint16 FLAdc2;
 	uint16 FLAdc3;
+	uint16 FLAdc4;
+	uint16 FLAdc5;
 	//uint16 FLAdc4;
 };
 
