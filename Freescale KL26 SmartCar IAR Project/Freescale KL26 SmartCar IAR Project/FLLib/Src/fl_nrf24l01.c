@@ -55,12 +55,12 @@ NrfErrorType_e NrfSendStrCheck(uint8 * str, uint32 len,uint8 retryTime)
 }
 
 
-uint8 NrfRecStrCheck(uint8 * buff, uint8 retryTime)
+uint8 NrfRecStrCheck(uint8 * str, uint8 retryTime)
 {
 	uint8 relen = 0;
 	while (retryTime--)
 	{
-		relen = nrf_rx(buff, DATA_PACKET);
+		relen = nrf_rx(str, DATA_PACKET);
 		if (relen != 0)
 		{
 			return relen;

@@ -41,7 +41,7 @@ void SteerCtrl()
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 
 	uint8 time = 0;
-	uint8 turnTemp = 0;
+	int8 turnTemp = 0;
 	//int32 pidatsteer = SteerCtrlUsePid(de);
 	NumShow(ABS(de), 0, 0);
 
@@ -243,7 +243,7 @@ void main()
 	
 	
 
-	uint16 spwm = SteerCenterDuty;
+	//uint16 spwm = SteerCenterDuty;
 	Speed.Expect = SpeedForTest;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
@@ -274,7 +274,7 @@ void main()
 		//////////////////////////////////////////////////////////////////////////
 		//nrf
 #if UseNrfSendOrReceiveMsg
-		NrfErrorType_e nrfErr;
+		//NrfErrorType_e nrfErr;
 #if Car == Car1
 		if (NrfRecStrCheck(NrfBuff, 3))
 		{
