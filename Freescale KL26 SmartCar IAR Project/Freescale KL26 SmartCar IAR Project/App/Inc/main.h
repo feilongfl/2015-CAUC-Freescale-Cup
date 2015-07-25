@@ -18,6 +18,7 @@
 #define UseNrfSendOrReceiveMsg		DoNotUseIt//nrf使能
 #define UseCar2NrfSendDistance		DoNotUseIt//距离传送
 #define UseCar1NrfSendAdc			DoNotUseIt//ad传送
+#define UseSteerDynamicFuzzyDomain	UseIt//舵机动态论域
 
 #define SpeedForTest				700//测试速度
 

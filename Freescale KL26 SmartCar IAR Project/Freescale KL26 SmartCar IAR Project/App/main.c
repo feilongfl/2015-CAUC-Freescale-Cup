@@ -213,6 +213,11 @@ void main()
 			}
 		}
 #endif//UseAdcNormalizingInit
+
+#if UseSteerDynamicFuzzyDomain
+
+#endif //UseSteerDynamicFuzzyDomain
+
 #if UsePowerOnDelay
 		DELAY_MS(2000);
 #endif//UsePowerOnDelay
