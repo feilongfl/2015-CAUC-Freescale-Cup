@@ -62,7 +62,7 @@ void SteerCtrl()
 				{
 					turn = SteerDirectionCenter;
 				}
-				else if (turnTemp > 0)
+				else if (turnTemp < 0)
 				{
 					turn = SteerDirectionRight;
 				}
