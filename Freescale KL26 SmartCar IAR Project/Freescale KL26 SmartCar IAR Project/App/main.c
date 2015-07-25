@@ -11,30 +11,10 @@
 /************************************************************************/
 #include "main.h"
 
-/************************************************************************/
-/*                                 功能开关                             */
-/************************************************************************/
-#define UseAdcNormalizingInit		DoNotUseIt//开机归一化使能
-#define UseEndLine					DoNotUseIt
-#define UsePowerOnDelay				UseIt
-#define UseEeprom					DoNotUseIt
-#define UseLostRoadStop				UseIt
-#define UseMpu6050ChangeSpeed		DoNotUseIt
 
-#define SpeedForTest				700
 
-#define UseDistanceChangeSpeed		DoNotUseIt
-
-#define Car1						1
-#define Car2						2
-#define Car							Car1
-
-#if Car == Car1
-#elif Car == Car2
 uint32 CarDistance = 0;
-#else
-#error your car select error
-#endif 
+
 
 #if UseMpu6050ChangeSpeed
 Mpu6050Data mpu6050Data;

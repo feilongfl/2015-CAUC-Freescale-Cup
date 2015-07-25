@@ -3,6 +3,7 @@
 #include "MKL_gpio.h"
 #include "FL_Key.h"
 #include "fl_settingmenu.h"
+#include "main.h"
 
 
 PTXn_e FLKeyPtxn[KeyMax][FLKeyPortNum] =
@@ -193,6 +194,27 @@ void FLIrqHandle()
 
 		/*  以上为用户任务  */
 	}
+
+#if Car == Car2
+	extern void Hcsr04Irq();
+	n = 1;
+	if (PORTD_ISFR & (1 << n))           //PTC18触发中断
+	{
+		PORTD_ISFR = (1 << n);        //写1清中断标志位
+
+		/*  以下为用户任务  */
+		/*  以上为用户任务  */
+	}
+
+	n = 2;
+	if (PORTD_ISFR & (1 << n))           //PTC18触发中断
+	{
+		PORTD_ISFR = (1 << n);        //写1清中断标志位
+
+		/*  以下为用户任务  */
+		/*  以上为用户任务  */
+	}
+#endif
 }
 
 /************************************************************************/

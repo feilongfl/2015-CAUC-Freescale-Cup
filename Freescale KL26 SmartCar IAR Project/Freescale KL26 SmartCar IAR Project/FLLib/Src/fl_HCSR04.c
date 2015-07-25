@@ -28,7 +28,7 @@ uint32 Hcsr04Read()
 // 	DELAY_US(15);
 // 	gpio_set(Hcsr04Trig, 0);
 
-	while (gpio_get(Hcsr04Trig));//wait for trig
+	while (gpio_get(Hcsr04Irq));//wait for trig
 
 	while (gpio_get(Hcsr04Echo) == 0);             //等待电平变高，低电平一直等待
 	//pit_time_start(PIT0);                 //开始计时
@@ -59,11 +59,24 @@ uint32 Hcsr04Read()
 /************************************************************************/
 InitRepot_e Hcsr04Init()
 {
-	gpio_init(Hcsr04Trig, GPI, 0);//use gpi mode 
+	gpio_init(Hcsr04Irq, GPI, 0);//use gpi mode 
+	port_init_NoALT(Hcsr04Irq, IRQ_EITHER | PULLDOWN);//定义按键所在列 跳变沿中断 下拉电阻
 	gpio_init(Hcsr04Echo, GPI, 0);
+	port_init_NoALT(Hcsr04Irq, IRQ_EITHER | PULLDOWN);//定义按键所在列 跳变沿中断 下拉电阻
 	return InitAllGreen;
 }
 
+void Hcsr04IrqPortIrq()
+{
+	lptmr_time_start_us();
+}
+
+extern uint32 CarDistance;
+
+void Hcsr04EchoIrq()
+{
+	CarDistance = lptmr_time_get_us();
+}
 
 void Hcsr04Show()
 {

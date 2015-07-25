@@ -4,7 +4,7 @@
 
 #define Hcsr04ReadFailed 0xffffffff
 
-#define  Hcsr04Wait()	while (gpio_get(Hcsr04Trig))//wait for trig
+#define  Hcsr04Wait()	while (gpio_get(Hcsr04Irq))//wait for trig
 /************************************************************************/
 /* 读超声波数据                                      20150107           */
 /* 论坛上直接下的，还没式能不能用                                       */
