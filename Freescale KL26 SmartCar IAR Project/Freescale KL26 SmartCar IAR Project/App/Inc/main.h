@@ -16,6 +16,7 @@ uint8 buff[DATA_PACKET];
 #define UseMpu6050ChangeSpeed		DoNotUseIt//ÍÓÂİÒÇ¿ØËÙ
 #define UseDistanceChangeSpeed		DoNotUseIt//¾àÀë¿ØËÙ
 #define UseSoundSpeedByTemperature	DoNotUseIt//³¬Éù²¨ÎÂ¶È²¹³¥
+#define UseNrfSendOrReceiveMsg		UseIt
 
 #define SpeedForTest				700//²âÊÔËÙ¶È
 

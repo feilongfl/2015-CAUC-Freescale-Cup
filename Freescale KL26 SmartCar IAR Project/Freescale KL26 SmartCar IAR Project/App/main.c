@@ -272,6 +272,18 @@ void main()
 
 
 		//////////////////////////////////////////////////////////////////////////
+		//nrf
+#if UseNrfSendOrReceiveMsg
+#if Car == Car1
+
+#elif Car == Car2
+
+#else//error
+#error please select you car
+#endif //car switch
+#endif//UseNrfSendOrReceiveMsg
+
+		//////////////////////////////////////////////////////////////////////////
 		//ÑÓ³Ù£¬¿ØÖÆÖÜÆÚ
 		DELAY_MS(20);
 	}
