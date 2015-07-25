@@ -346,7 +346,7 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 /*
  * x = x e n
  */
-extern uint32 POW(uint32 x, uint32 n);
+extern uint32 POW(uint32 x, uint8 n);
 
 /*
  * 交换32位数据的4字节顺序

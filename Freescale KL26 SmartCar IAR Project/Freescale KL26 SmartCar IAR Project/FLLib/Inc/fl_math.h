@@ -14,5 +14,6 @@ struct SortExtremum_s //用于存储排序后的结果
 };
 
 struct SortExtremum_s ArrSort(uint16 * uint16Arr, uint8 arrLength);
+uint32 POW(uint32 x, uint8 n);
 
 #endif//_FL_math_

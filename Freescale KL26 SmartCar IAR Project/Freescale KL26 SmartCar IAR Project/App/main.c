@@ -286,7 +286,8 @@ void main()
 				{
 					if (NrfBuff[i + 1] == '\0')//error
 					{
-						break;
+						goto exitthismainloop;//没辙了，我真不想这么写，实在不能再循环了，变量太多了
+						//break;
 					}
 					i++;
 				}
@@ -294,7 +295,7 @@ void main()
 				uint32 dis = 0;
 				for (uint8 j = 0; j < i;j++)//求数值
 				{
-					dis += POW(NrfBuff[j + 1], i - j);
+					dis += POW((uint32)(NrfBuff[j + 1] - '0'), i - j);
 				}
 			}
 #endif
@@ -310,6 +311,7 @@ void main()
 #endif//UseNrfSendOrReceiveMsg
 
 		//////////////////////////////////////////////////////////////////////////
+exitthismainloop:
 		//延迟，控制周期
 		DELAY_MS(20);
 	}

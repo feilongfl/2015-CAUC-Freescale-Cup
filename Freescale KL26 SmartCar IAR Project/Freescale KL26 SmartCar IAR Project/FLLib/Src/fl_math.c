@@ -90,7 +90,7 @@ struct SortExtremum_s ArrSort(uint16 * uint16Arr, uint8 arrLength)
 }
 
 
-uint32 POW(uint32 x, uint32 n)
+uint32 POW(uint32 x, uint8 n)
 {
 	uint32 resault = x;
 	while (n--)
