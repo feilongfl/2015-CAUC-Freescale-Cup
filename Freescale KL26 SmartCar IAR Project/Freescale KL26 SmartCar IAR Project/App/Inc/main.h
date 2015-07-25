@@ -17,6 +17,8 @@ uint8 buff[DATA_PACKET];
 #define UseDistanceChangeSpeed		DoNotUseIt//¾àÀë¿ØËÙ
 #define UseSoundSpeedByTemperature	DoNotUseIt//³¬Éù²¨ÎÂ¶È²¹³¥
 #define UseNrfSendOrReceiveMsg		UseIt
+#define UseCar2NrfSendDistance		UseIt
+#define UseCar1NrfSendAdc			UseIt
 
 #define SpeedForTest				700//²âÊÔËÙ¶È
 

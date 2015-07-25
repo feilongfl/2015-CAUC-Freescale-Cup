@@ -344,6 +344,11 @@ B32(10000000,11111111,10101010,01010101) = 2164238933
 #define RANGEQurr(x,max,min)	((int32)((x)<(min) ? false : ( (x)>(max) ? false:true )))
 
 /*
+ * x = x e n
+ */
+extern uint32 POW(uint32 x, uint32 n);
+
+/*
  * 交换32位数据的4字节顺序
  */
 #define SWAP32(data)    (uint32)((((uint32)(data) & (0xFFu<<0 ))<<24)      \

@@ -12,8 +12,8 @@
 #include "main.h"
 
 
-
 uint32 CarDistance = 0;
+uint8 NrfBuff[DATA_PACKET];
 
 
 #if UseMpu6050ChangeSpeed
@@ -274,10 +274,36 @@ void main()
 		//////////////////////////////////////////////////////////////////////////
 		//nrf
 #if UseNrfSendOrReceiveMsg
+		NrfErrorType_e nrfErr;
 #if Car == Car1
+		if (NrfRecStrCheck(NrfBuff, 3))
+		{
+#if UseCar2NrfSendDistance
+			if (NrfBuff[0] == '$')//超声波识别符
+			{
+				uint8 i = 0;
+				while (NrfBuff[i + 1] != '#')//求字符串长度
+				{
+					if (NrfBuff[i + 1] == '\0')//error
+					{
+						break;
+					}
+					i++;
+				}
 
+				uint32 dis = 0;
+				for (uint8 j = 0; j < i;j++)//求数值
+				{
+					dis += POW(NrfBuff[j + 1], i - j);
+				}
+			}
+#endif
+		}
 #elif Car == Car2
-
+#if UseCar2NrfSendDistance
+		sprintf(NrfBuff,"$%d#",CarDistance);
+		NrfSendStrCheck(NrfBuff,sizeof(NrfBuff) / sizeof(uint8),3);
+#endif
 #else//error
 #error please select you car
 #endif //car switch
