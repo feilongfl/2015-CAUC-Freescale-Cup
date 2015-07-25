@@ -16,5 +16,6 @@
 
 NrfErrorType_e NrfInit();//初始化
 NrfErrorType_e NrfSendStr(uint8 * str, uint32 len);//发送字符串
+NrfErrorType_e NrfSendStrCheck(uint8 * str, uint32 len, uint8 retryTime);//带重试
 
 #endif//_FL_nrf24l01+_

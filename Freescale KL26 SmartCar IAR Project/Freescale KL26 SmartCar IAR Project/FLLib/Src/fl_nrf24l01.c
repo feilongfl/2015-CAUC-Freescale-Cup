@@ -17,7 +17,7 @@ NrfErrorType_e NrfInit()
 	return Nrf_AllGreen;
 }
 
-NrfErrorType_e NrfSendStr(uint8 * str,uint32 len)
+NrfErrorType_e nrfSendStr(uint8 * str,uint32 len)
 {
 	if (nrf_tx(str, DATA_PACKET) == 1)         //发送一个数据包：buff（包为32字节）
 	{
@@ -40,3 +40,15 @@ NrfErrorType_e NrfSendStr(uint8 * str,uint32 len)
 	}
 }
 
+NrfErrorType_e NrfSendStrCheck(uint8 * str, uint32 len,uint8 retryTime)
+{
+	NrfErrorType_e msg = Nrf_Others;
+	while (retryTime--)
+	{
+		if ((msg = nrfSendStr(str, len)) == Nrf_AllGreen)
+		{
+			return msg;
+		}
+	}
+	return msg;
+}
