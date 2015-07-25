@@ -214,10 +214,6 @@ void main()
 		}
 #endif//UseAdcNormalizingInit
 
-#if UseSteerDynamicFuzzyDomain
-		SteerFuzzyDomainScan();
-#endif //UseSteerDynamicFuzzyDomain
-
 #if UsePowerOnDelay
 		DELAY_MS(2000);
 #endif//UsePowerOnDelay

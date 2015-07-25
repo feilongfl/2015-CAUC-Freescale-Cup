@@ -34,6 +34,7 @@ typedef enum
 	MenuMainSteer,
 	MenuMainSpeed,
 	MenuMainAdcNor,
+	MenuMainSteerDomain,
 	MenuMainWrite,
 	MenuMainReset,
 	MenuMainItemNum,

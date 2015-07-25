@@ -11,7 +11,8 @@ const unsigned char * MainMenuItems[MenuMainItemNum] =
 	"舵机设置",
 	"车速设置",
 	"归一化",
-	"写入默认配置",
+	"Steer Domain Set",
+	"set default",
 	"重置系统",
 };
 
@@ -670,6 +671,11 @@ static void MenuMainOperate()
 
 			case MenuMainAdcNor:
 				AdcNormalizingInit();
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
+			case MenuMainSteerDomain:
+				SteerFuzzyDomainScan();
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
 				break;
 
