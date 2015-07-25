@@ -1,5 +1,5 @@
 #include "Fl_steer.h"
-
+#include "fl_config.h"
 
 
 SteerTurnDirection_e CarDirection = SteerDirectionCenter;//历史方向，丢线准备
@@ -317,3 +317,34 @@ void SteerVagueCtrl(int16 offset)
 }
 //////////////////////////////////////////////////////////////////////////
 
+//论域扫描
+void SteerFuzzyDomainScan()
+{
+	uint8 exitfunc = false;
+
+	struct FLAdc_s adcn;
+	FLAdcLostLine_e IsLostLine = LostLine;
+
+	while (!exitfunc)
+	{
+		adcn = AdcNormalizing();//获取归一化电感值
+		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
+		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+		FreecaleConfig.Config.Steer.Domain = MAX(ABS(de), FreecaleConfig.Config.Steer.Domain);
+
+		switch (KeyScanWithoutIrq())//按键检测
+		{
+		case FLKeyAdcNorExit:
+			exitfunc = TRUE;//退出
+			ConfigWrite(&FreecaleConfig);
+			break;
+
+		case FLKeyReNormalizing:
+			FreecaleConfig.Config.Steer.Domain = ABS(de);
+			break;
+
+		default:
+			break;
+		}
+	}
+}

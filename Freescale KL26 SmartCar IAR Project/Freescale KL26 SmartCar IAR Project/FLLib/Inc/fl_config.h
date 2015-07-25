@@ -4,6 +4,7 @@
 #include "fl_ADC.h"
 #include "fl_pid.h"
 #include "fl_Motor.h"
+#include "main.h"
 
 #ifndef _FL_config_
 #define _FL_config_
@@ -52,6 +53,7 @@ struct ConfigSteer
 	uint8 SteerStart;
 #endif // UseCheck
 	struct ConfigPid_s Pid;
+	SteerDeviationDegree_e Domain;//Ä£ºý¿ØÖÆÂÛÓò
 #if UseCheck
 	uint8 SteerEnd;
 #endif // UseCheck

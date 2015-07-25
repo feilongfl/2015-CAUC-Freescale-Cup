@@ -196,9 +196,9 @@ ConfigErrorType_s ConfigSendOverUart(FreeScaleCarConfig_s * config)
 ConfigErrorType_s ConfigSetDefaultInEeprom()
 {
 	FreeScaleCarConfig_s config;
-        uint8 * configAdd = (uint8 *)&config;
-        uint16 eepRomAddress = 0x0000;
-        while (eepRomAddress < ConfigLong)
+    uint8 * configAdd = (uint8 *)&config;
+    uint16 eepRomAddress = 0x0000;
+    while (eepRomAddress < ConfigLong)
 	{
 		*(configAdd +eepRomAddress++) = 0x00;
 	}
@@ -232,6 +232,7 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Steer.Pid.Pid.P = SteerPIDDefaultP;
 	config.Config.Steer.Pid.Pid.I = SteerPIDDefaultI;
 	config.Config.Steer.Pid.Pid.D = SteerPIDDefaultD;
+	config.Config.Steer.Domain = (SteerDeviationDegree_e)90;
 
 	config.Config.CarState = CarStandby;
 
