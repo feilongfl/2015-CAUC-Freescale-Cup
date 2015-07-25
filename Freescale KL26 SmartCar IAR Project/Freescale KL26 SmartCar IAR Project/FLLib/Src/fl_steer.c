@@ -272,9 +272,9 @@ void SteerVagueCtrl(int16 offset)
 	int8 errorChanngeSpeed = 0;
 	uint8 errQurr = 0;
 
-	offset = RANGE(offset, OffSetMax, -OffSetMax) + ZeroPointUp;//限幅+提升原点
+	offset = RANGE(offset, FreecaleConfig.Config.Steer.Domain, -FreecaleConfig.Config.Steer.Domain) + FreecaleConfig.Config.Steer.Domain + 1;//限幅+提升原点
 
-	offset /= 10;//偏差模糊化
+	offset /= 10 * FreecaleConfig.Config.Steer.Domain / OffSetMax;//偏差模糊化，论域缩放
 	errorChanngeSpeed = RANGE(offset - LastError, ErrorChangeSpeedMax, -ErrorChangeSpeedMax) + ErrorChangeSpeedMax;//偏差变化率，限幅在论域内，提升原点
 	LastError = offset;//保存偏差
 	//offset = SteerDirection[offset][errorChanngeSpeed];
