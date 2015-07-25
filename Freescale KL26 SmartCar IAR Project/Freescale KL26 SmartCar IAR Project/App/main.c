@@ -215,7 +215,7 @@ void main()
 #endif//UseAdcNormalizingInit
 
 #if UseSteerDynamicFuzzyDomain
-
+		SteerFuzzyDomainScan();
 #endif //UseSteerDynamicFuzzyDomain
 
 #if UsePowerOnDelay

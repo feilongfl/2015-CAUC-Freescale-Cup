@@ -325,12 +325,19 @@ void SteerFuzzyDomainScan()
 	struct FLAdc_s adcn;
 	FLAdcLostLine_e IsLostLine = LostLine;
 
+	DisableInterrupts();
+
+	LcdCls();
+	LCDPrint(0, 0, "Domain Max:");
+
 	while (!exitfunc)
 	{
 		adcn = AdcNormalizing();//获取归一化电感值
 		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		FreecaleConfig.Config.Steer.Domain = MAX(ABS(de), FreecaleConfig.Config.Steer.Domain);
+
+		NumShow(FreecaleConfig.Config.Steer.Domain, LcdLocal1, LcdLine2);
 
 		switch (KeyScanWithoutIrq())//按键检测
 		{
@@ -346,5 +353,8 @@ void SteerFuzzyDomainScan()
 		default:
 			break;
 		}
+		DELAY_MS(50);
 	}
+
+	EnableInterrupts();
 }
