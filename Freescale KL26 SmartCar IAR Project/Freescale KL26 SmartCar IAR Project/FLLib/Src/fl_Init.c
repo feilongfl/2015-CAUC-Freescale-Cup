@@ -3,6 +3,7 @@
 #include "Vcan_led.h"
 #include "fl_init.h"
 #include "fl_include.h"
+#include "main.h"
 
 
 /************************************************************************/
@@ -20,11 +21,13 @@ InitRepot_e Init()
 	SteerPidInit();//舵机
 	UartInit();
 	PitInit();//初始化pit模块
-	Hcsr04Init();//初始化超声波模块
 	OlcdInit();//初始化0.96OLED液晶屏
 	NrfInit();//nrf24l01+
 	FLKeyInit();//小键盘
-	//ConfigInit();//设置初始化
+	ConfigInit();//设置初始化
+#if Car == Car2
+	Hcsr04Init();
+#endif //car
 	return InitAllGreen;
 }
 

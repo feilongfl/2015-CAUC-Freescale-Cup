@@ -15,9 +15,9 @@
 #define UseMpu6050ChangeSpeed		DoNotUseIt//陀螺仪控速
 #define UseDistanceChangeSpeed		DoNotUseIt//距离控速
 #define UseSoundSpeedByTemperature	DoNotUseIt//超声波温度补偿
-#define UseNrfSendOrReceiveMsg		UseIt
-#define UseCar2NrfSendDistance		UseIt
-#define UseCar1NrfSendAdc			UseIt
+#define UseNrfSendOrReceiveMsg		DoNotUseIt//nrf使能
+#define UseCar2NrfSendDistance		DoNotUseIt//距离传送
+#define UseCar1NrfSendAdc			DoNotUseIt//ad传送
 
 #define SpeedForTest				700//测试速度
 
