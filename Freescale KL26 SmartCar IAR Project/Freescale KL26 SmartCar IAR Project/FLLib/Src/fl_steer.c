@@ -213,7 +213,7 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 #define SteerOffSetSum 13
 //参考其他方案和以前分档思想，暂定7档
 #define SteerGears 7
-#warning 论域在不同环境下是不同的，开机时需要扫描，进行类似归一化处理
+//#warning 论域在不同环境下是不同的，开机时需要扫描，进行类似归一化处理
 //偏差论域
 #define OffSetMax	59
 //原点提升值
