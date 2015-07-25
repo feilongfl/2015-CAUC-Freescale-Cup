@@ -203,6 +203,8 @@ void FLIrqHandle()
 		PORTD_ISFR = (1 << n);        //写1清中断标志位
 
 		/*  以下为用户任务  */
+		extern void Hcsr04IrqPortIrq();
+		Hcsr04IrqPortIrq();
 		/*  以上为用户任务  */
 	}
 
@@ -212,6 +214,8 @@ void FLIrqHandle()
 		PORTD_ISFR = (1 << n);        //写1清中断标志位
 
 		/*  以下为用户任务  */
+		extern void Hcsr04EchoIrq(); 
+		Hcsr04EchoIrq();
 		/*  以上为用户任务  */
 	}
 #endif
