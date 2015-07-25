@@ -101,7 +101,7 @@ void Hcsr04EchoIrq()
 	if (dis != ~0)//Ã»Òç³ö
 	{
 #if UseSoundSpeedByTemperature
-		dis = dis * (331.5 + 0.607 * Temperature);
+		dis = dis * SoundSpeed / 2 / 1000;
 #else
 		dis = dis * 340 / 2 / 1000;
 
