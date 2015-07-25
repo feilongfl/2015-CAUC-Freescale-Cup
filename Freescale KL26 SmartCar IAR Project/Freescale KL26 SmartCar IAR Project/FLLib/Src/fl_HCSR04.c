@@ -79,9 +79,7 @@ InitRepot_e Hcsr04Init()
 	}
 	Temperature >>= 3;//除8
 
-	SoundSpeed = (uint16)(Temperature*0.067 + 331.5)
-
-	//声速=331.5+0.607*温度
+	SoundSpeed = (uint16)(Temperature*0.067 + 331.5);//声速=331.5+0.607*温度
 #endif //UseSoundSpeedByTemperature
 
 	return InitAllGreen;
