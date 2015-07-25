@@ -125,7 +125,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
 	uint16 * adcMaxAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	uint16 * adcMinAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMin.Adc;
-	*adcMaxAddress = *adcMinAddress = *adcReadTemp;
+	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 #define DEBUG_ADC
 #ifdef DEBUG_ADC
 	printf("$");
