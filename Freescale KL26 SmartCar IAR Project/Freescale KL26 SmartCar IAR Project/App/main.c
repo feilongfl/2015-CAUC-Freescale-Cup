@@ -273,24 +273,7 @@ void main()
 
 		//////////////////////////////////////////////////////////////////////////
 		//ÑÓ³Ù£¬¿ØÖÆÖÜÆÚ
-#define mainDelayTime 2//2 * 20ms
-#if Car == Car1
-		DELAY_MS(mainDelayTime * 20);
-#elif Car == Car2
-		static uint8 carDelayFlag = 0;//static values
-		if (carDelayFlag++ < mainDelayTime - 1)
-		{
-			Hcsr04Wait();
-			carDelayFlag = 0;
-		}
-		else
-		{
-			CarDistance = Hcsr04Read();
-			NrfSendStr("$%d#", CarDistance);
-		}
-#else
-#error your car select error
-#endif//Car Switch 
+		DELAY_MS(20);
 	}
 	//////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////
