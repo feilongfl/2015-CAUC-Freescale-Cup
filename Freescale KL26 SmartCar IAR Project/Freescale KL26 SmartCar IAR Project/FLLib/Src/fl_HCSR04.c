@@ -101,9 +101,9 @@ void Hcsr04EchoIrq()
 	if (dis != ~0)//没溢出
 	{
 #if UseSoundSpeedByTemperature
-		dis = dis * SoundSpeed / 2 / 1000;
+		dis = dis * SoundSpeed / 2 / 100;
 #else
-		dis = dis * 340 / 2 / 1000;
+		dis = dis * 340 / 2 / 100;
 
 #endif //UseSoundSpeedByTemperature
 		if (dis < 50)//没超过最大距离（340m/s * 0.02s = 6.8m = 68dm)
