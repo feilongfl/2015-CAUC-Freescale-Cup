@@ -81,6 +81,7 @@ struct Config_s
 	uint8 ConfigStart;
 #endif // UseCheck
 	struct ConfigAdcNom_s AdcNormalMax;
+	struct ConfigAdcNom_s AdcNormalMin;
 	struct ConfigSteer Steer;
 	struct ConfigMotor_s Motor;
 	CarState_e CarState;

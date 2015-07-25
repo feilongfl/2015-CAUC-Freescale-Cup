@@ -78,7 +78,7 @@ static struct FLAdc_s * AdcReadAll()
 
 
 //归一化
-struct FLAdc_s AdcMax;//最大值
+//struct FLAdc_s AdcMax;//最大值
 //struct FLAdc_s AdcMin;//最小值
 
 
@@ -87,13 +87,13 @@ struct FLAdc_s AdcNormalizing()//归一化
 	struct FLAdc_s adcNormalizing = *AdcReadAll();
 	uint16 * adcNormalizingAddress = (uint16*)&adcNormalizing;
 	uint16 * adcMax = (uint16 *)&FreecaleConfig.Config.AdcNormalMax.Adc;
-	//uint16 * adcMin = (uint16 *)&AdcMin;
+	uint16 * adcMin = (uint16 *)&FreecaleConfig.Config.AdcNormalMin.Adc;
 	
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 		*(adcNormalizingAddress + (uint8)loopTemp) = (uint16)
-					((*(adcNormalizingAddress + (uint8)loopTemp) - AdcMin) * AdcNormalizingPrecision //（输入值-最小值）*精度
-					/ (*(adcMax + (uint8)loopTemp) - AdcMin));//除以（最大值 - 最小值）
+			((*(adcNormalizingAddress + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)) * AdcNormalizingPrecision //（输入值-最小值）*精度
+			/ (*(adcMax + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)));//除以（最大值 - 最小值）
 	}
 	return adcNormalizing;
 }
@@ -124,8 +124,8 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
 	uint16 * adcMaxAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMax.Adc;
-	//uint16 * adcMinAddress = (uint16*)&AdcMin;
-	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
+	uint16 * adcMinAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMin.Adc;
+	*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 #define DEBUG_ADC
 #ifdef DEBUG_ADC
 	printf("$");
@@ -159,7 +159,7 @@ static void AdcNormalizingOne()//归一化最值设定，调用之前先清空最值
 	{
 #if 1
 		*(adcMaxAddress + loopTemp) = MAX(*(adcMaxAddress + loopTemp), *(adcReadTemp + loopTemp));
-		//*(adcMinAddress + loopTemp) = MIN(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
+		*(adcMinAddress + loopTemp) = MIN(*(adcMinAddress + loopTemp), *(adcReadTemp + loopTemp));
 #else
 #warning debuging adc
 		*(adcMaxAddress + loopTemp) = 150;
@@ -171,13 +171,13 @@ static void AdcNormalizingExtremumClear()//清空归一化最值
 {
 	uint16 * adcReadTemp = (uint16*)AdcReadAll();
 	uint16 * adcMaxAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMax.Adc;
-	//uint16 * adcMinAddress = (uint16*)&AdcMin;
-	//*adcMaxAddress = *adcMinAddress = *adcReadTemp;
+	uint16 * adcMinAddress = (uint16*)&FreecaleConfig.Config.AdcNormalMin.Adc;
+	*adcMaxAddress = *adcMinAddress = *adcReadTemp;
 
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 		*(adcMaxAddress + loopTemp) = *(adcReadTemp + loopTemp);
-		//*(adcMinAddress + loopTemp) = *(adcReadTemp + loopTemp);
+		*(adcMinAddress + loopTemp) = *(adcReadTemp + loopTemp);
 	}
 }
 
@@ -219,10 +219,10 @@ static void LCDAdcShowMaxOrMin(LcdAdcShowMaxOrMin_e lcdAdcType)
 		LcdAdcShow(&FreecaleConfig.Config.AdcNormalMax.Adc);
 		break;
 
-	/*case LcdShowMin:
+	case LcdShowMin:
 		LCDPrint(LcdTitleLocal, LcdTitleLine, LcdAdcTitleNorMin);
-		LcdAdcShow(&AdcMin);
-		break;*/
+		LcdAdcShow(&FreecaleConfig.Config.AdcNormalMin.Adc);
+		break;
 
 	default:
 		ASSERT(TRUE);
@@ -264,7 +264,7 @@ void AdcNormalizingInit()
 			break;
 
 		case FLKeySwitch://切换显示
-			//maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
+			maxOrMin = (maxOrMin == LcdShowMax) ? LcdShowMin : LcdShowMax;
 			break;
 
 		case FLNoKeyDown:

@@ -87,14 +87,14 @@ struct FLAdc_s//adc存储结构
 #define calcualteAdc(num) (((num) * 3300) / 256)//貌似是adc读取的数值转电压值的计算公式
 #define AdcNormalizingPrecision 1000//adc归一化精度
 
-#define AdcMin	0
+//#define AdcMin	0
 
 #define AdcFitterTimes 3
 
 void LcdAdcShow(struct FLAdc_s * flAdcn);
 
 #define LcdAdcTitleNorMax (unsigned char *)"归一化--最大值"
-//#define LcdAdcTitleNorMin (unsigned char *)"归一化--最小值"
+#define LcdAdcTitleNorMin (unsigned char *)"归一化--最小值"
 
 
 
