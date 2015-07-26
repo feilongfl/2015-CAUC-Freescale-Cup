@@ -52,7 +52,7 @@ void SteerCtrl()
 #if UseLostRoadStop
 		lostRoad = (lostRoad > LostRoadTimesMin) ? 255 : lostRoad + 1;
 
-#define SteerLostLinetimeMax 10//直角弯道判断次数
+#define SteerLostLinetimeMax 3//直角弯道判断次数
 		if (
 			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
 #define AdcVertialLostMin 100
@@ -94,10 +94,11 @@ void SteerCtrl()
 				default:
 					break;
 				}
+				//while (1);
 
 				SpeedForline = TurnSpeed;//减速
 
-				time = 0;
+				time = SteerLostLinetimeMax + 1;
 				turnTemp = 0;
 			}
 			else
@@ -108,9 +109,28 @@ void SteerCtrl()
 			}
 
 		}
-		else//没丢线，清楚标志
+		else//不是直角弯，清楚标志
 		{
 			time = 0;
+			switch (turn)
+			{
+			case SteerDirectionLeft:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+				break;
+
+			case SteerDirectionRight:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+				break;
+
+			case SteerDirectionCenter:
+				led(LED2, LED_ON);
+				//直角
+				break;
+
+			default:
+				break;
+			}
+
 		}
 #endif//UseLostRoadStop
 	}

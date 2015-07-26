@@ -89,7 +89,7 @@ struct FLAdc_s//adc´æ´¢½á¹¹
 
 //#define AdcMin	0
 
-#define AdcFitterTimes 10
+#define AdcFitterTimes 3
 
 void LcdAdcShow(struct FLAdc_s * flAdcn);
 
