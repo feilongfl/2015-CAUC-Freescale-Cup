@@ -50,15 +50,15 @@ void SteerCtrl()
 		led(LED0, LED_ON);
 #if UseLostRoadStop
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
-		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
+		lostRoad = (lostRoad > 10) ? 255 : lostRoad + 1;
 
-#define SteerLostLinetimeMax 3//直角弯道判断次数
-		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)//直角弯道判断最小差值
+#define SteerLostLinetimeMax 10//直角弯道判断次数
+		if ((ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80))//直角弯道判断最小差值
 		{
 			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
 			if (time++ > SteerLostLinetimeMax)//计数，判断
 			{
-				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3,  -SteerLostLinetimeMax / 3))//中间
+				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3, -SteerLostLinetimeMax / 3))//中间
 				{
 					turn = SteerDirectionCenter;
 				}
@@ -70,33 +70,42 @@ void SteerCtrl()
 				{
 					turn = SteerDirectionLeft;
 				}
+
+				switch (turn)
+				{
+				case SteerDirectionLeft:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+					break;
+
+				case SteerDirectionRight:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+					break;
+
+				case SteerDirectionCenter:
+					led(LED2, LED_ON);
+					//直角
+					break;
+
+				default:
+					break;
+				}
+
 				time = 0;
-                                turnTemp = 0;
+				turnTemp = 0;
 			}
-			
-		}else//没丢线，清楚标志
+			else
 			{
-				time = 0;
+				DELAY_MS(1);
+				SteerCtrl();
+				return;
 			}
-#endif//UseLostRoadStop
-		switch (turn)
-		{
-		case SteerDirectionLeft:
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
-			break;
 
-		case SteerDirectionRight:
-			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
-			break;
-
-		case SteerDirectionCenter:
-			led(LED2, LED_ON);
-			//直角
-			break;
-
-		default:
-			break;
 		}
+		else//没丢线，清楚标志
+		{
+			time = 0;
+		}
+#endif//UseLostRoadStop
 	}
 	else//OnLine
 	{
@@ -107,7 +116,7 @@ void SteerCtrl()
 		SteerVagueCtrl(de);
 		led(LED0, LED_OFF);
 
-		
+
 	}
 }
 
