@@ -53,28 +53,31 @@ void SteerCtrl()
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 
 #define SteerLostLinetimeMax 10//直角弯道判断次数
-		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)//直角弯道判断最小差值
+		if (lostRoad > 10)
 		{
-			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
-			if (time++ > SteerLostLinetimeMax)//计数，判断
+			if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)//直角弯道判断最小差值
 			{
-				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3,  -SteerLostLinetimeMax / 3))//中间
+				turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
+				if (time++ > SteerLostLinetimeMax)//计数，判断
 				{
-					turn = SteerDirectionCenter;
+					if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3, -SteerLostLinetimeMax / 3))//中间
+					{
+						turn = SteerDirectionCenter;
+					}
+					else if (turnTemp < 0)
+					{
+						turn = SteerDirectionRight;
+					}
+					else
+					{
+						turn = SteerDirectionLeft;
+					}
+					time = 0;
 				}
-				else if (turnTemp < 0)
+				else//没丢线，清楚标志
 				{
-					turn = SteerDirectionRight;
+					time = 0;
 				}
-				else
-				{
-					turn = SteerDirectionLeft;
-				}
-				time = 0;
-			}
-			else//没丢线，清楚标志
-			{
-				time = 0;
 			}
 		}
 #endif//UseLostRoadStop
