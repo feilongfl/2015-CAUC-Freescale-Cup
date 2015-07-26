@@ -84,7 +84,7 @@ static struct FLAdc_s * AdcReadAll()
 
 struct FLAdc_s AdcNormalizing()//πÈ“ªªØ
 {
-	struct FLAdc_s adcNormalizing = *AdcReadAll();
+	struct FLAdc_s adcNormalizing = AdcNormalizingWithFitter();
 	uint16 * adcNormalizingAddress = (uint16*)&adcNormalizing;
 	uint16 * adcMax = (uint16 *)&FreecaleConfig.Config.AdcNormalMax.Adc;
 	uint16 * adcMin = (uint16 *)&FreecaleConfig.Config.AdcNormalMin.Adc;

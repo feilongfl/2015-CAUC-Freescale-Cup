@@ -52,7 +52,7 @@ void SteerCtrl()
 		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad+1;
 
-#define SteerLostLinetimeMax 10//直角弯道判断次数
+#define SteerLostLinetimeMax 3//直角弯道判断次数
 		if (ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)//直角弯道判断最小差值
 		{
 			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
@@ -62,7 +62,7 @@ void SteerCtrl()
 				{
 					turn = SteerDirectionCenter;
 				}
-				else if (turnTemp < 0)
+				else if (turnTemp > 0)
 				{
 					turn = SteerDirectionRight;
 				}
