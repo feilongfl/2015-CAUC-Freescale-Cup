@@ -263,6 +263,9 @@ int16 SteerPwmArr[SteerGears] = {
 	1000, 1167, 1333, 1500, 1667, 1833, 2000
 #endif
 };
+
+
+extern uint16 SpeedForline;
 /************************************************************************/
 //offset:偏差
 void SteerVagueCtrl(int16 offset)
@@ -305,12 +308,12 @@ void SteerVagueCtrl(int16 offset)
 		{
 			pwm += SteerPwmArr[i] * (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
 		}
-		//Speed.Expect = 500;//悠着点
+		SpeedForline = SpeedForTest / 2;//悠着点
 	}
 	else//差不多挺直的，冲啊！！！！！
 	{
 		pwm = SteerCenterDuty;
-		//Speed.Expect = 1000;//飞吧
+		SpeedForline = SpeedForTest;//飞吧
 	}
 	//pwm = RANGE(pwm, SteerPwmArr[SteerGears - 1], SteerPwmArr[0]);//限制一下
 	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
@@ -330,10 +333,13 @@ void SteerFuzzyDomainScan()
 	LcdCls();
 	LCDPrint(0, 0, "Domain Max:");
 
+	adcn = AdcNormalizing();//获取归一化电感值
+	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+	FreecaleConfig.Config.Steer.Domain = ABS(de);
+
 	while (!exitfunc)
 	{
 		adcn = AdcNormalizing();//获取归一化电感值
-		SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		FreecaleConfig.Config.Steer.Domain = MAX(ABS(de), FreecaleConfig.Config.Steer.Domain);
 

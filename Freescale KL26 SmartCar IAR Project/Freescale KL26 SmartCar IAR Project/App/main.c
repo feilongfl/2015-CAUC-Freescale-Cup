@@ -11,6 +11,7 @@
 /************************************************************************/
 #include "main.h"
 
+uint16 SpeedForline = SpeedForTest;//速度
 
 uint32 CarDistance = 0;
 uint8 NrfBuff[DATA_PACKET];
@@ -94,6 +95,8 @@ void SteerCtrl()
 					break;
 				}
 
+				SpeedForline = SpeedForTest / 2;//减速
+
 				time = 0;
 				turnTemp = 0;
 			}
@@ -115,7 +118,7 @@ void SteerCtrl()
 	{
 #if UseLostRoadStop
 		lostRoad = 0;
-		Speed.Expect = SpeedForTest;
+		Speed.Expect = SpeedForline;
 #endif//UseLostRoadStop
 		SteerVagueCtrl(de);
 		led(LED0, LED_OFF);
@@ -132,7 +135,7 @@ void SpeedCtrl()
 //////////////////////////////////////////////////////////////////////////
 /*  距离控速                                      */
 	
-		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
+		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForline;
 #if UseDistanceChangeSpeed
 	#warning please change these num
 	if (CarDistance < 100)//only for test,don't forget change this num
@@ -255,7 +258,7 @@ void main()
 	
 
 	//uint16 spwm = SteerCenterDuty;
-	Speed.Expect = SpeedForTest;
+	Speed.Expect = SpeedForline;
 	enable_irq(PIT_IRQn);								  //使能PIT0中断
 	//程序循环
 	while (1)
