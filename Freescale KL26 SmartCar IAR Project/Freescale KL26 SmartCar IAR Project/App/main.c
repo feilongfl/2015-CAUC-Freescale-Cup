@@ -40,8 +40,8 @@ void SteerCtrl()
 	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 
-	uint8 time = 0;
-	int8 turnTemp = 0;
+	static uint8 time = 0;
+	static int8 turnTemp = 0;
 	//int32 pidatsteer = SteerCtrlUsePid(de);
 	NumShow(ABS(de), 0, 0);
 
@@ -71,12 +71,13 @@ void SteerCtrl()
 					turn = SteerDirectionLeft;
 				}
 				time = 0;
+                                turnTemp = 0;
 			}
-			else//没丢线，清楚标志
+			
+		}else//没丢线，清楚标志
 			{
 				time = 0;
 			}
-		}
 #endif//UseLostRoadStop
 		switch (turn)
 		{
