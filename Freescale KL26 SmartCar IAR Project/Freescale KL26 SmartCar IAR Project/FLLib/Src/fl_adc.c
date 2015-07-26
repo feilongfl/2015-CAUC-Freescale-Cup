@@ -92,7 +92,13 @@ struct FLAdc_s AdcNormalizing()//归一化
 	for (uint8 loopTemp = 0; loopTemp < FLAdcMax + AdcVerticalMax; loopTemp++)
 	{
 		*(adcNormalizingAddress + (uint8)loopTemp) = (uint16)
-			((*(adcNormalizingAddress + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)) * AdcNormalizingPrecision //（输入值-最小值）*精度
+			(
+			(
+				RANGE(*(adcNormalizingAddress + (uint8)loopTemp), //输入值限幅
+							*(adcMax + (uint8)loopTemp),
+							*(adcMin + (uint8)loopTemp)
+							)
+			- *(adcMin + (uint8)loopTemp)) * AdcNormalizingPrecision //（输入值-最小值）*精度
 			/ (*(adcMax + (uint8)loopTemp) - *(adcMin + (uint8)loopTemp)));//除以（最大值 - 最小值）
 	}
 	return adcNormalizing;
