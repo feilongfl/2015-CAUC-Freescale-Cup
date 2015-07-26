@@ -20,7 +20,7 @@
 #define UseCar1NrfSendAdc			DoNotUseIt//ad传送
 #define UseSteerDynamicFuzzyDomain	UseIt//舵机动态论域
 
-#define SpeedForTest				700//测试速度
+#define SpeedForTest				1000//测试速度
 
 #define Car1						1
 #define Car2						2

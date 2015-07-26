@@ -49,11 +49,15 @@ void SteerCtrl()
 	{
 		led(LED0, LED_ON);
 #if UseLostRoadStop
-		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 		lostRoad = (lostRoad > 10) ? 255 : lostRoad + 1;
 
 #define SteerLostLinetimeMax 10//直角弯道判断次数
-		if ((ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80))//直角弯道判断最小差值
+		if (
+			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
+#define AdcVertialLostMin 100
+			&& adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			&& adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			)//直角弯道判断最小差值
 		{
 			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
 			if (time++ > SteerLostLinetimeMax)//计数，判断
@@ -62,7 +66,7 @@ void SteerCtrl()
 				{
 					turn = SteerDirectionCenter;
 				}
-				else if (turnTemp > 0)
+				else if (turnTemp < 0)
 				{
 					turn = SteerDirectionRight;
 				}
@@ -127,7 +131,8 @@ void SpeedCtrl()
 {
 //////////////////////////////////////////////////////////////////////////
 /*  距离控速                                      */
-	Speed.Expect = SpeedForTest;
+	
+		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForTest;
 #if UseDistanceChangeSpeed
 	#warning please change these num
 	if (CarDistance < 100)//only for test,don't forget change this num
