@@ -95,7 +95,7 @@ void SteerCtrl()
 					break;
 				}
 
-				SpeedForline = SpeedForTest / 2;//¼õËÙ
+				SpeedForline = TurnSpeed;//¼õËÙ
 
 				time = 0;
 				turnTemp = 0;

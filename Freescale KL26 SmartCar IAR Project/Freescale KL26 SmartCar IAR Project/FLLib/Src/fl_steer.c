@@ -308,7 +308,7 @@ void SteerVagueCtrl(int16 offset)
 		{
 			pwm += SteerPwmArr[i] * (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
 		}
-		SpeedForline = SpeedForTest / 2;//悠着点
+		SpeedForline = TurnSpeed;//悠着点
 	}
 	else//差不多挺直的，冲啊！！！！！
 	{
