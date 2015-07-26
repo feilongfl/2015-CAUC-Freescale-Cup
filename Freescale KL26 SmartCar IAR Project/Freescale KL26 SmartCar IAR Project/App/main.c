@@ -50,7 +50,7 @@ void SteerCtrl()
 	{
 		led(LED0, LED_ON);
 #if UseLostRoadStop
-		lostRoad = (lostRoad > 10) ? 255 : lostRoad + 1;
+		lostRoad = (lostRoad > LostRoadTimesMin) ? 255 : lostRoad + 1;
 
 #define SteerLostLinetimeMax 10//直角弯道判断次数
 		if (
@@ -135,7 +135,7 @@ void SpeedCtrl()
 //////////////////////////////////////////////////////////////////////////
 /*  距离控速                                      */
 	
-		Speed.Expect = (lostRoad > 10) ? 0 : SpeedForline;
+	Speed.Expect = (lostRoad > LostRoadTimesMin) ? 0 : SpeedForline;
 #if UseDistanceChangeSpeed
 	#warning please change these num
 	if (CarDistance < 100)//only for test,don't forget change this num

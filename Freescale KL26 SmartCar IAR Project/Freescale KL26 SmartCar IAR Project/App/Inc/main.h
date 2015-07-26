@@ -22,6 +22,7 @@
 
 
 #define SpeedForTest 1000
+#define LostRoadTimesMin 20
 
 #define Car1						1
 #define Car2						2
