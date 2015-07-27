@@ -159,7 +159,6 @@
     <ClInclude Include="FLLib\Inc\fl_state.h" />
     <ClInclude Include="FLLib\Inc\Fl_steer.h" />
     <ClInclude Include="FLLib\Inc\fl_SteerFuzzy.h" />
-    <ClInclude Include="FLLib\Inc\fl_SteergzPid.h" />
     <ClInclude Include="FLLib\Inc\fl_SteerQpid.h" />
     <ClInclude Include="FLLib\Inc\fl_steer_pid.h" />
     <ClInclude Include="FLLib\Inc\qPIDs.h" />
@@ -237,7 +236,6 @@
     <ClCompile Include="FLLib\Src\fl_state.c" />
     <ClCompile Include="FLLib\Src\fl_steer.c" />
     <ClCompile Include="FLLib\Src\fl_SteerFuzzy.c" />
-    <ClCompile Include="FLLib\Src\fl_SteergzPid.c" />
     <ClCompile Include="FLLib\Src\fl_SteerQpid.c" />
     <ClCompile Include="FLLib\Src\fl_steer_pid.c" />
     <ClCompile Include="FLLib\Src\qPIDs.c" />

@@ -4,6 +4,7 @@ struct Pid_s SteerPid;
 
 void SteerPidInit()
 {
+	SteerInit();
 
 	SteerPid.Target = 0;
 
