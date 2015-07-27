@@ -41,7 +41,6 @@ typedef enum
 	MenuMotorKp = 0,
 	MenuMotorKi,
 	MenuMotorKd,
-	MenuMotorReset,
 	MenuMotorItemNum,
 
 	//¶æ»ú²Ëµ¥

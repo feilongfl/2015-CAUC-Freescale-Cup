@@ -221,6 +221,9 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 
 	config.Config.Motor.Speed.Acturally = 0;
 	config.Config.Motor.Speed.Expect = 10;
+	config.Config.Motor.Speed.LineSpeed = 1000;
+	config.Config.Motor.Speed.TurnSpeed = 700;
+	config.Config.Motor.Speed.LineSpeed = 500;
 
 #include "fl_MOTOR_PID.h"
 

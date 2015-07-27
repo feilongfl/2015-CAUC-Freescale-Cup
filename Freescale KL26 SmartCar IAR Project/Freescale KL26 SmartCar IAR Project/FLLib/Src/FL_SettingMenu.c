@@ -20,7 +20,6 @@ const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 	"电机Kp",
 	"电机Ki",
 	"电机Kd",
-	"重置电机",
 };
 
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
@@ -328,11 +327,11 @@ static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
 	LcdCls();
 	LCDPrint(LcdLocal1, LcdLine1, title);
 	LCDPrint(LcdLocal2, LcdLine2, (unsigned char *)"max:");
-	NumShow(max, LcdLocal3, LcdLine2);
+	NumShow4(max, LcdLocal3, LcdLine2);
 	LCDPrint(LcdLocal2, LcdLine3, (unsigned char *)"min:");
-	NumShow(min, LcdLocal3, LcdLine3);
+	NumShow4(min, LcdLocal3, LcdLine3);
 	LCDPrint(LcdLocal2, LcdLine4, (unsigned char *)"set:");
-	NumShow(tempNum, LcdLocal3, LcdLine4);
+	NumShow4(tempNum, LcdLocal3, LcdLine4);
 
 	while (TRUE)//如果按键没有按下，继续执行
 	{
@@ -354,22 +353,22 @@ static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
 
 		case FLKeyAdd1:
 			tempNum = RANGE(tempNum + 1, max, min);
-			NumShow(tempNum, LcdLocal3, LcdLine4);
+			NumShow3(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case FLKeySubtract1:
 			tempNum = RANGE(tempNum - 1, max, min);
-			NumShow(tempNum, LcdLocal3, LcdLine4);
+			NumShow3(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case  FLKeyAdd10:
 			tempNum = RANGE(tempNum + 10, max, min);
-			NumShow(tempNum, LcdLocal3, LcdLine4);
+			NumShow3(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case FLKeySubtract10:
 			tempNum = RANGE(tempNum - 10, max, min);
-			NumShow(tempNum, LcdLocal3, LcdLine4);
+			NumShow3(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		default:
@@ -399,6 +398,34 @@ static uint8 MenuMotorOperate()
 			return FALSE;
 			break;
 
+		case FLKeyEnter:
+			switch (MenuChoice.MotorMenu)
+			{
+			case MenuMotorKp:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.P, PidPrecision, 0,
+					(unsigned char *)"Motor Kp");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
+				break;
+
+			case MenuMotorKi:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.I, PidPrecision, 0,
+					(unsigned char *)"Motor Ki");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
+				break;
+
+			case MenuMotorKd:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.D, PidPrecision, 0,
+					(unsigned char *)"Motor Kd");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
+				break;
+
+			default:
+				break;
+			}
+			break;
 
 			//上下
 		case FlKeyUp:
@@ -570,21 +597,21 @@ static uint8 MenuSpeedOperate()
 			switch (MenuChoice.SpeedMenu)
 			{
 			case MenuSpeedLine:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LineSpeed, 200, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LineSpeed, 9999, 0,
 					(unsigned char *)"Speed Line");
 				ConfigWrite(&FreecaleConfig);
-				LcdShowMenu(MenuSpeed, MenuChoice.SteerMenu);
+				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
 				break;
 
 			case MenuSpeedTurn:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.TurnSpeed, 200, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.TurnSpeed, 9999, 0,
 					(unsigned char *)"Speed Turn");
 				ConfigWrite(&FreecaleConfig);
-				LcdShowMenu(MenuSpeed, MenuChoice.SteerMenu);
+				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
 				break;
 
 			case MenuSpeedLost:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LostLineSpeed, 200, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LostLineSpeed, 9999, 0,
 					(unsigned char *)"Speed Lost");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);

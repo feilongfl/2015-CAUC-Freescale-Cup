@@ -191,7 +191,7 @@ void LcdAdcShow(struct FLAdc_s * flAdcn)
 {
 	for (uint8 lcdShowTemp = 0; lcdShowTemp < FLAdcMax + AdcVerticalMax; lcdShowTemp++)
 	{
-		NumShow((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocation[lcdShowTemp][LcdLocal], LcdAdcNumLocation[lcdShowTemp][LcdLine]);
+		NumShow3((uint16)*((uint16*)flAdcn + lcdShowTemp), LcdAdcNumLocation[lcdShowTemp][LcdLocal], LcdAdcNumLocation[lcdShowTemp][LcdLine]);
 	}
 }
 

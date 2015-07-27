@@ -44,7 +44,7 @@ void SteerCtrl()
 	static uint8 time = 0;
 	static int8 turnTemp = 0;
 	//int32 pidatsteer = SteerCtrlUsePid(de);
-	NumShow(ABS(de), 0, 0);
+	NumShow3(ABS(de), 0, 0);
 
 	if (IsLostLine == LostLine)//¶ªÏß
 	{
@@ -295,9 +295,9 @@ void main()
 		NumShow16(Speed.Expect, LcdLocal1, LcdLine1);
 		NumShow16(Speed.Acturally, LcdLocal1, LcdLine2);
 		
-		NumShow(MotorPid.P, LcdLocal1, LcdLine3);
-		NumShow(MotorPid.I, LcdLocal2, LcdLine3);
-		NumShow(MotorPid.D, LcdLocal3, LcdLine3);
+		NumShow3(MotorPid.P, LcdLocal1, LcdLine3);
+		NumShow3(MotorPid.I, LcdLocal2, LcdLine3);
+		NumShow3(MotorPid.D, LcdLocal3, LcdLine3);
 		
 #endif
 

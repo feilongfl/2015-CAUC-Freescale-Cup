@@ -349,7 +349,7 @@ void SteerFuzzyDomainScan()
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 		FreecaleConfig.Config.Steer.AdcDomain = MAX(ABS(de), FreecaleConfig.Config.Steer.AdcDomain);
 
-		NumShow(FreecaleConfig.Config.Steer.AdcDomain, LcdLocal1, LcdLine2);
+		NumShow3(FreecaleConfig.Config.Steer.AdcDomain, LcdLocal1, LcdLine2);
 
 		switch (KeyScanWithoutIrq())//°´¼ü¼ì²â
 		{

@@ -116,11 +116,11 @@ void Hcsr04Show()
 	
 	if (Distance < 999)
 	{
-		NumShow(Distance, DistanceX, DistanceY);
+		NumShow3(Distance, DistanceX, DistanceY);
 	}
 	else
 	{
-		NumShow(0, DistanceX, DistanceY);
+		NumShow3(0, DistanceX, DistanceY);
 	}
 }
 
