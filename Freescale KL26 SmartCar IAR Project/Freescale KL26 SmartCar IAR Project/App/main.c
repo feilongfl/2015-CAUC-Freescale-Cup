@@ -79,11 +79,11 @@ void SteerCtrl()
 				switch (turn)
 				{
 				case SteerDirectionLeft:
-					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
 					break;
 
 				case SteerDirectionRight:
-					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
 					break;
 
 				case SteerDirectionCenter:
@@ -115,11 +115,11 @@ void SteerCtrl()
 			switch (turn)
 			{
 			case SteerDirectionLeft:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - 500);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
 				break;
 
 			case SteerDirectionRight:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 500);
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
 				break;
 
 			case SteerDirectionCenter:
