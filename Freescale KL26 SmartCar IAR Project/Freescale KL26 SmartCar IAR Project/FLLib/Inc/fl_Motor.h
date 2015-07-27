@@ -47,6 +47,9 @@ struct MotorSpeed_s
 {
 	uint16 Acturally;
 	uint16 Expect;
+	uint16 LineSpeed;
+	uint16 TurnSpeed;
+	uint16 LostLineSpeed;
 };
 #else
 struct MotorSpeed_s

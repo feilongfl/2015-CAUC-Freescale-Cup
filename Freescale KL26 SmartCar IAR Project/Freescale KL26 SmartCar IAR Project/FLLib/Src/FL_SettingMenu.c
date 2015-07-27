@@ -1,6 +1,7 @@
 
 #include "FL_SettingMenu.h"
 #include "FL_OLCD.h"
+#include "fl_config.h"
 
 
 
@@ -11,9 +12,7 @@ const unsigned char * MainMenuItems[MenuMainItemNum] =
 	"舵机设置",
 	"车速设置",
 	"归一化",
-	"Steer Domain Set",
-	"set default",
-	"重置系统",
+	"Reset EepRom",
 };
 
 const unsigned char * MotorMenuItems[MenuMotorItemNum] =
@@ -26,18 +25,15 @@ const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
-	"舵机Kp",
-	"舵机Ki",
-	"舵机Kd",
-	"重置舵机",
+	"Adc Domain",
+	"Steer Domain"
 };
 
 const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
 {
-	"设定速度",
-	"最小速度",
-	"最大速度",
-	"重置速度",
+	"LineSpeed",
+	"TurnSpeed",
+	"LostLineSpeed",
 };
 
 const unsigned char * ResetMenuItems[MenuResetItemNum] =
@@ -323,7 +319,63 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 	}
 }
 
+static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
+	unsigned char * title)
+{
+	uint16 tempNum = *num;
 
+	LCDPrint(LcdLocal1, LcdLine1, title);
+	LCDPrint(LcdLocal2, LcdLine2, (unsigned char *)"max:");
+	NumShow(max, LcdLocal3, LcdLine2);
+	LCDPrint(LcdLocal2, LcdLine3, (unsigned char *)"min:");
+	NumShow(max, LcdLocal3, LcdLine3);
+	LCDPrint(LcdLocal2, LcdLine4, (unsigned char *)"set:");
+	NumShow(tempNum, LcdLocal3, LcdLine4);
+
+	while (TRUE)//如果按键没有按下，继续执行
+	{
+		switch (KeyScan())
+		{
+			//退出
+		case FLKeyIrq://退出中断
+			return TRUE;
+			break;
+
+		case FLKeyEnter:
+			*num = tempNum;
+			return FALSE;
+			break;
+
+		case FLKeyBack://返回
+			return FALSE;
+			break;
+
+		case FLKeyAdd1:
+			tempNum = RANGE(tempNum + 1, max, min);
+			NumShow(tempNum, LcdLocal3, LcdLine4);
+			break;
+
+		case FLKeySubtract1:
+			tempNum = RANGE(tempNum - 1, max, min);
+			NumShow(tempNum, LcdLocal3, LcdLine4);
+			break;
+
+		case  FLKeyAdd10:
+			tempNum = RANGE(tempNum + 10, max, min);
+			NumShow(tempNum, LcdLocal3, LcdLine4);
+			break;
+
+		case FLKeySubtract10:
+			tempNum = RANGE(tempNum - 10, max, min);
+			NumShow(tempNum, LcdLocal3, LcdLine4);
+			break;
+
+		default:
+			break;
+
+		}
+	}
+}
 /************************************************************************/
 /* 菜单内容                                                             */
 /************************************************************************/
@@ -426,6 +478,23 @@ static uint8 MenuSteerOperate()
 			return FALSE;
 			break;
 
+		case FLKeyEnter:
+			switch (MenuChoice.SteerMenu)
+			{
+			case MenuSteerAdcDomain:
+				SteerFuzzyDomainScan();
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
+			case MenuSteerSteerDomain:
+				LcdChangeUint16(&FreecaleConfig.Config.Steer.SteerDomainDif, 200, 0,
+					(unsigned char *)"Steer Domain");
+				break;
+
+			default:
+				break;
+			}
+			break;
 
 			//上下
 		case FlKeyUp:
@@ -434,8 +503,6 @@ static uint8 MenuSteerOperate()
 		case FlKeyDown:
 			LcdMenuMove(MenuSteer, MoveDown);
 			break;
-
-
 
 			//快捷键
 		case FLKeyMotor:
@@ -460,23 +527,6 @@ static uint8 MenuSteerOperate()
 			MenuChoice.ResetMenu = (MenuChoice_e)0;
 			LcdShowMenu(MenuReset, MenuChoice.ResetMenu);
 			return MenuResetOperate();
-			break;
-
-			//////////////////////////////////////////////////////////////////////////
-			//超快捷
-		case FLKeyKp:
-			MenuChoice.SteerMenu = MenuSteerKp;
-			LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-			break;
-
-		case FLKeyKi:
-			MenuChoice.SteerMenu = MenuSteerKi;
-			LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-			break;
-
-		case FLKeyKd:
-			MenuChoice.SteerMenu = MenuSteerKd;
-			LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
 			break;
 
 		default:
@@ -583,6 +633,18 @@ static uint8 MenuResetOperate()
 				return FALSE;
 				break;
 
+			case MenuResetAccept:
+				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"RUNNING...     ");
+				if (ConfigSetDefaultInEeprom() != ConfigAllGreen)
+				{
+					LcdErrShow(SettingErrFail);
+				}
+				else
+				{
+					LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"DONE.      ");
+				}
+				break;
+
 			default:
 				ASSERT(TRUE);
 				break;
@@ -674,22 +736,6 @@ static void MenuMainOperate()
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
 				break;
 
-			case MenuMainSteerDomain:
-				SteerFuzzyDomainScan();
-				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
-				break;
-
-			case MenuMainWrite:
-				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"RUNNING...     ");
-				if (ConfigSetDefaultInEeprom() != ConfigAllGreen)
-				{
-					LcdErrShow(SettingErrFail);
-				}
-				else
-				{
-					LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"DONE.      ");
-				}
-				break;
 
 			default:
 				ASSERT(TRUE);
@@ -734,12 +780,6 @@ static void MenuMainOperate()
 				exitFunc = MenuMotorOperate();
 				break;
 
-			case MenuMainSteer:
-				MenuChoice.SteerMenu = MenuSteerKp;
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				exitFunc = MenuSteerOperate();
-				break;
-
 			default:
 				LcdErrShow(LcdErrKeyWrong);
 				break;
@@ -753,12 +793,6 @@ static void MenuMainOperate()
 				MenuChoice.MotorMenu = MenuMotorKi;
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
 				exitFunc = MenuMotorOperate();
-				break;
-
-			case MenuMainSteer:
-				MenuChoice.SteerMenu = MenuSteerKi;
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				exitFunc = MenuSteerOperate();
 				break;
 
 			default:
@@ -775,12 +809,7 @@ static void MenuMainOperate()
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
 				exitFunc = MenuMotorOperate();
 				break;
-
-			case MenuMainSteer:
-				MenuChoice.SteerMenu = MenuSteerKd;
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				exitFunc = MenuSteerOperate();
-				break;
+                                
 
 			default:
 				LcdErrShow(LcdErrKeyWrong);

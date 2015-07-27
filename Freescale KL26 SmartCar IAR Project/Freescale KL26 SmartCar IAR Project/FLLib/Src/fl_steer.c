@@ -281,9 +281,9 @@ void SteerVagueCtrl(int16 offset)
 	int8 errorChanngeSpeed = 0;
 	uint8 errQurr = 0;
 
-	offset = RANGE(offset, FreecaleConfig.Config.Steer.Domain, -FreecaleConfig.Config.Steer.Domain) + FreecaleConfig.Config.Steer.Domain + 1;//限幅+提升原点
+	offset = RANGE(offset, FreecaleConfig.Config.Steer.AdcDomain, -FreecaleConfig.Config.Steer.AdcDomain) + FreecaleConfig.Config.Steer.AdcDomain + 1;//限幅+提升原点
 
-	offset /= 10 * FreecaleConfig.Config.Steer.Domain / OffSetMax;//偏差模糊化，论域缩放
+	offset /= 10 * FreecaleConfig.Config.Steer.AdcDomain / OffSetMax;//偏差模糊化，论域缩放
 	errorChanngeSpeed = RANGE(offset - LastError, ErrorChangeSpeedMax, -ErrorChangeSpeedMax) + ErrorChangeSpeedMax;//偏差变化率，限幅在论域内，提升原点
 	LastError = offset;//保存偏差
 	//offset = SteerDirection[offset][errorChanngeSpeed];
@@ -337,19 +337,19 @@ void SteerFuzzyDomainScan()
 	DisableInterrupts();
 
 	LcdCls();
-	LCDPrint(0, 0, "Domain Max:");
+	LCDPrint(0, 0, "AdcDomain Max:");
 
 	adcn = AdcNormalizing();//获取归一化电感值
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-	FreecaleConfig.Config.Steer.Domain = ABS(de);
+	FreecaleConfig.Config.Steer.AdcDomain = ABS(de);
 
 	while (!exitfunc)
 	{
 		adcn = AdcNormalizing();//获取归一化电感值
 		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-		FreecaleConfig.Config.Steer.Domain = MAX(ABS(de), FreecaleConfig.Config.Steer.Domain);
+		FreecaleConfig.Config.Steer.AdcDomain = MAX(ABS(de), FreecaleConfig.Config.Steer.AdcDomain);
 
-		NumShow(FreecaleConfig.Config.Steer.Domain, LcdLocal1, LcdLine2);
+		NumShow(FreecaleConfig.Config.Steer.AdcDomain, LcdLocal1, LcdLine2);
 
 		switch (KeyScanWithoutIrq())//按键检测
 		{
@@ -359,7 +359,7 @@ void SteerFuzzyDomainScan()
 			break;
 
 		case FLKeyReNormalizing:
-			FreecaleConfig.Config.Steer.Domain = ABS(de);
+			FreecaleConfig.Config.Steer.AdcDomain = ABS(de);
 			break;
 
 		default:

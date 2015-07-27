@@ -34,8 +34,6 @@ typedef enum
 	MenuMainSteer,
 	MenuMainSpeed,
 	MenuMainAdcNor,
-	MenuMainSteerDomain,
-	MenuMainWrite,
 	MenuMainReset,
 	MenuMainItemNum,
 
@@ -47,10 +45,8 @@ typedef enum
 	MenuMotorItemNum,
 
 	//舵机菜单
-	MenuSteerKp = 0,
-	MenuSteerKi,
-	MenuSteerKd,
-	MenuSteerReset,
+	MenuSteerAdcDomain = 0,
+	MenuSteerSteerDomain,
 	MenuSteerItemNum,
 
 	//速度菜单

@@ -232,7 +232,7 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Steer.Pid.Pid.P = SteerPIDDefaultP;
 	config.Config.Steer.Pid.Pid.I = SteerPIDDefaultI;
 	config.Config.Steer.Pid.Pid.D = SteerPIDDefaultD;
-	config.Config.Steer.Domain = (SteerDeviationDegree_e)90;
+	config.Config.Steer.AdcDomain = (SteerDeviationDegree_e)90;
 
 	config.Config.CarState = CarStandby;
 

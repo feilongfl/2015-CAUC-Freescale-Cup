@@ -53,7 +53,8 @@ struct ConfigSteer
 	uint8 SteerStart;
 #endif // UseCheck
 	struct ConfigPid_s Pid;
-	SteerDeviationDegree_e Domain;//模糊控制论域
+	SteerDeviationDegree_e AdcDomain;//电感偏差模糊控制论域
+	uint16 SteerDomainDif;//舵机论域
 #if UseCheck
 	uint8 SteerEnd;
 #endif // UseCheck
