@@ -424,7 +424,8 @@ void SteerCtrl_2()
 		lostRoad = 0;
 		Speed.Expect = SpeedForline;
 #endif//UseLostRoadStop
-		SteerVagueCtrl(de);
+		int32 pwm = SteerCtrlUsePid(de);
+		tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
 		led(LED0, LED_OFF);
 
 

@@ -1,4 +1,5 @@
 #include "fl_steer_pid.h"
+#include "fl_config.h"
 
 struct Pid_s SteerPid;
 
@@ -20,8 +21,8 @@ void SteerPidInit()
 
 int32 SteerCtrlUsePid(SteerDeviationDegree_e deviation)
 {
-	SteerPid.Now = deviation;
+	FreecaleConfig.Config.Steer.Pid.Pid.Now = deviation;
 
-	return PID(&SteerPid);
+	return PID(&FreecaleConfig.Config.Steer.Pid.Pid);
 }
 
