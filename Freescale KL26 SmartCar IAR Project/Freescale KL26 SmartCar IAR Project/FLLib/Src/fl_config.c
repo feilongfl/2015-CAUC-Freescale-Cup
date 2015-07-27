@@ -225,6 +225,9 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Motor.Speed.TurnSpeed = 700;
 	config.Config.Motor.Speed.LostLineSpeed = 500;
 
+	config.Config.LostAdcMin = 350;
+	config.Config.LostAdcVerticalMin = 70;
+
 #include "fl_MOTOR_PID.h"
 
 	config.Config.Motor.Pid.Pid.P = MotorPIDDefaultP;

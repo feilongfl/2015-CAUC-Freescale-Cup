@@ -347,7 +347,7 @@ SteerCtrl2Title:
 #define SteerLostLinetimeMax 10//直角弯道判断次数
 		if (
 			//(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 50)
-#define AdcVertialLostMin 70
+#define AdcVertialLostMin FreecaleConfig.Config.LostAdcVerticalMin
 			/*&& */(adcn.AdcVertical.Adc0 > AdcVertialLostMin
 			|| adcn.AdcVertical.Adc1 > AdcVertialLostMin)
 			)//直角弯道判断最小差值

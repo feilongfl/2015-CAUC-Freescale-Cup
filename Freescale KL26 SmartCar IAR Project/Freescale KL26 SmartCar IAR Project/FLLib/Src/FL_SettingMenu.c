@@ -38,6 +38,8 @@ const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
 	"LineSpeed",
 	"TurnSpeed",
 	"LostLineSpeed",
+	"LostAdcMin",
+	"LostAdcVerMin",
 };
 
 const unsigned char * ResetMenuItems[MenuResetItemNum] =
@@ -702,6 +704,20 @@ static uint8 MenuSpeedOperate()
 			case MenuSpeedLost:
 				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LostLineSpeed, 9999, 0,
 					(unsigned char *)"Speed Lost");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
+				break;
+
+			case MenuSpeedLostAdcMin:
+				LcdChangeUint16(&FreecaleConfig.Config.LostAdcMin, 1000, 0,
+					(unsigned char *)"LostAdcMin");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
+				break;
+
+			case MenuSpeedLostAdcVerticalMin:
+				LcdChangeUint16(&FreecaleConfig.Config.LostAdcVerticalMin, 1000, 0,
+					(unsigned char *)"LostAdcVerticalMin");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
 				break;

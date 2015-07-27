@@ -112,6 +112,8 @@ struct Config_s
 #endif // UseCheck
 	struct ConfigAdcNom_s AdcNormalMax;
 	struct ConfigAdcNom_s AdcNormalMin;
+	uint16 LostAdcMin;
+	uint16 LostAdcVerticalMin;
 	struct ConfigSteer Steer;
 	struct ConfigMotor_s Motor;
 	struct ConfigMode_s Mode;

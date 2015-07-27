@@ -58,6 +58,8 @@ typedef enum
 	MenuSpeedLine = 0,
 	MenuSpeedTurn,
 	MenuSpeedLost,
+	MenuSpeedLostAdcMin,
+	MenuSpeedLostAdcVerticalMin,
 	MenuSpeedItemNum,
 
 	//ÖØÖÃ
