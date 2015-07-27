@@ -19,6 +19,7 @@
  */
 #include "common.h"
 #include  "MKL_TPM.h"
+#include "fl_config.h"
 
 /*
  * 定义数组
@@ -257,6 +258,10 @@ void tpm_pwm_init(TPMn_e tpmn, TPM_CHn_e ch, uint32 freq, uint32 duty)
 #if (OurMotorPwmMode == PwmLow)
 		duty = TPM0_PRECISON - duty;
 #endif//(OurMotorPwmMode == PwmLow)
+		if (FreecaleConfig.Config.Mode.MotorLowValid)
+		{
+			duty = TPM0_PRECISON - duty;
+		}
         cv = (duty * (mod - 0 + 1)) / TPM0_PRECISON;
         break;
 
@@ -343,6 +348,10 @@ void tpm_pwm_duty(TPMn_e tpmn, TPM_CHn_e ch, uint32 duty)
 #if (OurMotorPwmMode == PwmLow)
 		duty = TPM0_PRECISON - duty;
 #endif//(OurMotorPwmMode == PwmLow)
+		if (FreecaleConfig.Config.Mode.MotorLowValid)
+		{
+			duty = TPM0_PRECISON - duty;
+		}
         cv = (duty * (mod - 0 + 1)) / TPM0_PRECISON;
         break;
 

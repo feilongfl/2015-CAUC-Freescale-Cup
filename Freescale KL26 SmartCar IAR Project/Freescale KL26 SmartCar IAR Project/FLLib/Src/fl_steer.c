@@ -386,7 +386,7 @@ void SteerCtrl_2()
 			else
 			{
 				DELAY_MS(1);
-				SteerCtrl_1();
+				SteerCtrl_2();
 				return;
 			}
 
@@ -422,7 +422,11 @@ void SteerCtrl_2()
 		lostRoad = 0;
 		Speed.Expect = SpeedForline;
 #endif//UseLostRoadStop
-		SteerVagueCtrl(de);
+		int32 pwm = SteerCtrlUsePid(de);
+		pwm = RANGE(pwm + SteerCenterDuty, (SteerCenterDuty +
+			3 * FreecaleConfig.Config.Steer.SteerDomainDif),
+			(SteerCenterDuty + (-3) * FreecaleConfig.Config.Steer.SteerDomainDif));
+		tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
 		led(LED0, LED_OFF);
 
 

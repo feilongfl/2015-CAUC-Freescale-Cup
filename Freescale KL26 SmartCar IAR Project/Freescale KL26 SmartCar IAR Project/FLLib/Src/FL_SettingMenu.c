@@ -25,6 +25,9 @@ const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
+	"Steer Kp",
+	"Steer Ki",
+	"Steer Kd",
 	"Adc Domain",
 	"Steer Domain",
 	"Steer Method"
@@ -562,6 +565,27 @@ static uint8 MenuSteerOperate()
 		case FLKeyEnter:
 			switch (MenuChoice.SteerMenu)
 			{
+			case MenuSteerKp:
+				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.P, PidPrecision * 10, 0,
+					(unsigned char *)"Steer Kp");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
+				break;
+
+			case  MenuSteerKi:
+				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.I, PidPrecision * 10, 0,
+					(unsigned char *)"Steer Ki");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
+				break;
+
+			case MenuSteerKd:
+				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.D, PidPrecision * 10, 0,
+					(unsigned char *)"Steer Kd");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
+				break;
+
 			case MenuSteerAdcDomain:
 				SteerFuzzyDomainScan();
 				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
@@ -580,9 +604,10 @@ static uint8 MenuSteerOperate()
 				break;
 
 			case MenuSteerMethod:
-                          uint16 temp = FreecaleConfig.Config.Steer.SteerCtrlMethod;
+				uint16 temp = FreecaleConfig.Config.Steer.SteerCtrlMethod;
 				LcdChangeUint16(&temp, SteerCtrlMethod_Max - 1, 0, "steer method");
-                                FreecaleConfig.Config.Steer.SteerCtrlMethod = (uint8)temp;
+				FreecaleConfig.Config.Steer.SteerCtrlMethod = (uint8)temp;
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
 				ConfigWrite(&FreecaleConfig);
 				break;
 
@@ -839,6 +864,16 @@ static uint8 MenuModeOperate()
 				(unsigned char *) "On " :
 				(unsigned char *) "Off");
 			ConfigWrite(&FreecaleConfig);
+
+			switch (MenuChoice.ModeMenu)
+			{
+			case MenuModeMotorLowValid:
+				tpm_pwm_duty(TpmMotor, TpmMotorCh0, 0);
+				break;
+
+			default:
+				break;
+			}
 			break;
 
 			//иооб
