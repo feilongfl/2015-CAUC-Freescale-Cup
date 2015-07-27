@@ -47,13 +47,13 @@ typedef enum
 	//舵机菜单
 	MenuSteerAdcDomain = 0,
 	MenuSteerSteerDomain,
+	MenuSteerReserve,
 	MenuSteerItemNum,
 
 	//速度菜单
-	MenuSpeedSet = 0,
-	MenuSpeedSetMax,
-	MenuSpeedSetMin,
-	MenuSpeedReset,
+	MenuSpeedLine = 0,
+	MenuSpeedTurn,
+	MenuSpeedLost,
 	MenuSpeedItemNum,
 
 	//重置

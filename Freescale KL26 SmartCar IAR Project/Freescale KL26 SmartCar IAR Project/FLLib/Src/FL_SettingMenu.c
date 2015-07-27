@@ -26,7 +26,8 @@ const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
 	"Adc Domain",
-	"Steer Domain"
+	"Steer Domain",
+	""
 };
 
 const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
@@ -324,11 +325,12 @@ static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
 {
 	uint16 tempNum = *num;
 
+	LcdCls();
 	LCDPrint(LcdLocal1, LcdLine1, title);
 	LCDPrint(LcdLocal2, LcdLine2, (unsigned char *)"max:");
 	NumShow(max, LcdLocal3, LcdLine2);
 	LCDPrint(LcdLocal2, LcdLine3, (unsigned char *)"min:");
-	NumShow(max, LcdLocal3, LcdLine3);
+	NumShow(min, LcdLocal3, LcdLine3);
 	LCDPrint(LcdLocal2, LcdLine4, (unsigned char *)"set:");
 	NumShow(tempNum, LcdLocal3, LcdLine4);
 
@@ -483,12 +485,14 @@ static uint8 MenuSteerOperate()
 			{
 			case MenuSteerAdcDomain:
 				SteerFuzzyDomainScan();
-				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
 				break;
 
 			case MenuSteerSteerDomain:
 				LcdChangeUint16(&FreecaleConfig.Config.Steer.SteerDomainDif, 200, 0,
 					(unsigned char *)"Steer Domain");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
 				break;
 
 			default:
@@ -562,7 +566,34 @@ static uint8 MenuSpeedOperate()
 			LcdMenuMove(MenuSpeed, MoveDown);
 			break;
 
+		case FLKeyEnter:
+			switch (MenuChoice.SpeedMenu)
+			{
+			case MenuSpeedLine:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LineSpeed, 200, 0,
+					(unsigned char *)"Speed Line");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSpeed, MenuChoice.SteerMenu);
+				break;
 
+			case MenuSpeedTurn:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.TurnSpeed, 200, 0,
+					(unsigned char *)"Speed Turn");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSpeed, MenuChoice.SteerMenu);
+				break;
+
+			case MenuSpeedLost:
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Speed.LostLineSpeed, 200, 0,
+					(unsigned char *)"Speed Lost");
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
+				break;
+
+			default:
+				break;
+			}
+			break;
 
 			//快捷键
 		case FLKeyMotor:
@@ -649,6 +680,7 @@ static uint8 MenuResetOperate()
 				ASSERT(TRUE);
 				break;
 			}
+                        break;
 			//快捷键
 		case FLKeyMotor:
 			MenuChoice.MotorMenu = (MenuChoice_e)0;
@@ -838,6 +870,7 @@ static void SettingMenuQuit()
 	LcdCls();//清屏
 	//LcdShowAllData();//屏幕
 	//while (FLKeyCheck(FLKeyIrq) == KEY_DOWN);//这句话加到flkeycheck里了
+	//ConfigWrite(&FreecaleConfig);
 	EnableInterrupts();
 	DELAY();//按键消抖
 	FLKeyIrqEnable();

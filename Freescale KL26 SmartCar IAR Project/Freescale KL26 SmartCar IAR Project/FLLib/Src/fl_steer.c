@@ -314,12 +314,12 @@ void SteerVagueCtrl(int16 offset)
 		{
 			pwm += SteerPwmArr[i] * (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
 		}
-		SpeedForline = TurnSpeed;//悠着点
+		SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//悠着点
 	}
 	else//差不多挺直的，冲啊！！！！！
 	{
 		pwm = SteerCenterDuty;
-		SpeedForline = SpeedForTest;//飞吧
+		SpeedForline = FreecaleConfig.Config.Motor.Speed.LineSpeed;//飞吧
 	}
 	//pwm = RANGE(pwm, SteerPwmArr[SteerGears - 1], SteerPwmArr[0]);//限制一下
 	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);

@@ -11,7 +11,7 @@
 /************************************************************************/
 #include "main.h"
 
-uint16 SpeedForline = SpeedForTest;//速度
+uint16 SpeedForline = 0;//速度
 
 uint32 CarDistance = 0;
 uint8 NrfBuff[DATA_PACKET];
@@ -96,7 +96,7 @@ void SteerCtrl()
 				}
 				//while (1);
 
-				SpeedForline = TurnSpeed;//减速
+				SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//减速
 
 				time = SteerLostLinetimeMax + 1;
 				turnTemp = 0;
@@ -209,7 +209,7 @@ void main()
 	//////////////////////////////////////////////////////////////////////////
 	//                       局部变量或结构体                               //
 	//////////////////////////////////////////////////////////////////////////
-	
+	SpeedForline = FreecaleConfig.Config.Motor.Speed.LineSpeed;
 	//////////////////////////////////////////////////////////////////////////
 	//                       位置提示                                       //
 	//////////////////////////////////////////////////////////////////////////
