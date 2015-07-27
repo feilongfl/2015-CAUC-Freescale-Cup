@@ -353,22 +353,22 @@ static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
 
 		case FLKeyAdd1:
 			tempNum = RANGE(tempNum + 1, max, min);
-			NumShow3(tempNum, LcdLocal3, LcdLine4);
+			NumShow4(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case FLKeySubtract1:
 			tempNum = RANGE(tempNum - 1, max, min);
-			NumShow3(tempNum, LcdLocal3, LcdLine4);
+			NumShow4(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case  FLKeyAdd10:
 			tempNum = RANGE(tempNum + 10, max, min);
-			NumShow3(tempNum, LcdLocal3, LcdLine4);
+			NumShow4(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		case FLKeySubtract10:
 			tempNum = RANGE(tempNum - 10, max, min);
-			NumShow3(tempNum, LcdLocal3, LcdLine4);
+			NumShow4(tempNum, LcdLocal3, LcdLine4);
 			break;
 
 		default:

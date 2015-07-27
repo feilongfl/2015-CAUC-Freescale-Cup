@@ -56,8 +56,8 @@ void SteerCtrl()
 		if (
 			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
 #define AdcVertialLostMin 100
-			&& adcn.AdcVertical.Adc0 > AdcVertialLostMin
-			&& adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			&& (adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			|| adcn.AdcVertical.Adc0 > AdcVertialLostMin)
 			)//直角弯道判断最小差值
 		{
 			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量

@@ -223,7 +223,7 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Motor.Speed.Expect = 10;
 	config.Config.Motor.Speed.LineSpeed = 1000;
 	config.Config.Motor.Speed.TurnSpeed = 700;
-	config.Config.Motor.Speed.LineSpeed = 500;
+	config.Config.Motor.Speed.LostLineSpeed = 500;
 
 #include "fl_MOTOR_PID.h"
 
@@ -235,7 +235,8 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Steer.Pid.Pid.P = SteerPIDDefaultP;
 	config.Config.Steer.Pid.Pid.I = SteerPIDDefaultI;
 	config.Config.Steer.Pid.Pid.D = SteerPIDDefaultD;
-	config.Config.Steer.AdcDomain = (SteerDeviationDegree_e)90;
+	config.Config.Steer.AdcDomain = (SteerDeviationDegree_e)59;
+	config.Config.Steer.SteerDomainDif = 86;
 
 	config.Config.CarState = CarStandby;
 
