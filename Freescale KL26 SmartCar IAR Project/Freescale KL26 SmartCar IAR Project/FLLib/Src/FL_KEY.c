@@ -171,7 +171,7 @@ void FLIrqHandle()
 #endif
 	extern void EndLine();
 	//ptc14,干簧管
-	n = 14;
+	n = 16;
 	if (PORTC_ISFR & (1 << n))           //PTC18触发中断
 	{
 		PORTC_ISFR = (1 << n);        //写1清中断标志位

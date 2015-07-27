@@ -155,7 +155,7 @@ void SpeedCtrl()
 //////////////////////////////////////////////////////////////////////////
 /*  ¾àÀë¿ØËÙ                                      */
 	
-	Speed.Expect = (lostRoad > LostRoadTimesMin) ? 0 : SpeedForline;
+	Speed.Expect = (lostRoad > LostRoadTimesMin) ? FreecaleConfig.Config.Motor.Speed.LostLineSpeed : SpeedForline;
 #if UseDistanceChangeSpeed
 	#warning please change these num
 	if (CarDistance < 100)//only for test,don't forget change this num

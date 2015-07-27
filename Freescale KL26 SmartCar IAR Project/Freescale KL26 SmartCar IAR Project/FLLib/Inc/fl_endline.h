@@ -5,9 +5,9 @@
 #ifndef _FL_endline_
 #define _FL_endline_
 
-#define EndLinePort PTC14
+#define EndLinePort PTC16
 
-#define EndLineInit() key_init(Key_EndLine);
+#define EndLineInit() key_init(Key_EndLine);port_init_NoALT(Key_EndLine,PULLUP | IRQ_FALLING)
 
 void EndLine();
 

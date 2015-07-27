@@ -253,6 +253,9 @@ char SteerCRI[SteerGears][SteerOffSetSum] = {
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
 };
+
+//由菜单控制
+/*
 //舵机pwm数组
 int16 SteerPwmArr[SteerGears] = {
 #if 0
@@ -269,7 +272,7 @@ int16 SteerPwmArr[SteerGears] = {
 	1000, 1167, 1333, 1500, 1667, 1833, 2000
 #endif
 };
-
+*/
 
 extern uint16 SpeedForline;
 /************************************************************************/
@@ -288,7 +291,7 @@ void SteerVagueCtrl(int16 offset)
 	LastError = offset;//保存偏差
 	//offset = SteerDirection[offset][errorChanngeSpeed];
 
-	printf("offset:%d\n", offset);
+	//printf("offset:%d\n", offset);
 
 	if (!RANGEQurr(offset, 8, 5))//不直
 	{
