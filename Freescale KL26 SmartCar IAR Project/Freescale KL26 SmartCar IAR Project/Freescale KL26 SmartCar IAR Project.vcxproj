@@ -160,6 +160,7 @@
     <ClInclude Include="FLLib\Inc\Fl_steer.h" />
     <ClInclude Include="FLLib\Inc\fl_SteerFuzzy.h" />
     <ClInclude Include="FLLib\Inc\fl_steer_pid.h" />
+    <ClInclude Include="FLLib\Inc\qPIDs.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_common_tables.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_const_structs.h" />
     <ClInclude Include="Lib\CMSIS\Inc\arm_math.h" />
@@ -235,6 +236,8 @@
     <ClCompile Include="FLLib\Src\fl_steer.c" />
     <ClCompile Include="FLLib\Src\fl_SteerFuzzy.c" />
     <ClCompile Include="FLLib\Src\fl_steer_pid.c" />
+    <ClCompile Include="FLLib\Src\qPIDs.c" />
+    <ClCompile Include="FLLib\Src\usage.c" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="design\架构\无标题.png" />

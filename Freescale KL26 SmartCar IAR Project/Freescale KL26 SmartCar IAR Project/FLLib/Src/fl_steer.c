@@ -200,7 +200,19 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 
 void SteerCtrl()
 {
+	switch (FreecaleConfig.Config.Steer.SteerCtrlMethod)
+	{
+	case SteerCtrlMethod_Fuzzy:
+		SteerCtrl_1();
+		break;
 
+	case SteerCtrlMethod_Pid:
+
+		break;
+
+	default:
+		break;
+	}
 }
 
 void SteerCtrl_1()

@@ -357,6 +357,9 @@
     <ClInclude Include="FLLib\Inc\fl_SteerFuzzy.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\qPIDs.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -540,6 +543,12 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_SteerFuzzy.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\qPIDs.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\usage.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

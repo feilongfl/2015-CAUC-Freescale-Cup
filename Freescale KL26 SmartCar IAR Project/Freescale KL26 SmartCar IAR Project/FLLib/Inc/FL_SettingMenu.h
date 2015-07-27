@@ -48,7 +48,7 @@ typedef enum
 	//舵机菜单
 	MenuSteerAdcDomain = 0,
 	MenuSteerSteerDomain,
-	MenuSteerReserve,
+	MenuSteerMethod,
 	MenuSteerItemNum,
 
 	//速度菜单
@@ -63,6 +63,7 @@ typedef enum
 	MenuResetAccept,
 	MenuResetItemNum,
 
+	//mode
 	MenuModeEndLine = 0,
 	MenuModePowerOnDelay,
 	MenuModeMpu6050,

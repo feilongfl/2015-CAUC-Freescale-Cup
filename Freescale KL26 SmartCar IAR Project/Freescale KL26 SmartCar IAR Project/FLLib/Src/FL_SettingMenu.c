@@ -27,7 +27,7 @@ const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
 	"Adc Domain",
 	"Steer Domain",
-	""
+	"Steer Method"
 };
 
 const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
@@ -454,21 +454,21 @@ static uint8 MenuMotorOperate()
 			switch (MenuChoice.MotorMenu)
 			{
 			case MenuMotorKp:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.P, PidPrecision, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.P, PidPrecision * 10, 0,
 					(unsigned char *)"Motor Kp");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
 				break;
 
 			case MenuMotorKi:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.I, PidPrecision, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.I, PidPrecision * 10, 0,
 					(unsigned char *)"Motor Ki");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
 				break;
 
 			case MenuMotorKd:
-				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.D, PidPrecision, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.Motor.Pid.Pid.D, PidPrecision * 10, 0,
 					(unsigned char *)"Motor Kd");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
@@ -577,6 +577,11 @@ static uint8 MenuSteerOperate()
 				DELAY_MS(1000);
 				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"Done        ");
 				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty);
+				break;
+
+			case MenuSteerMethod:
+				LcdChangeUint16(&FreecaleConfig.Config.Steer.SteerCtrlMethod, SteerCtrlMethod_Max - 1, 0, "steer method");
+				ConfigWrite(&FreecaleConfig);
 				break;
 
 			default:
