@@ -321,16 +321,20 @@ SteerCtrl1Title:
 }
 
 void SteerCtrl_2()
+
 {
 	struct FLAdc_s adcn;
 	FLAdcLostLine_e IsLostLine = LostLine;
+	uint8 time = 0;
+	int8 turnTemp = 0;
+
+SteerCtrl2Title:
 
 	adcn = AdcNormalizing();//获取归一化电感值
 	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
 
-	static uint8 time = 0;
-	static int8 turnTemp = 0;
+
 	//int32 pidatsteer = SteerCtrlUsePid(de);
 	NumShow3(ABS(de), 0, 0);
 
@@ -340,12 +344,12 @@ void SteerCtrl_2()
 #if UseLostRoadStop
 		lostRoad = (lostRoad > LostRoadTimesMin) ? 255 : lostRoad + 1;
 
-#define SteerLostLinetimeMax 3//直角弯道判断次数
+#define SteerLostLinetimeMax 10//直角弯道判断次数
 		if (
-			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
-#define AdcVertialLostMin 100
-			&& (adcn.AdcVertical.Adc0 > AdcVertialLostMin
-			|| adcn.AdcVertical.Adc0 > AdcVertialLostMin)
+			//(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 50)
+#define AdcVertialLostMin 70
+			/*&& */(adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			|| adcn.AdcVertical.Adc1 > AdcVertialLostMin)
 			)//直角弯道判断最小差值
 		{
 			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
@@ -392,34 +396,35 @@ void SteerCtrl_2()
 			else
 			{
 				DELAY_MS(1);
-				SteerCtrl_2();
-				return;
+				goto SteerCtrl2Title;
 			}
 
 		}
 		else//不是直角弯，清楚标志
 		{
 			time = 0;
+			/*
 			switch (turn)
 			{
 			case SteerDirectionLeft:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
-				break;
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
+			break;
 
 			case SteerDirectionRight:
-				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
-				break;
+			tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
+			break;
 
 			case SteerDirectionCenter:
-				led(LED2, LED_ON);
-				//直角
-				break;
+			led(LED2, LED_ON);
+			//直角
+			break;
 
 			default:
-				break;
-			}
-
+			break;
+			}*/
 		}
+
+
 #endif//UseLostRoadStop
 	}
 	else//OnLine
