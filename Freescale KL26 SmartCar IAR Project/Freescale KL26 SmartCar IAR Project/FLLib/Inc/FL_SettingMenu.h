@@ -31,7 +31,9 @@ typedef enum
 typedef enum
 {
 	//Ö÷²Ëµ¥
-	MenuMainMotor = 0,
+	MenuMainPerfet = 0,
+	MenuMainCarThis,
+	MenuMainMotor,
 	MenuMainSteer,
 	MenuMainSpeed,
 	MenuMainMode,

@@ -363,6 +363,9 @@
     <ClInclude Include="FLLib\Inc\fl_SteerQpid.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_Perfet_Plan.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -552,6 +555,9 @@
       <Filter>FLLib\Src</Filter>
     </ClCompile>
     <ClCompile Include="FLLib\Src\fl_SteerQpid.c">
+      <Filter>FLLib\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="FLLib\Src\fl_Perfet_Plan.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>

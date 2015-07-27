@@ -8,6 +8,8 @@
 
 const unsigned char * MainMenuItems[MenuMainItemNum] =
 {
+	"Perfet",
+	"CarThis",
 	"Motor",
 	"Steer",
 	"Speed",
@@ -401,7 +403,7 @@ static uint8 LcdChangeUint16(uint16* num, uint16 max, uint16 min,
 
 		case FLKeyEnter:
 			*num = tempNum;
-			return FALSE;
+			return 0xff;
 			break;
 
 		case FLKeyBack://·µ»Ø
@@ -967,6 +969,22 @@ static void MenuMainOperate()
 		case FLKeyEnter:
 			switch ((MenuChoice_e)MenuChoice.MainMenu)
 			{
+			case MenuMainPerfet:
+#include "fl_Perfet_Plan.h"
+				if (LcdChangeUint16(&PerfetPlan, PlanNum - 1, 0,
+					(unsigned char *)"Perfet Plan") == 0xff)
+				{
+					CarToPerfet();
+				}
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
+			case MenuMainCarThis:
+				LcdChangeUint16(&PerfetPlan, CarNum - 1, 0,
+					(unsigned char *)"CarThis");
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
 			case MenuMainMotor:
 				MenuChoice.MotorMenu = (MenuChoice_e)0;
 				LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
