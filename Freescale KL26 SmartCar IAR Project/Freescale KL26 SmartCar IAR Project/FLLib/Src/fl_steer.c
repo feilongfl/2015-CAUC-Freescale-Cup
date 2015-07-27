@@ -58,6 +58,8 @@ uint16 SteerDuty[SteerDegreeNum] = {
 
 InitRepot_e SteerInit()
 {
+	SteerPidInit();
+	SteerqPID_Init();
 	tpm_pwm_init(TpmSteer, TpmSteerCh, TpmSteerFreq, SteerDefaultDuty);
 	return InitAllGreen;
 }
@@ -271,7 +273,122 @@ void SteerCtrl_1()
 			else
 			{
 				DELAY_MS(1);
-				SteerCtrl();
+				SteerCtrl_1();
+				return;
+			}
+
+		}
+		else//不是直角弯，清楚标志
+		{
+			time = 0;
+			switch (turn)
+			{
+			case SteerDirectionLeft:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
+				break;
+
+			case SteerDirectionRight:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
+				break;
+
+			case SteerDirectionCenter:
+				led(LED2, LED_ON);
+				//直角
+				break;
+
+			default:
+				break;
+			}
+
+		}
+#endif//UseLostRoadStop
+	}
+	else//OnLine
+	{
+#if UseLostRoadStop
+		lostRoad = 0;
+		Speed.Expect = SpeedForline;
+#endif//UseLostRoadStop
+		SteerVagueCtrl(de);
+		led(LED0, LED_OFF);
+
+
+	}
+}
+
+void SteerCtrl_2()
+{
+	struct FLAdc_s adcn;
+	FLAdcLostLine_e IsLostLine = LostLine;
+
+	adcn = AdcNormalizing();//获取归一化电感值
+	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
+	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
+
+	static uint8 time = 0;
+	static int8 turnTemp = 0;
+	//int32 pidatsteer = SteerCtrlUsePid(de);
+	NumShow3(ABS(de), 0, 0);
+
+	if (IsLostLine == LostLine)//丢线
+	{
+		led(LED0, LED_ON);
+#if UseLostRoadStop
+		lostRoad = (lostRoad > LostRoadTimesMin) ? 255 : lostRoad + 1;
+
+#define SteerLostLinetimeMax 3//直角弯道判断次数
+		if (
+			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
+#define AdcVertialLostMin 100
+			&& (adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			|| adcn.AdcVertical.Adc0 > AdcVertialLostMin)
+			)//直角弯道判断最小差值
+		{
+			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
+			if (time++ > SteerLostLinetimeMax)//计数，判断
+			{
+				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3, -SteerLostLinetimeMax / 3))//中间
+				{
+					turn = SteerDirectionCenter;
+				}
+				else if (turnTemp < 0)
+				{
+					turn = SteerDirectionRight;
+				}
+				else
+				{
+					turn = SteerDirectionLeft;
+				}
+
+				switch (turn)
+				{
+				case SteerDirectionLeft:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
+					break;
+
+				case SteerDirectionRight:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
+					break;
+
+				case SteerDirectionCenter:
+					led(LED2, LED_ON);
+					//直角
+					break;
+
+				default:
+					break;
+				}
+				//while (1);
+
+				SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//减速
+
+				time = SteerLostLinetimeMax + 1;
+				turnTemp = 0;
+			}
+			else
+			{
+				DELAY_MS(1);
+				SteerCtrl_1();
 				return;
 			}
 
@@ -324,7 +441,7 @@ void SteerCtrl()
 		break;
 
 	case SteerCtrlMethod_Pid:
-
+		SteerCtrl_2();
 		break;
 
 	default:
