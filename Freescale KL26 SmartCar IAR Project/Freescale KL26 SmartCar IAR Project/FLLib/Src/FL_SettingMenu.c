@@ -580,7 +580,9 @@ static uint8 MenuSteerOperate()
 				break;
 
 			case MenuSteerMethod:
-				LcdChangeUint16(&FreecaleConfig.Config.Steer.SteerCtrlMethod, SteerCtrlMethod_Max - 1, 0, "steer method");
+                          uint16 temp = FreecaleConfig.Config.Steer.SteerCtrlMethod;
+				LcdChangeUint16(&temp, SteerCtrlMethod_Max - 1, 0, "steer method");
+                                FreecaleConfig.Config.Steer.SteerCtrlMethod = (uint8)temp;
 				ConfigWrite(&FreecaleConfig);
 				break;
 

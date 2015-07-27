@@ -71,4 +71,6 @@ extern uint8 lostRoad;
 extern uint16 SpeedForline;//ËÙ¶È
 
 
+void SteerCtrl();
+
 #endif//_FL_STEER_

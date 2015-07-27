@@ -360,6 +360,9 @@
     <ClInclude Include="FLLib\Inc\qPIDs.h">
       <Filter>FLLib\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="FLLib\Inc\fl_SteerQpid.h">
+      <Filter>FLLib\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLLib\Src\fl_adc.c">
@@ -548,7 +551,7 @@
     <ClCompile Include="FLLib\Src\qPIDs.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
-    <ClCompile Include="FLLib\Src\usage.c">
+    <ClCompile Include="FLLib\Src\fl_SteerQpid.c">
       <Filter>FLLib\Src</Filter>
     </ClCompile>
   </ItemGroup>
