@@ -25,6 +25,7 @@ typedef enum
 	MenuSteer,
 	MenuSpeed,
 	MenuReset,
+	MenuMode,
 }MenuType_e;
 
 typedef enum
@@ -33,6 +34,7 @@ typedef enum
 	MenuMainMotor = 0,
 	MenuMainSteer,
 	MenuMainSpeed,
+	MenuMainMode,
 	MenuMainAdcNor,
 	MenuMainReset,
 	MenuMainItemNum,
@@ -61,6 +63,16 @@ typedef enum
 	MenuResetAccept,
 	MenuResetItemNum,
 
+	MenuModeEndLine = 0,
+	MenuModePowerOnDelay,
+	MenuModeMpu6050,
+	MenuModeDistanceChangeSpeed,
+	MenuModeNrf24l01,
+	MenuModeNrfSendDistance,
+	MenuModeNrfSendAdc,
+	MenuModeMotorLowValid,
+	MenuModeItemNum,
+
 }MenuChoice_e;
 
 struct MenuChoice_s
@@ -70,6 +82,7 @@ struct MenuChoice_s
 	MenuChoice_e SteerMenu;
 	MenuChoice_e SpeedMenu;
 	MenuChoice_e ResetMenu;
+	MenuChoice_e ModeMenu;
 };
 
 

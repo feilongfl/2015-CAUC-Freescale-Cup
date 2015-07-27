@@ -8,18 +8,19 @@
 
 const unsigned char * MainMenuItems[MenuMainItemNum] =
 {
-	"µÁª˙…Ë÷√",
-	"∂Êª˙…Ë÷√",
-	"≥µÀŸ…Ë÷√",
-	"πÈ“ªªØ",
+	"Motor",
+	"Steer",
+	"Speed",
+	"mode",
+	"Normalizing",
 	"Reset EepRom",
 };
 
 const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 {
-	"µÁª˙Kp",
-	"µÁª˙Ki",
-	"µÁª˙Kd",
+	"Motor Kp",
+	"Motor Ki",
+	"Motor Kd",
 };
 
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
@@ -38,12 +39,26 @@ const unsigned char * SpeedMenuItems[MenuSpeedItemNum] =
 
 const unsigned char * ResetMenuItems[MenuResetItemNum] =
 {
-	"»°œ˚",
-	"»°œ˚",
-	"»∑»œ÷ÿ÷√",
+	"Cancel",
+	"Cancel",
+	"Accept",
 };
 
+const unsigned char * ModeMenuItems[MenuModeItemNum] =
+{
+	"EndLine",
+	"PowerOnDelay",
+	"MpuctrlSpeed",
+	"DistCtrlSpeed",
+	"Nrf24l01 enable",
+	"NrfSendDistance",
+	"NrfSendAdc",
+	"MotorLowValid"
+};
+
+
 struct MenuChoice_s MenuChoice = { 
+	(MenuChoice_e)0,
 	(MenuChoice_e)0,
 	(MenuChoice_e)0,
 	(MenuChoice_e)0,
@@ -208,6 +223,30 @@ static void LcdShowResetMenu(MenuChoice_e menuChoice)
 	}
 }
 
+static void LcdShowModeMenu(MenuChoice_e menuChoice)
+{
+	ASSERT(menuChoice < MenuModeItemNum);//∂œ—‘
+
+	if (menuChoice == 0)//µ⁄“ªŒª
+	{
+		LCDPrintInverse(LcdMenuLocal, LcdMenuLine1, (unsigned char *)ModeMenuItems[menuChoice]);
+		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)ModeMenuItems[menuChoice + 1]);
+		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)ModeMenuItems[menuChoice + 2]);
+	}
+	else if (menuChoice == MenuModeItemNum - 1)//◊Ó∫Û“ªŒª
+	{
+		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)ModeMenuItems[menuChoice - 2]);
+		LCDPrint(LcdMenuLocal, LcdMenuLine2, (unsigned char *)ModeMenuItems[menuChoice - 1]);
+		LCDPrintInverse(LcdMenuLocal, LcdMenuLine3, (unsigned char *)ModeMenuItems[menuChoice]);
+	}
+	else//÷–º‰œÓ
+	{
+		LCDPrint(LcdMenuLocal, LcdMenuLine1, (unsigned char *)ModeMenuItems[menuChoice - 1]);
+		LCDPrintInverse(LcdMenuLocal, LcdMenuLine2, (unsigned char *)ModeMenuItems[menuChoice]);
+		LCDPrint(LcdMenuLocal, LcdMenuLine3, (unsigned char *)ModeMenuItems[menuChoice + 1]);
+	}
+}
+
 static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//œ‘ æ≤Àµ•£®≤Àµ•¿‡–Õ£¨—°÷–≤Àµ•£©
 {
 	LcdCls();//«Â∆¡
@@ -234,6 +273,10 @@ static void LcdShowMenu(MenuType_e menuType, MenuChoice_e menuChoice)//œ‘ æ≤Àµ•£
 
 	case MenuReset://÷ÿ÷√
 		LcdShowResetMenu(menuChoice);
+		break;
+
+	case MenuMode:
+		LcdShowModeMenu(menuChoice);
 		break;
 
 	default:
@@ -311,6 +354,15 @@ static void LcdMenuMove(MenuType_e menuType, MenuMove_e menuMove)
 			MenuChoice.ResetMenu = (MenuChoice_e)menuMoveTemp;
 		}
 		LcdShowMenu(MenuReset, MenuChoice.ResetMenu);
+		break;
+
+	case MenuMode:
+		menuMoveTemp += MenuChoice.ModeMenu;
+		if (menuMoveTemp >= 0 && menuMoveTemp < MenuModeItemNum)
+		{
+			MenuChoice.ModeMenu = (MenuChoice_e)menuMoveTemp;
+		}
+		LcdShowMenu(MenuMode, MenuChoice.ModeMenu);
 		break;
 
 	default:
@@ -704,7 +756,10 @@ static uint8 MenuResetOperate()
 				}
 				else
 				{
-					LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"DONE.      ");
+					LcdCls();
+					LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"DONE.");
+					LCDPrint(LcdLocal1, LcdLine3, (unsigned char *)"Please Reboot!");
+					while (1);
 				}
 				break;
 
@@ -713,6 +768,89 @@ static uint8 MenuResetOperate()
 				break;
 			}
                         break;
+			//øÏΩ›º¸
+		case FLKeyMotor:
+			MenuChoice.MotorMenu = (MenuChoice_e)0;
+			LcdShowMenu(MenuMotor, MenuChoice.MotorMenu);
+			return MenuMotorOperate();
+			break;
+
+		case FLKeySteer:
+			MenuChoice.SteerMenu = (MenuChoice_e)0;
+			LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
+			return MenuSteerOperate();
+			break;
+
+		case FLKeySpeed:
+			MenuChoice.SpeedMenu = (MenuChoice_e)0;
+			LcdShowMenu(MenuSpeed, MenuChoice.SpeedMenu);
+			return MenuSpeedOperate();
+			break;
+
+		case FLKeyReset:
+			MenuChoice.ResetMenu = (MenuChoice_e)0;
+			LcdShowMenu(MenuReset, MenuChoice.ResetMenu);
+			return MenuResetOperate();
+			break;
+			//////////////////////////////////////////////////////////////////////////
+
+		default:
+			LcdErrShow(LcdErrKeyWrong);
+			break;
+		}
+	}
+	//return FALSE;//unreachable
+}
+
+static uint8 MenuModeOperate()
+{
+	SwitchMode * modeSwitch = (SwitchMode *)&FreecaleConfig.Config.Mode;
+	LCDPrintInverse(LcdLocal1, LcdLine1,
+		(*(modeSwitch + (uint8)MenuChoice.ModeMenu) == On) ?
+		(unsigned char *) "On " :
+		(unsigned char *) "Off");
+	while (TRUE)//»Áπ˚∞¥º¸√ª”–∞¥œ¬£¨ºÃ–¯÷¥––
+	{
+		switch (KeyScan())
+		{
+			//ÕÀ≥ˆ
+		case FLKeyIrq://ÕÀ≥ˆ÷–∂œ
+			return TRUE;
+			break;
+
+		case FLKeyBack://∑µªÿ÷˜“≥
+			//LcdShowMainMenu(MenuChoice.MainMenu);
+			LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+			return FALSE;
+			break;
+
+		case FLKeyEnter:
+			*(modeSwitch + (uint8)MenuChoice.ModeMenu) =
+				~*(modeSwitch + (uint8)MenuChoice.ModeMenu) &0x01;
+			LCDPrintInverse(LcdLocal1, LcdLine1,
+				(*(modeSwitch + (uint8)MenuChoice.ModeMenu) == On) ?
+				(unsigned char *) "On " :
+				(unsigned char *) "Off");
+			ConfigWrite(&FreecaleConfig);
+			break;
+
+			//…œœ¬
+		case FlKeyUp:
+			LcdMenuMove(MenuMode, MoveUp);
+			LCDPrintInverse(LcdLocal1, LcdLine1,
+				(*(modeSwitch + (uint8)MenuChoice.ModeMenu) == On) ?
+				(unsigned char *) "On " :
+				(unsigned char *) "Off");
+			break;
+
+		case FlKeyDown:
+			LcdMenuMove(MenuMode, MoveDown);
+			LCDPrintInverse(LcdLocal1, LcdLine1,
+				(*(modeSwitch + (uint8)MenuChoice.ModeMenu) == On) ?
+				(unsigned char *) "On " :
+				(unsigned char *) "Off");
+			break;
+
 			//øÏΩ›º¸
 		case FLKeyMotor:
 			MenuChoice.MotorMenu = (MenuChoice_e)0;
@@ -800,6 +938,11 @@ static void MenuMainOperate()
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
 				break;
 
+			case MenuMainMode:
+				MenuChoice.ModeMenu = (MenuChoice_e)0;
+				LcdShowMenu(MenuMode, MenuChoice.ModeMenu);
+				exitFunc = MenuModeOperate();
+				break;
 
 			default:
 				ASSERT(TRUE);

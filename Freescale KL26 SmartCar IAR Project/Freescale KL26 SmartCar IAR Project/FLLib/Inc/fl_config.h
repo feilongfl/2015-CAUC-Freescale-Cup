@@ -78,6 +78,24 @@ typedef enum
 	CarFinish,
 }CarState_e;
 
+typedef enum 
+{
+	Off,
+	On
+} SwitchMode;
+
+struct ConfigMode_s
+{
+	SwitchMode EndLine;
+	SwitchMode PowerOnDelay;
+	SwitchMode Mpu6050;
+	SwitchMode DistanceChangeSpeed;
+	SwitchMode Nrf24l01;
+	SwitchMode NrfSendDistance;
+	SwitchMode NrfSendAdc;
+	SwitchMode MotorLowValid;
+};
+
 struct Config_s 
 {
 #if UseCheck
@@ -87,6 +105,7 @@ struct Config_s
 	struct ConfigAdcNom_s AdcNormalMin;
 	struct ConfigSteer Steer;
 	struct ConfigMotor_s Motor;
+	struct ConfigMode_s Mode;
 	CarState_e CarState;
 #if UseCheck
 	uint8 ConfigEnd;
