@@ -25,9 +25,6 @@ const unsigned char * MotorMenuItems[MenuMotorItemNum] =
 
 const unsigned char * SteerMenuItems[MenuSteerItemNum] =
 {
-	"Steer Kp",
-	"Steer Ki",
-	"Steer Kd",
 	"Adc Domain",
 	"Steer Domain",
 	"Steer Method"
@@ -565,27 +562,6 @@ static uint8 MenuSteerOperate()
 		case FLKeyEnter:
 			switch (MenuChoice.SteerMenu)
 			{
-			case MenuSteerKp:
-				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.P, PidPrecision * 10, 0,
-					(unsigned char *)"Steer Kp");
-				ConfigWrite(&FreecaleConfig);
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				break;
-
-			case  MenuSteerKi:
-				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.I, PidPrecision * 10, 0,
-					(unsigned char *)"Steer Ki");
-				ConfigWrite(&FreecaleConfig);
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				break;
-
-			case MenuSteerKd:
-				LcdChangeUint16(&FreecaleConfig.Config.Steer.Pid.Pid.D, PidPrecision * 10, 0,
-					(unsigned char *)"Steer Kd");
-				ConfigWrite(&FreecaleConfig);
-				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
-				break;
-
 			case MenuSteerAdcDomain:
 				SteerFuzzyDomainScan();
 				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);

@@ -46,10 +46,7 @@ typedef enum
 	MenuMotorItemNum,
 
 	//¶æ»ú²Ëµ¥
-	MenuSteerKp = 0,
-	MenuSteerKi,
-	MenuSteerKd,
-	MenuSteerAdcDomain,
+	MenuSteerAdcDomain = 0,
 	MenuSteerSteerDomain,
 	MenuSteerMethod,
 	MenuSteerItemNum,
