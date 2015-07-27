@@ -7,6 +7,7 @@
 #include "fl_ADC.h"
 
 
+
 #ifndef _FL_STEER_
 #define _FL_STEER_
 
@@ -62,7 +63,12 @@ void StreePidSet(Pid_e steerPid, uint8 steerPidChange);//设定舵机pid参数
 
 SteerTurnDirection_e SteerDirectionSetByAdcOne(struct FLAdc_s * adc_s,FLAdcLostLine_e * lostLine);
 SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s);
-void SteerVagueCtrl(int16 offset);
+//void SteerVagueCtrl(int16 offset);
 
-void SteerFuzzyDomainScan();
+//void SteerFuzzyDomainScan();
+
+extern uint8 lostRoad;
+extern uint16 SpeedForline;//速度
+
+
 #endif//_FL_STEER_

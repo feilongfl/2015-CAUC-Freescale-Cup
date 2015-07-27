@@ -198,179 +198,122 @@ SteerDeviationDegree_e SteerDeviationDegreeSetByAdc(struct FLAdc_s * adc_s)
 	return (SteerDeviationDegree_e)((deviation * 100 / sum));
 }
 
-
-
-
-//////////////////////////////////////////////////////////////////////////
-//舵机模糊控制算法
-//////////////////////////////////////////////////////////////////////////
-/************************************************************************/
-/*语言变量指表*/
-//电感偏差变化范围max = 63
-//丢线前偏差最大值max=44
-//
-//模糊化控制偏差范围-6~6
-#define SteerOffSetSum 13
-//参考其他方案和以前分档思想，暂定7档
-#define SteerGears 7
-//#warning 论域在不同环境下是不同的，开机时需要扫描，进行类似归一化处理
-//偏差论域
-#define OffSetMax	59
-//原点提升值
-#define ZeroPointUp (OffSetMax + 1)
-//偏差变化率论域
-#define ErrorChangeSpeedMax	6
-
-//偏差变化率
-int8 LastError = 0;
-
-//偏差变化量计算表
-int8 SteerCtrlQurr[SteerOffSetSum][2 * ErrorChangeSpeedMax + 1] =
+void SteerCtrl()
 {
-	6, 5, 6, 5, 6, 6, 4, 4, 3, 2, 1, 1, 0,
-	6, 5, 5, 5, 5, 5, 5, 4, 3, 3, 2, 1, 0,
-	6, 5, 6, 5, 6, 5, 5, 4, 4, 2, 1, 0, 0,
-	5, 5, 5, 5, 5, 5, 4, 4, 3, 3, 1, 0, -1,
-	5, 4, 4, 3, 3, 3, 2, 0, 0, -2, -2, -3, -3,
-	4, 4, 4, 4, 3, 3, 0, 0, -2, -3, -3, -4, -4,
-	4, 4, 3, 3, 3, 0, 0, 0, -1, -3, -3, -3, -5,
-	3, 3, 3, 1, 0, 0, 0, -3, -3, -4, -4, -5, -5,
-	3, 2, 2, 2, 0, 0, -2, -3, -3, -3, -4, -5, -5,
-	2, 1, 0, 0, -1, -3, -3, -4, -4, -4, -5, -5, -5,
-	0, 0, 0, -2, -3, -3, -4, -4, -5, -5, -5, -6, -6,
-	0, 0, -1, -3, -3, -3, -5, -5, -5, -5, -5, -6, -6,
-	0, 0, -2, -3, -3, -4, -4, -5, -5, -6, -6, -6, -6
-};
 
-//偏差语言变量值表
-//整型化所有数据所有数字乘8
-char SteerCRI[SteerGears][SteerOffSetSum] = {
-	8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 4, 8, 4, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8, 4, 0,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8,
-};
-
-//由菜单控制
-/*
-//舵机pwm数组
-int16 SteerPwmArr[SteerGears] = {
-#if 0
-	1000, 1200, 1400, 1500, 1600, 1800, 2000
-#elif 1
-	1240, 1327, 1414, 1500, 1586, 1673, 1760
-#elif 1
-	1100, 1235, 1370, 1505, 1640, 1775, 1900
-#elif 1
-	1030, 1200, 1400, 1500, 1600, 1800, 1970
-#elif 1
-	- 550, -300, -100, 0, 100, 300, 500
-#else
-	1000, 1167, 1333, 1500, 1667, 1833, 2000
-#endif
-};
-*/
-
-extern uint16 SpeedForline;
-/************************************************************************/
-//offset:偏差
-void SteerVagueCtrl(int16 offset)
-{
-	uint16 sum = 0;
-	uint16 pwm = 0;
-	int8 errorChanngeSpeed = 0;
-	uint8 errQurr = 0;
-
-	offset = RANGE(offset, FreecaleConfig.Config.Steer.AdcDomain, -FreecaleConfig.Config.Steer.AdcDomain) + FreecaleConfig.Config.Steer.AdcDomain + 1;//限幅+提升原点
-
-	offset /= 10 * FreecaleConfig.Config.Steer.AdcDomain / OffSetMax;//偏差模糊化，论域缩放
-	errorChanngeSpeed = RANGE(offset - LastError, ErrorChangeSpeedMax, -ErrorChangeSpeedMax) + ErrorChangeSpeedMax;//偏差变化率，限幅在论域内，提升原点
-	LastError = offset;//保存偏差
-	//offset = SteerDirection[offset][errorChanngeSpeed];
-
-	//printf("offset:%d\n", offset);
-
-	if (!RANGEQurr(offset, 8, 5))//不直
-	{
-		//利用error and errorchange计算控制量
-		errQurr = SteerCtrlQurr[offset][errorChanngeSpeed] + 6;//查表，提升原点
-		
-		//重心法解模糊
-		for (uint8 i = 0; i < SteerGears; i++)//求分母
-		{
-			if (errQurr < ErrorChangeSpeedMax)
-			{
-				sum += SteerCRI[i][errQurr];
-				sum += SteerCRI[i][errQurr + 1];
-			}
-			else
-			{
-				sum += SteerCRI[i][errQurr];
-				sum += SteerCRI[i][errQurr - 1];
-			}
-		}
-
-		for (uint8 i = 0; i < SteerGears; i++)//求pwm
-		{
-			pwm += (SteerCenterDuty + (i - 3) * FreecaleConfig.Config.Steer.SteerDomainDif)
-				* (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
-		}
-		SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//悠着点
-	}
-	else//差不多挺直的，冲啊！！！！！
-	{
-		pwm = SteerCenterDuty;
-		SpeedForline = FreecaleConfig.Config.Motor.Speed.LineSpeed;//飞吧
-	}
-	//pwm = RANGE(pwm, SteerPwmArr[SteerGears - 1], SteerPwmArr[0]);//限制一下
-	tpm_pwm_duty(TpmSteer, TpmSteerCh, pwm);
 }
-//////////////////////////////////////////////////////////////////////////
 
-//论域扫描
-void SteerFuzzyDomainScan()
+void SteerCtrl_1()
 {
-	uint8 exitfunc = false;
-
 	struct FLAdc_s adcn;
 	FLAdcLostLine_e IsLostLine = LostLine;
 
-	DisableInterrupts();
-
-	LcdCls();
-	LCDPrint(0, 0, "AdcDomain Max:");
-
 	adcn = AdcNormalizing();//获取归一化电感值
+	SteerTurnDirection_e turn = SteerDirectionSetByAdcOne(&adcn, &IsLostLine);
 	SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-	FreecaleConfig.Config.Steer.AdcDomain = ABS(de);
 
-	while (!exitfunc)
+	static uint8 time = 0;
+	static int8 turnTemp = 0;
+	//int32 pidatsteer = SteerCtrlUsePid(de);
+	NumShow3(ABS(de), 0, 0);
+
+	if (IsLostLine == LostLine)//丢线
 	{
-		adcn = AdcNormalizing();//获取归一化电感值
-		SteerDeviationDegree_e de = SteerDeviationDegreeSetByAdc(&adcn);
-		FreecaleConfig.Config.Steer.AdcDomain = MAX(ABS(de), FreecaleConfig.Config.Steer.AdcDomain);
+		led(LED0, LED_ON);
+#if UseLostRoadStop
+		lostRoad = (lostRoad > LostRoadTimesMin) ? 255 : lostRoad + 1;
 
-		NumShow3(FreecaleConfig.Config.Steer.AdcDomain, LcdLocal1, LcdLine2);
-
-		switch (KeyScanWithoutIrq())//按键检测
+#define SteerLostLinetimeMax 3//直角弯道判断次数
+		if (
+			(ABS(adcn.AdcVertical.Adc0 - adcn.AdcVertical.Adc1) > 80)
+#define AdcVertialLostMin 100
+			&& (adcn.AdcVertical.Adc0 > AdcVertialLostMin
+			|| adcn.AdcVertical.Adc0 > AdcVertialLostMin)
+			)//直角弯道判断最小差值
 		{
-		case FLKeyAdcNorExit:
-			exitfunc = TRUE;//退出
-			ConfigWrite(&FreecaleConfig);
-			break;
+			turnTemp += ((adcn.AdcVertical.Adc0 > adcn.AdcVertical.Adc1) ? SteerDirectionLeft : SteerDirectionRight) - 1;//累加方向临时变量
+			if (time++ > SteerLostLinetimeMax)//计数，判断
+			{
+				if (RANGEQurr(turnTemp, SteerLostLinetimeMax / 3, -SteerLostLinetimeMax / 3))//中间
+				{
+					turn = SteerDirectionCenter;
+				}
+				else if (turnTemp < 0)
+				{
+					turn = SteerDirectionRight;
+				}
+				else
+				{
+					turn = SteerDirectionLeft;
+				}
 
-		case FLKeyReNormalizing:
-			FreecaleConfig.Config.Steer.AdcDomain = ABS(de);
-			break;
+				switch (turn)
+				{
+				case SteerDirectionLeft:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
+					break;
 
-		default:
-			break;
+				case SteerDirectionRight:
+					tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
+					break;
+
+				case SteerDirectionCenter:
+					led(LED2, LED_ON);
+					//直角
+					break;
+
+				default:
+					break;
+				}
+				//while (1);
+
+				SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//减速
+
+				time = SteerLostLinetimeMax + 1;
+				turnTemp = 0;
+			}
+			else
+			{
+				DELAY_MS(1);
+				SteerCtrl();
+				return;
+			}
+
 		}
-		DELAY_MS(50);
-	}
+		else//不是直角弯，清楚标志
+		{
+			time = 0;
+			switch (turn)
+			{
+			case SteerDirectionLeft:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + SteerSafeTurnDuty);
+				break;
 
-	EnableInterrupts();
+			case SteerDirectionRight:
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty - SteerSafeTurnDuty);
+				break;
+
+			case SteerDirectionCenter:
+				led(LED2, LED_ON);
+				//直角
+				break;
+
+			default:
+				break;
+			}
+
+		}
+#endif//UseLostRoadStop
+	}
+	else//OnLine
+	{
+#if UseLostRoadStop
+		lostRoad = 0;
+		Speed.Expect = SpeedForline;
+#endif//UseLostRoadStop
+		SteerVagueCtrl(de);
+		led(LED0, LED_OFF);
+
+
+	}
 }

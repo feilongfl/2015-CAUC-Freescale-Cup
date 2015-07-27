@@ -47,6 +47,14 @@ struct ConfigMotor_s
 #endif // UseCheck
 };
 
+typedef enum
+{
+	SteerCtrlMethod_Fuzzy,
+	SteerCtrlMethod_Pid,
+
+	SteerCtrlMethod_Max
+}SteerCtrlMethod_e;
+
 struct ConfigSteer 
 {
 #if UseCheck
@@ -55,6 +63,7 @@ struct ConfigSteer
 	struct ConfigPid_s Pid;
 	SteerDeviationDegree_e AdcDomain;//电感偏差模糊控制论域
 	uint16 SteerDomainDif;//舵机论域
+	SteerCtrlMethod_e SteerCtrlMethod;
 #if UseCheck
 	uint8 SteerEnd;
 #endif // UseCheck
