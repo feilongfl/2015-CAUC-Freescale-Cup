@@ -312,7 +312,8 @@ void SteerVagueCtrl(int16 offset)
 
 		for (uint8 i = 0; i < SteerGears; i++)//Çópwm
 		{
-			pwm += SteerPwmArr[i] * (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
+			pwm += (SteerCenterDuty + (i - 3) * FreecaleConfig.Config.Steer.SteerDomainDif)
+				* (SteerCRI[i][errQurr] + SteerCRI[i][errQurr + 1]) / sum;
 		}
 		SpeedForline = FreecaleConfig.Config.Motor.Speed.TurnSpeed;//ÓÆ×Åµã
 	}

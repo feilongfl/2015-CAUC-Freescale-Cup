@@ -520,6 +520,11 @@ static uint8 MenuSteerOperate()
 					(unsigned char *)"Steer Domain");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuSteer, MenuChoice.SteerMenu);
+				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"Test...     ");
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty + 3 * FreecaleConfig.Config.Steer.SteerDomainDif);
+				DELAY_MS(1000);
+				LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"Done        ");
+				tpm_pwm_duty(TpmSteer, TpmSteerCh, SteerCenterDuty);
 				break;
 
 			default:
