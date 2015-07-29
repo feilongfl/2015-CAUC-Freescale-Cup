@@ -104,6 +104,7 @@ struct FLAdc_s AdcNormalizing()//πÈ“ªªØ
 	return adcNormalizing;
 }
 
+
 struct FLAdc_s AdcNormalizingWithFitter()
 {
 	struct FLAdc_s adcNormalizing = *AdcReadAll();
@@ -286,4 +287,23 @@ void AdcNormalizingInit()
 
 
 
+void DebugAdc()
+{
+	AdcInit();
+	struct FLAdc_s adc = AdcNormalizingWithFitter();
+
+	while (1)
+	{
+		adc = AdcNormalizingWithFitter();
+		printf("$%d,%d,%d,%d,%d,%d,0,0#",
+			adc.FLAdc0,
+			adc.FlAdc1,
+			adc.FLAdc2,
+			adc.FLAdc3,
+			adc.AdcVertical.Adc0,
+			adc.AdcVertical.Adc1
+			);
+		DELAY_MS(100);
+	}
+}
 
