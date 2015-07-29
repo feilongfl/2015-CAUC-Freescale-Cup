@@ -108,12 +108,12 @@ void main()
 	/************************************************************************/
 	/* 开中断                                                               */
 	/************************************************************************/
-	
+
 	set_vector_handler(UART0_VECTORn, UartHandler);   // 设置中断服务函数到中断向量表里
 	uart_rx_irq_en(UART0);//串口中断
 	FLKeyIrqEnable();
-        //wdog_init (1000);//初始化看门狗
-        //wdog_enable ();
+	//wdog_init (1000);//初始化看门狗
+	//wdog_enable ();
 	//////////////////////////////////////////////////////////////////////////
 	//                       用户操作                                       //
 	//////////////////////////////////////////////////////////////////////////
@@ -126,28 +126,70 @@ void main()
 #if UseAdcNormalizingInit
 		AdcNormalizingInit();//初始化归一化变量
 #else//UseAdcNormalizingInit
-		LCDPrint(0, 0, "start!");
+		LCDPrint(0, 0, "Car Ready!");
+
+
 		AdcInit();
-		uint8 exitfunc = false;
-
-		while (!exitfunc)
+		if (FreecaleConfig.Config.Mode.NrfStartCar == On)
 		{
-			switch (KeyScanWithoutIrq())//按键检测
+			if (FreecaleConfig.Config.CarThis == MyCar1)
 			{
-			case FLKeyAdcNorExit:
-				exitfunc = TRUE;//退出
-				break;
+				uint8 exitfunc = false;
+				LCDPrint(0, LcdLine2, "Press the");
+				LCDPrint(LcdLocal2, LcdLine3, "start!");
 
-			default:
-				break;
+				while (!exitfunc)
+				{
+					switch (KeyScanWithoutIrq())//按键检测
+					{
+					case FLKeyAdcNorExit:
+						LcdCls();
+						LCDPrint(LcdLocal1, LcdLine1, "Findind Car2!");
+						while (NrfSendStr("$", 1) != Nrf_AllGreen)
+						{
+							led(LED1, LED_ON);
+							DELAY_MS(1);
+						};
+						led(LED1, LED_OFF);
+						exitfunc = TRUE;//退出
+						break;
+
+					default:
+						break;
+					}
+				}
 			}
-		}
-#endif//UseAdcNormalizingInit
+			else
+			{
+				LCDPrint(0, LcdLine2, "Wait Command!");
+				uint8 strTemp[10];
+				while (true)
+				{
+					if (NrfRecStrCheck(strTemp, 5) != 0)
+					{
+						if (strTemp)
+						{
+							break;
+						}
+					}
 
+					led(LED1, LED_ON);
+					DELAY_MS(1);
+				} led(LED1, LED_OFF);
+			}
+#endif//UseAdcNormalizingInit
+		}
 #if UsePowerOnDelay
 		DELAY_MS(2000);
+#else
+		if (FreecaleConfig.Config.CarDelay > 0)
+		{
+			LcdCls();
+			LCDPrint(0, 0, "wait TimeOut!");
+			DELAY_MS(FreecaleConfig.Config.CarDelay * 10);
+		}
+		LcdCls();
 #endif//UsePowerOnDelay
-
 
 		//////////////////////////////////////////////////////////////////////////
 		//终点线
@@ -166,8 +208,8 @@ void main()
 	}
 #endif//UseEndLine
 
-	
-	
+
+
 
 	//uint16 spwm = SteerCenterDuty;
 	Speed.Expect = SpeedForline;
@@ -180,17 +222,17 @@ void main()
 		SteerCtrl();
 
 #if 1
-		
+
 #else
 		///lcd show
-		
+
 		NumShow16(Speed.Expect, LcdLocal1, LcdLine1);
 		NumShow16(Speed.Acturally, LcdLocal1, LcdLine2);
-		
+
 		NumShow3(MotorPid.P, LcdLocal1, LcdLine3);
 		NumShow3(MotorPid.I, LcdLocal2, LcdLine3);
 		NumShow3(MotorPid.D, LcdLocal3, LcdLine3);
-		
+
 #endif
 
 
@@ -237,7 +279,7 @@ void main()
 #endif//UseNrfSendOrReceiveMsg
 
 		//////////////////////////////////////////////////////////////////////////
-exitthismainloop:
+	exitthismainloop:
 		//延迟，控制周期
 		DELAY_MS(20);
 	}

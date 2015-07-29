@@ -1,6 +1,6 @@
 #include "fl_Perfet_Plan.h"
 
-uint16 CarThis = 0;
+
 uint16 PerfetPlan = 0;
 
 
@@ -71,7 +71,7 @@ void CarToPerfet()
 	LCDPrintInverse(LcdTitleLocal, LcdTitleLine, (unsigned char *)"RUNNING...     ");
 	PerfetInit();
 
-	if (ConfigWrite(&PerfetConfig[CarThis][PerfetPlan]) != ConfigAllGreen)
+	if (ConfigWrite(&PerfetConfig[FreecaleConfig.Config.CarThis][PerfetPlan]) != ConfigAllGreen)
 	{
 		LcdErrShow(SettingErrFail);
 	}

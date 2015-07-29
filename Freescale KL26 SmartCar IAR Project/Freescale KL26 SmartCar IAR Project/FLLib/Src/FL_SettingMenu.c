@@ -10,6 +10,7 @@ const unsigned char * MainMenuItems[MenuMainItemNum] =
 {
 	"Perfet",
 	"CarThis",
+	"StartDelay",
 	"Motor",
 	"Steer",
 	"Speed",
@@ -53,6 +54,7 @@ const unsigned char * ResetMenuItems[MenuResetItemNum] =
 
 const unsigned char * ModeMenuItems[MenuModeItemNum] =
 {
+	"Ultrasonic",
 	"EndLine",
 	"PowerOnDelay",
 	"MpuctrlSpeed",
@@ -980,8 +982,18 @@ static void MenuMainOperate()
 				break;
 
 			case MenuMainCarThis:
-				LcdChangeUint16(&PerfetPlan, CarNum - 1, 0,
+				uint16 carThisTemp = 0;
+				LcdChangeUint16(&carThisTemp, CarNum - 1, 0,
 					(unsigned char *)"CarThis");
+				FreecaleConfig.Config.CarThis = (uint8)carThisTemp;
+				ConfigWrite(&FreecaleConfig);
+				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
+				break;
+
+			case MenuMainStartDelay:
+				LcdChangeUint16(&FreecaleConfig.Config.CarDelay, 100, 0,
+					(unsigned char *)"Start Delay");
+				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
 				break;
 

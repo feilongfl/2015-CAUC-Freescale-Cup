@@ -9,7 +9,7 @@
 /************************************************************************/
 #define UseAdcNormalizingInit		DoNotUseIt//开机归一化使能
 #define UseEndLine					DoNotUseIt//终点线
-#define UsePowerOnDelay				UseIt//开车延时
+#define UsePowerOnDelay				DoNotUseIt//开车延时
 #define UseEeprom					DoNotUseIt//配置存储
 #define UseLostRoadStop				UseIt//丢线停止
 #define UseMpu6050ChangeSpeed		DoNotUseIt//陀螺仪控速

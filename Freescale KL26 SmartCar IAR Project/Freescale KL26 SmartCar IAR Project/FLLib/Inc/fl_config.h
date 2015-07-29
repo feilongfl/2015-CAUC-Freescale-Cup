@@ -95,15 +95,22 @@ typedef enum
 
 struct ConfigMode_s
 {
+	SwitchMode NrfStartCar;
 	SwitchMode EndLine;
 	SwitchMode PowerOnDelay;
 	SwitchMode Mpu6050;
-	SwitchMode DistanceChangeSpeed;
+	SwitchMode Ultrasonic;
 	SwitchMode Nrf24l01;
 	SwitchMode NrfSendDistance;
 	SwitchMode NrfSendAdc;
 	SwitchMode MotorLowValid;
 };
+
+typedef enum 
+{
+	MyCar1,
+	MyCar2
+}MyCar;
 
 struct Config_s 
 {
@@ -114,6 +121,8 @@ struct Config_s
 	struct ConfigAdcNom_s AdcNormalMin;
 	uint16 LostAdcMin;
 	uint16 LostAdcVerticalMin;
+	MyCar CarThis;
+	uint16 CarDelay;
 	struct ConfigSteer Steer;
 	struct ConfigMotor_s Motor;
 	struct ConfigMode_s Mode;

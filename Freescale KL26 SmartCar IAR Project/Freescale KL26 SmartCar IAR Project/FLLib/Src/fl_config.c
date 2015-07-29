@@ -241,6 +241,8 @@ ConfigErrorType_s ConfigSetDefaultInEeprom()
 	config.Config.Steer.AdcDomain = (SteerDeviationDegree_e)59;
 	config.Config.Steer.SteerDomainDif = 86;
 
+	config.Config.CarThis = MyCar1;
+
 	config.Config.CarState = CarStandby;
 
 	config.EepromConfigEnd = ConfigEnd;

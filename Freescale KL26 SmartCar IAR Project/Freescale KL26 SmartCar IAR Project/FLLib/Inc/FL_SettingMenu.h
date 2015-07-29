@@ -33,6 +33,7 @@ typedef enum
 	//Ö÷²Ëµ¥
 	MenuMainPerfet = 0,
 	MenuMainCarThis,
+	MenuMainStartDelay,
 	MenuMainMotor,
 	MenuMainSteer,
 	MenuMainSpeed,
@@ -71,10 +72,11 @@ typedef enum
 	MenuResetItemNum,
 
 	//mode
-	MenuModeEndLine = 0,
+	MenuModeNrfStartCar,
+	MenuModeEndLine,
 	MenuModePowerOnDelay,
 	MenuModeMpu6050,
-	MenuModeDistanceChangeSpeed,
+	MenuModeUltrasonic,
 	MenuModeNrf24l01,
 	MenuModeNrfSendDistance,
 	MenuModeNrfSendAdc,
