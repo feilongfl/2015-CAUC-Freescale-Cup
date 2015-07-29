@@ -137,6 +137,7 @@ void main()
 				uint8 exitfunc = false;
 				LCDPrint(0, LcdLine2, "Press the");
 				LCDPrint(LcdLocal2, LcdLine3, "start!");
+				LCDPrint(LcdLocal1, LcdLine4, "Nrf Mode");
 
 				while (!exitfunc)
 				{
@@ -178,6 +179,26 @@ void main()
 				} led(LED1, LED_OFF);
 			}
 #endif//UseAdcNormalizingInit
+		}
+		else
+		{
+			uint8 exitfunc = false;
+			LCDPrint(0, LcdLine2, "Press the");
+			LCDPrint(LcdLocal2, LcdLine3, "start!");
+			LCDPrint(LcdLocal1, LcdLine4, "Manual Mode");
+
+			while (!exitfunc)
+			{
+				switch (KeyScanWithoutIrq())//°´¼ü¼ì²â
+				{
+				case FLKeyAdcNorExit:
+					exitfunc = TRUE;//ÍË³ö
+					break;
+
+				default:
+					break;
+				}
+			}
 		}
 #if UsePowerOnDelay
 		DELAY_MS(2000);

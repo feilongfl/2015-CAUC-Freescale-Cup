@@ -54,6 +54,7 @@ const unsigned char * ResetMenuItems[MenuResetItemNum] =
 
 const unsigned char * ModeMenuItems[MenuModeItemNum] =
 {
+	"NrfStartCar",
 	"Ultrasonic",
 	"EndLine",
 	"PowerOnDelay",
@@ -991,7 +992,7 @@ static void MenuMainOperate()
 				break;
 
 			case MenuMainStartDelay:
-				LcdChangeUint16(&FreecaleConfig.Config.CarDelay, 100, 0,
+				LcdChangeUint16(&FreecaleConfig.Config.CarDelay, 9999, 0,
 					(unsigned char *)"Start Delay");
 				ConfigWrite(&FreecaleConfig);
 				LcdShowMenu(MenuMain, MenuChoice.MainMenu);
