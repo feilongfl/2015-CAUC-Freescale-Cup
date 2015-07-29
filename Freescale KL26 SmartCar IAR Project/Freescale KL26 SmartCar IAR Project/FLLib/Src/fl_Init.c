@@ -25,9 +25,10 @@ InitRepot_e Init()
 	NrfInit();//nrf24l01+
 	FLKeyInit();//小键盘
 	ConfigInit();//设置初始化
-#if Car == Car2
-	Hcsr04Init();
-#endif //car
+	if (FreecaleConfig.Config.CarThis == MyCar2)
+	{
+		Hcsr04Init();
+	}
 	return InitAllGreen;
 }
 

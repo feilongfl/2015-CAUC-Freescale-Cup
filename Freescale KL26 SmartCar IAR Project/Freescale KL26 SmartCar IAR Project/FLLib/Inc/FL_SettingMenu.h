@@ -72,11 +72,12 @@ typedef enum
 	MenuResetItemNum,
 
 	//mode
-	MenuModeNrfStartCar,
+	MenuModeNrfStartCar = 0,
+	MenuModeUltrasonic,
 	MenuModeEndLine,
 	MenuModePowerOnDelay,
 	MenuModeMpu6050,
-	MenuModeUltrasonic,
+	MenuModeSpeedCtrlSpeed,
 	MenuModeNrf24l01,
 	MenuModeNrfSendDistance,
 	MenuModeNrfSendAdc,

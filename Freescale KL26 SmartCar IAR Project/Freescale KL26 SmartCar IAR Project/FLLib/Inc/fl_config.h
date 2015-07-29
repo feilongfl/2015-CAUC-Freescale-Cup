@@ -96,10 +96,11 @@ typedef enum
 struct ConfigMode_s
 {
 	SwitchMode NrfStartCar;
+	SwitchMode Ultrasonic;
 	SwitchMode EndLine;
 	SwitchMode PowerOnDelay;
 	SwitchMode Mpu6050;
-	SwitchMode Ultrasonic;
+	SwitchMode UltrCtrlDis;
 	SwitchMode Nrf24l01;
 	SwitchMode NrfSendDistance;
 	SwitchMode NrfSendAdc;

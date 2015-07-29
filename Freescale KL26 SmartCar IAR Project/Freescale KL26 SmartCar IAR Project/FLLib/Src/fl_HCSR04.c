@@ -67,7 +67,7 @@ InitRepot_e Hcsr04Init()
 	gpio_init(Hcsr04Irq, GPI, 0);//use gpi mode 
 	//port_init_NoALT(Hcsr04Irq, IRQ_RISING | PULLUP);//定义按键所在列 跳变沿中断 下拉电阻
 	gpio_init(Hcsr04Echo, GPI, 0);
-	port_init_NoALT(Hcsr04Irq, IRQ_RISING | PULLUP);//定义按键所在列 跳变沿中断 下拉电阻
+	port_init_NoALT(Hcsr04Echo, IRQ_RISING | PULLUP);//定义按键所在列 跳变沿中断 下拉电阻
 
 #if UseSoundSpeedByTemperature
 	adc_init(Temp0_Sensor);
@@ -89,29 +89,35 @@ extern uint32 CarDistance;
 
 void Hcsr04EchoIrq()
 {
+	static uint8 running = false;
 	if (gpio_get(Hcsr04Echo) == HIGH)
 	{
 		lptmr_time_start_ms();
 		port_init_NoALT(Hcsr04Irq, IRQ_FALLING | PULLUP);
+		running = true;
 	}
 	else
 	{
 		port_init_NoALT(Hcsr04Irq, IRQ_RISING | PULLUP);
-		uint32 dis = lptmr_time_get_ms();
-
-		if (dis != ~0)//没溢出
+		if (running == true)
 		{
+			uint32 dis = lptmr_time_get_ms();
+
+			if (dis != ~0)//没溢出
+			{
 #if UseSoundSpeedByTemperature
-			dis = dis * SoundSpeed / 2 / 100;
+				dis = dis * SoundSpeed / 2 / 100;
 #else
-			dis = dis * 340 / 2 / 100;
+				dis = dis * 340 / 1000;
 
 #endif //UseSoundSpeedByTemperature
-			if (dis < 50)//没超过最大距离（340m/s * 0.02s = 6.8m = 68dm),官方说明5.5m
-			{
-				CarDistance = dis;
+				if (dis < 50)//没超过最大距离（340m/s * 0.02s = 6.8m = 68dm),官方说明5.5m
+				{
+					CarDistance = dis;
+				}
 			}
 		}
+		running = false;
 	}
 }
 
