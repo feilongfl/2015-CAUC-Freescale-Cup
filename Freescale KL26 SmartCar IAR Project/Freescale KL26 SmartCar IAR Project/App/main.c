@@ -255,49 +255,57 @@ void main()
 		NumShow3(MotorPid.D, LcdLocal3, LcdLine3);
 
 #endif
-
+		if (FreecaleConfig.Config.Mode.Ultrasonic == On)
+		{
+			NumShow4(CarDistance, LcdLocal1, LcdLine2);
+		}
+		
 
 		SpeedCtrl();
 
 
 		//////////////////////////////////////////////////////////////////////////
 		//nrf
-#if UseNrfSendOrReceiveMsg
-		//NrfErrorType_e nrfErr;
-#if Car == Car1
-		if (NrfRecStrCheck(NrfBuff, 3))
+		if (FreecaleConfig.Config.Mode.NrfSendDistance)
 		{
-#if UseCar2NrfSendDistance
-			if (NrfBuff[0] == '$')//超声波识别符
+		//NrfErrorType_e nrfErr;
+			if (FreecaleConfig.Config.CarThis)
 			{
-				uint8 i = 0;
-				while (NrfBuff[i + 1] != '#')//求字符串长度
+				if (NrfRecStrCheck(NrfBuff, 3))
 				{
-					if (NrfBuff[i + 1] == '\0')//error
+					if (FreecaleConfig.Config.Mode.NrfSendDistance)
 					{
-						goto exitthismainloop;//没辙了，我真不想这么写，实在不能再循环了，变量太多了
-						//break;
-					}
-					i++;
-				}
+						if (NrfBuff[0] == '$')//超声波识别符
+						{
+							uint8 i = 0;
+							while (NrfBuff[i + 1] != '#')//求字符串长度
+							{
+								if (NrfBuff[i + 1] == '\0')//error
+								{
+									goto exitthismainloop;//没辙了，我真不想这么写，实在不能再循环了，变量太多了
+									//break;
+								}
+								i++;
+							}
 
-				uint32 dis = 0;
-				for (uint8 j = 0; j < i;j++)//求数值
-				{
-					dis += POW((uint32)(NrfBuff[j + 1] - '0'), i - j);
+							uint32 dis = 0;
+							for (uint8 j = 0; j < i; j++)//求数值
+							{
+								dis += POW((uint32)(NrfBuff[j + 1] - '0'), i - j);
+							}
+						}
+					}
 				}
 			}
-#endif
+			else
+			{
+				if (FreecaleConfig.Config.Mode.NrfSendDistance)
+				{
+					sprintf(NrfBuff, "$%d#", CarDistance);
+					NrfSendStrCheck(NrfBuff, sizeof(NrfBuff) / sizeof(uint8), 3);
+				}
+			}
 		}
-#elif Car == Car2
-#if UseCar2NrfSendDistance
-		sprintf(NrfBuff,"$%d#",CarDistance);
-		NrfSendStrCheck(NrfBuff,sizeof(NrfBuff) / sizeof(uint8),3);
-#endif
-#else//error
-#error please select you car
-#endif //car switch
-#endif//UseNrfSendOrReceiveMsg
 
 		//////////////////////////////////////////////////////////////////////////
 	exitthismainloop:

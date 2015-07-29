@@ -45,7 +45,7 @@ NrfErrorType_e NrfSendStrCheck(uint8 * str, uint32 len,uint8 retryTime)
 	NrfErrorType_e msg = Nrf_Others;
 	while (retryTime--)
 	{
-		msg = nrfSendStr(str, len);
+		msg = NrfSendStr(str, len);
 		if (msg == Nrf_AllGreen)
 		{
 			return msg;

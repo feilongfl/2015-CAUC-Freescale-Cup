@@ -195,30 +195,31 @@ void FLIrqHandle()
 		/*  以上为用户任务  */
 	}
 
-#if Car == Car2
-	extern void Hcsr04Irq();
-	n = 1;
-	if (PORTD_ISFR & (1 << n))           //PTC18触发中断
+	if (FreecaleConfig.Config.CarThis == MyCar2)
 	{
-		PORTD_ISFR = (1 << n);        //写1清中断标志位
+		// 	extern void Hcsr04Irq();
+		// 	n = 1;
+		// 	if (PORTD_ISFR & (1 << n))          
+		// 	{
+		// 		PORTD_ISFR = (1 << n);        //写1清中断标志位
+		// 
+		// 		/*  以下为用户任务  */
+		// 		extern void Hcsr04IrqPortIrq();
+		// 		Hcsr04IrqPortIrq();
+		// 		/*  以上为用户任务  */
+		// 	}
 
-		/*  以下为用户任务  */
-		extern void Hcsr04IrqPortIrq();
-		Hcsr04IrqPortIrq();
-		/*  以上为用户任务  */
+		n = 1;
+		if (PORTD_ISFR & (1 << n))           
+		{
+			PORTD_ISFR = (1 << n);        //写1清中断标志位
+
+			/*  以下为用户任务  */
+			extern void Hcsr04EchoIrq();
+			Hcsr04EchoIrq();
+			/*  以上为用户任务  */
+		}
 	}
-
-	n = 2;
-	if (PORTD_ISFR & (1 << n))           //PTC18触发中断
-	{
-		PORTD_ISFR = (1 << n);        //写1清中断标志位
-
-		/*  以下为用户任务  */
-		extern void Hcsr04EchoIrq(); 
-		Hcsr04EchoIrq();
-		/*  以上为用户任务  */
-	}
-#endif
 }
 
 /************************************************************************/
